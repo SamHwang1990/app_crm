@@ -197,7 +197,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         public JsonResult Create(StudentCreateModel ajaxData)
         {
             StudentInfoEntity studentInfo = ajaxData.StudentInfo;
-            studentInfo.StudentID = new Guid();
+            studentInfo.StudentID = Guid.NewGuid();
 
             AppRelationsEntity appRelation = ajaxData.AppRelation;
             appRelation.SignDate = new DateTime(1990, 1, 1);
@@ -371,28 +371,48 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             
 
             ExamResultEntity _TFIELTSResult = ajaxData.TFIELTSResult;
-            if(_TFIELTSResult.ResultID == Guid.Empty)
-                _TFIELTSResult.ResultID = Guid.NewGuid();
-            _TFIELTSResult.StudentID = studentInfo.StudentID;
-            repository.SaveExamResult(_TFIELTSResult);
+            if (_TFIELTSResult != null)
+            {
+                if (_TFIELTSResult.ResultID == Guid.Empty)
+                    _TFIELTSResult.ResultID = Guid.NewGuid();
+                _TFIELTSResult.StudentID = studentInfo.StudentID;
+                repository.SaveExamResult(_TFIELTSResult);
+            }
 
-            ExamResultSATSSATEntity _SATSSATResultDetail = ajaxData.SATSSATResultDetail;
-            if (_SATSSATResultDetail.ExamID == Guid.Empty)
-                _SATSSATResultDetail.ExamID = Guid.NewGuid();
-            repository.SaveExamResultSATSSAT(_SATSSATResultDetail);
 
             ExamResultEntity _SATSSATResult = ajaxData.SATSSATResult;
-            if (_SATSSATResult.ResultID == Guid.Empty)
-                _SATSSATResult.ResultID = Guid.NewGuid();
-            _SATSSATResult.StudentID = studentInfo.StudentID;
-            _SATSSATResult.ExamID = _SATSSATResultDetail.ExamID;
-            repository.SaveExamResult(_SATSSATResult);
+            ExamResultSATSSATEntity _SATSSATResultDetail = ajaxData.SATSSATResultDetail;
+            if (_SATSSATResult != null)
+            {
+                if (_SATSSATResultDetail != null)
+                {
+                    if (_SATSSATResultDetail.ExamID == Guid.Empty)
+                        _SATSSATResultDetail.ExamID = Guid.NewGuid();
+
+                    repository.SaveExamResultSATSSAT(_SATSSATResultDetail);
+
+                    _SATSSATResult.ExamID = _SATSSATResultDetail.ExamID;
+                }
+                else
+                {
+                    _SATSSATResult.ExamID = Guid.Empty;
+                }
+
+                if (_SATSSATResult.ResultID == Guid.Empty)
+                    _SATSSATResult.ResultID = Guid.NewGuid();
+
+                _SATSSATResult.StudentID = studentInfo.StudentID;
+                repository.SaveExamResult(_SATSSATResult);
+            }
 
             ExamResultEntity _SAT2Result = ajaxData.SAT2Result;
-            if (_SAT2Result.ResultID == Guid.Empty)
-                _SAT2Result.ResultID = Guid.NewGuid();
-            _SAT2Result.StudentID = studentInfo.StudentID;
-            repository.SaveExamResult(_SAT2Result);
+            if (_SAT2Result != null)
+            {
+                if (_SAT2Result.ResultID == Guid.Empty)
+                    _SAT2Result.ResultID = Guid.NewGuid();
+                _SAT2Result.StudentID = studentInfo.StudentID;
+                repository.SaveExamResult(_SAT2Result);
+            }
 
             return Json(new
             {

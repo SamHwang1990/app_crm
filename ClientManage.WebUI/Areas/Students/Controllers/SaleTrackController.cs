@@ -84,6 +84,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             {
                 SaleTrack = new SaleTrackEntity
                     {
+                        TrackItemID = Guid.NewGuid(),
                         StudentID = id,
                         Inputor = "Admin",
                         StateName = "初访",
@@ -168,13 +169,13 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                 studentTPInfo = repository.StudentTPInfo.SingleOrDefault(s => s.StudentID == studentID);
             }
             else
-                studentTPInfo = new StudentTPInfoEntity();
+                studentTPInfo = new StudentTPInfoEntity { StudentID = studentID };
 
             ExamResultEntity tfIELTSResult = null;
             if(repository.ExamResult.FirstOrDefault(e=>e.StudentID == studentID && (e.ExamType == ExamType.TOFEL || e.ExamType == ExamType.IELTS)) != null)
                 tfIELTSResult = repository.ExamResult.FirstOrDefault(e=>e.StudentID == studentID && (e.ExamType == ExamType.TOFEL || e.ExamType == ExamType.IELTS));
             else
-                tfIELTSResult = new ExamResultEntity{ExamType = Domain.Enum.ExamType.TOFEL,StudentID = studentID};
+                tfIELTSResult = new ExamResultEntity{ExamType = Domain.Enum.ExamType.TOFEL,StudentID = studentID,ExamID = Guid.NewGuid()};
 
             ExamResultEntity sATSSATResult = null;
             ExamResultSATSSATEntity sATSSATResultDetail = null;
@@ -187,13 +188,14 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                 }
                 else
                 {
-                    sATSSATResultDetail = new ExamResultSATSSATEntity();
+                    sATSSATResultDetail = new ExamResultSATSSATEntity { ExamID = Guid.NewGuid() };
                 }
             }
             else
             {
-                sATSSATResult = new ExamResultEntity { ExamType = Domain.Enum.ExamType.SAT,StudentID = studentID};
-                sATSSATResultDetail = new ExamResultSATSSATEntity();
+                Guid detailId = Guid.NewGuid();
+                sATSSATResult = new ExamResultEntity { ExamType = Domain.Enum.ExamType.SAT,StudentID = studentID,ResultID=Guid.NewGuid(),ExamID=detailId};
+                sATSSATResultDetail = new ExamResultSATSSATEntity { ExamID = detailId };
             }
 
             ExamResultEntity sAT2Result = null;

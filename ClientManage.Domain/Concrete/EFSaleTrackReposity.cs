@@ -89,7 +89,7 @@ namespace ClientManage.Domain.Concrete
             if (originSaleTrackItem == null)
             {
                 int nextTrackNo = context.SaleTrack.Count(s => s.StudentID == saleTrackItem.StudentID) == 0 ? 1 : context.SaleTrack.Where(s => s.StudentID == saleTrackItem.StudentID).Max(s => s.TrackNo);
-                saleTrackItem.TrackNo = (byte)(nextTrackNo+1);
+                saleTrackItem.TrackNo = (byte)nextTrackNo;
                 context.SaleTrack.Add(saleTrackItem);
             }
             else

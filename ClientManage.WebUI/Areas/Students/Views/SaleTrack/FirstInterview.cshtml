@@ -163,7 +163,7 @@ $(document).ready(function () {
 	}
 	
 	function CheckInputIsNotEmpty(inputVal){
-		return inputVal.indexOf("请输入")<0 || inputVal != "";
+		return !(inputVal.indexOf("请输入")>=0 || inputVal == "");
 	}
 	
 	//Ajax 函数 结束

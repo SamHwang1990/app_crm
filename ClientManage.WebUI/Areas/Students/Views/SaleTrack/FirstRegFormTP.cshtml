@@ -158,34 +158,48 @@
         }
 
         function GetTFIELTSResult() {
-            var resultID = $("tr.TFIELTSResult input.ResultID").val();
-            var examType = $("input[name=IsHaveTFIELTS]:checked").val();
             var total = $("tr.TFIELTSResult input.Total").val();
-            var examDate = $("tr.TFIELTSResult input.ExamDate").val();
-            return {
-                ResultID: resultID,
-                ExamType: examType,
-                Total: total,
-                ExamDate: examDate
+            if (total == "" || total == 0) {
+                return null;
+            }
+            else {
+                var resultID = $("tr.TFIELTSResult input.ResultID").val();
+                var examType = $("input[name=IsHaveTFIELTS]:checked").val();
+                var examDate = $("tr.TFIELTSResult input.ExamDate").val();
+                return {
+                    ResultID: resultID,
+                    ExamType: examType,
+                    Total: total,
+                    ExamDate: examDate
+                }
             }
         }
 
         function GetSATSSATResult() {
-            var resultID = $("tr.SATSSATResult input.ResultID").val();
-            var examType = $("input[name=IsHaveSATSSAT]:checked").val();
             var total = $("tr.SATSSATResult input.Total").val();
-            var examDate = $("tr.SATSSATResult input.ExamDate").val();
-            var satSSATResultDetail = GetSATSSATResultDetail(examType);
-            var satSSATResult = {
-                ResultID: resultID,
-                ExamID: satSSATResultDetail.ExamID,
-                ExamType: examType,
-                Total: total,
-                ExamDate: examDate
-            };
-            return {
-                SATSSATResult: satSSATResult,
-                SATSSATResultDetail: satSSATResultDetail
+            if (total == "" || total == 0) {
+                return {
+                    SATSSATResult: null,
+                    SATSSATResultDetail: null
+                };
+            }
+            else {
+                var resultID = $("tr.SATSSATResult input.ResultID").val();
+                var examType = $("input[name=IsHaveSATSSAT]:checked").val();
+
+                var examDate = $("tr.SATSSATResult input.ExamDate").val();
+                var satSSATResultDetail = GetSATSSATResultDetail(examType);
+                var satSSATResult = {
+                    ResultID: resultID,
+                    ExamID: satSSATResultDetail.ExamID,
+                    ExamType: examType,
+                    Total: total,
+                    ExamDate: examDate
+                };
+                return {
+                    SATSSATResult: satSSATResult,
+                    SATSSATResultDetail: satSSATResultDetail
+                }
             }
         }
 
@@ -213,6 +227,10 @@
         }
 
         function GetSAT2Result() {
+            var total = $("tr.SAT2Result input.Total").val();
+            if (total == "" || total == 0) {
+                return null;
+            }
             var resultID = $("tr.SAT2Result input.ResultID").val();
             var examType = "SAT2";
             var total = $("tr.SAT2Result input.Total").val();
