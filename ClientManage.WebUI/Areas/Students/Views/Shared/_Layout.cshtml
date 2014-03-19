@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/themes/smoothness/jquery-ui-1.10.4.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jqueryFrame/jquery-2.1.0.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jqueryFrame/jquery.browser.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jqueryFrame/jquery.validate.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jqueryFrame/jquery-ui-1.10.4.custom.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jqueryFrame/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+</head>
+
+<body>
+<div>
+    @if (TempData["message"] != null)
+    {
+        <div class="Message">@TempData["message"]</div>
+    }
+</div>
+
+    @RenderBody()
+</body>
+</html>

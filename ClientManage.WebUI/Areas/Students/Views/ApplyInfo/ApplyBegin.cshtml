@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "ApplyBegin";
+}
+
+<h2>申请初期</h2>
+<p>材料清单（名字、回收时间、进度）：</p>
+<p>是否需要补充材料:@Html.RadioButton("NeedAdditon", "是", false) @Html.RadioButton("NeedAdditon", "否", true)</p>
+<p>上传补充材料：</p>
+<p>推荐申请学校：@Html.TextArea("ApplySchools")</p>
+<p>确认文书材料：</p>
+<p>简历CN上传：</p>
+<p><input type="button" name="Submit" value="提交" /></p>
+<p>@Html.ActionLink("下一步", "ApplyMiddle")</p>

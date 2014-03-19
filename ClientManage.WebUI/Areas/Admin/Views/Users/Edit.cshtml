@@ -1,0 +1,17 @@
+﻿@model ClientManage.Domain.Entities.UserInfoEntity
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>User:@Model.UserNameCn Edit</h2>
+
+@using(@Html.BeginForm("Edit","Users"))
+{
+    @Html.ValidationSummary()
+    @Html.EditorForModel()
+    <p>用户主要角色：@Html.Action("RoleList", "Roles", new { id = Model.UserRole, elementName = "UserRole" })</p>
+    <p>用户辅助角色：@Html.Action("RoleList", "Roles", new { id = Model.UserSecondRole, elementName = "UserSecondRole" })</p>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel and return to list", "List")
+}

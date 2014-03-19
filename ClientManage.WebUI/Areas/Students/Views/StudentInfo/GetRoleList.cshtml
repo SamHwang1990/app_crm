@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ClientManage.Domain.Entities.RoleInfo>
+
+@{
+    Layout = null;
+}
+<select class="@ViewBag.ElementName" name="@ViewBag.ElementName">
+@foreach (RoleInfo r in Model)
+{
+    <option value="@r.RoleID")>@r.RoleName</option>
+}
+</select>

@@ -1,0 +1,10 @@
+#To be ignored
+packages/
+ClientManage.UnitTests/bin/
+ClientManage.WebUI/bin/
+ClientManage.UnitTests/obj/
+ClientManage.WebUI/obj/
+ClientManage.Domain/bin/
+ClientManage.Domain/obj/
+ClientManage.suo
+ClientManage.sln

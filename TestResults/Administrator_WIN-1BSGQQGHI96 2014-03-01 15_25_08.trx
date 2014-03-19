@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="7c252737-d31e-47b4-87dd-c259fc118c09" name="Administrator@WIN-1BSGQQGHI96 2014-03-01 15:25:08" runUser="WIN-1BSGQQGHI96\Administrator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="本地" id="183af1ab-0d3c-4326-b9de-81f77f86e3df">
+    <Description>这些设置为本地测试运行的默认测试设置。</Description>
+    <Deployment enabled="false" runDeploymentRoot="Administrator_WIN-1BSGQQGHI96 2014-03-01 15_25_08">
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.WebUI\bin\ClientManage.WebUI.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.UnitTests\bin\Debug\EntityFramework.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.Domain\bin\Debug\ClientManage.Domain.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2014-03-01T15:25:08.4311611+08:00" queuing="2014-03-01T15:25:08.4821640+08:00" start="2014-03-01T15:25:08.4861642+08:00" finish="2014-03-01T15:25:08.7841813+08:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Cannot_Save_Invalid_Changes" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71">
+      <Execution id="f6497edb-a0cd-49bf-87f6-1b92014fe49a" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Cannot_Save_Invalid_Changes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71" executionId="f6497edb-a0cd-49bf-87f6-1b92014fe49a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="f6497edb-a0cd-49bf-87f6-1b92014fe49a" testId="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71" testName="Cannot_Save_Invalid_Changes" computerName="WIN-1BSGQQGHI96" duration="00:00:00.1314133" startTime="2014-03-01T15:25:08.4961648+08:00" endTime="2014-03-01T15:25:08.7631801+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f6497edb-a0cd-49bf-87f6-1b92014fe49a">
+    </UnitTestResult>
+  </Results>
+</TestRun>

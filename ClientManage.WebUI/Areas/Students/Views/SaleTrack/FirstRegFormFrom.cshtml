@@ -1,0 +1,123 @@
+﻿@model IEnumerable<ClientManage.Domain.Entities.StudentSourceItemEntity>
+
+@{
+    Layout = "~/Areas/Students/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "FirstRegFromFrom";
+}
+<h2>初访信息登记表——Part 3</h2>
+<p class="StudentName">学生名：<span>@ViewBag.StudentInfo.NameCn</span><input type="hidden" class="StudentID" value="@ViewBag.StudentInfo.StudentID" /></p>
+@using (Html.BeginForm("FirstRegFormFrom","StudentInfo",FormMethod.Post))
+{
+    <table>
+        <tr>
+            <th>如何知道APP</th>            
+            <td>
+                <table>
+                    @foreach (StudentSourceItemEntity item in Model)
+                    {
+                        <tr>
+                            <td class="tdStudentSourceItem">
+                                <input type="checkbox" class="chkIsFrom" />&nbsp;
+                                <span class="SourceName">@item.SourceName</span>，
+                                <span class="DetailKeyword">@item.DetailKeyword</span>：
+                                <input type="text" value="请输入内容" class="DetailContent EnterTip" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </td>
+        </tr>
+    
+    </table>
+    <input type="submit" value="提交" />
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function (e) {
+
+        /* Ajax Begin*/
+        function FirstRegFormFromAjax() {
+            if ($("p.StudentName span").html() == "") {
+                return;
+            }
+            else {
+                var studentID = $("input.StudentID").val();
+                var FromList = GetStudentFromList();
+                var ajaxData = {
+                    studentId: studentID,
+                    fromList: FromList
+                };
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("FirstRegFormFrom","StudentInfo")',
+                    data: JSON.stringify(ajaxData),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        alert(data);
+                        /*if(data.InfoResult == true){
+                        var url = "/Students/SaleTrack/FirstRegFormTP/?id=" + data.StudentID.toString();
+                        window.location.href = url;
+                        }*/
+                    }
+                });
+            }
+        }
+
+
+        function GetStudentFromList() {
+            var studentFromList = [];
+            var studentId = $("input.StudentID").val();
+            $("td.tdStudentSourceItem").each(function (index, element) {
+                if ($(this).find("input[type=checkbox]").is(':checked')) {
+                    studentFromList.push({
+                        StudentID: studentId,
+                        SourceName: $(this).find("span.SourceName").text(),
+                        SourceDetailKeyword: $(this).find("span.DetailKeyword").text(),
+                        SourceDetailContent: $(this).find("input.DetailContent").val(),
+                        Remark: ""
+                    });
+                }
+            });
+            return studentFromList;
+        }
+        /* Ajax End */
+
+
+        /* 事件绑定 Begin */
+
+        /* EnterTip Begin */
+        $("input.EnterTip").each(function () {
+            $(this).focusin(function (e) {
+                if ($(this).val().indexOf("请输入") >= 0) {
+                    $(this).val('');
+                }
+            });
+            $(this).focusout(function (e) {
+                if ($(this).val() == '') {
+                    $(this).val("请输入内容");
+                }
+            });
+        });
+        /* EnterTip End */
+
+        /* DetailContent focusout Begin */
+        $("input.DetailContent").on("focusout", function (e) {
+            if ($(this).val().indexOf("请输入") < 0) {
+                $(this).parent("td.tdStudentSourceItem").find("input[type=checkbox]").attr('checked', true);
+            }
+        });
+        /* DetailContent focusout End */
+
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            FirstRegFormFromAjax();
+        });
+
+        /* 事件绑定 End */
+
+    });
+
+</script>

@@ -1,0 +1,52 @@
+﻿@model ClientManage.WebUI.Areas.Students.Models.StudentListViewModel
+
+@{
+    Layout = "~/Areas/Students/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table>
+    <tr>
+        <th>名字</th>
+        <th>性别</th>
+        <th>在读学校</th>
+        <th>年级</th>
+        <th>留学意向</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var s in Model.StudentsInfo)
+    {
+        <tr>
+            <td>@Html.ActionLink(s.StudentInfo.NameCn, "Edit", new { id = s.StudentInfo.StudentID })</td>
+            <td>@s.StudentInfo.Gender</td>
+            <td>@s.StudentInfo.SchoolCn</td>
+            <td>@s.StudentInfo.Grade</td>
+            <td>@s.StudentInfo.EducationIntention.ToString()</td>
+            <td>
+                @if (s.AppRelation.IsSign == ClientManage.Domain.Enum.IsSign.已签约)
+                {
+                    @Html.ActionLink("进入申请", "BeginApply", "ApplyInfo", new { id = s.StudentInfo.StudentID }, null)
+                }
+                else
+                {
+                    @Html.ActionLink("进入销售", "Index", "SaleTrack", new { id = s.StudentInfo.StudentID },null)
+                }
+                @Html.ActionLink("查看", "View", "StudentInfo", new { id = @s.StudentInfo.StudentID }, new { id = "ViewLink", @class = "aha" })
+                @using (Html.BeginForm("Delete","StudentInfo"))
+                {
+                    @Html.Hidden("StudentID", s.StudentInfo.StudentID)
+                    <input type="submit" value="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Create New","Create")
+</p>
+<div class="pager">
+    @Html.PageLinks(Model.pagingInfo,x=>Url.Action("List",new {page=x}))
+</div>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EmailConfig>
+  <!--邮件问候语句-->
+  <EmailGreet>Hello {0}，我是APP邮件提醒助手，在{1}你要参加一个客户访谈哦！</EmailGreet>
+  <!--邮件Title-->
+  <EmailTitle>APP客户访谈邮件提醒，无需回复！</EmailTitle>
+  <!--邮件smtp服务器-->
+  <EmailHost>mail.appedu.org</EmailHost>
+  <!--发送方邮箱账号-->
+  <EmailAccount>service1</EmailAccount>
+  <!--发送方邮箱密码-->
+  <EmailPwd>408458</EmailPwd>
+  <!--发送方邮箱密码-->
+  <EmailFrom>service1@appedu.org</EmailFrom>
+</EmailConfig>

@@ -1,0 +1,33 @@
+﻿@model ClientManage.WebUI.Areas.Students.Models.StudentInfoViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit: @Model.StudentInfo.NameCn</h2>
+@using (Html.BeginForm("Edit", "StudentInfo"))
+{
+    @Html.ValidationSummary()
+
+    @Html.EditorFor(m=>m.StudentInfo)
+    
+    <div>
+    <p>是否已签约：@Html.EditorFor(m=>m.AppRelation.IsSign)</p>
+    <p>签约日期：@Html.EditorFor(m => m.AppRelation.SignDate)</p>
+    <p>是否已付一期费用：@Html.EditorFor(m => m.AppRelation.IsFirstStageFee)</p>
+    <p>一期费用金额：@Html.EditorFor(m => m.AppRelation.FirstStageFee)</p>
+    
+    <p>留学顾问：@Html.Action("UserNameList", "StudentInfo", new { element = "AppRelation.SaleConsultant", id = Model.AppRelation.SaleConsultant })</p>
+    <p>申请顾问：@Html.Action("UserNameList", "StudentInfo", new { element = "AppRelation.ApplyConsultant", id = Model.AppRelation.ApplyConsultant })</p>
+    <p>文书顾问：@Html.Action("UserNameList", "StudentInfo", new { element = "AppRelation.AssayConsultant", id = Model.AppRelation.AssayConsultant })</p>
+    <p>活动顾问：@Html.Action("UserNameList", "StudentInfo", new { element = "AppRelation.ActConsultant", id = Model.AppRelation.ActConsultant })</p>
+    <p>语言顾问：@Html.Action("UserNameList", "StudentInfo", new { element = "AppRelation.LanguageConsultant", id = Model.AppRelation.LanguageConsultant })</p>
+
+    <p>是否已付二期费用：@Html.EditorFor(m => m.AppRelation.IsSecondStageFee)</p>
+    <p>二期费用金额：@Html.EditorFor(m => m.AppRelation.SecondStageFee)</p>
+    
+    </div>
+
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel and return to list", "List")
+}

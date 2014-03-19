@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using ClientManage.Domain.Entities;
+
+namespace ClientManage.Domain.Abstract
+{
+    public interface ISaleTrackRepository
+    {
+        IQueryable<StudentInfoEntity> StudentInfo { get; }
+        IQueryable<StudentParentEntity> StudentParent { get; }
+        IQueryable<AppRelationsEntity> AppRelation { get; }
+        IQueryable<SaleTrackEntity> SaleTrack { get; }
+        IQueryable<SaleTrackParticipantsEntity> SaleTrackParticipants { get; }
+        IQueryable<UserInfoEntity> UserInfo { get; }
+        IQueryable<RoleInfo> RoleInfo { get; }
+        IQueryable<EasyChatTimeEntity> EasyChatTime { get; }
+        IQueryable<StudentTPInfoEntity> StudentTPInfo { get; }
+        IQueryable<ExamResultEntity> ExamResult { get; }
+        IQueryable<ExamResultGREGMATEntity> ExamResultGREGMAT { get; }
+        IQueryable<ExamResultSATSSATEntity> ExamResultSATSSAT { get; }
+        IQueryable<ExamResultTFIELTSEntity> ExamResultTFIELTS { get; }
+        IQueryable<StudentSourceItemEntity> StudentSourceItem { get; }
+
+        void SaveSaleTrack(SaleTrackEntity saleTrackItem, IEnumerable<SaleTrackParticipantsEntity> saleTrackParticipants);
+
+    }
+}

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ClientManage.WebUI.Areas.Students.Models.UserAndRoleViewModel>
+
+@{
+    Layout = null;
+}
+
+<select class="UserList" name="UserList">
+    <option value="">从已有用户添加</option>
+@foreach (var r in Model)
+{
+    <option value="@r.UserInfo.UserID")>@r.UserInfo.UserNameCn (@r.MainRoleInfo.RoleName) (@r.SecondRoleInfo.RoleName)</option>
+}
+</select>

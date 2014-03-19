@@ -1,0 +1,12 @@
+﻿@model ClientManage.WebUI.Areas.Admin.Models.RoleListViewModel
+
+@{
+    Layout = null;
+}
+
+<select name="@Model.ElementName">
+@foreach (RoleInfo r in Model.RoleList)
+{
+    <option value="@r.RoleID" @(r.RoleID == Model.CurrentRole ? "selected=\"selected\"":"")>@r.RoleName</option>
+}
+</select>

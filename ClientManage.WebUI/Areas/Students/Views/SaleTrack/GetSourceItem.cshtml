@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ClientManage.Domain.Entities.StudentSourceItemEntity>
+
+@{
+    Layout = null;
+}
+
+<table>
+@foreach (StudentSourceItemEntity item in Model)
+{
+    <tr>
+        <td class="tdStudentSourceItem">
+            <input type="checkbox" class="chkIsFrom" />&nbsp;
+            <span class="SourceName">@item.SourceName</span>，
+            <span class="DetailKeyword">@item.DetailKeyword</span>：
+            <input type="text" value="请输入内容" class="DetailContent EnterTip" />
+        </td>
+    </tr>
+}
+</table>

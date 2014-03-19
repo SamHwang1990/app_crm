@@ -1,0 +1,22 @@
+﻿@model ClientManage.WebUI.Areas.Students.Models.StudentAssayMaterialViewModel
+
+@{
+    ViewBag.Title = "Familiar";
+}
+
+<h2>情况了解期</h2>
+@using(Html.BeginForm("Familiar","ApplyInfo"))
+{
+<p>学生信息：@Model.StudentInfo.NameCn</p>
+<p>四个信息收集表是否已下发：@Html.CheckBox("IsFormSend",Model.AssayMaterial.IsFormSend)</p>
+<p>表格回收时间：@Html.TextBox("FormRecycleDate",Model.AssayMaterial.FormRecycleDate.ToShortDateString())</p>
+<p>信息表是否需要修改：@Html.CheckBox("IsFormNeedModify",Model.AssayMaterial.IsFormNeedModify)</p>
+<p>修改意见表：@Html.TextBox("FormModifyDoc",Model.AssayMaterial.FormModifyDoc)</p>
+<p>材料信息表上传：</p>
+<p>学生特点总结：@Html.TextArea("Character",Model.AssayMaterial.Character)</p>
+    <input type="hidden" name="StudentID" value="@Model.AssayMaterial.StudentID" />
+<p><input type="submit" name="Submit" value="提交" /></p>
+}
+<p><input type="button" name="Input" value="学生资料填充" />&nbsp;&nbsp;@Html.ActionLink("下一步","Actplan")</p>
+
+

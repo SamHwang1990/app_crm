@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="0bd7340b-1610-4814-8813-d95155e8dc6f" name="Administrator@WIN-1BSGQQGHI96 2014-02-28 18:59:01" runUser="WIN-1BSGQQGHI96\Administrator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="本地" id="183af1ab-0d3c-4326-b9de-81f77f86e3df">
+    <Description>这些设置为本地测试运行的默认测试设置。</Description>
+    <Deployment enabled="false" runDeploymentRoot="Administrator_WIN-1BSGQQGHI96 2014-02-28 18_59_01">
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.WebUI\bin\ClientManage.WebUI.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.UnitTests\bin\Debug\EntityFramework.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.Domain\bin\Debug\ClientManage.Domain.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2014-02-28T18:59:01.7026685+08:00" queuing="2014-02-28T18:59:01.7306701+08:00" start="2014-02-28T18:59:01.7346704+08:00" finish="2014-02-28T18:59:02.0996912+08:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="3" error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Can_Generate_Page_Links" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="2c5c938b-15d1-8464-8948-897ed178f1d3">
+      <Execution id="dfdd11c9-8722-4511-9af8-1500b036c206" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.PagingHelpersTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Generate_Page_Links" />
+    </UnitTest>
+    <UnitTest name="Can_Edit_Role" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="55b878b7-4e98-870d-41b1-c67be55faa2d">
+      <Execution id="2ceb7e6e-9400-4e7d-a8e5-1d647955383a" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Edit_Role" />
+    </UnitTest>
+    <UnitTest name="Can_Send_Pagination_View_Model" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a">
+      <Execution id="a987fed4-4f26-495e-b463-42f7f90e4036" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Send_Pagination_View_Model" />
+    </UnitTest>
+    <UnitTest name="Can_Paginate" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="565a17c5-b484-a3ab-5875-2e0879947988">
+      <Execution id="b56077cc-e199-4470-8132-11c1849126ee" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Paginate" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="2c5c938b-15d1-8464-8948-897ed178f1d3" executionId="dfdd11c9-8722-4511-9af8-1500b036c206" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55b878b7-4e98-870d-41b1-c67be55faa2d" executionId="2ceb7e6e-9400-4e7d-a8e5-1d647955383a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="565a17c5-b484-a3ab-5875-2e0879947988" executionId="b56077cc-e199-4470-8132-11c1849126ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a" executionId="a987fed4-4f26-495e-b463-42f7f90e4036" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="dfdd11c9-8722-4511-9af8-1500b036c206" testId="2c5c938b-15d1-8464-8948-897ed178f1d3" testName="Can_Generate_Page_Links" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0208824" startTime="2014-02-28T18:59:01.7436709+08:00" endTime="2014-02-28T18:59:01.8966796+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dfdd11c9-8722-4511-9af8-1500b036c206">
+    </UnitTestResult>
+    <UnitTestResult executionId="2ceb7e6e-9400-4e7d-a8e5-1d647955383a" testId="55b878b7-4e98-870d-41b1-c67be55faa2d" testName="Can_Edit_Role" computerName="WIN-1BSGQQGHI96" duration="00:00:00.1464948" startTime="2014-02-28T18:59:01.9036800+08:00" endTime="2014-02-28T18:59:02.0526886+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ceb7e6e-9400-4e7d-a8e5-1d647955383a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual 失败。应为: &lt;R1&gt;，实际为: &lt;R2&gt;。</Message>
+          <StackTrace>   在 ClientManage.UnitTests.RolesControllerTest.Can_Edit_Role() 位置 D:\Code\ClientManage\ClientManage.UnitTests\RolesControllerTest.cs:行号 161
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b56077cc-e199-4470-8132-11c1849126ee" testId="565a17c5-b484-a3ab-5875-2e0879947988" testName="Can_Paginate" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0040111" startTime="2014-02-28T18:59:02.0606890+08:00" endTime="2014-02-28T18:59:02.0716896+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b56077cc-e199-4470-8132-11c1849126ee">
+    </UnitTestResult>
+    <UnitTestResult executionId="a987fed4-4f26-495e-b463-42f7f90e4036" testId="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a" testName="Can_Send_Pagination_View_Model" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0015367" startTime="2014-02-28T18:59:02.0726897+08:00" endTime="2014-02-28T18:59:02.0796901+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a987fed4-4f26-495e-b463-42f7f90e4036">
+    </UnitTestResult>
+  </Results>
+</TestRun>

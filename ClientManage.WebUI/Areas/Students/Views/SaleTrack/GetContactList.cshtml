@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<select class="ContactList" name="ContactList">
+    <option value="">从已有联系人添加</option>
+    <option value="@ViewBag.StudentId,学生">学生</option>
+    @if (ViewBag.FatherId != null)
+    {
+        <option value="@ViewBag.FatherId,父亲">父亲</option>
+    }
+    @if (ViewBag.MotherId != null)
+    {
+        <option value="@ViewBag.MotherId,母亲">母亲</option>
+    }
+    @if (ViewBag.OtherId != null)
+    {
+        <option value="@ViewBag.OtherId,其他">其他</option>
+    }
+</select>

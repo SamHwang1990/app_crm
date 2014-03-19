@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{259EFADD-6822-4407-BE94-82503B09FE11}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClientManage.Domain</RootNamespace>
+    <AssemblyName>ClientManage.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Abstract\IApplyStateRepository.cs" />
+    <Compile Include="Abstract\IAppRelationsRepository.cs" />
+    <Compile Include="Abstract\IAssayMaterialRepository.cs" />
+    <Compile Include="Abstract\IRoleInfoRepository.cs" />
+    <Compile Include="Abstract\ISaleTrackRepository.cs" />
+    <Compile Include="Abstract\IStudentInfoRepository.cs" />
+    <Compile Include="Abstract\IUserInfoRepository.cs" />
+    <Compile Include="Concrete\EFApplyStateReposity.cs" />
+    <Compile Include="Concrete\EFAssayMaterialReposity.cs" />
+    <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Concrete\EFRoleReposity.cs" />
+    <Compile Include="Concrete\EFSaleTrackReposity.cs" />
+    <Compile Include="Concrete\EFStudentInfoReposity.cs" />
+    <Compile Include="Concrete\EFUserReposity.cs" />
+    <Compile Include="Entities\ApplyStateEntity.cs" />
+    <Compile Include="Entities\AppRelationsEntity.cs" />
+    <Compile Include="Entities\AssayMaterialEntity.cs" />
+    <Compile Include="Entities\EasyChatTimeEntity.cs" />
+    <Compile Include="Entities\EducationBackgroundEntity.cs" />
+    <Compile Include="Entities\ExamAccountEntity.cs" />
+    <Compile Include="Entities\ExamResultEntity.cs" />
+    <Compile Include="Entities\ExamResult_GRE_GMATEntity.cs" />
+    <Compile Include="Entities\ExamResult_SAT_SSATEntity.cs" />
+    <Compile Include="Entities\ExamResult_TF_IELTSEntity.cs" />
+    <Compile Include="Entities\RolesInfo.cs" />
+    <Compile Include="Entities\SaleTrackEntity.cs" />
+    <Compile Include="Entities\SaleTrackParticipantsEntity.cs" />
+    <Compile Include="Entities\StudentFromEntity.cs" />
+    <Compile Include="Entities\StudentInfoEntity.cs" />
+    <Compile Include="Entities\StudentParentEntity.cs" />
+    <Compile Include="Entities\StudentSourceItemEntity.cs" />
+    <Compile Include="Entities\StudentTPInfoEntity.cs" />
+    <Compile Include="Entities\UsersInfoEntity.cs" />
+    <Compile Include="Enum\BoolEnum.cs" />
+    <Compile Include="Enum\EducationDegree.cs" />
+    <Compile Include="Enum\EducationIntention.cs" />
+    <Compile Include="Enum\ExamType.cs" />
+    <Compile Include="Enum\Gender.cs" />
+    <Compile Include="Enum\Grade.cs" />
+    <Compile Include="Enum\IsSign.cs" />
+    <Compile Include="Enum\Marital.cs" />
+    <Compile Include="Enum\PersonIdentity.cs" />
+    <Compile Include="Enum\PointDelivery.cs" />
+    <Compile Include="Enum\SaleParticipantIdentity.cs" />
+    <Compile Include="Enum\TrackIsComplete.cs" />
+    <Compile Include="Enum\TrackPattern.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

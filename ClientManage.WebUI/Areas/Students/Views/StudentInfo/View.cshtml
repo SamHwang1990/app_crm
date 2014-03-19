@@ -1,0 +1,11 @@
+﻿@model ClientManage.Domain.Entities.StudentInfoEntity
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View: @Model.NameCn</h2>
+
+@Html.DisplayForModel();
+@Html.ActionLink("Go to Edit it", "Edit", new { id = @Model.StudentID })
+

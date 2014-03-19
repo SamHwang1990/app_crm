@@ -1,0 +1,35 @@
+﻿@model ClientManage.WebUI.Areas.Admin.Models.RolesInfoViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>EN</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var p in Model.RolesInfo)
+    {
+        <tr>
+            <td>@Html.ActionLink(p.RoleName, "Edit", new { id = p.RoleID })</td>
+            <td>@p.RoleEN</td>
+            <td>
+                @using (Html.BeginForm("Delete","Roles"))
+                {
+                    @Html.Hidden("RoleID",p.RoleID)
+                    <input type="submit" value="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Create New","Create")
+</p>
+<div class="pager">
+    @Html.PageLinks(Model.pagingInfo,x=>Url.Action("List",new {page=x}))
+</div>

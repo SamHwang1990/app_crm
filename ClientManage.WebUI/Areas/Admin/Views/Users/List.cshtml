@@ -1,0 +1,42 @@
+﻿@model ClientManage.WebUI.Areas.Admin.Models.UsersInfoViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>EN</th>
+        <th>Email</th>
+        <th>Main Role</th>
+        <th>Second Role</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var p in Model.UsersInfo)
+    {
+        <tr>
+            <td>@Html.ActionLink(p.UserNameCn, "Edit", new { id = p.UserID })</td>
+            <td>@p.UserNameEn</td>
+            <td>@p.Email</td>
+            <td>@Html.Action("RoleName","Roles",new{id=p.UserRole})</td>
+            <td>@Html.Action("RoleName","Roles",new{id=p.UserSecondRole})</td>
+            <td>
+                @using (Html.BeginForm("Delete","Users"))
+                {
+                    @Html.Hidden("UserID", p.UserID, new { name="id"})
+                    <input type="submit" value="Delete" />
+                }
+            </td>
+        </tr>
+    }
+</table>
+<p>
+    @Html.ActionLink("Create New","Create")
+</p>
+<div class="pager">
+    @Html.PageLinks(Model.pagingInfo,x=>Url.Action("List",new {page=x}))
+</div>

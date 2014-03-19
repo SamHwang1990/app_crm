@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="0419f309-ebbd-4b1c-9d35-6cf10cf51a55" name="Administrator@WIN-1BSGQQGHI96 2014-03-01 15:25:12" runUser="WIN-1BSGQQGHI96\Administrator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="本地" id="183af1ab-0d3c-4326-b9de-81f77f86e3df">
+    <Description>这些设置为本地测试运行的默认测试设置。</Description>
+    <Deployment enabled="false" runDeploymentRoot="Administrator_WIN-1BSGQQGHI96 2014-03-01 15_25_12">
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.WebUI\bin\ClientManage.WebUI.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\EntityFramework.6.0.2\lib\net40\EntityFramework.SqlServer.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.UnitTests\bin\Debug\EntityFramework.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll" />
+      <DeploymentItem filename="D:\Code\ClientManage\ClientManage.Domain\bin\Debug\ClientManage.Domain.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2014-03-01T15:25:12.5113945+08:00" queuing="2014-03-01T15:25:12.5763982+08:00" start="2014-03-01T15:25:12.5883989+08:00" finish="2014-03-01T15:25:13.0144232+08:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="7" executed="7" passed="7" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="Cannot_Save_Invalid_Changes" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71">
+      <Execution id="1248c5f0-e756-4658-b388-837316182aeb" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Cannot_Save_Invalid_Changes" />
+    </UnitTest>
+    <UnitTest name="Can_Paginate" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="565a17c5-b484-a3ab-5875-2e0879947988">
+      <Execution id="ab5307aa-885c-466e-8844-b526390261b9" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Paginate" />
+    </UnitTest>
+    <UnitTest name="Can_Send_Pagination_View_Model" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a">
+      <Execution id="25b0b8f4-45b5-4f41-ac7f-b7f1d29749df" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Send_Pagination_View_Model" />
+    </UnitTest>
+    <UnitTest name="Can_Save_Valid_Changes" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="585a66cd-39a2-57d3-66fb-c2c082a18db9">
+      <Execution id="ed05708e-eac7-4fcf-bc83-bf9363b1af39" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Save_Valid_Changes" />
+    </UnitTest>
+    <UnitTest name="Can_Edit_Role" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="55b878b7-4e98-870d-41b1-c67be55faa2d">
+      <Execution id="e6915adc-cfc1-4177-afff-95a981e5eac5" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Edit_Role" />
+    </UnitTest>
+    <UnitTest name="Cannot_Edit_Nonexistent_Product" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="2ce0b735-ab10-4f83-e610-2d802598bf6a">
+      <Execution id="db0ace6c-0c39-4f63-b16c-708c057366ca" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.RolesControllerTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Cannot_Edit_Nonexistent_Product" />
+    </UnitTest>
+    <UnitTest name="Can_Generate_Page_Links" storage="d:\code\clientmanage\clientmanage.unittests\bin\debug\clientmanage.unittests.dll" id="2c5c938b-15d1-8464-8948-897ed178f1d3">
+      <Execution id="9c33f03d-9eb6-4b87-a285-08ccc6ca06e2" />
+      <TestMethod codeBase="D:/Code/ClientManage/ClientManage.UnitTests/bin/Debug/ClientManage.UnitTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="ClientManage.UnitTests.PagingHelpersTest, ClientManage.UnitTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Can_Generate_Page_Links" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="2c5c938b-15d1-8464-8948-897ed178f1d3" executionId="9c33f03d-9eb6-4b87-a285-08ccc6ca06e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ce0b735-ab10-4f83-e610-2d802598bf6a" executionId="db0ace6c-0c39-4f63-b16c-708c057366ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71" executionId="1248c5f0-e756-4658-b388-837316182aeb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55b878b7-4e98-870d-41b1-c67be55faa2d" executionId="e6915adc-cfc1-4177-afff-95a981e5eac5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="565a17c5-b484-a3ab-5875-2e0879947988" executionId="ab5307aa-885c-466e-8844-b526390261b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="585a66cd-39a2-57d3-66fb-c2c082a18db9" executionId="ed05708e-eac7-4fcf-bc83-bf9363b1af39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a" executionId="25b0b8f4-45b5-4f41-ac7f-b7f1d29749df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="9c33f03d-9eb6-4b87-a285-08ccc6ca06e2" testId="2c5c938b-15d1-8464-8948-897ed178f1d3" testName="Can_Generate_Page_Links" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0282649" startTime="2014-03-01T15:25:12.5983995+08:00" endTime="2014-03-01T15:25:12.7684092+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9c33f03d-9eb6-4b87-a285-08ccc6ca06e2">
+    </UnitTestResult>
+    <UnitTestResult executionId="db0ace6c-0c39-4f63-b16c-708c057366ca" testId="2ce0b735-ab10-4f83-e610-2d802598bf6a" testName="Cannot_Edit_Nonexistent_Product" computerName="WIN-1BSGQQGHI96" duration="00:00:00.1600246" startTime="2014-03-01T15:25:12.7724094+08:00" endTime="2014-03-01T15:25:12.9414191+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="db0ace6c-0c39-4f63-b16c-708c057366ca">
+    </UnitTestResult>
+    <UnitTestResult executionId="1248c5f0-e756-4658-b388-837316182aeb" testId="3e762bb7-2a5b-1b11-ff46-0f8ffb5bce71" testName="Cannot_Save_Invalid_Changes" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0183525" startTime="2014-03-01T15:25:12.9414191+08:00" endTime="2014-03-01T15:25:12.9634203+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1248c5f0-e756-4658-b388-837316182aeb">
+    </UnitTestResult>
+    <UnitTestResult executionId="e6915adc-cfc1-4177-afff-95a981e5eac5" testId="55b878b7-4e98-870d-41b1-c67be55faa2d" testName="Can_Edit_Role" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0039031" startTime="2014-03-01T15:25:12.9644204+08:00" endTime="2014-03-01T15:25:12.9714208+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e6915adc-cfc1-4177-afff-95a981e5eac5">
+    </UnitTestResult>
+    <UnitTestResult executionId="ab5307aa-885c-466e-8844-b526390261b9" testId="565a17c5-b484-a3ab-5875-2e0879947988" testName="Can_Paginate" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0074547" startTime="2014-03-01T15:25:12.9734209+08:00" endTime="2014-03-01T15:25:12.9844215+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab5307aa-885c-466e-8844-b526390261b9">
+    </UnitTestResult>
+    <UnitTestResult executionId="ed05708e-eac7-4fcf-bc83-bf9363b1af39" testId="585a66cd-39a2-57d3-66fb-c2c082a18db9" testName="Can_Save_Valid_Changes" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0031838" startTime="2014-03-01T15:25:12.9854216+08:00" endTime="2014-03-01T15:25:12.9924220+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed05708e-eac7-4fcf-bc83-bf9363b1af39">
+    </UnitTestResult>
+    <UnitTestResult executionId="25b0b8f4-45b5-4f41-ac7f-b7f1d29749df" testId="60e0cb26-aeab-601d-f2bb-fa6dfb4d023a" testName="Can_Send_Pagination_View_Model" computerName="WIN-1BSGQQGHI96" duration="00:00:00.0024974" startTime="2014-03-01T15:25:12.9944221+08:00" endTime="2014-03-01T15:25:13.0004224+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25b0b8f4-45b5-4f41-ac7f-b7f1d29749df">
+    </UnitTestResult>
+  </Results>
+</TestRun>

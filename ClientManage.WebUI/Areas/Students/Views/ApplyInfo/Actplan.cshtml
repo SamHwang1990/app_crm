@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Actplan";
+}
+
+<h2>活动策划期</h2>
+<p>是否需要跳过活动策划期：<button name="SkipActPlan">跳过</button></p>
+<p><button name="AddAct">添加活动策划</button></p>
+
+<p>活动类型：@Html.TextBox("ActType")</p>
+<p>活动名称：@Html.TextBox("ActName")</p>
+<p>活动方案内容：@Html.TextBox("ActContent")</p>
+<p>活动执行进度：@Html.TextBox("ActStat")</p>
+<p>活动是否完成：@Html.TextBox("IsActDone")</p>
+
+<p><input type="button" name="Submit" value="更新" /></p>
+<p>@Html.ActionLink("下一步", "ApplyBegin")</p>
+
+

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ClientManage.WebUI.Areas.Admin.Models.UserAndRoleViewModel>
+
+@{
+    Layout = null;
+}
+<select name="@ViewBag.ElementName">
+@foreach (ClientManage.WebUI.Areas.Admin.Models.UserAndRoleViewModel r in Model)
+{
+    <option value="@r.UserInfo.UserID" @(r.UserInfo.UserID == ViewBag.ID ? "selected=\"selected\"":"")>@r.UserInfo.UserNameCn (@r.MainRoleInfo.RoleName) (@r.SecondRoleInfo.RoleName)</option>
+}
+</select>
