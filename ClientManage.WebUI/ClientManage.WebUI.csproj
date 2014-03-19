@@ -147,6 +147,7 @@
     <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
     <Content Include="Scripts\clientManage\FirstRegFormInfo.js" />
     <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
+    <Content Include="Scripts\clientManage\GetFromInterview.js" />
     <Content Include="Scripts\jqueryFrame\jquery-2.1.0-vsdoc.js" />
     <Content Include="Scripts\jqueryFrame\jquery-2.1.0.js" />
     <Content Include="Scripts\jqueryFrame\jquery-2.1.0.min.js" />
@@ -265,6 +266,8 @@
     <Content Include="Areas\Students\Views\SaleTrack\FirstRegFormTP.cshtml" />
     <Content Include="Areas\Students\Views\SaleTrack\FirstRegFormFrom.cshtml" />
     <Content Include="Areas\Students\Views\SaleTrack\GetSourceItem.cshtml" />
+    <Content Include="Areas\Students\Views\SaleTrack\CommonInterview.cshtml" />
+    <Content Include="Areas\Students\Views\SaleTrack\GetFromInterview.cshtml" />
     <None Include="Scripts\jqueryFrame\jquery-2.1.0.min.map" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

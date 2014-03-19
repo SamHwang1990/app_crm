@@ -89,7 +89,7 @@ namespace ClientManage.Domain.Concrete
             if (originSaleTrackItem == null)
             {
                 int nextTrackNo = context.SaleTrack.Count(s => s.StudentID == saleTrackItem.StudentID) == 0 ? 1 : context.SaleTrack.Where(s => s.StudentID == saleTrackItem.StudentID).Max(s => s.TrackNo);
-                saleTrackItem.TrackNo = (byte)nextTrackNo;
+                saleTrackItem.TrackNo = (byte)(nextTrackNo+1);
                 context.SaleTrack.Add(saleTrackItem);
             }
             else
@@ -99,6 +99,23 @@ namespace ClientManage.Domain.Concrete
             }
 
             context.SaleTrackParticipants.AddRange(saleTrackParticipants);  //添加参与人
+
+            context.SaveChanges();
+        }
+
+        public void SaveSaleTrack(SaleTrackEntity saleTrackItem)
+        {
+            SaleTrackEntity originSaleTrackItem = context.SaleTrack.SingleOrDefault(s => s.TrackItemID == saleTrackItem.TrackItemID);
+            if (originSaleTrackItem == null)
+            {
+                int nextTrackNo = context.SaleTrack.Count(s => s.StudentID == saleTrackItem.StudentID) == 0 ? 1 : context.SaleTrack.Where(s => s.StudentID == saleTrackItem.StudentID).Max(s => s.TrackNo);
+                saleTrackItem.TrackNo = (byte)nextTrackNo;
+                context.SaleTrack.Add(saleTrackItem);
+            }
+            else
+            {
+                context.Entry(originSaleTrackItem).CurrentValues.SetValues(saleTrackItem);
+            }
 
             context.SaveChanges();
         }

@@ -86,7 +86,7 @@ $(document).ready(function () {
 		};
 		$.ajax({
 			type: "POST",
-			url: '@Url.Action("FirstInterview")',
+			url: '@Url.Action("PostInterview")',
 			data: JSON.stringify(ajaxData),
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
@@ -235,6 +235,7 @@ $(document).ready(function () {
 		$(this).datetimepicker({
 			 showSecond: false,
 			 showMillisec: false,
+			 dateFormat: "yy/mm/dd"
 		 });
 	});
 	
@@ -250,7 +251,7 @@ $(document).ready(function () {
 {
     <p class="StateName">初访阶段名：@Html.EditorFor(m=>m.SaleTrack.StateName)</p>
     <p class="TrackPattern">初访方式：@Html.EditorFor(m=>m.SaleTrack.TrackPattern)</p>
-    <p class="TrackDate">初访日期：<input type="text" class="DateTimePick" value="@string.Format("{0:yyyy/MM/dd HH:mm}",Model.SaleTrack.TrackDate)" /></p>
+    <p class="TrackDate">初访日期：<input type="text" class="DateTimePick" value="@Model.SaleTrack.TrackDate.ToString("yyyy/MM/dd HH:mm")" /></p>
     <p class="TrackToDo">初访内容：@Html.TextAreaFor(s => s.SaleTrack.ToDo)</p>
     <div class="TrackParticipants">初访参与人：
         <table>

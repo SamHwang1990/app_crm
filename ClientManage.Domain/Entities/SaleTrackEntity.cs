@@ -32,6 +32,7 @@ namespace ClientManage.Domain.Entities
             _TrackDate = DateTime.Now;
             _ToDo = string.Empty;
             _GetFromTrack = string.Empty;
+            _IsGefFromDone = false;
             _TrackNo = 1;
             _ParticipantIDs = string.Empty;
             _IsComplete = 0;
@@ -49,6 +50,7 @@ namespace ClientManage.Domain.Entities
         private DateTime _TrackDate;
         private string _ToDo;
         private string _GetFromTrack;
+        private bool _IsGefFromDone;
         private byte _TrackNo;
         private string _ParticipantIDs;
         private byte _IsComplete;
@@ -123,6 +125,12 @@ namespace ClientManage.Domain.Entities
         {
             set{_GetFromTrack = value;}
             get{return _GetFromTrack;}
+        }
+
+        public bool IsGefFromDone
+        {
+            set { _IsGefFromDone = value; }
+            get { return _IsGefFromDone; }
         }
         /// <summary>
         /// 所属学生的跟踪顺序

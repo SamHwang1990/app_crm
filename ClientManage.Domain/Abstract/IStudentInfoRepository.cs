@@ -16,6 +16,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<EasyChatTimeEntity> EasyChatTime { get; }
         IQueryable<StudentParentEntity> StudentParent { get; }
         IQueryable<StudentFromEntity> StudentFrom { get; }
+        IQueryable<SaleTrackEntity> SaleTrack { get; }
 
         void SaveStudentInfo(StudentInfoEntity studentInfo,AppRelationsEntity appRelation);
 
@@ -41,7 +42,7 @@ namespace ClientManage.Domain.Abstract
         #endregion
 
         #region 对StudentFrom 进行操作
-        void SaveStudentFrom(StudentFromEntity studentFrom);
+        void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms);
 
         #endregion
     }

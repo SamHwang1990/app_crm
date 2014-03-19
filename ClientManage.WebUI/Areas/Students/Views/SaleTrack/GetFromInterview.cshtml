@@ -1,0 +1,18 @@
+﻿@model ClientManage.Domain.Entities.SaleTrackEntity
+
+@{
+    Layout = "~/Areas/Students/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "GetFromInterview";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqueryFrame/jquery-ui-timepicker-addon.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/clientManage/GetFromInterview.js")"></script>
+<h2>从 @Model.StateName 中获取的信息</h2>
+@using (Html.BeginForm("GetFromInterview"))
+{
+    <p class="GetFromTrack">@Html.EditorFor(s => s.GetFromTrack)</p>
+    <p class="pIsSign">是否完成签约：
+        <input type="radio" name="IsSign" class="IsSign" value="No" checked="checked"/><span>No</span>&nbsp;&nbsp;
+        <input type="radio" name="IsSign" class="IsSign" value="Yes" /><span>Yes</span>
+        <input type="hidden" name="SignDate" class="SignDate DatePick" />
+    </p>
+}

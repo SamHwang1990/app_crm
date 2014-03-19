@@ -39,9 +39,27 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             {
                 int trackNo = repository.SaleTrack.Where(s => s.StudentID == id).Max(s => s.TrackNo);
                 if (trackNo == 1)
-                    return RedirectToAction("FirstInterview", new { id = id });     //初访
+                {
+                    if (!CheckGerFromDone(id, trackNo))
+                    {
+                        return RedirectToAction("FirstInterview", new { id = id });     //初访
+                    }
+                    else
+                    {
+                        return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo+1 }); //第N次回访Action
+                    }
+                }
                 else
-                    return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo }); //第N次回访Action
+                {
+                    if (!CheckGerFromDone(id, trackNo))
+                    {
+                        return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo });     //初访
+                    }
+                    else
+                    {
+                        return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo + 1 }); //第N次回访Action
+                    }
+                }
             }
         }
 
@@ -73,7 +91,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                         TrackDate = studentInfo.CreateTime.AddDays(1),
                         ToDo = "了解客户需求，完成初访登记表！",
                         IsComplete = TrackIsComplete.否,
-                        Remark = "待创建"
+                        Remark = "请输入备注信息"
                     };
                 SaleTrackParticipants = Enumerable.Empty<SaleTrackParticipantsEntity>();
             }
@@ -84,26 +102,6 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                     SaleTrackParticipants = SaleTrackParticipants,
                     AdditionalIdentity = SaleParticipantIdentity.咨询顾问
                 });
-        }
-
-        /// <summary>
-        /// 响应初访通知建立
-        /// </summary>
-        /// <param name="ajaxData"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public JsonResult FirstInterview(SaleTrackAjaxViewModel ajaxData)
-        {
-            if (ajaxData.SaleTrackItem.TrackItemID == Guid.Empty)
-                ajaxData.SaleTrackItem.TrackItemID = Guid.NewGuid();
-            foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
-            {
-                item.ParticipantID = Guid.NewGuid();
-                item.SaleTrackID = ajaxData.SaleTrackItem.TrackItemID;
-                ajaxData.SaleTrackItem.ParticipantIDs += (item.ParticipantID.ToString() + ",");
-            }
-            repository.SaveSaleTrack(ajaxData.SaleTrackItem, ajaxData.SaleTrackParticipant);
-            return Json(ajaxData);
         }
 
         /// <summary>
@@ -229,9 +227,81 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             Guid studentID = new Guid(id);
             StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == studentID);
             ViewBag.StudentInfo = studentInfo;
-            return View();
+            IEnumerable<StudentSourceItemEntity> studentSourceItems = repository.StudentSourceItem.Select(s => s);
+            return View(studentSourceItems);
             
         }
+        #endregion
+
+        #region CommonInterview
+        [HttpGet]
+        public ViewResult CommonInterview(Guid id, int trackNo)
+        {
+            StudentInfoEntity studentInfo = repository.StudentInfo.FirstOrDefault(s => s.StudentID == id);
+            SaleTrackEntity SaleTrack;
+            IEnumerable<SaleTrackParticipantsEntity> SaleTrackParticipants = null;
+            if (repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo) != null)
+            {
+                SaleTrack = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo);
+                SaleTrackParticipants = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == SaleTrack.TrackItemID).Select(s => s);
+            }
+            else
+            {
+                DateTime nextDate = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo - 1).TrackDate;
+                SaleTrack = new SaleTrackEntity
+                {
+                    StudentID = id,
+                    Inputor = "Admin",
+                    StateName = "第"+trackNo.ToString() + "次回访",
+                    TrackPattern = TrackPattern.面谈,
+                    TrackDate = nextDate.AddDays(1),
+                    ToDo = "第" + trackNo.ToString() + "次回访",
+                    IsComplete = TrackIsComplete.否,
+                    Remark = "请输入备注信息 "
+                };
+                SaleTrackParticipants = Enumerable.Empty<SaleTrackParticipantsEntity>();
+            }
+            return View(new SaleTrackViewModel
+            {
+                StudentInfo = studentInfo,
+                SaleTrack = SaleTrack,
+                SaleTrackParticipants = SaleTrackParticipants,
+                AdditionalIdentity = SaleParticipantIdentity.咨询顾问
+            });
+        }
+
+        /// <summary>
+        /// 响应访谈通知建立
+        /// </summary>
+        /// <param name="ajaxData"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult PostInterview(SaleTrackAjaxViewModel ajaxData)
+        {
+            if (ajaxData.SaleTrackItem.TrackItemID == Guid.Empty)
+                ajaxData.SaleTrackItem.TrackItemID = Guid.NewGuid();
+            foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
+            {
+                item.ParticipantID = Guid.NewGuid();
+                item.SaleTrackID = ajaxData.SaleTrackItem.TrackItemID;
+                ajaxData.SaleTrackItem.ParticipantIDs += (item.ParticipantID.ToString() + ",");
+            }
+            repository.SaveSaleTrack(ajaxData.SaleTrackItem, ajaxData.SaleTrackParticipant);
+            return Json(ajaxData);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">学生ID</param>
+        /// <param name="trackID">SaleTrackID</param>
+        /// <returns></returns>
+        public ViewResult GetFromInterview(Guid id, Guid trackID)
+        {
+            SaleTrackEntity saleTrack = repository.SaleTrack.SingleOrDefault(s => s.TrackItemID == trackID && s.StudentID == id);
+            return View(saleTrack);
+        }
+
         #endregion
 
         #region 渲染html
@@ -459,6 +529,23 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             returnModel.ContactIdentity = contact;
             returnModel.EasyChatTimes = easyChatTimes;
             return returnModel;
+        }
+
+        public bool CheckGerFromDone(Guid studentId, int trackNo)
+        {
+            bool isGetFromDone = false;
+            SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentId && s.TrackNo == trackNo);
+            isGetFromDone = trackItem.IsGefFromDone;
+            return isGetFromDone;
+        }
+
+        [HttpPost]
+        public JsonResult SetGetFromDone(Guid studentId, int trackNo)
+        {
+            SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentId && s.TrackNo == trackNo);
+            trackItem.IsGefFromDone = true;
+            repository.SaveSaleTrack(trackItem);
+            return Json(new { StudentID = studentId, SetResult = true });
         }
 
         #endregion

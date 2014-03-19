@@ -21,14 +21,34 @@ $(document).ready(function(e) {
 				dataType: 'json',
 				contentType: 'application/json; charset=utf-8',
 				success: function (data) {
-					alert(data);
-					/*if(data.InfoResult == true){
-						var url = "/Students/SaleTrack/FirstRegFormTP/?id=" + data.StudentID.toString();
-						window.location.href = url;
-					}*/
+					if(data.FromResult){
+						SetFirstInterviewGetFromDone(data.StudentID);
+					}
 				}
 			});
 		}
+	}
+	
+	function SetFirstInterviewGetFromDone(studentID){
+		var ajaxData = {
+			studentId:studentID,
+			trackNo :1
+		};
+		
+		$.ajax({
+				type: "POST",
+				url: '@Url.Action("SetGetFromDone","SaleTrack")',
+				data: JSON.stringify(ajaxData),
+				dataType: 'json',
+				contentType: 'application/json; charset=utf-8',
+				success: function (data) {
+					if(data.SetResult){
+						var url = "/Students/SaleTrack/Index/?id=" + data.StudentID;
+						window.location.href = url;
+					}
+					
+				}
+			});
 	}
 	
 	

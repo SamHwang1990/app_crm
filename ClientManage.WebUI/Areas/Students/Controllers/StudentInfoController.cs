@@ -409,16 +409,15 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             {
                 foreach (StudentFromEntity fromItem in fromList)
                 {
-                    repository.SaveStudentFrom(fromItem);
+                    fromItem.ID = Guid.NewGuid();
                 }
+                repository.SaveStudentFrom(fromList);
             }
             else
             {
                 fromResult = false;
             }
-
-
-            return Json(fromResult);
+            return Json(new {FromResult=fromResult,StudentID=studentID});
         }
         #endregion
     }

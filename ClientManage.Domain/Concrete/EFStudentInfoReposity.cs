@@ -45,6 +45,11 @@ namespace ClientManage.Domain.Concrete
         {
             get { return context.StudentFrom; }
         }
+
+        public IQueryable<SaleTrackEntity> SaleTrack
+        {
+            get { return context.SaleTrack; }
+        }
         #endregion
 
         #region 保存操作
@@ -243,17 +248,18 @@ namespace ClientManage.Domain.Concrete
         #endregion
 
         #region 对StudentFrom 进行操作
-        public void SaveStudentFrom(StudentFromEntity studentFrom)
+        public void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms)
         {
-            if (studentFrom.ID == Guid.Empty)
-                studentFrom.ID = Guid.NewGuid();
-            StudentFromEntity originFrom = context.StudentFrom.SingleOrDefault(s => s.SourceName == studentFrom.SourceName && s.StudentID == studentFrom.StudentID);
-            if (originFrom == null)
+            StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentFroms.FirstOrDefault().StudentID);
+            if (studentInfo == null)
             {
-                context.StudentFrom.Add(studentFrom);
+                throw new Exception("当前学生信息不存在");
             }
             else
-                context.Entry(originFrom).CurrentValues.SetValues(studentFrom);
+            {
+                context.StudentFrom.RemoveRange(context.StudentFrom.Where(s => s.StudentID == studentInfo.StudentID).Select(s => s));
+                context.StudentFrom.AddRange(studentFroms);
+            }
 
             context.SaveChanges();
         }
