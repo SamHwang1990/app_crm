@@ -72,7 +72,9 @@
             var _isSign = $("input.IsSign").is(':checked');
             var _signDate = $("input.SignDate").val();
             var _getFrom = "完成初访登记表";
-
+            if (_signDate == "") {
+                _signDate = new Date();
+            }
             var ajaxData = {
                 id: studentID,
                 trackID: "",

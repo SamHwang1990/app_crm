@@ -326,7 +326,11 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         public JsonResult SetGetFromDone(string id, string trackID,int trackNo, bool isSign, DateTime signDate, string getFrom)
         {
             Guid studentID = new Guid(id);
-            Guid trackId = new Guid(trackID);
+            Guid trackId;
+            if (trackID == string.Empty)
+                trackId = Guid.NewGuid();
+            else
+                trackId = new Guid(trackID);
             SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentID && (s.TrackItemID == trackId || s.TrackNo == trackNo));
             trackItem.IsGefFromDone = true;
             trackItem.GetFromTrack = getFrom;
