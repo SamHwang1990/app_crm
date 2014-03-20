@@ -91,6 +91,7 @@ $(document).ready(function () {
 			dataType: 'json',
 			contentType: 'application/json; charset=utf-8',
 			success: function (data) {
+			    $("p.NextStep").empty();
 				if(data.SaleTrackItem.IsComplete == 0 || data.SaleTrackItem.IsComplete == "是"){
 					var firstFormUrl = "/Students/SaleTrack/FirstRegFormInfo/?id=" + data.SaleTrackItem.StudentID.toString();
 					$("p.NextStep").append("<a class='FirstFormLink' href='" + firstFormUrl + "'>填写初访登记表</a>");
@@ -153,7 +154,7 @@ $(document).ready(function () {
 				saleTrackParticipant.push({
 					ParticipantName:$(this).find("input.ParticipantName").val(),
 					ParticipantEmail:$(this).find("input.ParticipantEmail").val(),
-					ParticipantMobile:$(this).find("input.ParticipantMobile").val(),
+					ParticipantMobile: $(this).find("input.ParticipantMobile").val(),
 					ParticipantIdentity:$(this).find("select.SaleParticipantIdentity").val()
 				});
 			}

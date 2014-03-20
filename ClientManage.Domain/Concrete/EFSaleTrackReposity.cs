@@ -88,7 +88,7 @@ namespace ClientManage.Domain.Concrete
             SaleTrackEntity originSaleTrackItem = context.SaleTrack.SingleOrDefault(s => s.TrackItemID == saleTrackItem.TrackItemID);
             if (originSaleTrackItem == null)
             {
-                int nextTrackNo = context.SaleTrack.Count(s => s.StudentID == saleTrackItem.StudentID) == 0 ? 1 : context.SaleTrack.Where(s => s.StudentID == saleTrackItem.StudentID).Max(s => s.TrackNo);
+                int nextTrackNo = context.SaleTrack.Count(s => s.StudentID == saleTrackItem.StudentID) == 0 ? 1 : context.SaleTrack.Where(s => s.StudentID == saleTrackItem.StudentID).Max(s => s.TrackNo)+1;
                 saleTrackItem.TrackNo = (byte)nextTrackNo;
                 context.SaleTrack.Add(saleTrackItem);
             }
@@ -119,6 +119,22 @@ namespace ClientManage.Domain.Concrete
 
             context.SaveChanges();
         }
+
+        #region 对AppRelation 进行操作
+        public void SaveAppRelation(AppRelationsEntity appRelation)
+        {
+            AppRelationsEntity originRelation = context.AppRelations.Where(r => r.StudentID == appRelation.StudentID).SingleOrDefault();  //根据StudentID查找到就的AppRelation
+            if (originRelation == null)  //如果找不到已有Relation，则为添加
+            {
+                context.AppRelations.Add(appRelation);
+            }
+            else
+            {   //如果已有Student的信息，则为更新
+                context.Entry(originRelation).CurrentValues.SetValues(appRelation);
+            }
+            context.SaveChanges();
+        }
+        #endregion
 
         #endregion
     }

@@ -431,7 +431,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                 {
                     fromItem.ID = Guid.NewGuid();
                 }
-                repository.SaveStudentFrom(fromList);
+                repository.SaveStudentFrom(fromList,studentID);
             }
             else
             {

@@ -20,10 +20,10 @@
         <tr>
             <th>倾向留学国家</th>
             <td class="NationIntentionTr" colspan="3">
-                @Html.CheckBox("AmericaIntention", true, new { @class = "NationIntention AmericaIntention", nation = "美国" }) <span>美国</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.CheckBox("EnglandIntention", false, new { @class = "NationIntention EnglandIntention", nation = "英国" }) <span>英国</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.CheckBox("CanadaIntention", false, new { @class = "NationIntention CanadaIntention", nation = "加拿大" }) <span>加拿大</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                @Html.CheckBox("OtherIntention", false, new { @class = "NationIntention chkOtherIntention", nation = "其他" }) <span>其他</span>
+                @Html.CheckBox("AmericaIntention", Model.StudentInfo.NationIntention.Contains("美国"), new { @class = "NationIntention AmericaIntention", nation = "美国" }) <span>美国</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.CheckBox("EnglandIntention", Model.StudentInfo.NationIntention.Contains("英国"), new { @class = "NationIntention EnglandIntention", nation = "英国" }) <span>英国</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.CheckBox("CanadaIntention", Model.StudentInfo.NationIntention.Contains("加拿大"), new { @class = "NationIntention CanadaIntention", nation = "加拿大" }) <span>加拿大</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                @Html.CheckBox("OtherIntention", Model.StudentInfo.NationIntention.Contains("其他"), new { @class = "NationIntention chkOtherIntention", nation = "其他" }) <span>其他</span>
                 @Html.TextBox("txtOtherIntention",null,new {@class="NationIntention txtOtherIntention",style="display:none;"})
             </td>
         </tr>
@@ -216,7 +216,7 @@ $(document).ready(function () {
 			var contactIdentity = {
 				PersonIdentity:contactValue,	//联系人身份
 				NameCn:ContactP.find("input.ContactName").val(),	//联系人名字
-				Mobile:ContactP.find("input.ContactNum").val(),		//联系人电话
+				Mobile:ContactP.find("input.ContactMobile").val(),		//联系人电话
 				Email:ContactP.find("input.ContactEmail").val(),	//联系人邮箱
 			};
 			var easyChatTimes = ReturnChatTimeArray(ContactP);
@@ -253,13 +253,13 @@ $(document).ready(function () {
 	//返回国家意向
 	function ReturnNationIntention(){
 		var nationIntention="";
-		if($("input.AmericaIntention").attr("checked")==true){
+		if($("input.AmericaIntention").is(":checked")){
 			nationIntention += "美国;";
 		}
-		if($("input.EnglandIntention").attr("checked")==true){
+		if($("input.EnglandIntention").is(":checked")){
 			nationIntention += "英国;";
 		}
-		if($("input.CanadaIntention").attr("checked")==true){
+		if($("input.CanadaIntention").is(":checked")){
 			nationIntention += "加拿大;";
 		}
 		nationIntention += $("input.txtOtherIntention").val();

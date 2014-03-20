@@ -30,6 +30,8 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         /// <param name="id">学生id</param>
         public RedirectToRouteResult Index(Guid id)
         {
+            if (repository.AppRelation.SingleOrDefault(a => a.StudentID == id).IsSign == IsSign.已签约)
+                return RedirectToAction("List", "StudentInfo");
             int itemNum = repository.SaleTrack.Where(s => s.StudentID == id).Count();
             if (itemNum == 0)
             {
@@ -53,7 +55,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
                 {
                     if (!CheckGerFromDone(id, trackNo))
                     {
-                        return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo });     //初访
+                        return RedirectToAction("CommonInterview", new { id = id, TrackNo = trackNo });     
                     }
                     else
                     {
@@ -113,6 +115,8 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         public ViewResult FirstRegFormInfo(Guid id)
         {
             StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == id);
+            if (studentInfo.NationIntention == null)
+                studentInfo.NationIntention = string.Empty;
 
             StudentCreateModel regFromInfo = new StudentCreateModel
             {
@@ -237,27 +241,29 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
 
         #region CommonInterview
         [HttpGet]
-        public ViewResult CommonInterview(Guid id, int trackNo)
+        public ViewResult CommonInterview(Guid id, int TrackNo)
         {
             StudentInfoEntity studentInfo = repository.StudentInfo.FirstOrDefault(s => s.StudentID == id);
             SaleTrackEntity SaleTrack;
             IEnumerable<SaleTrackParticipantsEntity> SaleTrackParticipants = null;
-            if (repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo) != null)
+            if (repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == TrackNo) != null)
             {
-                SaleTrack = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo);
+                SaleTrack = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == TrackNo);
                 SaleTrackParticipants = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == SaleTrack.TrackItemID).Select(s => s);
             }
             else
             {
-                DateTime nextDate = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == trackNo - 1).TrackDate;
+                DateTime nextDate = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == TrackNo - 1).TrackDate;
                 SaleTrack = new SaleTrackEntity
                 {
+                    TrackItemID = Guid.NewGuid(),
                     StudentID = id,
                     Inputor = "Admin",
-                    StateName = "第"+trackNo.ToString() + "次回访",
+                    StateName = "第"+TrackNo.ToString() + "次回访",
+                    TrackNo = (byte)TrackNo,
                     TrackPattern = TrackPattern.面谈,
                     TrackDate = nextDate.AddDays(1),
-                    ToDo = "第" + trackNo.ToString() + "次回访",
+                    ToDo = "第" + TrackNo.ToString() + "次回访",
                     IsComplete = TrackIsComplete.否,
                     Remark = "请输入备注信息 "
                 };
@@ -282,6 +288,8 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         {
             if (ajaxData.SaleTrackItem.TrackItemID == Guid.Empty)
                 ajaxData.SaleTrackItem.TrackItemID = Guid.NewGuid();
+
+            ajaxData.SaleTrackItem.ParticipantIDs = "";
             foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
             {
                 item.ParticipantID = Guid.NewGuid();
@@ -301,7 +309,39 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         public ViewResult GetFromInterview(Guid id, Guid trackID)
         {
             SaleTrackEntity saleTrack = repository.SaleTrack.SingleOrDefault(s => s.TrackItemID == trackID && s.StudentID == id);
+            StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == id);
+            ViewBag.StudentInfo = studentInfo;
             return View(saleTrack);
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">学生id</param>
+        /// <param name="trackID">TrackID</param>
+        /// <param name="isSign">是否已签约</param>
+        /// <param name="signDate">签约日期</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SetGetFromDone(string id, string trackID,int trackNo, bool isSign, DateTime signDate, string getFrom)
+        {
+            Guid studentID = new Guid(id);
+            Guid trackId = new Guid(trackID);
+            SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentID && (s.TrackItemID == trackId || s.TrackNo == trackNo));
+            trackItem.IsGefFromDone = true;
+            trackItem.GetFromTrack = getFrom;
+            repository.SaveSaleTrack(trackItem);
+
+            if (isSign == true)
+            {
+                AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(s => s.StudentID == studentID);
+                appRelation.IsSign = IsSign.已签约;
+                appRelation.SignDate = signDate;
+                appRelation.SignTrackItem = trackId;
+                repository.SaveAppRelation(appRelation);
+            }
+
+            return Json(new { StudentID = id, SetResult = true,SignResult = isSign });
         }
 
         #endregion
@@ -540,16 +580,6 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             isGetFromDone = trackItem.IsGefFromDone;
             return isGetFromDone;
         }
-
-        [HttpPost]
-        public JsonResult SetGetFromDone(Guid studentId, int trackNo)
-        {
-            SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentId && s.TrackNo == trackNo);
-            trackItem.IsGefFromDone = true;
-            repository.SaveSaleTrack(trackItem);
-            return Json(new { StudentID = studentId, SetResult = true });
-        }
-
         #endregion
     }
 }

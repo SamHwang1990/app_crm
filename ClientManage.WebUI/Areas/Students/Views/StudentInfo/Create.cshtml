@@ -103,7 +103,7 @@
 				var contactIdentity = {
 					PersonIdentity:contactValue,	//联系人身份
 					NameCn:ContactP.find("input.ContactName").val(),	//联系人名字
-					Mobile:ContactP.find("input.ContactNum").val(),		//联系人电话
+					Mobile:ContactP.find("input.ContactMobile").val(),		//联系人电话
 					Email:ContactP.find("input.ContactEmail").val(),	//联系人邮箱
 				};
 				var easyChatTimes = ReturnChatTimeArray(ContactP);
@@ -299,7 +299,7 @@
                 <option value="其他">其他</option>
             </select>
             <input type="text" class="ContactName EnterTip" value="请输入联系人名字" />
-            <input type="text" class="ContactNum EnterTip" value="请输入手机号"/>
+            <input type="text" class="ContactMobile EnterTip" value="请输入手机号"/>
             <input type="text" class="ContactEmail EnterTip" value="请输入邮箱"/>
             <input type="text" class="EasyChatBegin EnterTip TimePick" />至<input type="text" class="EasyChatEnd EnterTip TimePick" />
             <a href="javascript:void()" class="KeepAddEasyChat">继续添加方便接听电话时间</a>

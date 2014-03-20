@@ -25,6 +25,7 @@ namespace ClientManage.Domain.Abstract
 
         void SaveSaleTrack(SaleTrackEntity saleTrackItem, IEnumerable<SaleTrackParticipantsEntity> saleTrackParticipants);
         void SaveSaleTrack(SaleTrackEntity saleTrackItem);
+        void SaveAppRelation(AppRelationsEntity appRelation);
 
     }
 }

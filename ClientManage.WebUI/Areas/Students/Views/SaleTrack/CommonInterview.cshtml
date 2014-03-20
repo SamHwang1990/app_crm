@@ -7,7 +7,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqueryFrame/jquery-ui-timepicker-addon.js")"></script>
 
 <h2>创建 @Model.SaleTrack.ToDo 通知</h2>
-<p>学生名：@Model.StudentInfo.NameCn <input type="hidden" class="StudentID" value="@Model.StudentInfo.StudentID"</p>
+<p>学生名：@Model.StudentInfo.NameCn <input type="hidden" class="StudentID" value="@Model.StudentInfo.StudentID" /></p>
 @using(Html.BeginForm("CreateFirstInterviewEvent","SaleTrack",FormMethod.Post))
 {
     <p class="StateName">回访阶段名：@Html.EditorFor(m=>m.SaleTrack.StateName)</p>
@@ -139,6 +139,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     $("input.StudentID").val(data.SaleTrackItem.StudentID);
+                    $("p.NextStep").empty();
                     if (data.SaleTrackItem.IsComplete == 0 || data.SaleTrackItem.IsComplete == "是") {
                         var getFromUrl = "/Students/SaleTrack/GetFromInterview/?id=" + data.SaleTrackItem.StudentID + "&trackID=" + data.SaleTrackItem.TrackItemID;
                         $("p.NextStep").append("<a class='GetFromLink' href='" + getFromUrl + "'>填写回访记录</a>");
@@ -157,26 +158,27 @@
         }
 
         function fGetSaleTrackInfo() {
-            var currentTrackItemID = $("input.StudentID").val();
+            var currentTrackItemID = "@Model.SaleTrack.TrackItemID";
             var studentID = "@Model.StudentInfo.StudentID";
             var stateName = $("p.StateName input").val();
-            if (!CheckInputIsNotEmpty(stateName)) {
+            if (CheckInputIsEmpty(stateName)) {
                 stateName = "@Model.SaleTrack.StateName";
             }
+            var trackNo = "@Model.SaleTrack.TrackNo";
             var trackPattern = $("p.TrackPattern select").val();
-            if (!CheckInputIsNotEmpty(trackPattern)) {
+            if (CheckInputIsEmpty(trackPattern)) {
                 trackPattern = "@Model.SaleTrack.TrackPattern";
             }
             var trackDate = $("p.TrackDate input").val();
-            if (!CheckInputIsNotEmpty(trackDate)) {
+            if (CheckInputIsEmpty(trackDate)) {
                 trackPattern = "@Model.SaleTrack.TrackDate";
             }
             var trackToDo = $("p.TrackToDo textarea").val();
-            if (!CheckInputIsNotEmpty(trackToDo)) {
+            if (CheckInputIsEmpty(trackToDo)) {
                 trackToDo = "@Model.SaleTrack.ToDo";
             }
             var isComplete = $("p.IsComplete select").val();
-            if (!CheckInputIsNotEmpty(isComplete)) {
+            if (CheckInputIsEmpty(isComplete)) {
                 isComplete = "@Model.SaleTrack.IsComplete";
             }
             var remark = $("p.Remark textarea").val();
@@ -185,6 +187,7 @@
                 StudentID: studentID,
                 Inputor: "Admin",
                 StateName: stateName,
+                TrackNo: trackNo,
                 TrackPattern: trackPattern,
                 TrackDate: trackDate,
                 ToDo: trackToDo,
@@ -197,7 +200,7 @@
             var saleTrackParticipant = [];
             var currentTrackItemID = "@Model.SaleTrack.TrackItemID";
             $("div.TrackParticipants table").find("tr.SaleTrackParticipant").each(function (index, element) {
-                if (CheckInputIsNotEmpty($(this).find("input.ParticipantName").val())) {
+                if (!CheckInputIsEmpty($(this).find("input.ParticipantName").val())) {
                     saleTrackParticipant.push({
                         ParticipantName: $(this).find("input.ParticipantName").val(),
                         ParticipantEmail: $(this).find("input.ParticipantEmail").val(),
@@ -210,8 +213,8 @@
             return saleTrackParticipant;
         }
 
-        function CheckInputIsNotEmpty(inputVal) {
-            return inputVal.indexOf("请输入") < 0 || inputVal != "";
+        function CheckInputIsEmpty(inputVal) {
+            return inputVal.indexOf("请输入") >= 0 || inputVal == "";
         }
 
         //Ajax 函数 结束

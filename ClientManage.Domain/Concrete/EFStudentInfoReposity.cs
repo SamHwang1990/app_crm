@@ -248,9 +248,12 @@ namespace ClientManage.Domain.Concrete
         #endregion
 
         #region 对StudentFrom 进行操作
-        public void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms)
+        public void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms,Guid studentID)
         {
-            StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentFroms.FirstOrDefault().StudentID);
+            if (studentFroms.Count() == 0)
+                return;
+
+            StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentID);
             if (studentInfo == null)
             {
                 throw new Exception("当前学生信息不存在");

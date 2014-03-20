@@ -27,8 +27,13 @@
                 </table>
             </td>
         </tr>
-    
     </table>
+    
+    <p class="pIsSign">是否完成签约：
+        <input type="checkbox" name="IsSign" class="IsSign" />
+        <input type="hidden" name="SignDate" class="SignDate DatePick" />
+    </p>
+    
     <input type="submit" value="提交" />
 }
 
@@ -50,7 +55,7 @@
                 };
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("FirstRegFormFrom","StudentInfo")',
+                    url: '@Url.Action("FirstRegFormFrom", "StudentInfo")',
                     data: JSON.stringify(ajaxData),
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
@@ -64,20 +69,32 @@
         }
 
         function SetFirstInterviewGetFromDone(studentID) {
+            var _isSign = $("input.IsSign").is(':checked');
+            var _signDate = $("input.SignDate").val();
+            var _getFrom = "完成初访登记表";
+
             var ajaxData = {
-                studentId: studentID,
-                trackNo: 1
+                id: studentID,
+                trackID: "",
+                trackNo: 1,
+                isSign: _isSign,
+                signDate: _signDate,
+                getFrom: _getFrom
             };
 
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("SetGetFromDone","SaleTrack")',
+                url: '@Url.Action("SetGetFromDone")',
                 data: JSON.stringify(ajaxData),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
-                    if (data.SetResult) {
+                    if (data.SetResult == true && data.SignResult == false) {
                         var url = "/Students/SaleTrack/Index/?id=" + data.StudentID;
+                        window.location.href = url;
+                    }
+                    if (data.SetResult == true && data.SignResult == true) {
+                        var url = "/Students/StudentInfo/List"
                         window.location.href = url;
                     }
                 }
@@ -104,6 +121,17 @@
 
 
         /* 事件绑定 Begin */
+
+        $("input.DatePick").datepicker({ dateFormat: "yy/mm/dd" });
+        $("input.IsSign").bind("click", function (e) {
+            if ($(this).is(':checked') == true) {
+                $("input.SignDate").attr("type", "text");
+            }
+            else {
+                $("input.SignDate").val("");
+                $("input.SignDate").attr("type", "hidden");
+            }
+        });
 
         /* EnterTip Begin */
         $("input.EnterTip").each(function () {

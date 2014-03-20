@@ -42,7 +42,7 @@ namespace ClientManage.Domain.Abstract
         #endregion
 
         #region 对StudentFrom 进行操作
-        void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms);
+        void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms,Guid studentID);
 
         #endregion
     }

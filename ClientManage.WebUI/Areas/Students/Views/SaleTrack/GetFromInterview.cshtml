@@ -5,14 +5,76 @@
     ViewBag.Title = "GetFromInterview";
 }
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqueryFrame/jquery-ui-timepicker-addon.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/clientManage/GetFromInterview.js")"></script>
 <h2>从 @Model.StateName 中获取的信息</h2>
+<p>学生名：@ViewBag.StudentInfo.NameCn <input type="hidden" class="StudentID" value="@ViewBag.StudentInfo.StudentID" /></p>
 @using (Html.BeginForm("GetFromInterview"))
 {
-    <p class="GetFromTrack">@Html.EditorFor(s => s.GetFromTrack)</p>
+    <p class="GetFromTrack">从这次回访中获取的信息：<br />@Html.EditorFor(s => s.GetFromTrack)</p>
     <p class="pIsSign">是否完成签约：
-        <input type="radio" name="IsSign" class="IsSign" value="No" checked="checked"/><span>No</span>&nbsp;&nbsp;
-        <input type="radio" name="IsSign" class="IsSign" value="Yes" /><span>Yes</span>
+        <input type="checkbox" name="IsSign" class="IsSign" />
         <input type="hidden" name="SignDate" class="SignDate DatePick" />
     </p>
+    <p><input type="submit" value="提交" /></p>
 }
+<script type="text/javascript">
+
+    $(document).ready(function (e) {
+        /* Ajax Begin */
+        function SetGetFromDone() {
+            var _isSign = $("input.IsSign").is(':checked');
+            var _signDate = $("input.SignDate").val();
+            if(_signDate == ""){
+                _signDate =  new Date();
+            }
+            var _getFrom = $("p.GetFromTrack textarea").val();
+
+            var ajaxData = {
+                id: "@ViewBag.StudentInfo.StudentID",
+                trackID: "@Model.TrackItemID",
+                trackNo: @Model.TrackNo,
+                isSign: _isSign,
+                signDate: _signDate,
+                getFrom: _getFrom
+            };
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetGetFromDone")',
+                data: JSON.stringify(ajaxData),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data.SetResult == true && data.SignResult == false) {
+                        var url = "/Students/SaleTrack/Index/?id=" + data.StudentID;
+                        window.location.href = url;
+                    }
+                    if (data.SetResult == true && data.SignResult == true) {
+                        var url = "/Students/StudentInfo/List"
+                        window.location.href = url;
+                    }
+                }
+            });
+        }
+
+        /* Ajax End */
+
+        /* 事件绑定 Begin*/
+        $("input.DatePick").datepicker({ dateFormat: "yy/mm/dd" });
+        $("input.IsSign").bind("click",function(e){
+		    if($(this).is(':checked') == true){
+			    $("input.SignDate").attr("type","text");
+		    }
+		    else{
+			    $("input.SignDate").val("");
+			    $("input.SignDate").attr("type","hidden");
+		    }
+	    });
+
+        $("form").submit(function (e) {
+            e.preventDefault();
+            SetGetFromDone();
+        });
+        /* 事件绑定 End */
+    });
+
+</script>
