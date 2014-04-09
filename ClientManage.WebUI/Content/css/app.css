@@ -1,0 +1,191 @@
+/* Create by Sam, 2014.04.07 */
+
+/*Frame Set Begin*/
+html,body{
+	height:100%;
+	padding: 0;
+	margin: 0;
+}
+html{
+	padding-top: 33px;
+	box-sizing: border-box;
+}
+#appWrap{
+	height: auto;
+	min-height: 100%;
+	width: 100%;
+	position: relative;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+#adminMenuBack, #adminMenuWrap, #adminMenu{
+	background-color: #222;
+}
+.app-has-subMenu .app-subMenu{
+	background-color: #333;
+}
+
+#adminMenuBack {
+	width:160px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+}
+#adminMenuWrap{
+	width:160px;
+	float: left;
+	position: fixed;
+	margin-top: 10px;
+	z-index: 99;
+}
+#adminMenuWrap>.adminMenu{
+	width: 160px;
+	margin: 0;
+	padding: 0;
+}
+
+#appContent{
+	height: 100%;
+	margin-left: 180px;
+	position: relative;
+	float: left;
+}
+
+#appAdminBar{
+	direction: ltr;
+	height: 33px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-width: 600px;
+	z-index: 99999;
+	background: #222;
+}
+/*Frame Set End*/
+
+/*More Icon Class Begin*/
+.icon-role{
+	background-image:url("../../Content/images/icon/role.png");
+	background-position: 0px 0px;
+}
+.icon-role-white{
+	background-image:url("../../Content/images/icon/role-white.png");
+	background-position: 0px 0px;
+}
+/*More Icon Class End*/
+
+/*Admin Bar Begin*/
+.navbar .brand{
+	padding: 2px 0 0 0;
+	margin-left: -5px;
+}
+.navbar .editUser{
+	display: block;
+	padding: 5px;
+	color: #fff;
+	text-decoration: none;
+}
+/*Admin Bar End*/
+
+/*Admin Menu Begin*/
+.adminMenu>li{
+	position: relative;
+	min-height: 34px;
+	cursor: pointer;
+}
+.adminMenu>li>a{
+	position: relative;
+	line-height: 34px;
+}
+.adminMenu>li a,.app-subMenu a{
+	display: block;
+	margin: 0;
+	text-shadow: none;
+	color: #eee;
+}
+.adminMenu>li>a:hover,.app-subMenu a:hover,#collapse-menu:hover{
+	text-decoration: none;
+	color: #53c3ed;
+}
+.adminMenu>li>a:hover{
+	background-color: #000;
+}
+.adminMenu>li.app-has-current-subMenu>a:hover{
+
+}
+.app-not-current-subMenu .app-subMenu{
+	list-style: none;
+	position: absolute;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin: 0;
+	z-index: 9999;
+	top: -1000em;
+	left: 160px;
+	width: auto;
+	min-width: 160px;
+	overflow: visible;
+	word-wrap: break-word;
+}
+.app-subMenu-open .app-subMenu{
+	top: -1px;
+	background-color: #333;
+}
+.app-has-current-subMenu .app-subMenu,.app-has-current-subMenu:hover .app-subMenu{
+	position: relative;
+	z-index: 3;
+	top: auto;
+	left: auto;
+	right: auto;
+	bottom: auto;
+	margin: 0;
+	width: auto;
+	min-width: 160px;
+	border: 0 none;
+	margin-top: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.adminMenu>.app-menu-open>a,.adminMenu>.app-menu-open>a:hover{
+	color: #fff;
+	background-color: #0074a2;
+}
+.app-subMenu-open>a:after,.app-menu-open>a:after{
+	right: 0;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-width: 8px;
+	top: 50%;
+	margin-top: -8px;
+}
+.app-subMenu-open>a:after{
+	border-right-color:#333;
+}
+.app-menu-open>a:after{
+	border-right-color: #f1f1f1;
+}
+.app-subMenu li{
+	min-height: 30px;
+	line-height: 30px;
+	background-color: #333;
+	cursor: pointer;
+}
+.app-subMenu li a{
+	padding-left: 15px;
+}
+#collapse-menu{
+	margin-top: 15px;
+	color: #eee;
+}
+#collapse-menu div{
+	float: left;
+	margin-left: 15px;
+}
+/*Admin Menu End*/
+

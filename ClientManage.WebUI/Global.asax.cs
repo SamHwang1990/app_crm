@@ -4,8 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+
+using ClientManage.Domain.Entities;
 using ClientManage.WebUI.Infrastructure;
 using ClientManage.WebUI.Areas.Admin.Controllers;
+using ClientManage.WebUI.Binders;
 
 namespace ClientManage.WebUI
 {
@@ -23,6 +26,16 @@ namespace ClientManage.WebUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
+                null,
+                "",
+                new { controller = "Home", action = "Index" }
+                );
+            routes.MapRoute(
+                "Login", //登录
+                "app-login.html", //app-login.html
+                new { controller = "Home", action = "Login" }
+            );
+            routes.MapRoute(
                 "Default", // 路由名称
                 "{controller}/{action}/{id}", // 带有参数的 URL
                 new {controller = "Home", action = "Index", id = UrlParameter.Optional }// 参数默认值
@@ -37,7 +50,7 @@ namespace ClientManage.WebUI
             RegisterRoutes(RouteTable.Routes);
 
             DependencyResolver.SetResolver(new NinjectDependencyResolver());
-
+            ModelBinders.Binders.Add(typeof(UserInfoEntity), new UserAccountModelBinder());
         }
     }
 }

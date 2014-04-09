@@ -14,11 +14,11 @@ namespace ClientManage.WebUI.Areas.Students
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute(
-                null,
-                "",
-                new { controller = "StudentInfo", action = "List", page = 1 }
-            );
+            //context.MapRoute(
+            //    null,
+            //    "",
+            //    new { controller = "StudentInfo", action = "List", page = 1 }
+            //);
 
             context.MapRoute(
                 "Students_default",

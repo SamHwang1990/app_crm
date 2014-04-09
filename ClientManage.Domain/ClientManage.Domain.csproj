@@ -91,6 +91,7 @@
     <Compile Include="Enum\Grade.cs" />
     <Compile Include="Enum\IsSign.cs" />
     <Compile Include="Enum\Marital.cs" />
+    <Compile Include="Enum\ModuleType.cs" />
     <Compile Include="Enum\PersonIdentity.cs" />
     <Compile Include="Enum\PointDelivery.cs" />
     <Compile Include="Enum\SaleParticipantIdentity.cs" />
