@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-using ClientManage.Domain.Entities;
 using ClientManage.WebUI.Infrastructure;
 using ClientManage.WebUI.Areas.Admin.Controllers;
 using ClientManage.WebUI.Binders;
+using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI
 {
@@ -50,7 +50,7 @@ namespace ClientManage.WebUI
             RegisterRoutes(RouteTable.Routes);
 
             DependencyResolver.SetResolver(new NinjectDependencyResolver());
-            ModelBinders.Binders.Add(typeof(UserInfoEntity), new UserAccountModelBinder());
+            ModelBinders.Binders.Add(typeof(LoginUser), new UserAccountModelBinder());
         }
     }
 }
