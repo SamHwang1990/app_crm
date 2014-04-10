@@ -56,12 +56,12 @@
 
 <div id="container">
     <img src="../../Content/images/App_logo.jpg" class="App_logo">
-    <form class="form-signin">
+    <form class="form-signin" id="form-signin" method="post" action="@Url.Action("Login", "Home")">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName">Uesr Name:</label>
-        <input type="text" id="userName" class="input-block-level" placeholder="user name"/>
+        <input type="text" id="userName" class="input-block-level" placeholder="user name" required="required"/>
         <label for="password">Password:</label>
-        <input type="password" id="password" class="input-block-level" placeholder="password"/>
+        <input type="password" id="password" class="input-block-level" placeholder="password" required="required"/>
         <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
         </label>
@@ -69,7 +69,6 @@
     </form>
 </div>
 
-@Html.Partial("componentjs")
-<script src="@Url.Content("~/Scripts/app.js")"></script>
+@Html.Partial("libsjs")
 </body>
 </html>

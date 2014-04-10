@@ -1,0 +1,20 @@
+<h2 class="form-signin-heading">Please sign in</h2>
+<label for="userName">Uesr Name:</label>
+<input type="text" name="UserName" id="userName" class="input-block-level" placeholder="user name" value="<%= UserName %>"/>
+        <% if(invalid[UserName]) { %>
+        <span class="error-message"><%= invalid[UserName] %></span>
+        <% } %>
+<label for="password">Password:</label>
+<input type="password" name="UserPassword" id="password" class="input-block-level" placeholder="password" value="<%= UserPassword %>"/>
+        <% if(invalid[UserName]) { %>
+        <span class="error-message"><%= invalid[UserName] %></span>
+        <% } %>
+<label class="checkbox">
+    <% if( RememberMe ) { %>
+        <input type="checkbox" value="remember-me" checked="checked"/>
+    <% } else { %>
+    <input type="checkbox" value="remember-me"/>
+    <% } %>
+     Remember me
+</label>
+<button id="btnSubmit" class="btn btn-large btn-primary" type="submit">Sign in</button>

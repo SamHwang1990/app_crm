@@ -25,5 +25,11 @@ namespace ClientManage.WebUI.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult Login(string UserName,string UserPassword,bool RememberMe)
+        {
+            return Json(new{ msg="login successfully"});
+        }
+
     }
 }

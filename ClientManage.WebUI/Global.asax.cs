@@ -25,19 +25,22 @@ namespace ClientManage.WebUI
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            var rootUrl = "";
+
             routes.MapRoute(
                 null,
-                "",
+                rootUrl,
                 new { controller = "Home", action = "Index" }
                 );
             routes.MapRoute(
                 "Login", //登录
-                "app-login.html", //app-login.html
+                rootUrl+"app-login.html", //app-login.html
                 new { controller = "Home", action = "Login" }
             );
             routes.MapRoute(
                 "Default", // 路由名称
-                "{controller}/{action}/{id}", // 带有参数的 URL
+                rootUrl+"{controller}/{action}/{id}", // 带有参数的 URL
                 new {controller = "Home", action = "Index", id = UrlParameter.Optional }// 参数默认值
             );
         }
