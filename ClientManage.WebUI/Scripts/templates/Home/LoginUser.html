@@ -1,20 +1,27 @@
-<h2 class="form-signin-heading">Please sign in</h2>
-<label for="userName">Uesr Name:</label>
-<input type="text" name="UserName" id="userName" class="input-block-level" placeholder="user name" value="<%= UserName %>"/>
-        <% if(invalid.UserName) { %>
-        <span class="error-message"><%= invalid.UserName %></span>
+<div id="login-error">
+    <strong>错误</strong>
+    ：
+    <b>
+        <% if(invalid.errorMsg) { %>
+        <%= invalid.errorMsg %>
+        <% }  %>
+    </b>
+</div>
+<form class="form-signin" id="form-signin" method="post" action="/app-login.html">
+    <h2 class="form-signin-heading">登录系统</h2>
+    <label for="userName">
+        <input type="text" name="UserName" id="userName" class="input-block-level" placeholder="请输入中文名" value="<%= UserName %>"/>
+    </label>
+    <label for="password">
+        <input type="password" name="UserPassword" id="password" class="input-block-level" placeholder="请输入密码" value="<%= UserPassword %>"/>
+    </label>
+    <label class="checkbox">
+        <% if( RememberMe ) { %>
+            <input type="checkbox" value="remember-me" checked="checked"/>
+        <% } else { %>
+        <input type="checkbox" value="remember-me"/>
         <% } %>
-<label for="password">Password:</label>
-<input type="password" name="UserPassword" id="password" class="input-block-level" placeholder="password" value="<%= UserPassword %>"/>
-        <% if(invalid.UserPassword) { %>
-        <span class="error-message"><%= invalid.UserPassword %></span>
-        <% } %>
-<label class="checkbox">
-    <% if( RememberMe ) { %>
-        <input type="checkbox" value="remember-me" checked="checked"/>
-    <% } else { %>
-    <input type="checkbox" value="remember-me"/>
-    <% } %>
-     Remember me
-</label>
-<button id="btnSubmit" class="btn btn-large btn-primary" type="submit">Sign in</button>
+        记住我
+    </label>
+    <button id="btnSubmit" class="btn btn-large btn-primary" type="submit">提交</button>
+</form>

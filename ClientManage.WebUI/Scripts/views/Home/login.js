@@ -9,11 +9,11 @@ define([
     'models/LoginUser',
     'text!templates/Home/LoginUser.html'],function($,_,Backbone,model,loginTemplate){
         var LoginView = Backbone.View.extend({
-            el:"form#form-signin",
+            el:"#container",
             model:new model(),
             template: _.template(loginTemplate),
             events:{
-                'change input':'inputChange',
+	            'change input':'inputChange',
                 'click #btnSubmit':'checkLogin'
             },
             initialize:function(){
@@ -27,9 +27,15 @@ define([
 
 	            //将模型数据传入模板
                 this.$el.html(this.template(modelData));
+
+	            //如果模型中有错误的验证信息，则显示
+	            if(_.size(modelData.invalid)){
+		            this.$el.find("#login-error").css("display","block");
+	            }
             },
             validateForm:function(checkRequired){
                 //将模型数据转成JSON
+	            this.model.get('invalid').unset('errorMsg');
                 var data = this.model.toJSON();
                 data.invalid = data.invalid.toJSON();
 
@@ -59,28 +65,23 @@ define([
 
                 //如果有invalid 的输入域，返回false，否则返回true
                 if(_.size(this.model.get('invalid').toJSON())){
+	                this.model.get('invalid').set('errorMsg',requiredMsg);
                     return false;
                 }
                 else{
                     return true;
                 }
             },
-            inputChange:function(e){
+	        inputChange:function(e){
 
-                var $input = $(e.target);
+				var $input = $(e.target);
 
-                //获取模型中键的名称
-                var inputName = $input.attr('name');
+				//获取模型中键的名称
+				var inputName = $input.attr('name');
 
-                //在模型中设定新值
-                this.model.set(inputName,$input.val());
-
-                //检查表单是否有效
-                //如果无效，重新渲染以显示错误
-                if(!this.validateForm(false)) {
-	                this.render();
-                }
-            },
+				//在模型中设定新值
+				this.model.set(inputName,$input.val());
+			},
             checkLogin:function(e){
                 //防止以老式办法提交表单
                 e.preventDefault();
@@ -109,13 +110,7 @@ define([
 			                }else{  //当登录失败时
 
 				                //判断是否用户名不存在
-				                if(data.userMsg.length > 0){
-					                that.model.get("invalid").set("UserName",data.userMsg);
-				                }
-				                //判断是否密码错误
-				                if(data.passMsg.length > 0){
-					                that.model.get("invalid").set("UserPassword",data.passMsg);
-				                }
+				                that.model.get("invalid").set("errorMsg",data.loginMsg);
 				                that.render();
 			                }
 		                },

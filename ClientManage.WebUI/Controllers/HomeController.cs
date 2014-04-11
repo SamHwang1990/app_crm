@@ -41,22 +41,24 @@ namespace ClientManage.WebUI.Controllers
         {
             UserInfoEntity user = repository.GetUserInfo(UserName);
             bool loginResult = false;
-            string loginUserMsg = "";
-            string loginPassMsg = "";
+            string loginMsg = "";
 
-            if (user != null && user.UserPass == UserPassword)
+            if (user == null)
+            {
+                loginMsg = "用户名不存在";
+            }
+            else if(user.UserPass != UserPassword)
+            {
+                loginMsg = "用户密码错误";
+            }
+            else
             {
                 FormsAuthentication.SetAuthCookie(UserName, RememberMe);
                 loginResult = true;
             }
-            else
-            {
-                loginResult = false;
-                loginUserMsg = "用户名不存在";
-                loginPassMsg = "用户密码错误";
-            }
 
-            return Json(new { result = loginResult, userMsg = loginUserMsg, passMsg=loginPassMsg });
+
+            return Json(new { result = loginResult, loginMsg = loginMsg });
         }
 
 
