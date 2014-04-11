@@ -119,7 +119,8 @@
     <Content Include="Content\xml\EmailConfig.xml" />
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />
-    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\mainApp.js" />
+    <Content Include="Scripts\mainLogin.js" />
     <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
     <Content Include="Scripts\clientManage\FirstRegFormInfo.js" />
     <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
@@ -267,7 +268,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49181</DevelopmentServerPort>
+          <DevelopmentServerPort>49511</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

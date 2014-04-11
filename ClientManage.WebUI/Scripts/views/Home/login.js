@@ -21,8 +21,12 @@ define([
                 this.render();
             },
             render:function(){
+	            //将模型数据转成JSON
                 var modelData = this.model.toJSON();
-                $(this.el).html(this.template(modelData));
+	            modelData.invalid = modelData.invalid.toJSON();
+
+	            //将模型数据传入模板
+                this.$el.html(this.template(modelData));
             },
             validateForm:function(checkRequired){
                 //将模型数据转成JSON
@@ -83,6 +87,9 @@ define([
 
                 //有效性检查
                 if(this.validateForm(true)){
+	                //另存为this
+	                var that = this;
+
                     //用表单上的URL 设定API 地址
                     this.model.url = this.$el.attr('action');
 
@@ -90,8 +97,32 @@ define([
                     var data = this.model.toJSON();
                     delete data.invalid;
 
-                    //如果有效，保存模型
-	                this.model.save(data);
+                    //如果有效，发送模型
+	                $.ajax({
+		                type:"POST",
+		                url:this.model.url,
+		                data:data,
+		                dataType: 'json',
+		                success: function (data){
+			                if(data.result){ //登录成功，则重定向
+				                window.location.href="/Home/Index";
+			                }else{  //当登录失败时
+
+				                //判断是否用户名不存在
+				                if(data.userMsg.length > 0){
+					                that.model.get("invalid").set("UserName",data.userMsg);
+				                }
+				                //判断是否密码错误
+				                if(data.passMsg.length > 0){
+					                that.model.get("invalid").set("UserPassword",data.passMsg);
+				                }
+				                that.render();
+			                }
+		                },
+		                error:function(data,err){
+			                console.log(err);
+		                }
+                    });
                 }
                 else{
                     //否则重新渲染错误消息

@@ -22,10 +22,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
                 data:userData,
 	            dataType: 'json',
 	            success: function (data){
-		            if(data.error){
-
+		            if(data.result){
+			            window.location.href="/Home/Index";
 		            }else{
-
+			            alert(data.msg);
 		            }
 	            },
 	            error:function(err){

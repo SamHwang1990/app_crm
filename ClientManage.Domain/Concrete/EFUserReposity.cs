@@ -32,6 +32,8 @@ namespace ClientManage.Domain.Concrete
             if (originUser == null)
             {
                 SetNewUserLastJob(userInfo);
+                userInfo.CreateTime = DateTime.Now; //初始化新用户的创建时间
+                userInfo.LastLoginTime = DateTime.Now;  //初始化新用户的最后登录时间
                 context.UsersInfo.Add(userInfo);
             }
             else
@@ -61,6 +63,16 @@ namespace ClientManage.Domain.Concrete
             else
                 //否则，在所有同角色用户中，选择最小的出勤时间，并减去1天
                 newUser.LastJobDate = context.UsersInfo.Where(u => u.UserRole == newUser.UserRole).Select(u => u.LastJobDate).Min().AddDays(-1);
+        }
+
+        /// <summary>
+        /// 根据用户名获取用户信息
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <returns></returns>
+        public UserInfoEntity GetUserInfo(string userName)
+        {
+            return UsersInfo.Where(u => u.UserNameCn == userName).SingleOrDefault();
         }
     }
 }

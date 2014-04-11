@@ -75,8 +75,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        [ScaffoldColumn(false)]
-        
+        [ScaffoldColumn(false)]      
         public Guid UserRole
         {
             set{_UserRole = value;}
@@ -124,6 +123,18 @@ namespace ClientManage.Domain.Entities
         {
             set{_UserRemark = value;}
             get{return _UserRemark;}
+        }
+
+        public DateTime? CreateTime
+        {
+            get;
+            set;
+        }
+
+        public DateTime? LastLoginTime
+        {
+            get;
+            set;
         }
 
         #endregion

@@ -13,5 +13,7 @@ namespace ClientManage.Domain.Abstract
         void SaveUserInfo(UserInfoEntity userInfo);
 
         void DeleteUserInfo(UserInfoEntity userInfo);
+
+        UserInfoEntity GetUserInfo(string userName);
     }
 }

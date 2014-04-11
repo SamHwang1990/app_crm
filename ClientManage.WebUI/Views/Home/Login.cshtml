@@ -59,9 +59,9 @@
     <form class="form-signin" id="form-signin" method="post" action="@Url.Action("Login", "Home")">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="userName">Uesr Name:</label>
-        <input type="text" id="userName" class="input-block-level" placeholder="user name" required="required"/>
+        <input type="text" id="userName" class="input-block-level" placeholder="user name"/>
         <label for="password">Password:</label>
-        <input type="password" id="password" class="input-block-level" placeholder="password" required="required"/>
+        <input type="password" id="password" class="input-block-level" placeholder="password"/>
         <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
         </label>
@@ -69,6 +69,8 @@
     </form>
 </div>
 
-@Html.Partial("libsjs")
+<!--javascript lib begin-->
+<script data-main="@Url.Content("~/Scripts/mainLogin")" src="@Url.Content("~/Scripts/libs/require/require.js")"></script>
+<!--javascript lib end-->
 </body>
 </html>
