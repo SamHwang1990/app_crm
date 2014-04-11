@@ -35,7 +35,7 @@ define([
             },
             validateForm:function(checkRequired){
                 //将模型数据转成JSON
-	            this.model.get('invalid').unset('errorMsg');
+	            this.model.get('invalid').unset('errorMsg');    //先把model中的errorMsg 先给全部删掉
                 var data = this.model.toJSON();
                 data.invalid = data.invalid.toJSON();
 
