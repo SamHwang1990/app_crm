@@ -14,10 +14,10 @@ define([
             template: _.template(loginTemplate),
             events:{
 	            'change input':'inputChange',
-                'click #btnSubmit':'checkLogin'
+                'click #btnSubmit':'submitLogin'
             },
             initialize:function(){
-                _.bindAll(this, 'render');
+                _.bindAll(this, 'render','validateForm','inputChange','submitLogin');
                 this.render();
             },
             render:function(){
@@ -82,7 +82,7 @@ define([
 				//在模型中设定新值
 				this.model.set(inputName,$input.val());
 			},
-            checkLogin:function(e){
+            submitLogin:function(e){
                 //防止以老式办法提交表单
                 e.preventDefault();
 

@@ -54,7 +54,7 @@ html{
 
 #appAdminBar{
 	direction: ltr;
-	height: 33px;
+	height: 34px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -62,11 +62,33 @@ html{
 	min-width: 600px;
 	z-index: 99999;
 	background: #222;
+	margin-bottom: 0;
 }
-
 #appBody{
 	position: relative;
 	color: #444;
+}
+#appBody-content{
+	padding-bottom: 65px;
+	float: left;
+	width: 100%;
+	overflow: visible;
+}
+#appBody-content .wrap{
+	margin: 10px 20px 0 2px;
+}
+#appFooter{
+	margin-left: 180px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px 0;
+	margin-right: 20px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	color: #777;
+	border-color: transparent;
 }
 /*Frame Set End*/
 
@@ -193,4 +215,3 @@ html{
 	margin-left: 15px;
 }
 /*Admin Menu End*/
-

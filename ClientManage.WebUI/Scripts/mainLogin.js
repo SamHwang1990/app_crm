@@ -3,6 +3,7 @@
  */
 
 // Require.js allows us to configure shortcut alias
+/*
 require.config({
     urlArgs: "bust=v2",
     paths: {
@@ -15,6 +16,7 @@ require.config({
     }
 
 });
+*/
 
 require(['views/Home/login'], function (LoginView) {
     var login_view = new LoginView;

@@ -73,6 +73,8 @@
             </ul>
         </div>
         <!--Admin Menu End-->
+
+        <!--App Content Begin-->
         <div id="appContent">
             <!--Top nav begin-->
             <div id="appAdminBar" class="navbar navbar-inverse" role="navigation">
@@ -108,15 +110,32 @@
             </div>
             <!--Top nav end-->
 
+            <!--App Body begin-->
             <div id="appBody">
-                d
+                <div id="appBody-content" aria-label="主内容">
+                    <div class="wrap">
+
+                    </div>
+                </div>
             </div>
+            <!--App Body End-->
         </div>
+        <div class="clearfix"></div>
+        <!--App Content End-->
+
+        <!--App Footer Begin-->
+        <div id="appFooter">
+            <p id="footerThanks" class="pull-left"><i>感谢使用 <em class="text-info">App-ClientManage</em> 进行日常工作</i></p>
+            <p id="footerUpgrade" class="pull-right"><i>0.0.0.1 版本</i></p>
+        </div>
+        <!--App Footer End-->
     </div>
     <!--App Wrapper end-->
 
-<!--JS File Input-->
-    <script src="../../Scripts/libs/jquery/jquery-1.11.0.min.js"></script>
-    <script src="../../Content/bootstrap/js/bootstrap.min.js"></script>
+<!--javascript lib begin-->
+<script src="../../Scripts/requireConfig.js"></script>
+<script data-main="../../Scripts/mainApp" src="../../Scripts/libs/require/require.js"></script>
+<!--javascript lib end-->
+
 </body>
 </html>

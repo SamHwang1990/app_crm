@@ -61,6 +61,17 @@ namespace ClientManage.WebUI.Controllers
             return Json(new { result = loginResult, loginMsg = loginMsg });
         }
 
-
+        [HttpGet]
+        public JsonResult CheckLogin()
+        {
+            string userName="";
+            bool hasCurrentUser = false;
+            if (HttpContext.User.Identity.Name != string.Empty)
+            {
+                userName = HttpContext.User.Identity.Name;
+                hasCurrentUser = true;
+            }
+            return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName });
+        }
     }
 }

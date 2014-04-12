@@ -119,6 +119,7 @@
     <Content Include="Content\xml\EmailConfig.xml" />
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />
+    <Content Include="Scripts\config.js" />
     <Content Include="Scripts\mainApp.js" />
     <Content Include="Scripts\mainLogin.js" />
     <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
@@ -134,6 +135,7 @@
     <Content Include="Scripts\libs\require\text.js" />
     <Content Include="Scripts\libs\underscore\underscore-min.js" />
     <None Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\requireConfig.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

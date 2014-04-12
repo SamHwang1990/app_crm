@@ -2,7 +2,7 @@
  * Created by samhwang1990@gmail.com on 14-4-11.
  */
 
-// Require.js allows us to configure shortcut alias
+/*// Require.js allows us to configure shortcut alias
 require.config({
 	urlArgs: "bust=v2",
 	paths: {
@@ -14,8 +14,8 @@ require.config({
 		domReady:'libs/require/domReady'
 	}
 
-});
+});*/
 
-require(['views/Home/Index'], function (LoginView) {
-	var login_view = new LoginView;
+require(['views/Home/Index'], function (indexView) {
+	var index_view = new indexView;
 });
