@@ -133,6 +133,7 @@
     <Content Include="Scripts\libs\require\require.js" />
     <Content Include="Scripts\libs\require\text.js" />
     <Content Include="Scripts\libs\underscore\underscore-min.js" />
+    <None Include="Views\Home\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -143,7 +144,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
@@ -162,6 +162,7 @@
     <Folder Include="Scripts\views\" />
     <Folder Include="UploadFiles\Students\" />
     <Folder Include="UploadFiles\Users\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -171,9 +172,6 @@
       <Project>{259EFADD-6822-4407-BE94-82503B09FE11}</Project>
       <Name>ClientManage.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Web.config" />
@@ -248,7 +246,7 @@
     <Content Include="Areas\Students\Views\SaleTrack\GetFromInterview.cshtml" />
     <Content Include="Areas\ToolMgr\Views\Web.config" />
     <Content Include="Areas\StudentMgr\Views\Web.config" />
-    <Content Include="Views\Home\Login.cshtml" />
+    <None Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\libsjs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

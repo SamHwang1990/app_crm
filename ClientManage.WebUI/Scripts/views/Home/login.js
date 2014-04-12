@@ -92,7 +92,10 @@ define([
 	                var that = this;
 
                     //用表单上的URL 设定API 地址
-                    this.model.url = this.$el.attr('action');
+                    this.model.set("url",this.$el.find("#form-signin").attr('action'));
+
+	                //设置是否记住我
+	                this.model.set("RememberMe",this.$el.find("#form-signin input[type=checkbox]").is(':checked'));
 
                     //为提交给API 清理数据
                     var data = this.model.toJSON();
@@ -101,7 +104,7 @@ define([
                     //如果有效，发送模型
 	                $.ajax({
 		                type:"POST",
-		                url:this.model.url,
+		                url:data.url,
 		                data:data,
 		                dataType: 'json',
 		                success: function (data){

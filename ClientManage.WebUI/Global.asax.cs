@@ -49,6 +49,9 @@ namespace ClientManage.WebUI
         {
             AreaRegistration.RegisterAllAreas();
 
+            //ViewEngines.Engines.Clear();
+            //ViewEngines.Engines.Add(new ClientManageViewEngine());  //更改视图搜索位置以及视图格式
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
