@@ -63,6 +63,11 @@ html{
 	z-index: 99999;
 	background: #222;
 }
+
+#appBody{
+	position: relative;
+	color: #444;
+}
 /*Frame Set End*/
 
 /*More Icon Class Begin*/
