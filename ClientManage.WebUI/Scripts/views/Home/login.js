@@ -1,23 +1,25 @@
 /**
  * Created by samhwang1990@gmail.com on 14-4-10.
+ * 登录页的视图设置
  */
 
 define([
     'jquery',
     'underscore',
     'backbone',
-    'models/LoginUser',
-    'text!templates/Home/LoginUser.html'],function($,_,Backbone,model,loginTemplate){
+    'models/LoginUser',                             //登录数据Model 引入
+    'text!templates/Home/LoginUser.html'            //登录页Html 模板引入
+	],function($,_,Backbone,model,loginTemplate){
         var LoginView = Backbone.View.extend({
             el:"#container",
-            model:new model(),
-            template: _.template(loginTemplate),
-            events:{
+            model:new model(),                      //初始化Model 为默认值
+            template: _.template(loginTemplate),    //解析Html 模板
+            events:{                                //绑定Html 事件
 	            'change input':'inputChange',
                 'click #btnSubmit':'submitLogin'
             },
             initialize:function(){
-                _.bindAll(this, 'render','validateForm','inputChange','submitLogin');
+                _.bindAll(this, 'render','validateForm','inputChange','submitLogin');   //绑定View 各方法的this
                 this.render();
             },
             render:function(){
@@ -72,7 +74,7 @@ define([
                     return true;
                 }
             },
-	        inputChange:function(e){
+	        inputChange:function(e){    //将视图模板数据反映到UserLogin模型中
 
 				var $input = $(e.target);
 
@@ -83,7 +85,7 @@ define([
 				this.model.set(inputName,$input.val());
 			},
             submitLogin:function(e){
-                //防止以老式办法提交表单
+                //阻止直接提交表单
                 e.preventDefault();
 
                 //有效性检查

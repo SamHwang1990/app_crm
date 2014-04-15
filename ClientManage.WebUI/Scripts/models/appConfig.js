@@ -1,20 +1,21 @@
 /**
  * Created by samhwang1990@gmail.com on 14-4-12.
+ * 系统前端配置信息的交互模型JS
  */
 
-define(['jquery','underscore','backbone','appConfig'],function($,_,Backbone,appConfig){
+define(['jquery','underscore','backbone','config'],function($,_,Backbone,config){
 	var appConfigModel = Backbone.Model.extend({
 		defaults:{
-			host:appConfig.host,
-			port:appConfig.port,
-			sitePath:appConfig.sitePath,
-			viewPath:appConfig.viewPath,
-			modelPath:appConfig.modelPath,
-			templatePath:appConfig.templatePath,
-			collectionPath:appConfig.collectionPath,
-			libPath:appConfig.libPath,
-			siteName:appConfig.siteName,
-			version:appConfig.version
+			host:config.host,
+			port:config.port,
+			sitePath:config.sitePath,
+			viewPath:config.viewPath,
+			modelPath:config.modelPath,
+			templatePath:config.templatePath,
+			collectionPath:config.collectionPath,
+			libPath:config.libPath,
+			siteName:config.siteName,
+			version:config.version
 		},
 		initialize:function(){
 			_.bind(this.save, this);

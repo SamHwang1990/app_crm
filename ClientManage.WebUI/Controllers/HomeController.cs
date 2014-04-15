@@ -61,7 +61,7 @@ namespace ClientManage.WebUI.Controllers
             return Json(new { result = loginResult, loginMsg = loginMsg });
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult CheckLogin()
         {
             string userName="";
@@ -72,6 +72,21 @@ namespace ClientManage.WebUI.Controllers
                 hasCurrentUser = true;
             }
             return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName });
+        }
+
+        [CustomAuth]
+        [HttpPost]
+        public JsonResult About()
+        {
+
+            return Json(new { });
+        }
+
+        [CustomAuth]
+        public RedirectToRouteResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

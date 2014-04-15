@@ -1,10 +1,11 @@
 /**
  * Created by samhwang1990@gmail.com on 14-4-10.
+ * 登录实体模型
  */
 define(['jquery','underscore','backbone'],function($,_,Backbone){
-    var Invalid = Backbone.Model.extend({})
+    var Invalid = Backbone.Model.extend({});    //登录模型的错误信息
     var LoginUserModel = Backbone.Model.extend({
-        defaults:{
+        defaults:{      //设置模型的默认值
             UserName:'',
             UserPassword:'',
             RememberMe:false
@@ -14,7 +15,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
             //配一个子模型存放无效输入域
             this.set('invalid',new Invalid);
         },
-        /* 创建自定义 save 函数 */
+        /*
+        * 创建自定义 save 函数
+        * 暂时没使用，因为没搞懂怎么在模型里面控制视图以及模板的内容
+        * */
         save:function(userData){
             $.ajax({
                 type:"POST",
