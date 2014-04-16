@@ -19,49 +19,48 @@
         <div id="adminMenuWrap" role="navigation">
             <ul class="adminMenu nav nav-list">
                 <li class="app-has-subMenu app-has-current-subMenu app-menu-open">
-                    <a href="#"><i class="icon-globe icon-white"></i>&nbsp;仪表盘</a>
+                    <a href="/Home/Index"><i class="icon-globe icon-white"></i>&nbsp;仪表盘</a>
                     <ul class="app-subMenu">
-                        <li><a href="#">首页</a> </li>
-                        <li><a href="#">啥</a> </li>
-                        <li><a href="#">忽悠吧</a> </li>
-                    </ul>
-                </li>
-                <li class="app-has-subMenu app-not-current-subMenu app-subMenu-open">
-                    <a href="#"><i class="icon-star icon-white"></i>&nbsp;学生管理</a>
-                    <ul class="app-subMenu">
-                        <li><a href="#" class="current">所有学生</a> </li>
-                        <li><a href="#">添加学生</a> </li>
-                        <li><a href="#">销售跟踪</a> </li>
-                        <li><a href="#">申请跟踪</a> </li>
+                        <li><a href="/Home/Index">首页</a> </li>
+                        <li><a href="/Home/Feedback">反馈</a> </li>
                     </ul>
                 </li>
                 <li class="app-has-subMenu app-not-current-subMenu">
-                    <a href="#"><i class="icon-user icon-white"></i>&nbsp;用户管理 </a>
+                    <a href="/StudentMgr/Index/List"><i class="icon-star icon-white"></i>&nbsp;学生管理</a>
                     <ul class="app-subMenu">
-                        <li><a href="#">所有用户</a> </li>
-                        <li><a href="#">添加用户</a> </li>
-                        <li><a href="#">我的个人资料</a> </li>
+                        <li><a href="/StudentMgr/Index/List" class="current">所有学生</a> </li>
+                        <li><a href="/StudentMgr/Index/Add">添加学生</a> </li>
+                        <li><a href="/StudentMgr/SaleTrack/List">销售跟踪</a> </li>
+                        <li><a href="/StudentMgr/ApplyTrack/List">申请跟踪</a> </li>
                     </ul>
                 </li>
                 <li class="app-has-subMenu app-not-current-subMenu">
-                    <a href="#"><i class="icon-role-white"></i>&nbsp;角色管理 </a>
+                    <a href="/UserMgr/List"><i class="icon-user icon-white"></i>&nbsp;用户管理 </a>
                     <ul class="app-subMenu">
-                        <li><a href="#">所有角色</a> </li>
-                        <li><a href="#">添加角色</a> </li>
-                        <li><a href="#">权限分配</a> </li>
+                        <li><a href="/UserMgr/List">所有用户</a> </li>
+                        <li><a href="/UserMgr/Add">添加用户</a> </li>
+                        <li><a href="/UserMgr/Edit/">我的个人资料</a> </li>
                     </ul>
                 </li>
                 <li class="app-has-subMenu app-not-current-subMenu">
-                    <a href="#"><i class="icon-wrench icon-white"></i>&nbsp;工具 </a>
+                    <a href="/RoleMgr/List"><i class="icon-role-white"></i>&nbsp;角色管理 </a>
                     <ul class="app-subMenu">
-                        <li><a href="#">整站备份</a> </li>
-                        <li><a href="#">数据库备份</a> </li>
+                        <li><a href="/RoleMgr/List">所有角色</a> </li>
+                        <li><a href="/RoleMgr/Add">添加角色</a> </li>
+                        <li><a href="/RoleMgr/AuthEdit">权限分配</a> </li>
                     </ul>
                 </li>
                 <li class="app-has-subMenu app-not-current-subMenu">
-                    <a href="#"><i class="icon-cog icon-white"></i>&nbsp;设置 </a>
+                    <a href="/ToolMgr/Index/List"><i class="icon-wrench icon-white"></i>&nbsp;工具 </a>
                     <ul class="app-subMenu">
-                        <li><a href="#">常规</a></li>
+                        <li><a href="/ToolMgr/SiteBak/List">整站备份</a> </li>
+                        <li><a href="~/ToolMgr/DbBak/List">数据库备份</a> </li>
+                    </ul>
+                </li>
+                <li class="app-has-subMenu app-not-current-subMenu">
+                    <a href="/Setting/Index"><i class="icon-cog icon-white"></i>&nbsp;设置 </a>
+                    <ul class="app-subMenu">
+                        <li><a href="/Setting/Index">常规</a></li>
                     </ul>
                 </li>
                 <li id="collapse-menu">

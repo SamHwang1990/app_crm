@@ -12,7 +12,7 @@ define(['jquery','backbone','models/LoginUser'],function($,Backbone,UserModel){
 		dataType: 'json',
 		success:function(data){
 			if(data.HasCurrentUser){
-				currentUser.UserName = data.UserName;   //设置UserName
+				currentUser.set("UserName",data.UserName);   //设置UserName
 			}
 			else{                                       //如果没有登录信息，则重定向到登录页
 				window.location.href="/Home/Login";

@@ -6,6 +6,7 @@
 // Require.js allows us to configure shortcut alias
 require.config({
 	urlArgs: "bust=v2",                                     //用来避免require的缓存信息
+	baseUrl: "Scripts",
 	paths: {
 		jquery: 'libs/jquery/jquery-1.11.0.min',            //jQuery 1.11.0 路径
 		bootstrap:'../Content/bootstrap/js/bootstrap.min',  //bootstrap 框架
