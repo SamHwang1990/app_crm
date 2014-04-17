@@ -54,26 +54,25 @@ define([
 
 				var linkElement = e.target;
 
-				//获取a 的href路由值
-				//比如：http://localhost:3000/Home/Index => Home/Index，sitePath=http://localhost:3000
-				var linkRoute = linkElement.href.slice(this.model.AppConfig.toJSON().sitePath.length+1);
-				//将路由值分割成数组
-				var linkRouteArray = linkRoute.split('/');
+				//获取a 的路由路由值
+				//比如：取得a 元素的pathname，例如：/Home/Index
+				var linkRoute = linkElement.pathname;
 
-				this.ShowRouteViewContent(linkRouteArray);
+				this.ShowRouteViewContent(linkRoute);
 
 			},
 			//根据传入的路由数组渲染对应的视图
-			ShowRouteViewContent:function(routeArray){
+			ShowRouteViewContent:function(linkRoute){
 				var appConfig = this.model.AppConfig.toJSON();
 				var viewPath = appConfig.viewPath;
 				var modelPath = appConfig.modelPath;
 				var collectionPath = appConfig.collectionPath;
 				var templatePath = appConfig.templatePath;
-				//引入视图文件
-				//以Temp作为一个例子
-				require(['views/Home/Temp'],function(tempView){
-					var temp_View = new tempView;
+
+				//引用视图文件：比如：views/Home/Index
+				var routeView = viewPath+linkRoute;
+				require([routeView],function(routeView){
+					var route_View = new routeView;
 				});
 			}
 
