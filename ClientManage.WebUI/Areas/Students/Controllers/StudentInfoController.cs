@@ -28,21 +28,23 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
 
         public ActionResult List(int page = 1)
         {
-            StudentListViewModel studentInfoViewModel = new StudentListViewModel
-            {
-                StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a })   //调用Join函数，连结两个集合，返回一个包对象
-                .OrderBy(r => r.StudentInfo.NameCn)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize),
-                pagingInfo = new PagingInfo
-                {
-                    TotalItems = repository.StudentsInfo.Count(),
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize
-                }
-            };
+            //StudentListViewModel studentInfoViewModel = new StudentListViewModel
+            //{
+            //    StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a })   //调用Join函数，连结两个集合，返回一个包对象
+            //    .OrderBy(r => r.StudentInfo.NameCn)
+            //    .Skip((page - 1) * PageSize)
+            //    .Take(PageSize),
+            //    pagingInfo = new PagingInfo
+            //    {
+            //        TotalItems = repository.StudentsInfo.Count(),
+            //        CurrentPage = page,
+            //        ItemsPerPage = PageSize
+            //    }
+            //};
+            IEnumerable<StudentInfoViewModel> StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a })   //调用Join函数，连结两个集合，返回一个包对象
+                .OrderBy(r => r.StudentInfo.NameCn);
 
-            return View(studentInfoViewModel);
+            return View(StudentsInfo);
         }
 
         /// <summary>

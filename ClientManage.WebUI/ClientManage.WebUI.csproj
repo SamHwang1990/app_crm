@@ -75,6 +75,8 @@
     <Compile Include="Areas\Admin\Models\RolesInfoViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserAndRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
+    <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
+    <Compile Include="Areas\StudentMgr\Models\StudentInfoViewModel.cs" />
     <Compile Include="Areas\StudentMgr\StudentMgrAreaRegistration.cs" />
     <Compile Include="Areas\Students\Controllers\ApplyInfoController.cs" />
     <Compile Include="Areas\Students\Controllers\SaleTrackController.cs" />
@@ -149,8 +151,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
-    <Folder Include="Areas\StudentMgr\Controllers\" />
-    <Folder Include="Areas\StudentMgr\Models\" />
     <Folder Include="Areas\StudentMgr\Views\Shared\" />
     <Folder Include="Areas\ToolMgr\Controllers\" />
     <Folder Include="Areas\ToolMgr\Models\" />

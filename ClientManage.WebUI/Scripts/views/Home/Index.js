@@ -47,6 +47,8 @@ define([
 				this.$el.find("#adminMenuWrap").html(adminMenuHtml(templateData.AppConfig));
 				UISet.init();                                                           //绑定adminMenu的事件处理程序
 
+				this.$el.find('#appBody-content .wrap').html("/Home/Index，其实这家伙很懒，神码都没放就push出来了");
+
 			},
 			//左侧菜单导航的<a/> 点击事件处理方法
 			menuLinkClick:function(e){
@@ -57,6 +59,9 @@ define([
 				//获取a 的路由路由值
 				//比如：取得a 元素的pathname，例如：/Home/Index
 				var linkRoute = linkElement.pathname;
+				if(linkRoute === '/Home/Index'){
+					this.render();
+				}
 
 				this.ShowRouteViewContent(linkRoute);
 

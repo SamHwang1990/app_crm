@@ -56,7 +56,7 @@ namespace ClientManage.WebUI
             RegisterRoutes(RouteTable.Routes);
 
             DependencyResolver.SetResolver(new NinjectDependencyResolver());
-            ModelBinders.Binders.Add(typeof(LoginUser), new UserAccountModelBinder());
+            //ModelBinders.Binders.Add(typeof(LoginUser), new UserAccountModelBinder());
         }
     }
 }

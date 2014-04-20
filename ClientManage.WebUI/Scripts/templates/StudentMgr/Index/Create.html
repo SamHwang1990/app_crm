@@ -1,0 +1,50 @@
+<div id="StudentMgr-Create-Wrap">
+    <h2>添加学生信息</h2>
+    <form id="CreateForm" action="/StudentMgr/Index/Create" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="StudentName">学生名：</label>
+            <div class="controls">
+                <input type="text" id="StudentName" name="StudentName" placeholder="请输入学生名字" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="IsSign" />已签约
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="LiveCity">居住城市：</label>
+            <div class="controls">
+                <input type="text" id="LiveCity" name="LiveCity" placeholder="请输入居住城市" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="SaleConsultant">销售负责人：</label>
+            <div class="controls">
+                <select id="SaleConsultant">
+                    <option value="">选择销售角色</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group" id="Contact-Wrap">
+            <label class="control-label">联系人：</label>
+            <div class="Contact-Content controls control-group inline">
+                <fieldset class="">
+                    <select class="ContactIdentity span1">
+                        <option value="学生" selected="selected">学生</option>
+                        <option value="父亲">父亲</option>
+                        <option value="母亲">母亲</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" class="ContactName span2" placeholder="请输入联系人名字" />
+                    <input type="text" class="ContactMobile span2" placeholder="请输入手机号"/>
+                    <input type="text" class="ContactEmail" placeholder="请输入邮箱"/><br><br>
+                    <a href="#" class="KeepAddEasyChat btn btn-success">添加接电话时间</a>
+                </fieldset>
+            </div>
+            <a href="#" class="KeepAddContact btn btn-success">继续添加联系人</a>
+        </div>
+    </form>
+</div>
