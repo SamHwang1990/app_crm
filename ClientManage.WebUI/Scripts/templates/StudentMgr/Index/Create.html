@@ -23,7 +23,10 @@
         <div class="control-group">
             <label class="control-label" for="SaleConsultant">销售负责人：</label>
             <div class="controls">
-                <select id="SaleConsultant">
+                <select id="RoleList" class="span2">
+
+                </select>
+                <select id="SaleConsultant" class="span2">
                     <option value="">选择销售角色</option>
                 </select>
             </div>
@@ -31,7 +34,7 @@
         <div class="control-group" id="Contact-Wrap">
             <label class="control-label">联系人：</label>
             <div class="Contact-Content controls control-group inline">
-                <fieldset class="">
+                <fieldset class="contactItem">
                     <select class="ContactIdentity span1">
                         <option value="学生" selected="selected">学生</option>
                         <option value="父亲">父亲</option>
@@ -40,11 +43,13 @@
                     </select>
                     <input type="text" class="ContactName span2" placeholder="请输入联系人名字" />
                     <input type="text" class="ContactMobile span2" placeholder="请输入手机号"/>
-                    <input type="text" class="ContactEmail" placeholder="请输入邮箱"/><br><br>
-                    <a href="#" class="KeepAddEasyChat btn btn-success">添加接电话时间</a>
+                    <input type="text" class="ContactEmail" placeholder="请输入邮箱"/>
+                    <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+                    <br>
+                    <btn class="btnAddEasyChat btn">添加接电话时间</btn>
                 </fieldset>
+                <btn class="btnAddContact btn btn-success">继续添加联系人</btn>
             </div>
-            <a href="#" class="KeepAddContact btn btn-success">继续添加联系人</a>
         </div>
     </form>
 </div>

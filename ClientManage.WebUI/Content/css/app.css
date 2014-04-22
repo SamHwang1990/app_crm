@@ -1,4 +1,6 @@
-/* Create by Sam, 2014.04.07 */
+/*
+* Create by Sam, 2014.04.07
+*/
 
 /*Frame Set Begin*/
 html,body{
@@ -17,7 +19,6 @@ html{
 	position: relative;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
-
 #adminMenuBack, #adminMenuWrap, #adminMenu{
 	background-color: #222;
 }
@@ -215,3 +216,24 @@ html{
 	margin-left: 15px;
 }
 /*Admin Menu End*/
+
+/**
+* @section structure style
+*/
+fieldset{
+	margin-bottom: 20px;
+}
+
+/**
+* @section component style
+*/
+fieldset.contactItem{
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(204, 204, 204);
+}
+btn.btnAddEasyChat{
+	margin-top: 10px;
+}
+div.easyChatWrap{
+	margin-top: 10px;
+}
