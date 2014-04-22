@@ -10,8 +10,9 @@ define([
 	'bootstrap',
 	'text!templates/StudentMgr/Index/Create.html',
 	'text!templates/StudentMgr/Index/ContactContent.html',
-	'text!templates/StudentMgr/Index/EasyChatTime.html'
-	],function($,_,Backbone,Bootstrap,CreateTemp,ContactContentTemp,EasyChatTimeTemp){
+	'text!templates/StudentMgr/Index/EasyChatTime.html',
+	'views/StudentMgr/Index/RoleList'
+	],function($,_,Backbone,Bootstrap,CreateTemp,ContactContentTemp,EasyChatTimeTemp,RoleListView){
 		var studentCreateView = Backbone.View.extend({
 			el:'#appBody-content .wrap',
 			template:_.template(CreateTemp),
@@ -20,12 +21,16 @@ define([
 				'click .btnAddContact':'InsertContactTemp',
 				'click .removeParent':'RemoveParent'
 			},
+			model:{
+
+			},
 			initialize:function(){
 				_.bindAll(this,'render','InsertContactTemp','InsertEasyChatTemp','RemoveParent');
 				this.render();
 			},
 			render:function(){
 				this.$el.html(this.template({}));
+				var roleListView = new RoleListView();
 			},
 			InsertEasyChatTemp:function(event){
 				var easyChatTemp = _.template(EasyChatTimeTemp);

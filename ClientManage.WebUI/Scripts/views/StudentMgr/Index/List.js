@@ -54,20 +54,6 @@ define([
 				});
 			},
 			render:function(){
-				//从服务器上获取集合数据
-				this.collection.fetch({
-					success:function(){     //获取成功，输出到记录台
-						console.log('Student list data fetched from server');
-					},
-					error:function(){       //获取失败，输出到记录台
-						console.log('Unable to fetch user data');
-					}
-				});
-
-
-				//清空table中的元素
-				//this.$el.find('table').empty();
-
 				//进入集合循环前保留this
 				var collView = this;
 
