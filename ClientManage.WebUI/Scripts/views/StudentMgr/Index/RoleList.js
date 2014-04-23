@@ -34,7 +34,7 @@ define([
 		* RolesCollection 父视图
 		* */
 		var rolesCollView = Backbone.View.extend({
-			el:'#RoleList',
+			el:'#roleList',
 			collection:new RolesCollection(),
 			events:{
 				'change':'setUserList'
@@ -79,7 +79,7 @@ define([
 					roleID = this.$el.val();
 				}
 				var userListView = new UserListView({
-					el:this.$el.siblings('#SaleConsultant'),
+					el:this.$el.siblings('#saleConsultant'),
 					roleIDString:roleID
 				})
 			}

@@ -24,7 +24,6 @@ namespace ClientManage.WebUI.Controllers
         public JsonResult List()
         {
             IEnumerable<RoleInfo> roleList = repository.RolesInfo.Select(r => r);
-            Array tempArr = roleList.ToArray();
             return Json(roleList, JsonRequestBehavior.AllowGet);
         }
 
