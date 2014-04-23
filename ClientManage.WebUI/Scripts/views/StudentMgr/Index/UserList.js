@@ -3,17 +3,15 @@
  * StudentMgr中的UserList视图
  ***************************************/
 
-//TODO:写下注释吧！
-
 define([
 	'jquery',
 	'underscore',
 	'backbone',
 	'checkLogin',
-	'collections/UserMgr/UserList',
-	'models/UserMgr/UserInfo',
+	'collections/UserMgr/UserList',                     //UserList 集合
+	'models/UserMgr/UserInfo',                          //UserInfo 模型
 	'bootstrap',
-	'text!templates/StudentMgr/Index/UserItem.html'
+	'text!templates/StudentMgr/Index/UserItem.html'     //StudentMgr的UserItem模板
 	],function($,_,Backbone,CheckLogin,UsersCollection,UserInfo,Bootstrap,UserItemTemp){
 		/*
 		 * UserInfo 子视图
@@ -34,13 +32,13 @@ define([
 		 * */
 		var usersCollView = Backbone.View.extend({
 			collection:new UsersCollection(),
-			initialize:function(options){
+			initialize:function(options){           //options为实例化该视图是传入的参数集合对象
 				_.bindAll(this,'render');
 
 				var collView = this;
-				this.collection.fetch({
-					data:{
-						roleIDString:options.roleIDString
+				this.collection.fetch({             //初始化的时候从server获取数据填到集合里
+					data:{                          //fetch请求时的查询参数
+						roleIDString:options.roleIDString   //调用传入的roleIDString参数
 					},
 					success:function(){
 						console.log('fetch data from server successfully');

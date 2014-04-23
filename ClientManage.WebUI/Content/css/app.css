@@ -227,6 +227,9 @@ fieldset{
 /**
 * @section component style
 */
+.feedbackMsg{
+	display: none;
+}
 fieldset.contactItem{
 	padding-bottom: 10px;
 	border-bottom: 1px solid rgb(204, 204, 204);
@@ -236,4 +239,14 @@ btn.btnAddEasyChat{
 }
 div.easyChat-wrap{
 	margin-top: 10px;
+}
+
+/*
+* @section feedbackMsg Class style
+*/
+.chatTimeInvalid{
+	display: block;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	color: #b94a48;
 }
