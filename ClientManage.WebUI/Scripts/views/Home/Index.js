@@ -7,6 +7,7 @@ define([
 	'jquery',                                       //加载jQuery模块
 	'underscore',                                   //加载underscore模块
 	'backbone',                                     //加载backbone模块
+	'BackboneConfig',                               //Backbone 自定义配置
 	'checkLogin',                                   //监测当前用户是否已登录，是，则返回LoginUser Model实例，UserName已赋值
 	'models/LoginUser',                             //加载LoginUser Model，未实例化
 	'models/appConfig',                             //加载配置信息Model，未实例化
@@ -16,7 +17,7 @@ define([
 	'text!templates/Common/appAdminBar.html',       //加载顶部功能调html模板
 	'text!templates/Common/appBody-content.html',   //加载首页主内容html模板
 	'text!templates/Common/Footer.html'             //加载底部Footer的html模板
-	],function($,_,Backbone,checkLogin,UserModel,appConfigModel,Bootstrap,UISet,adminMenuTemp,appAdminBarTemp,appBodyContentTemp,footerTemp){
+	],function($,_,Backbone,BackboneConfig,checkLogin,UserModel,appConfigModel,Bootstrap,UISet,adminMenuTemp,appAdminBarTemp,appBodyContentTemp,footerTemp){
 		var indexView = Backbone.View.extend({
 			el:"#appWrap",                          //#appWrap 是页面内容的根元素
 			model:{                                 //设置视图的Model对象
@@ -61,9 +62,9 @@ define([
 				var linkRoute = linkElement.pathname;
 				if(linkRoute === '/Home/Index'){
 					this.render();
+				}else{
+					this.ShowRouteViewContent(linkRoute);
 				}
-
-				this.ShowRouteViewContent(linkRoute);
 
 			},
 			//根据传入的路由数组渲染对应的视图

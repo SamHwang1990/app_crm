@@ -25,6 +25,7 @@ namespace ClientManage.WebUI.Controllers
         {
             Guid roleID = new Guid(roleIDString);
             IEnumerable<UserInfoEntity> userList = repository.UsersInfo.Where(s => s.UserRole == roleID || s.UserSecondRole == roleID);
+            Array users = userList.ToArray();
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
 
