@@ -35,6 +35,7 @@ define([
 		var studentListView = Backbone.View.extend({
 			el:'#appBody-content .wrap',
 			template:_.template(studentListTemplate),
+			tempID:'List',
 			collection:new studentListModel,    //初始化集合实例
 			initialize:function(){
 				_.bindAll(this,'render');

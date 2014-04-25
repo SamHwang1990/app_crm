@@ -14,11 +14,12 @@ define([
 	],function($,_,Backbone,checkLogin,feedbackModel,Bootstrap,feedbackTemp){
 		var feedbackView = Backbone.View.extend({
 			el:'#appBody-content .wrap',
+			tempID:'Feedback',
 			template:_.template(feedbackTemp),
 			model:new feedbackModel,
 			initialize:function(){
 				_.bindAll(this,'render')
-				this.render();
+				//this.render();
 			},
 			render:function(){
 				this.$el.html(this.template({}));

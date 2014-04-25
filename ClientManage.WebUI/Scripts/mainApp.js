@@ -13,12 +13,15 @@ require.config({
 		'backbone': 'libs/backbone/backbone.min',             //backbone 路径
 		'text': 'libs/require/text',                          //require text 插件路径
 		'domReady':'libs/require/domReady',                   //require domReady 插件路径
-		'config':'config',                                 //系统前端配置JS路径
-		'checkLogin':'assets/CheckLogin'                      //检查是否已登录JS路径
+		'config':'config',                                    //系统前端配置JS路径
+		'checkLogin':'assets/CheckLogin',                     //检查是否已登录JS路径
+		'BackboneConfig':'libs/backbone/BackboneConfig'
 	}
 
 });
 
-require(['views/Home/Index'], function (indexView) {
-	var index_view = new indexView;
+require(['views/AppShowView','views/AppFrame'], function (AppShowView,FrameView) {
+	var frame_view = new FrameView({
+		appView:new AppShowView()
+	})
 });
