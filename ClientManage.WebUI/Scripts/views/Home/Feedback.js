@@ -19,7 +19,7 @@ define([
 			model:new feedbackModel,
 			initialize:function(){
 				_.bindAll(this,'render')
-				//this.render();
+				this.render();
 			},
 			render:function(){
 				this.$el.html(this.template({}));

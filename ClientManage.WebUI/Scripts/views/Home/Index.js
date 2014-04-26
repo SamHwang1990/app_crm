@@ -16,7 +16,7 @@ define([
 			tempID:'Index',
 			initialize:function(){                  //初始化视图中各种框架性的交互行为
 				_.bindAll(this, 'render');          //绑定各方法的this对象
-				//this.render();
+				this.render();
 			},
 			render:function(){
 				this.$el.html("/Home/Index，其实这家伙很懒，神码都没放就push出来了");

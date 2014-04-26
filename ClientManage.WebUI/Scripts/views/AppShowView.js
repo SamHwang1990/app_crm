@@ -9,10 +9,10 @@ define(['jquery'],function($){
 			if (this.currentView){
 				this.currentView.close();
 			}
-			this.currentView =view;
-			this.currentView.render();
+			this.currentView = new view();
+			//this.currentView.render();
 
-			$('#appBody-content').html(this.currentView.el);
+			$('#appBody-content').append(this.currentView.el);
 		}
 	};
 	return AppView;

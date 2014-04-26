@@ -74,10 +74,15 @@ define([
 				//引用视图文件：比如：views/Home/Index
 				var routeView = viewPath+linkRoute;
 				var frameView = this;
+				var views = {};
 				require([routeView],function(RouteView){
-					var route_View = new RouteView();
-					frameView.appView.showView(route_View);
-
+					if(views.currentView){
+						views.currentView.close();
+					}
+					views.currentView = new RouteView();
+					//var route_View = new RouteView();
+					//frameView.appView.showView(RouteView);
+					//$('#appBody-content .wrap').replaceWith(route_View.el);
 				});
 			}
 

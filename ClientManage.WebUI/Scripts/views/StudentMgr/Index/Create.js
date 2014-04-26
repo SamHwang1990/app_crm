@@ -28,16 +28,14 @@ define([
 
 			},
 			initialize:function(){
-				alert("init");
 				_.bindAll(this,'render','InsertContactTemp','InsertEasyChatTemp','RemoveParent','SetFeedbackMsg');
-				//this.render();
+				this.render();
 			},
 			render:function(){
 				this.$el.html(this.template({}));
 				var roleListView = new RoleListView();  //实例化RoleList的视图，渲染出系统中所有用户名
 			},
 			InsertEasyChatTemp:function(event){         //插入添加联系时间的HTML
-				alert("InsertEasyChatTemp");
 				var easyChatTemp = _.template(EasyChatTimeTemp);
 				$(event.target).before(easyChatTemp({}));
 				$('div.easyChat-wrap .timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
@@ -49,7 +47,6 @@ define([
 				});
 			},
 			InsertContactTemp:function(event){          //插入添加联系人的HTML
-				alert("InsertContactTemp");
 				var contactTemp = _.template(ContactContentTemp);
 				$(event.target).before(contactTemp({}));
 			},
