@@ -8,7 +8,7 @@ define([
     'underscore',
     'backbone',
     'models/LoginUser',                             //登录数据Model 引入
-    'text!templates/Home/LoginUser.html'            //登录页Html 模板引入
+    'text!templates/Home/SignIn.html'            //登录页Html 模板引入
 	],function($,_,Backbone,model,loginTemplate){
         var LoginView = Backbone.View.extend({
             el:"#container",
