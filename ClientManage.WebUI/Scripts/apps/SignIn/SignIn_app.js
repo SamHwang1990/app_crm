@@ -12,8 +12,14 @@ define(['app'],function(ClientManage){
 			}
 		});
 
+		ClientManage.addRegions({
+			bodyRegion: Marionette.Region.extend({
+				el:"body"
+			})
+		});
+
 		var executeAction = function(action, arg){
-			ClientManage.startSubApp("ContactsApp");
+			ClientManage.startSubApp("SignIn");
 			action(arg);
 			//ClientManage.execute("check:signIn");
 		};
@@ -29,11 +35,23 @@ define(['app'],function(ClientManage){
 				require(['apps/SignIn/SignOut/signOut_controller'],function(SignOutController){
 					executeAction(SignOutController.DoSignOut,criterion)
 				});
+			},
+			SignInShow:function(criterion){
+				require(['apps/SignIn/SignIn/signIn_controller'],function(SignInController){
+					executeAction(SignInController.ShowSignIn,criterion);
+				});
 			}
 		};
 
 		ClientManage.on("check:signIn",function(){
 			API.Check();
-		})
-	})
+		});
+
+		ClientManage.addInitializer(function(){
+			new SignInRouter.Router({
+				controller: API
+			});
+		});
+	});
+	return ClientManage.Routers.SignIn;
 });

@@ -17,7 +17,6 @@ requirejs.config({
 		underscore: "libs/underscore/underscore-min",
 		'bootstrap':'../Content/bootstrap/js/bootstrap.min'
 	},
-
 	shim: {
 		underscore: {
 			exports: "_"
@@ -26,9 +25,13 @@ requirejs.config({
 			deps: ["jquery", "underscore"],
 			exports: "Backbone"
 		},
-		"backbone.picky": ["backbone"],
-		"backbone.syphon": ["backbone"],
-		marionette: {
+		"backbone.picky":{
+			deps: ["backbone"]
+		},
+		"backbone.syphon": {
+			deps: ["backbone"]
+		},
+		'marionette': {
 			deps: ["backbone"],
 			exports: "Marionette"
 		},

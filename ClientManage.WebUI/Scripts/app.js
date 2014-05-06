@@ -25,10 +25,11 @@ define(['marionette'],function(Marionette){
 
 		ClientManage.currentApp = currentApp;               //重新配置当前Module
 		if(currentApp){
-			if(appName !== 'SignIn.SignIn'){
+			if(appName !== 'SignIn.SignIn' || appName !== 'SignIn.Check'){
 				currentApp.on("before:start", function(){   //在Module Start之前出发Check-SignIn事件
 					ClientManage.trigger("check:signIn");
 				});
+				currentApp.trigger("before:start");
 			}
 			currentApp.start(args);                         //启动Module
 		}
@@ -36,11 +37,11 @@ define(['marionette'],function(Marionette){
 
 	ClientManage.on("initialize:after", function(){
 		if(Backbone.history){
-			require(["apps/index"], function () {
+			require(['apps/SignIn/SignIn_app'], function () {
 				Backbone.history.start();
 
 				if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("index:show");  //即index.html页面打开时，默认模拟‘index:show’事件
+					ClientManage.trigger("check:signIn");  //即index.html页面打开时，默认模拟‘index:show’事件
 				}
 			});
 		}

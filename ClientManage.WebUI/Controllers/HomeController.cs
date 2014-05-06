@@ -24,7 +24,7 @@ namespace ClientManage.WebUI.Controllers
             repository = userInfoRepository;
         }
 
-        [CustomAuth]
+        //[CustomAuth]
         public ViewResult Index()
         {
             return View();
@@ -74,7 +74,7 @@ namespace ClientManage.WebUI.Controllers
             return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName });
         }
 
-        [CustomAuth]
+        //[CustomAuth]
         [HttpPost]
         public JsonResult About()
         {
@@ -82,7 +82,7 @@ namespace ClientManage.WebUI.Controllers
             return Json(new { });
         }
 
-        [CustomAuth]
+        //[CustomAuth]
         public JsonResult Logout()
         {
             bool logoutResult = true;
