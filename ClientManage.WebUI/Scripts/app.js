@@ -4,5 +4,47 @@
  ***************************************/
 
 define(['marionette'],function(Marionette){
-	var ClientManage = new Marionette.Application();
+	var ClientManage = new Marionette.Application();        //实例化Application
+
+	ClientManage.navigate = function(route,  options){      //Backbone的Route导航
+		options || (options = {});
+		Backbone.history.navigate(route, options);
+	};
+
+	ClientManage.getCurrentRoute = function(){              //获取路由片段
+		return Backbone.history.fragment
+	};
+
+	ClientManage.startSubApp = function(appName, args){
+		var currentApp = appName ? ClientManage.module(appName) : null;
+		if (ClientManage.currentApp === currentApp){ return; }
+
+		if (ClientManage.currentApp){
+			ClientManage.currentApp.stop();                 //关闭当前Module
+		}
+
+		ClientManage.currentApp = currentApp;               //重新配置当前Module
+		if(currentApp){
+			if(appName !== 'SignIn.SignIn'){
+				currentApp.on("before:start", function(){   //在Module Start之前出发Check-SignIn事件
+					ClientManage.trigger("check:signIn");
+				});
+			}
+			currentApp.start(args);                         //启动Module
+		}
+	};
+
+	ClientManage.on("initialize:after", function(){
+		if(Backbone.history){
+			require(["apps/index"], function () {
+				Backbone.history.start();
+
+				if(ClientManage.getCurrentRoute() === ""){
+					ClientManage.trigger("index:show");  //即index.html页面打开时，默认模拟‘index:show’事件
+				}
+			});
+		}
+	});
+
+	return ClientManage;
 });

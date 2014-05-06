@@ -5,7 +5,7 @@
  ***************************************/
 
 //require 配置
-require.config({
+requirejs.config({
 	baseUrl: "Scripts",
 	paths: {
 		backbone: "libs/backbone/backbone",
@@ -37,4 +37,8 @@ require.config({
 			exports:"Bootstrap"
 		}
 	}
+});
+
+require(["app"], function(ContactManager){
+	ContactManager.start();
 });

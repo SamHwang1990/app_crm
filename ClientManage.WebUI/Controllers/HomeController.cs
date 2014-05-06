@@ -83,10 +83,18 @@ namespace ClientManage.WebUI.Controllers
         }
 
         [CustomAuth]
-        public RedirectToRouteResult Logout()
+        public JsonResult Logout()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login");
+            bool logoutResult = true;
+            try 
+            { 
+                FormsAuthentication.SignOut();
+            }
+            catch (Exception ex)
+            {
+                logoutResult = false;
+            }
+            return Json(new {LogOutResult = logoutResult });
         }
     }
 }
