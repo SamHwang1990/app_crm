@@ -3,7 +3,7 @@
  * Application 创建，以及配置
  ***************************************/
 
-define(['marionette'],function(Marionette){
+define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 	var ClientManage = new Marionette.Application();        //实例化Application
 
 	ClientManage.navigate = function(route,  options){      //Backbone的Route导航
@@ -25,23 +25,17 @@ define(['marionette'],function(Marionette){
 
 		ClientManage.currentApp = currentApp;               //重新配置当前Module
 		if(currentApp){
-			if(appName !== 'SignIn.SignIn' || appName !== 'SignIn.Check'){
-				currentApp.on("before:start", function(){   //在Module Start之前出发Check-SignIn事件
-					ClientManage.trigger("check:signIn");
-				});
-				currentApp.trigger("before:start");
-			}
 			currentApp.start(args);                         //启动Module
 		}
 	};
 
 	ClientManage.on("initialize:after", function(){
 		if(Backbone.history){
-			require(['apps/SignIn/SignIn_app'], function () {
+			require(['apps/CM_app'], function () {
 				Backbone.history.start();
 
 				if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("check:signIn");  //即index.html页面打开时，默认模拟‘index:show’事件
+					ClientManage.trigger("home:index");  //即index.html页面打开时，默认模拟‘home:index’事件
 				}
 			});
 		}

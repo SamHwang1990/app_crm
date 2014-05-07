@@ -3,13 +3,13 @@
  * 系统前端配置信息的交互模型JS
  */
 
-define(['jquery','underscore','backbone','config'],function($,_,Backbone,config){
+define(['backbone','apps/Config/config'],function(Backbone,config){
 	var appConfigModel = Backbone.Model.extend({
 		defaults:{
 			host:config.host,
 			port:config.port,
 			sitePath:config.sitePath,
-			viewPath:config.viewPath,
+			viewPath:config.framePath,
 			modelPath:config.modelPath,
 			templatePath:config.templatePath,
 			collectionPath:config.collectionPath,
@@ -18,8 +18,8 @@ define(['jquery','underscore','backbone','config'],function($,_,Backbone,config)
 			version:config.version
 		},
 		initialize:function(){
-			_.bind(this.save, this);
+			//_.bind(this.save, this);
 		}
 	});
-	return appConfigModel;
+	return new appConfigModel();
 })
