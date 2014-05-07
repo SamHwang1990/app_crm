@@ -5,8 +5,9 @@
 
 define(['marionette','text!templates/Common/adminMenu.html'],function(Marionette,AdminMenuTpl){
 	var adminMenu = Marionette.ItemView.extend({
-		el:"#adminMenuWrap",
 		template:AdminMenuTpl,
+		tagName:"ul",
+		className:"adminMenu nav nav-list",
 		/*templateHelpers:{
 			AppConfig:this.model.AppConfig,
 			CurrentUser:this.model.CurrentUser

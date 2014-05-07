@@ -5,7 +5,8 @@
 
 define(['marionette','text!templates/Common/appAdminBar.html'],function(Marionette,AdminBarTpl){
 	var adminBar = Marionette.ItemView.extend({
-		el:"#appAdminBar",
+		tagName:"div",
+		className:"navbar-inner",
 		template:AdminBarTpl,
 		/*templateHelpers:{
 			AppConfig:this.model.AppConfig,
