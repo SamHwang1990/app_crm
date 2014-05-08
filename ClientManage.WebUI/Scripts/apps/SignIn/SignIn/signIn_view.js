@@ -5,8 +5,9 @@
 
 define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl){
 	ClientManage.module("SignIn.DoSignIn.View",function(View,ClientManage,Backbone, Marionette, $, _){
-		View.SignInForm = Backbone.Marionette.ItemView.extend({
-			template:SignInTpl,
+		View.SignInForm = Marionette.ItemView.extend({
+			template:_.template(SignInTpl),
+			tagName:"div",
 			ui:{
 				"form":"#form-signin",
 				"error":"#login-error",

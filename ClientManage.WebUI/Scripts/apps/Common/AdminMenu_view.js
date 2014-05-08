@@ -3,7 +3,7 @@
  * AdminMenu View
  ***************************************/
 
-define(['marionette','text!templates/Common/adminMenu.html'],function(Marionette,AdminMenuTpl){
+define(['marionette','text!templates/Common/adminMenu.html','assets/AppUISet'],function(Marionette,AdminMenuTpl,AppUISet){
 	var adminMenu = Marionette.ItemView.extend({
 		template:AdminMenuTpl,
 		tagName:"ul",
@@ -14,6 +14,7 @@ define(['marionette','text!templates/Common/adminMenu.html'],function(Marionette
 		},*/
 		onShow:function(){
 			console.log("Admin Bar View Show");
+			AppUISet.init();
 		}
 	});
 	return adminMenu;

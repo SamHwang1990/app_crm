@@ -3,8 +3,8 @@
  * SignIn Module
  ***************************************/
 define(['app'],function(ClientManage){
-	ClientManage.module('Routers.SignIn',function(SignInRouter,ClientManage,Backbone,Marionette,$,_){
-		SignInRouter.Router = Marionette.AppRouter.extend({
+	ClientManage.module('SignIn',function(SignIn,ClientManage,Backbone,Marionette,$,_){
+		SignIn.Router = Marionette.AppRouter.extend({
 			appRoutes: {
 				"CheckSignIn":"Check",
 				"SignIn":"SignInShow",
@@ -29,7 +29,6 @@ define(['app'],function(ClientManage){
 				require(['apps/SignIn/Check/check_controller'],function(CheckController){
 					executeAction(CheckController.CheckSignIn,criterion)
 				});
-				//executeAction();
 			},
 			SignOut:function(criterion){
 				require(['apps/SignIn/SignOut/signOut_controller'],function(SignOutController){
@@ -47,11 +46,16 @@ define(['app'],function(ClientManage){
 			API.Check();
 		});
 
+		ClientManage.on("show:signIn",function(){
+			API.SignInShow();
+		})
+
 		ClientManage.addInitializer(function(){
-			new SignInRouter.Router({
-				controller: API
+			new SignIn.Router({
+				controller:API
 			});
 		});
+
 	});
-	return ClientManage.Routers.SignIn;
+	return ClientManage.SignIn;
 });

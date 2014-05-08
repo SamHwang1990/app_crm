@@ -4,16 +4,16 @@
  */
 
 define(['jquery'],function($){
-	var adminMenuWrap = $(".adminMenu");
+	var adminMenuWrap = $("#adminMenuWrap");
 
 	//处理li的Hover状态
 	var handleLiHover = function(){
 
 		//绑定各li的mouseenter 事件
-		adminMenuWrap.on("mouseenter","li.app-not-current-subMenu",function(){
+		adminMenuWrap.on("mouseenter","ul.adminMenu>li.app-not-current-subMenu",function(){
 
 			//隐藏所有li.app-not-current-subMenu 的submenu 浮动框
-			adminMenuWrap.find("li.app-not-current-subMenu").removeClass("app-subMenu-open");
+			adminMenuWrap.find("ul.adminMenu>li.app-not-current-subMenu").removeClass("app-subMenu-open");
 
 			//如果当前li 有submenu，则显示submenu在右边
 			if($(this).has("ul.app-subMenu")){
@@ -22,9 +22,9 @@ define(['jquery'],function($){
 		});
 
 		//绑定各li的mouseleave 事件
-		adminMenuWrap.on("mouseleave","li.app-not-current-subMenu",function(){
+		adminMenuWrap.on("mouseleave","ul.adminMenu>li.app-not-current-subMenu",function(){
 			//隐藏所有li.app-not-current-subMenu 的submenu 浮动框
-			adminMenuWrap.find("li.app-not-current-subMenu").removeClass("app-subMenu-open");
+			adminMenuWrap.find("ul.adminMenu>li.app-not-current-subMenu").removeClass("app-subMenu-open");
 		});
 	};
 
@@ -32,13 +32,13 @@ define(['jquery'],function($){
 	var handleLiClick = function(){
 
 		//绑定各li的click 事件
-		adminMenuWrap.on("click","li.app-not-current-subMenu",function(){
+		adminMenuWrap.on("click","ul.adminMenu>li.app-not-current-subMenu",function(){
 
 			//隐藏li.app-has-current-subMenu 的子菜单
-			adminMenuWrap.find("li.app-has-current-subMenu")
-						 .removeClass("app-has-current-subMenu")
-						 .removeClass("app-menu-open")
-						 .addClass("app-not-current-subMenu");
+			adminMenuWrap.find("ul.adminMenu>li.app-has-current-subMenu")
+				.removeClass("app-has-current-subMenu")
+				.removeClass("app-menu-open")
+				.addClass("app-not-current-subMenu");
 
 			//给当前li 添加类，显示蓝色背景
 			$(this).addClass("app-has-current-subMenu");
@@ -51,13 +51,11 @@ define(['jquery'],function($){
 	};
 
 	return {
-		handleLiHover:handleLiHover,
-		handleLiClick:handleLiClick
-		/*init:function(){
+		init:function(){
 
 			handleLiHover();    //绑定adminMenu 的li hover状态
 
 			handleLiClick();    //绑定adminMenu 的li click事件
-		}*/
+		}
 	}
 });

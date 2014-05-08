@@ -31,11 +31,11 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 
 	ClientManage.on("initialize:after", function(){
 		if(Backbone.history){
-			require(['apps/CM_app'], function () {
+			require(['apps/SignIn/SignIn_app'], function () {
 				Backbone.history.start();
 
 				if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("home:index");  //即index.html页面打开时，默认模拟‘home:index’事件
+					ClientManage.trigger("check:signIn");  //即index.html页面打开时，默认模拟‘home:index’事件
 				}
 			});
 		}

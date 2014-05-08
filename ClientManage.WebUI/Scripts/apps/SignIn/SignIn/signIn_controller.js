@@ -8,8 +8,9 @@ define(['app','models/LoginUser'],function(ClientManage,LoginUserModel){
 		DoSignIn.Controller = {
 			ShowSignIn:function(){
 				require(['apps/SignIn/SignIn/signIn_view'],function(SignInView){
+					var loginUser = new LoginUserModel();
 					var signInView = new SignInView.SignInForm({
-						model:new LoginUserModel()
+						model:loginUser
 					});
 					ClientManage.bodyRegion.show(signInView);
 				})

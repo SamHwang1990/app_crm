@@ -3,7 +3,7 @@
  * ClientManage Module
  ***************************************/
 
-define(['app','apps/Config/appConfig','assets/AppUISet'],function(ClientManage,AppConfig,AppUISet){
+define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet){
 	ClientManage.module('CM',function(CM,ClientManage,Backbone,Marionette,$,_){
 
 		CM.Router = Marionette.AppRouter.extend({
@@ -33,6 +33,12 @@ define(['app','apps/Config/appConfig','assets/AppUISet'],function(ClientManage,A
 			adminFooterRegion:"#appFooter"
 		});
 
+		CM.on("before:start",function(options){
+			require(['apps/SignIn/SignIn_app'],function(){
+				ClientManage.trigger("check:signIn");
+			});
+		});
+
 		CM.on("start",function(options){
 			require(['apps/Common/AdminFooter_view'],function(FooterView){
 				var footerView = new FooterView({
@@ -60,8 +66,6 @@ define(['app','apps/Config/appConfig','assets/AppUISet'],function(ClientManage,A
 					}*/
 				});
 				ClientManage.adminMenuRegion.show(adminMenuView);
-				AppUISet.handleLiClick();
-				AppUISet.handleLiHover();
 			});
 		});
 
@@ -71,4 +75,6 @@ define(['app','apps/Config/appConfig','assets/AppUISet'],function(ClientManage,A
 			});
 		});
 	});
+
+	return ClientManage.CM;
 });
