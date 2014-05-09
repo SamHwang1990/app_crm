@@ -6,7 +6,7 @@
 define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 	var ClientManage = new Marionette.Application();        //实例化Application
 
-	ClientManage.navigate = function(route,  options){      //Backbone的Route导航
+	ClientManage.navigate = function(route,  options){      //Backbone的Route导航函数
 		options || (options = {});
 		Backbone.history.navigate(route, options);
 	};
@@ -15,7 +15,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 		return Backbone.history.fragment
 	};
 
-	ClientManage.startSubApp = function(appName, args){
+	ClientManage.startSubApp = function(appName, args){     //启动新Module，并关闭旧的
 		var currentApp = appName ? ClientManage.module(appName) : null;
 		if (ClientManage.currentApp === currentApp){ return; }
 
@@ -35,7 +35,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 				Backbone.history.start();
 
 				if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("check:signIn");  //即index.html页面打开时，默认模拟‘home:index’事件
+					ClientManage.trigger("check:signIn");  //程序启动时，默认触发check:signIn事件，检查是否已登录
 				}
 			});
 		}

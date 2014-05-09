@@ -9,7 +9,7 @@
             <% }  %>
         </b>
     </div>
-    <form class="form-signin" id="form-signin" method="post" action="/app-login.html">
+    <form class="form-signin" id="form-signin" method="post" action="/Home/Login">
         <h2 class="form-signin-heading">登录系统</h2>
         <label for="userName">
             <input type="text" name="UserName" id="userName" class="input-block-level" placeholder="请输入中文名" value="<%= UserName %>"/>
@@ -19,9 +19,9 @@
         </label>
         <label class="checkbox">
             <% if( RememberMe ) { %>
-                <input name="rememberMe" type="checkbox" value="remember-me" checked="checked"/>
+                <input name="RememberMe" type="checkbox" checked="checked"/>
             <% } else { %>
-            <input name="rememberMe" type="checkbox" value="remember-me"/>
+            <input name="RememberMe" type="checkbox"/>
             <% } %>
             记住我
         </label>

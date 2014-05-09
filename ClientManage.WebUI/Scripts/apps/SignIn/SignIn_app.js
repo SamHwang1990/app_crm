@@ -4,15 +4,15 @@
  ***************************************/
 define(['app'],function(ClientManage){
 	ClientManage.module('SignIn',function(SignIn,ClientManage,Backbone,Marionette,$,_){
-		SignIn.Router = Marionette.AppRouter.extend({
+		SignIn.Router = Marionette.AppRouter.extend({   //SignIn Module的路由配置
 			appRoutes: {
-				"CheckSignIn":"Check",
-				"SignIn":"SignInShow",
-				"SignOut":"SignOut"
+				"CheckSignIn":"Check",                  //检查是否已登录
+				"SignIn":"SignInShow",                  //渲染登录form
+				"SignOut":"SignOut"                     //登出操作
 			}
 		});
 
-		ClientManage.addRegions({
+		ClientManage.addRegions({                       //当前Module下注册Region
 			bodyRegion: Marionette.Region.extend({
 				el:"body"
 			})
@@ -42,16 +42,16 @@ define(['app'],function(ClientManage){
 			}
 		};
 
-		ClientManage.on("check:signIn",function(){
+		ClientManage.on("check:signIn",function(){      //注册应用程序事件
 			API.Check();
 		});
 
-		ClientManage.on("show:signIn",function(){
+		ClientManage.on("show:signIn",function(){       //注册渲染登录form事件
 			API.SignInShow();
 		})
 
 		ClientManage.addInitializer(function(){
-			new SignIn.Router({
+			new SignIn.Router({                         //实例化SignIn的路由
 				controller:API
 			});
 		});

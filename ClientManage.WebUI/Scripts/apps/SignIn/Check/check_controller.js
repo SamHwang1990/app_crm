@@ -7,7 +7,7 @@ define(['app'],function(ClientManage){
 	ClientManage.module("SignIn.Check",function(Check,ClientManage,Backbone, Marionette, $, _){
 		Check.Controller = {
 			CheckSignIn:function(){
-				var checkUrl = '/Home/CheckLogin';
+				var checkUrl = '/Home/CheckLogin';                              //设置检查的Url
 				require(['models/LoginUser'],function(SignInUserModel){
 					var currentUser = new SignInUserModel();
 					$.ajax({
@@ -26,7 +26,7 @@ define(['app'],function(ClientManage){
 									ClientManage.CurrentUser = null;
 								}
 								//ClientManage.navigate("SignIn");
-								ClientManage.trigger("show:signIn");
+								ClientManage.trigger("show:signIn");            //如果没有登录，则显示登录form
 								return;
 							}
 						}

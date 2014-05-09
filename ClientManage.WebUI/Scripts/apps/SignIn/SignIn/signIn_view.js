@@ -7,16 +7,21 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 	ClientManage.module("SignIn.DoSignIn.View",function(View,ClientManage,Backbone, Marionette, $, _){
 		View.SignInForm = Marionette.ItemView.extend({
 			template:_.template(SignInTpl),
+			templateHelpers: function(){
+				return {
+					invalid: this.model.get('invalid').toJSON()
+				}
+			},
 			tagName:"div",
 			ui:{
 				"form":"#form-signin",
-				"error":"#login-error",
+				"error":"#signin-error",
 				"rememberMe":"#form-signin input[type=checkbox]",
-				"textInput":"input[type=text]",
+				"input":"input",
 				"btnSubmit":"btnSubmit"
 			},
 			events: {
-				"click @ui.textInput": "inputChange",
+				"change @ui.input": "inputChange",
 				"submit @ui.form":"submitLogin"
 			},
 			validateForm:function(checkRequired){
@@ -94,8 +99,14 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 						data:data,
 						dataType: 'json',
 						success: function (data){
-							if(data.result){ //登录成功，则重定向
-								window.location.href="/Home/Index";
+							if(data.result){ //登录成功，则设置currentUser并重定向
+								require(["models/LoginUser"],function(LoginUserModel){
+									var currentUser = new LoginUserModel({
+										UserName:that.model.get("UserName")
+									});
+									ClientManage.currentManage = currentUser;
+								})
+								//window.location.href="/Home/Index";
 							}else{  //当登录失败时
 
 								//判断是否用户名不存在
@@ -111,6 +122,11 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 				else{
 					//否则重新渲染错误消息
 					this.render();
+				}
+			},
+			onRender: function(){
+				if(_.size(this.model.get("invalid").toJSON())){
+					this.ui.error.css("display","block");
 				}
 			}
 		})
