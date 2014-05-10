@@ -1,4 +1,4 @@
-<div class="navbar-inner">
+
     <div class="container-fluid">
         <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-response-collapse">
             <span class="icon-bar"></span>
@@ -22,8 +22,7 @@
             <a href="<%= AppConfig.sitePath %>User/Edit" class="editUser" data-toggle="dropdown">您好，<%= CurrentUser.UserName %>&nbsp;&nbsp;<i class="icon-user icon-white"></i> </a>
             <ul class="dropdown-menu" role="menu">
                 <li><a href="<%= AppConfig.sitePath %>User/Edit">编辑我的个人资料</a></li>
-                <li><a href="<%= AppConfig.sitePath %>Home/Logout">登出</a> </li>
+                <li><a href="#SignOut">登出</a> </li>
             </ul>
         </div>
     </div>
-</div>

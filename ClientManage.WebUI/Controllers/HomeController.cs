@@ -83,6 +83,7 @@ namespace ClientManage.WebUI.Controllers
         }
 
         //[CustomAuth]
+        [HttpPost]
         public JsonResult Logout()
         {
             bool logoutResult = true;

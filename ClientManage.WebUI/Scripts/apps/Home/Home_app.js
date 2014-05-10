@@ -4,7 +4,7 @@
  ***************************************/
 
 define(['app'],function(ClientManage){
-	ClientManage.module('Routers.Home',function(HomeRouter,ClientManage,Backbone,Marionette,$,_){
+	ClientManage.module('Home',function(Home,ClientManage,Backbone,Marionette,$,_){
 		HomeRouter.Router=Marionette.AppRouter.extend({
 			appRoutes: {
 				"Home/Index":"Index",

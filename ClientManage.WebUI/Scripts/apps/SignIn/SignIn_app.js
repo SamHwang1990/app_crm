@@ -13,13 +13,19 @@ define(['app'],function(ClientManage){
 		});
 
 		ClientManage.addRegions({                       //当前Module下注册Region
-			bodyRegion: Marionette.Region.extend({
-				el:"body"
-			})
+			bodyRegion: "body"
 		});
 
-		var executeAction = function(action, arg){
+		SignIn.on("start",function(){
+			alert("Sign start");
 			ClientManage.startSubApp("SignIn");
+		});
+
+		SignIn.on("stop",function(){
+			alert("Sign stop");
+		})
+
+		var executeAction = function(action, arg){
 			action(arg);
 			//ClientManage.execute("check:signIn");
 		};

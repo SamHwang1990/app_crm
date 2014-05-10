@@ -13,18 +13,9 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 			}
 		});
 
-		var API = {
-			homeIndex:function(){
-				alert("HomeIndex");
-			},
-			homeFeedback:function(){
-				alert("HomeFeedback");
-			}
-		};
-
 		ClientManage.on('home:index',function(){
 			API.homeIndex();
-		})
+		});
 
 		ClientManage.addRegions({
 			adminBarRegion: "#appAdminBar",
@@ -33,37 +24,48 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 			adminFooterRegion:"#appFooter"
 		});
 
-		CM.on("before:start",function(options){
-			require(['apps/SignIn/SignIn_app'],function(){
-				ClientManage.trigger("check:signIn");
-			});
+		var API = {
+			homeIndex:function(){
+				alert("homeIndex");
+			},
+			homeFeedback:function(){
+				alert("homeFeedback");
+			}
+		};
+
+		CM.on("start",function(options){
+			alert("CM Start");
+			ClientManage.startSubApp("CM");
+		});
+
+		CM.on("stop", function(){
+			alert("CM stop");
 		});
 
 		CM.on("start",function(options){
 			require(['apps/Common/AdminFooter_view'],function(FooterView){
 				var footerView = new FooterView({
-					/*model:{
-						siteName:AppConfig.siteName,
-						version:AppConfig.version
-					}*/
+					model:AppConfig
 				});
 				ClientManage.adminFooterRegion.show(footerView);
 			});
 			require(['apps/Common/AdminBar_view'],function(AdminBarView){
+				var barModel = new Backbone.Model({
+					AppConfig:AppConfig,
+					CurrentUser:ClientManage.CurrentUser
+				})
 				var adminBarView = new AdminBarView({
-					/*model:{
-						AppConfig:AppConfig,
-						CurrentUser:ClientManage.CurrentUser
-					}*/
+					model:barModel
 				});
 				ClientManage.adminBarRegion.show(adminBarView);
 			});
 			require(['apps/Common/AdminMenu_view'],function(AdminMenuView){
+				var menuModel = new Backbone.Model({
+					AppConfig:AppConfig,
+					CurrentUser:ClientManage.CurrentUser
+				})
 				var adminMenuView = new AdminMenuView({
-					/*model:{
-						AppConfig:AppConfig,
-						CurrentUser:ClientManage.CurrentUser
-					}*/
+					model:menuModel
 				});
 				ClientManage.adminMenuRegion.show(adminMenuView);
 			});

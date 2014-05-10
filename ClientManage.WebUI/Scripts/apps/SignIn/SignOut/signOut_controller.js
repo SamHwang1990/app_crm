@@ -8,18 +8,22 @@ define(['app'],function(ClientManage){
 		SignOut.Controller = {
 			DoSignOut:function(){
 				var signOutUrl = '/Home/Logout';                //SignOut Url
-				$.get(                                          //jQuery Get Ajax
-					signOutUrl,                                 //Ajax Url
-					function(data){                             //Ajax Success Feedback Function
+				$.ajax({
+					type:"POST",
+					url:signOutUrl,
+					dataType: 'json',
+					success: function (data){
 						if(data.LogOutResult)
-							ClientManage.navigate("SignIn");
+							ClientManage.navigate("SignIn",{trigger:true});
 						else{
 							console.log('Sign out failed');
 							alert('Sign out failed');
 						}
 					},
-					'json'                                      //Ajax dataType
-				);
+					error:function(data,err){
+						console.log(err);
+					}
+				});
 			}
 		};
 	});

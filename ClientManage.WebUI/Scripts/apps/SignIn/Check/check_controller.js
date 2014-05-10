@@ -8,6 +8,7 @@ define(['app'],function(ClientManage){
 		Check.Controller = {
 			CheckSignIn:function(){
 				var checkUrl = '/Home/CheckLogin';                              //设置检查的Url
+				var urlFragment = ClientManage.getCurrentRoute();
 				require(['models/LoginUser'],function(SignInUserModel){
 					var currentUser = new SignInUserModel();
 					$.ajax({
@@ -18,15 +19,23 @@ define(['app'],function(ClientManage){
 							if(data.HasCurrentUser){
 								currentUser.set("UserName",data.UserName);      //设置UserName
 								ClientManage.CurrentUser = currentUser;         //把当前User信息存储到App中
-								ClientManage.module("SignIn").stop();           //然后关闭Module，释放内存
-								ClientManage.trigger("home:index");             //如果已有登录，则触发“home:index”事件
+								require(["apps/CM_app"],function(CM){
+									//CM.start();
+									if(urlFragment === ''){
+										ClientManage.navigate("Home/Index",{trigger:true});
+									}else{
+										alert(urlFragment);
+										ClientManage.navigate(urlFragment,{trigger:true});
+									}
+								})
+
 							}
 							else{                                               //如果没有登录信息，则重定向，渲染登录页面
 								if(ClientManage.CurrentUser){
 									ClientManage.CurrentUser = null;
 								}
-								//ClientManage.navigate("SignIn");
-								ClientManage.trigger("show:signIn");            //如果没有登录，则显示登录form
+								ClientManage.navigate("SignIn",{trigger:true});
+								//ClientManage.trigger("show:signIn");            //如果没有登录，则显示登录form
 								return;
 							}
 						}

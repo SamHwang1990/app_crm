@@ -83,7 +83,7 @@ body#body-signin {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	z-index: -1;
+	/*z-index: -1;*/
 }
 #adminMenuWrap{
 	width:160px;

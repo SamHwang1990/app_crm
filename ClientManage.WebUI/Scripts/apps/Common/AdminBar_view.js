@@ -7,11 +7,13 @@ define(['marionette','text!templates/Common/appAdminBar.html'],function(Marionet
 	var adminBar = Marionette.ItemView.extend({
 		tagName:"div",
 		className:"navbar-inner",
-		template:AdminBarTpl,
-		/*templateHelpers:{
-			AppConfig:this.model.AppConfig,
-			CurrentUser:this.model.CurrentUser
-		},*/
+		template: _.template(AdminBarTpl),
+		templateHelpers:function(){
+			return {
+				AppConfig:this.model.get("AppConfig").toJSON(),
+				CurrentUser:this.model.get("CurrentUser").toJSON()
+			}
+		},
 		onShow:function(){
 			console.log("Admin Bar View Show");
 		}

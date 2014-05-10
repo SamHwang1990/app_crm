@@ -100,13 +100,23 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 						dataType: 'json',
 						success: function (data){
 							if(data.result){ //登录成功，则设置currentUser并重定向
+
 								require(["models/LoginUser"],function(LoginUserModel){
 									var currentUser = new LoginUserModel({
 										UserName:that.model.get("UserName")
 									});
-									ClientManage.currentManage = currentUser;
-								})
-								//window.location.href="/Home/Index";
+									ClientManage.CurrentUser = currentUser;
+								});
+
+								require(['apps/Common/index_view'],function(IndexView){
+									var indexView = new IndexView();
+									ClientManage.bodyRegion.show(indexView);
+
+									require(["apps/CM_app"],function(CM){
+										CM.start();
+										ClientManage.navigate("Home/Index",{trigger:true});
+									})
+								});
 							}else{  //当登录失败时
 
 								//判断是否用户名不存在

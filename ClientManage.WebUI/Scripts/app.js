@@ -21,6 +21,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 
 		if (ClientManage.currentApp){
 			ClientManage.currentApp.stop();                 //关闭当前Module
+			//delete ClientManage[appName];
 		}
 
 		ClientManage.currentApp = currentApp;               //重新配置当前Module
@@ -35,7 +36,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 				Backbone.history.start();
 
 				if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("check:signIn");  //程序启动时，默认触发check:signIn事件，检查是否已登录
+					ClientManage.trigger("check:signIn"); //程序启动时，默认触发check:signIn事件，检查是否已登录
 				}
 			});
 		}

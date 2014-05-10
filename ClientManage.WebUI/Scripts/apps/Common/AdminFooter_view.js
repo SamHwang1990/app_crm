@@ -5,13 +5,9 @@
 
 define(['marionette','text!templates/Common/Footer.html'],function(Marionette,FooterTpl){
 	var adminFooter = Marionette.ItemView.extend({
-		template:FooterTpl,
+		template: _.template(FooterTpl),
 		tagName:"div",
 		className:"appFooter-Content",
-		/*templateHelpers:{
-			siteName:this.model.siteName,
-			version:this.model.version
-		},*/
 		onShow:function(){
 			console.log("Admin Footer View Show");
 		}
