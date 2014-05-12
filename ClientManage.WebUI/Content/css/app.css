@@ -189,11 +189,8 @@ body#body-signin {
 	text-decoration: none;
 	color: #53c3ed;
 }
-.adminMenu>li>a:hover{
+.adminMenu>li>a:hover,.adminMenu>li.app-subMenu-open>a{
 	background-color: #000;
-}
-.adminMenu>li.app-has-current-subMenu>a:hover{
-
 }
 .app-not-current-subMenu .app-subMenu{
 	list-style: none;

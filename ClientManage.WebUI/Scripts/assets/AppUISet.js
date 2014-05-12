@@ -9,11 +9,12 @@ define(['jquery'],function($){
 	//处理li的Hover状态
 	var handleLiHover = function(){
 
+		var subMenuLi = adminMenuWrap.find("ul.adminMenu>li.app-not-current-subMenu");
+
 		//绑定各li的mouseenter 事件
 		adminMenuWrap.on("mouseenter","ul.adminMenu>li.app-not-current-subMenu",function(){
-
 			//隐藏所有li.app-not-current-subMenu 的submenu 浮动框
-			adminMenuWrap.find("ul.adminMenu>li.app-not-current-subMenu").removeClass("app-subMenu-open");
+			subMenuLi.removeClass("app-subMenu-open");
 
 			//如果当前li 有submenu，则显示submenu在右边
 			if($(this).has("ul.app-subMenu")){
@@ -22,9 +23,9 @@ define(['jquery'],function($){
 		});
 
 		//绑定各li的mouseleave 事件
-		adminMenuWrap.on("mouseleave","ul.adminMenu>li.app-not-current-subMenu",function(){
+		adminMenuWrap.on("mouseleave","ul.adminMenu>li.app-not-current-subMenu,ul.adminMenu>li.app-not-current-subMenu>ul.app-subMenu",function(event){
 			//隐藏所有li.app-not-current-subMenu 的submenu 浮动框
-			adminMenuWrap.find("ul.adminMenu>li.app-not-current-subMenu").removeClass("app-subMenu-open");
+			subMenuLi.removeClass("app-subMenu-open");
 		});
 	};
 

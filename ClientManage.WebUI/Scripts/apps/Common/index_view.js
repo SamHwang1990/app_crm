@@ -4,9 +4,15 @@
  ***************************************/
 
 define(['app','text!templates/Common/index.html'],function(ClientManage,indexTpl){
-	var indexView = Marionette.ItemView.extend({
+	var indexView = Marionette.Layout.extend({
 		template: _.template(indexTpl),
-		tagName:'body'
+		tagName:'body',
+		regions:{
+			adminBarRegion: "#appAdminBar",
+			adminMenuRegion:"#adminMenuWrap",
+			adminContentRegion:"#appBody-content .wrap",
+			adminFooterRegion:"#appFooter"
+		}
 	});
 	return indexView;
 });

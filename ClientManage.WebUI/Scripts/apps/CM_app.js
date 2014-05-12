@@ -9,7 +9,9 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 		CM.Router = Marionette.AppRouter.extend({
 			appRoutes: {
 				"Home/Index":"homeIndex",
-				"Home/Feedback":"homeFeedback"
+				"Home/Feedback":"homeFeedback",
+
+				"SignOut":"homeSignOut"
 			}
 		});
 
@@ -24,51 +26,63 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 			adminFooterRegion:"#appFooter"
 		});
 
+		ClientManage.commands.setHandler("resetFrameRegion", function(){
+			ClientManage.adminBarRegion.reset();
+			ClientManage.adminMenuRegion.reset();
+			ClientManage.adminFooterRegion.reset();
+			ClientManage.adminContentRegion.reset();
+		});
+
 		var API = {
 			homeIndex:function(){
 				alert("homeIndex");
 			},
 			homeFeedback:function(){
 				alert("homeFeedback");
+			},
+			homeSignOut:function(){
+				require(['apps/SignIn/SignIn_app'],function(SignIn){
+					ClientManage.trigger("signOut:signIn");
+				});
 			}
 		};
 
-		CM.on("start",function(options){
-			alert("CM Start");
-			ClientManage.startSubApp("CM");
+		ClientManage.on("render:frame",function(options){
+			require(['apps/Common/index_view'],function(indexViewLayout){
+				var indexView = new indexViewLayout();
+				ClientManage.bodyRegion.show(indexView);
+
+				require(['apps/Common/AdminFooter_view'],function(FooterView){
+					var footerView = new FooterView({
+						model:AppConfig
+					});
+					indexView.adminFooterRegion.show(footerView);
+				});
+				require(['apps/Common/AdminBar_view'],function(AdminBarView){
+					var barModel = new Backbone.Model({
+						AppConfig:AppConfig,
+						CurrentUser:ClientManage.CurrentUser
+					})
+					var adminBarView = new AdminBarView({
+						model:barModel
+					});
+					indexView.adminBarRegion.show(adminBarView);
+				});
+				require(['apps/Common/AdminMenu_view'],function(AdminMenuView){
+					var menuModel = new Backbone.Model({
+						AppConfig:AppConfig,
+						CurrentUser:ClientManage.CurrentUser
+					})
+					var adminMenuView = new AdminMenuView({
+						model:menuModel
+					});
+					indexView.adminMenuRegion.show(adminMenuView);
+				});
+			})
 		});
 
-		CM.on("stop", function(){
-			alert("CM stop");
-		});
-
 		CM.on("start",function(options){
-			require(['apps/Common/AdminFooter_view'],function(FooterView){
-				var footerView = new FooterView({
-					model:AppConfig
-				});
-				ClientManage.adminFooterRegion.show(footerView);
-			});
-			require(['apps/Common/AdminBar_view'],function(AdminBarView){
-				var barModel = new Backbone.Model({
-					AppConfig:AppConfig,
-					CurrentUser:ClientManage.CurrentUser
-				})
-				var adminBarView = new AdminBarView({
-					model:barModel
-				});
-				ClientManage.adminBarRegion.show(adminBarView);
-			});
-			require(['apps/Common/AdminMenu_view'],function(AdminMenuView){
-				var menuModel = new Backbone.Model({
-					AppConfig:AppConfig,
-					CurrentUser:ClientManage.CurrentUser
-				})
-				var adminMenuView = new AdminMenuView({
-					model:menuModel
-				});
-				ClientManage.adminMenuRegion.show(adminMenuView);
-			});
+			ClientManage.trigger("render:frame");
 		});
 
 		ClientManage.addInitializer(function(){

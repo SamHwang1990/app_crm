@@ -113,8 +113,14 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 									ClientManage.bodyRegion.show(indexView);
 
 									require(["apps/CM_app"],function(CM){
-										CM.start();
+										//CM.start();
+										if(ClientManage.CM){
+											;
+										}else{
+											ClientManage.trigger("render:frame");
+										}
 										ClientManage.navigate("Home/Index",{trigger:true});
+										//ClientManage.trigger("home:index");
 									})
 								});
 							}else{  //当登录失败时

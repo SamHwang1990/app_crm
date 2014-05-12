@@ -7,23 +7,10 @@ define(['app'],function(ClientManage){
 		SignIn.Router = Marionette.AppRouter.extend({   //SignIn Module的路由配置
 			appRoutes: {
 				"CheckSignIn":"Check",                  //检查是否已登录
-				"SignIn":"SignInShow",                  //渲染登录form
-				"SignOut":"SignOut"                     //登出操作
+				"SignIn":"SignInShow"                  //渲染登录form
+				//"SignOut":"SignOut"                     //登出操作
 			}
 		});
-
-		ClientManage.addRegions({                       //当前Module下注册Region
-			bodyRegion: "body"
-		});
-
-		SignIn.on("start",function(){
-			alert("Sign start");
-			ClientManage.startSubApp("SignIn");
-		});
-
-		SignIn.on("stop",function(){
-			alert("Sign stop");
-		})
 
 		var executeAction = function(action, arg){
 			action(arg);
@@ -54,6 +41,10 @@ define(['app'],function(ClientManage){
 
 		ClientManage.on("show:signIn",function(){       //注册渲染登录form事件
 			API.SignInShow();
+		});
+
+		ClientManage.on("signOut:signIn",function(){
+			API.SignOut();
 		})
 
 		ClientManage.addInitializer(function(){

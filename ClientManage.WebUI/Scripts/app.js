@@ -30,14 +30,20 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 		}
 	};
 
+	ClientManage.addInitializer(function(){
+		ClientManage.addRegions({                       //当前Module下注册Region
+			bodyRegion: "body"
+		});
+	})
+
 	ClientManage.on("initialize:after", function(){
 		if(Backbone.history){
 			require(['apps/SignIn/SignIn_app'], function () {
 				Backbone.history.start();
-
-				if(ClientManage.getCurrentRoute() === ""){
+				ClientManage.trigger("check:signIn");
+				/*if(ClientManage.getCurrentRoute() === ""){
 					ClientManage.trigger("check:signIn"); //程序启动时，默认触发check:signIn事件，检查是否已登录
-				}
+				}*/
 			});
 		}
 	});
