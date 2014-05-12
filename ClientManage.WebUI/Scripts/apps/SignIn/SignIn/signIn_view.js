@@ -108,20 +108,10 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 									ClientManage.CurrentUser = currentUser;
 								});
 
-								require(['apps/Common/index_view'],function(IndexView){
-									var indexView = new IndexView();
-									ClientManage.bodyRegion.show(indexView);
-
-									require(["apps/CM_app"],function(CM){
-										//CM.start();
-										if(ClientManage.CM){
-											;
-										}else{
-											ClientManage.trigger("render:frame");
-										}
-										ClientManage.navigate("Home/Index",{trigger:true});
-										//ClientManage.trigger("home:index");
-									})
+								require(["apps/CM_app"],function(CM){
+									ClientManage.trigger("render:frame");
+									ClientManage.navigate("Home/Index",{trigger:true});
+									//ClientManage.trigger("home:index");
 								});
 							}else{  //当登录失败时
 

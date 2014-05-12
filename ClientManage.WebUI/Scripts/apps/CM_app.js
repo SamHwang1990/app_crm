@@ -19,20 +19,6 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 			API.homeIndex();
 		});
 
-		ClientManage.addRegions({
-			adminBarRegion: "#appAdminBar",
-			adminMenuRegion:"#adminMenuWrap",
-			adminContentRegion:"#appBody-content .wrap",
-			adminFooterRegion:"#appFooter"
-		});
-
-		ClientManage.commands.setHandler("resetFrameRegion", function(){
-			ClientManage.adminBarRegion.reset();
-			ClientManage.adminMenuRegion.reset();
-			ClientManage.adminFooterRegion.reset();
-			ClientManage.adminContentRegion.reset();
-		});
-
 		var API = {
 			homeIndex:function(){
 				alert("homeIndex");
@@ -81,9 +67,7 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 			})
 		});
 
-		CM.on("start",function(options){
-			ClientManage.trigger("render:frame");
-		});
+
 
 		ClientManage.addInitializer(function(){
 			new CM.Router({
