@@ -40,10 +40,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 		if(Backbone.history){
 			require(['apps/SignIn/SignIn_app'], function () {
 				Backbone.history.start();
-				ClientManage.trigger("check:signIn");
-				/*if(ClientManage.getCurrentRoute() === ""){
-					ClientManage.trigger("check:signIn"); //程序启动时，默认触发check:signIn事件，检查是否已登录
-				}*/
+				ClientManage.trigger("check:signIn");   //默认打开程序时检查是否登录
 			});
 		}
 	});

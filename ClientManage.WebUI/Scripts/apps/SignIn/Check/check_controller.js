@@ -20,8 +20,8 @@ define(['app'],function(ClientManage){
 								currentUser.set("UserName",data.UserName);      //设置UserName
 								ClientManage.CurrentUser = currentUser;         //把当前User信息存储到App中
 								require(["apps/CM_app"],function(CM){
-									ClientManage.trigger("render:frame");
-									if(urlFragment === ''){
+									ClientManage.trigger("render:frame");       //渲染界面框架
+									if(urlFragment === ''){                     //根据当前是否有路由参数来渲染视图
 										ClientManage.navigate("Home/Index",{trigger:true});
 									}else{
 										alert(urlFragment);
