@@ -10,7 +10,7 @@ define(['app','text!templates/Common/index.html'],function(ClientManage,indexTpl
 		regions:{
 			adminBarRegion: "#appAdminBar",
 			adminMenuRegion:"#adminMenuWrap",
-			adminContentRegion:"#appBody-content .wrap",
+			adminContentRegion:"#appBody-content",
 			adminFooterRegion:"#appFooter"
 		}
 	});

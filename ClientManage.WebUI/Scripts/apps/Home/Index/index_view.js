@@ -6,7 +6,8 @@ define(['app','text!templates/Home/Index.html'],function(ClientManage,IndexTpl){
 	ClientManage.module('Home.Index.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.IndexView = Marionette.ItemView.extend({
 			template:_.template(IndexTpl),
-			tagName:'div'
+			tagName:'div',
+			className:'wrap'
 		})
 	});
 	return ClientManage.Home.Index.View;

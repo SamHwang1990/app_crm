@@ -25,7 +25,7 @@ define(['jquery'],function($){
 		//绑定各li的mouseleave 事件
 		adminMenuWrap.on("mouseleave","ul.adminMenu>li.app-not-current-subMenu",function(event){
 			//隐藏所有li.app-not-current-subMenu 的submenu 浮动框
-			subMenuLi.removeClass("app-subMenu-open");
+			$(this).removeClass("app-subMenu-open");
 		});
 	};
 

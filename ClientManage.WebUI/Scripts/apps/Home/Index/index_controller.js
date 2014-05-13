@@ -7,6 +7,7 @@ define(['app'],function(ClientManage){
 	ClientManage.module('Home.Index',function(Index,ClientManage,Backbone, Marionette, $, _){
 		Index.Controller = {
 			ShowIndex :function(contentRegion){
+				ClientManage.startSubApp("Home.Index");
 				require(['apps/Home/Index/index_view'],function(IndexView){
 					var indexView = new IndexView.IndexView();
 					contentRegion.show(indexView);

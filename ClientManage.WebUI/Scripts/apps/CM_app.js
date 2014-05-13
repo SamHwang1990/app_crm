@@ -3,21 +3,20 @@
  * ClientManage Module
  ***************************************/
 
-define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet){
+define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 	ClientManage.module('CM',function(CM,ClientManage,Backbone,Marionette,$,_){
 
 		CM.Router = Marionette.AppRouter.extend({
 			appRoutes: {
+				/*Home Router*/
 				"Home/Index":"HomeIndex",
 				"Home/Feedback":"HomeFeedback",
+				"SignOut":"SignOut",
 
-				"SignOut":"SignOut"
+				/*StudentMgr Router*/
+				"StudentMgr/Index/List":"StudentMgrIndexList",
+				"StudentMgr/Index/Create":"StudentMgrIndexCreate"
 			}
-		});
-
-		ClientManage.on('home:index',function(){
-			ClientManage.navigate("Home/Index");
-			API.HomeIndex();
 		});
 
 		var executeAction = function(action, arg){
@@ -26,21 +25,31 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 		};
 
 		var API = {
+			/*Home Router Controller*/
 			HomeIndex:function(){
 				require(['apps/Home/Index/index_controller'],function(HomeIndexController){
 					executeAction(HomeIndexController.ShowIndex);
 				})
 			},
 			HomeFeedback:function(){
-				alert("djj");
-				/*require(['apps/Home/Feedback/feedback_controller'],function(HomeFDController){
-					executeAction(HomeFDController.ShowIndex);
-				})*/
+				require(['apps/Home/Feedback/feedback_controller'],function(HomeFeedbackController){
+					executeAction(HomeFeedbackController.ShowFeedback);
+				})
 			},
 			SignOut:function(){
 				require(['apps/SignIn/SignIn_app'],function(SignIn){
 					ClientManage.trigger("signOut:signIn");
 				});
+			},
+
+			/*StudentMgr Router Controller*/
+			StudentMgrIndexList:function(){
+				require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexController){
+					executeAction(StudentMgrIndexController.ShowList);
+				})
+			},
+			StudentMgrIndexCreate:function(){
+
 			}
 		};
 
@@ -81,10 +90,16 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 					ClientManage.trigger("home:index");
 				}else{
 					ClientManage.navigate(urlFragment);
-					urlFragment = urlFragment.replace('/','');
+					//AppUISet.SetCurrentMenu(urlFragment);
+					urlFragment = urlFragment.replace(/\//g,'');
 					API[urlFragment]();
 				}
 			})
+		});
+
+		ClientManage.on('home:index',function(){
+			ClientManage.navigate("Home/Index");
+			API.HomeIndex();
 		});
 
 		ClientManage.addInitializer(function(){

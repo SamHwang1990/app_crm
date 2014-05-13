@@ -1,16 +1,14 @@
-<tr>
-    <td><a href="/StudentMgr/Index/Edit" title='<%= StudentInfo.StudentID %>'><%= StudentInfo.NameCn %></a></td>
-    <td><%= StudentInfo.Gender %></td>
-    <td><%= StudentInfo.SchoolCn %></td>
-    <td><%= StudentInfo.Grade %></td>
-    <td><%= StudentInfo.EducationIntention %></td>
-    <td>
-        <a href="/StudentMgr/Index/Edit" title='<%= StudentInfo.StudentID %>'>修改信息</a>
-        <% if (AppRelation.IsSign == '已签约' ) { %>
-        <a href="#" title='<%= StudentInfo.StudentID %>'>进入申请</a>
-        <% } else { %>
-        <a href="#" title='<%= StudentInfo.StudentID %>'>进入销售</a>
-        <% } %>
-        <a href="/StudentMgr/Index/Disable" title='<%= StudentInfo.StudentID %>'>禁用该学生</a>
-    </td>
-</tr>
+<td><a href="/StudentMgr/Index/Edit" title='<%= StudentInfo.StudentID %>'><%= StudentInfo.NameCn %></a></td>
+<td><%= StudentInfo.Gender %></td>
+<td><%= StudentInfo.SchoolCn %></td>
+<td><%= StudentInfo.Grade %></td>
+<td><%= StudentInfo.EducationIntention %></td>
+<td>
+    <a href="/StudentMgr/Index/Edit" title='<%= StudentInfo.StudentID %>'>修改信息</a>
+    <% if (AppRelation.IsSign == '已签约' ) { %>
+    <a href="#" title='<%= StudentInfo.StudentID %>'>进入申请</a>
+    <% } else { %>
+    <a href="#" title='<%= StudentInfo.StudentID %>'>进入销售</a>
+    <% } %>
+    <a href="/StudentMgr/Index/Disable" title='<%= StudentInfo.StudentID %>'>禁用该学生</a>
+</td>
