@@ -8,25 +8,36 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 
 		CM.Router = Marionette.AppRouter.extend({
 			appRoutes: {
-				"Home/Index":"homeIndex",
-				"Home/Feedback":"homeFeedback",
+				"Home/Index":"HomeIndex",
+				"Home/Feedback":"HomeFeedback",
 
-				"SignOut":"homeSignOut"
+				"SignOut":"SignOut"
 			}
 		});
 
 		ClientManage.on('home:index',function(){
-			API.homeIndex();
+			ClientManage.navigate("Home/Index");
+			API.HomeIndex();
 		});
 
+		var executeAction = function(action, arg){
+			action(ClientManage.bodyRegion.currentView.adminContentRegion,arg);
+			//ClientManage.execute("check:signIn");
+		};
+
 		var API = {
-			homeIndex:function(){
-				alert("homeIndex");
+			HomeIndex:function(){
+				require(['apps/Home/Index/index_controller'],function(HomeIndexController){
+					executeAction(HomeIndexController.ShowIndex);
+				})
 			},
-			homeFeedback:function(){
-				alert("homeFeedback");
+			HomeFeedback:function(){
+				alert("djj");
+				/*require(['apps/Home/Feedback/feedback_controller'],function(HomeFDController){
+					executeAction(HomeFDController.ShowIndex);
+				})*/
 			},
-			homeSignOut:function(){
+			SignOut:function(){
 				require(['apps/SignIn/SignIn_app'],function(SignIn){
 					ClientManage.trigger("signOut:signIn");
 				});
@@ -64,10 +75,17 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig,AppUISet)
 					});
 					indexView.adminMenuRegion.show(adminMenuView);
 				});
+
+				var urlFragment = ClientManage.getCurrentRoute();
+				if(urlFragment === '' || urlFragment==='SignIn'){                     //根据当前是否有路由参数来渲染视图
+					ClientManage.trigger("home:index");
+				}else{
+					ClientManage.navigate(urlFragment);
+					urlFragment = urlFragment.replace('/','');
+					API[urlFragment]();
+				}
 			})
 		});
-
-
 
 		ClientManage.addInitializer(function(){
 			new CM.Router({

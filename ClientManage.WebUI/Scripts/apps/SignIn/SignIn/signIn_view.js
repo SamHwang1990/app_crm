@@ -110,7 +110,7 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 
 								require(["apps/CM_app"],function(CM){
 									ClientManage.trigger("render:frame");       //渲染界面框架
-									ClientManage.navigate("Home/Index",{trigger:true});
+									//ClientManage.navigate("Home/Index",{trigger:true});
 									//ClientManage.trigger("home:index");
 								});
 							}else{  //当登录失败时

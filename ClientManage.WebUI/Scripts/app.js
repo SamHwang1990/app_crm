@@ -38,7 +38,7 @@ define(['marionette','bootstrap'],function(Marionette,Bootstrap){
 
 	ClientManage.on("initialize:after", function(){
 		if(Backbone.history){
-			require(['apps/SignIn/SignIn_app'], function () {
+			require(['apps/SignIn/SignIn_app'], function(){
 				Backbone.history.start();
 				ClientManage.trigger("check:signIn");   //默认打开程序时检查是否登录
 			});
