@@ -4,10 +4,10 @@
  ***************************************/
 
 define(['app'],function(ClientManage){
-	ClientManage.module('StudentMgr.Index',function(Index,ClientManage,Backbone, Marionette, $, _){
-		Index.Controller = {
+	ClientManage.module('StudentMgr.Index.List',function(List,ClientManage,Backbone, Marionette, $, _){
+		List.Controller = {
 			ShowList :function(contentRegion){
-				ClientManage.startSubApp("StudentMgr.Index");
+				ClientManage.startSubApp("StudentMgr.Index.List");
 				require(['apps/StudentMgr/Index/List/list_view','collections/StudentMgr/Index/StudentList'],function(ListView,StudentsCol){
 					var students = new StudentsCol();
 					students.fetch({
@@ -26,5 +26,5 @@ define(['app'],function(ClientManage){
 			}
 		}
 	});
-	return ClientManage.StudentMgr.Index.Controller;
+	return ClientManage.StudentMgr.Index.List.Controller;
 });

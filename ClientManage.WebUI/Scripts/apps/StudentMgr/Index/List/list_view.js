@@ -7,7 +7,7 @@ define([
 	'app',
 	'text!templates/StudentMgr/Index/StudentItem.html',
 	'text!templates/StudentMgr/Index/List.html'],function(ClientManage,StudentItemTpl,StudentsTpl){
-	ClientManage.module('StudentMgr.Index.View',function(View,ClientManage,Backbone, Marionette, $, _){
+	ClientManage.module('StudentMgr.Index.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentItemView = Marionette.ItemView.extend({
 			template:_.template(StudentItemTpl),
 			tagName:"tr",
@@ -26,5 +26,5 @@ define([
 
 		});
 	});
-	return ClientManage.StudentMgr.Index.View;
+	return ClientManage.StudentMgr.Index.List.View;
 });

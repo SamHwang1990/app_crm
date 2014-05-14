@@ -44,12 +44,14 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 
 			/*StudentMgr Router Controller*/
 			StudentMgrIndexList:function(){
-				require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexController){
-					executeAction(StudentMgrIndexController.ShowList);
+				require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexListController){
+					executeAction(StudentMgrIndexListController.ShowList);
 				})
 			},
 			StudentMgrIndexCreate:function(){
-
+				require(['apps/StudentMgr/Index/Create/create_controller'],function(StudentMgrIndexCreateController){
+					executeAction(StudentMgrIndexCreateController.ShowCreate)
+				})
 			}
 		};
 
