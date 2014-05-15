@@ -3,9 +3,9 @@
  * 学生信息列表 集合
  ***************************************/
 
-define(['app','models/StudentMgr/Index/StudentInfo'],function(ClientManage,StudentInfoModel){
+define(['app','models/StudentMgr/StudentInfoViewModel'],function(ClientManage,StudentInfoViewModel){
 	var studentListModel = Backbone.Collection.extend({
-		model:StudentInfoModel,
+		model:StudentInfoViewModel,
 		url:'/StudentMgr/Index/List'
 	});
 	return studentListModel;

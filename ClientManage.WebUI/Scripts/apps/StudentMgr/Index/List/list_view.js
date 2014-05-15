@@ -13,7 +13,7 @@ define([
 			tagName:"tr",
 			templateHelpers:function(){
 				return {
-					StudentInfo:this.model.get("StudentInfo")
+					StudentInfo:this.model.get("StudentInfo").toJSON()
 				}
 			}
 		});
