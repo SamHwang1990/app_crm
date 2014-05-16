@@ -3,7 +3,7 @@
  * Application 创建，以及配置
  ***************************************/
 
-define(['marionette','bootstrap'],function(Marionette,Bootstrap){
+define(['marionette','backbone.relational','bootstrap'],function(Marionette,Backbone_Relational,Bootstrap){
 	var ClientManage = new Marionette.Application();        //实例化Application
 
 	ClientManage.navigate = function(route,  options){      //Backbone的Route导航函数

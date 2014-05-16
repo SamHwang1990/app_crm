@@ -10,12 +10,7 @@ define([
 	ClientManage.module('StudentMgr.Index.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentItemView = Marionette.ItemView.extend({
 			template:_.template(StudentItemTpl),
-			tagName:"tr",
-			templateHelpers:function(){
-				return {
-					StudentInfo:this.model.get("StudentInfo").toJSON()
-				}
-			}
+			tagName:"tr"
 		});
 		View.StudentsView = Marionette.CompositeView.extend({
 			tagName:"div",

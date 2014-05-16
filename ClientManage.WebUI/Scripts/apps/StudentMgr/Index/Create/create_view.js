@@ -33,7 +33,8 @@ define([
 				'click @ui.btnAddEasyChat':'InsertEasyChatTemp',
 				'click @ui.btnAddContact':'InsertContactTemp',
 				'click @ui.removeParent':'RemoveParent',
-				'changeDate @ui.timePicker':'ChatTimeChange'     //datetimepicker插件触发的changeDate事件
+				'changeDate @ui.timePicker':'ChatTimeChange',     //datetimepicker插件触发的changeDate事件
+				'submit':'CreateSubmit'
 			},
 			onRender:function(){
 				var createView  = this;
@@ -77,17 +78,14 @@ define([
 			},
 			ChatTimeChange:function(event){             //当chattime的值改变时触发，用于验证
 				var easyChatWrap = $(event.currentTarget).parent();                 //找到父元素：div.easyChat-wrap
-				var beginTime = easyChatWrap.find('.easyChat-begin input').val();   //获取可联系时间的开始值字符串
-				var endTime = easyChatWrap.find('.easyChat-end input').val();       //获取可联系时间的结束值字符串
-				if(beginTime === '' || endTime === ''){                             //如果开始值或者结束值为空，则不需要验证
-					return ;
-				}
-				var beginTimeNum = Number(beginTime.replace(':',''));               //将开始值字符串的‘:’删掉，并转为数字
-				var endTimeNum = Number(endTime.replace(':',''));                   //将结束值字符串的‘:’删掉，并转为数字
-				if(endTimeNum > beginTimeNum){                                      //如果结束值大于开始值，则删除错误信息
-					this.SetFeedbackMsg('','chatTimeInvalid','remove');
-				}else{                                                              //否则，显示错误信息
-					this.SetFeedbackMsg('通话开始时间不能晚于结束时间','chatTimeInvalid','add');
+				this.CheckChatTimeValid(easyChatWrap);
+			},
+			CreateSubmit:function(event){
+				//阻止默认的表单提交行为
+				event.preventDefault();
+				//如果表单通过验证检查
+				if(this.validateForm()){
+					alert("validate done")
 				}
 			},
 			/*
@@ -107,6 +105,68 @@ define([
 						feedbackMsg.addClass(className);
 						break;
 				}
+			},
+			CheckChatTimeValid:function(wrapEl){
+				var beginTime = wrapEl.find('.easyChat-begin input').val();   //获取可联系时间的开始值字符串
+				var endTime = wrapEl.find('.easyChat-end input').val();       //获取可联系时间的结束值字符串
+				if(beginTime === '' || endTime === ''){                             //如果开始值或者结束值为空，则不需要验证
+					return ;
+				}
+				var beginTimeNum = Number(beginTime.replace(':',''));               //将开始值字符串的‘:’删掉，并转为数字
+				var endTimeNum = Number(endTime.replace(':',''));                   //将结束值字符串的‘:’删掉，并转为数字
+				if(endTimeNum > beginTimeNum){                                      //如果结束值大于开始值，则删除错误信息
+					this.SetFeedbackMsg('','inputInvalid','remove');
+					return true;
+				}else{                                                              //否则，显示错误信息
+					this.SetFeedbackMsg('通话开始时间不能晚于结束时间','inputInvalid','add');
+					return false;
+				}
+			},
+			/*
+			* 用于检查基础信息是否有填写
+			* @param inputName:表单元素的name属性
+			* @param errMsg: 该表单元素的错误信息
+			* */
+			CheckRequire:function(wrapEl,attrType,inputName,errMsg){
+				//为必填项保存一个消息
+				var requiredMsg = '请填写必填字段:';
+				var $targetInput = wrapEl.find('input['+attrType+'*="'+inputName+'"]');
+				if($targetInput.val() === ""){
+					this.SetFeedbackMsg(requiredMsg+errMsg,'inputInvalid','add');
+					return false;
+				}
+				else{
+					return true;
+				}
+			},
+			validateForm:function(){
+				var createView = this;
+				//检查基础必备信息是否已填写
+				if(!this.CheckRequire(this.$el,'name','studentName','学生名')){
+					return false;
+				}
+
+				//检查联系人信息
+				var contactValid = true;
+				var chatTimeValid = true;
+				var contactList = $('fieldset.contactItem');
+				contactList.each(function(index){
+					if(!createView.CheckRequire($(this),'class','ContactName','联系人名字')){
+						contactValid = false;
+						return false;//实现break功能
+					}
+					$(this).find('.easyChat-wrap').each(function(index){
+						if(!createView.CheckChatTimeValid($(this))){
+							chatTimeValid = false;
+							return false;//实现break功能
+						}
+					})
+
+				});
+				if(!contactValid || !chatTimeValid){
+					return false;
+				}
+				return true;
 			}
 		})
 	});
