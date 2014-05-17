@@ -27,7 +27,7 @@ define(['jquery','underscore','backbone','backbone.relational'],function($,_,Bac
 			GraduationDate:new Date(),
 			EducationIntention:"本科",
 			NationIntention:"美国",
-			SpecialtyIntentio:"计算机",
+			SpecialtyIntentio:"",
 			CreateTime:new Date(),
 			LiveWith:"",
 			Guardian:"",

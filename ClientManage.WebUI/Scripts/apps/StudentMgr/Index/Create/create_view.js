@@ -85,7 +85,32 @@ define([
 				event.preventDefault();
 				//如果表单通过验证检查
 				if(this.validateForm()){
-					alert("validate done")
+					//Collect the data from form
+					this.setStudentInfo();
+					this.setAppRelation();
+					this.findContactItem("ContactFather","父亲");
+					this.findContactItem("ContactMother","母亲");
+					this.findContactItem("ContactStudent","学生");
+					this.findContactItem("ContactOther","其他");
+
+					var postUrl = this.$el.find("form#createForm").eq(0).attr("action");
+					var ajaxData = this.model.toJSON();
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data:ajaxData,
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data.CreateReslut == true){
+								/*var url = "/Students/SaleTrack/FirstInterview/?id=" + data.StudentID.toString();
+								 window.location.href = url;*/
+								alert("create success");
+							}
+						}
+					});
+				}else{
+					return false;
 				}
 			},
 			/*
@@ -139,6 +164,7 @@ define([
 					return true;
 				}
 			},
+			//检查表单元素的值是否合法
 			validateForm:function(){
 				var createView = this;
 				//检查基础必备信息是否已填写
@@ -147,15 +173,17 @@ define([
 				}
 
 				//检查联系人信息
-				var contactValid = true;
-				var chatTimeValid = true;
-				var contactList = $('fieldset.contactItem');
-				contactList.each(function(index){
+				var contactValid = true;                        //Bool：联系人信息是否合法
+				var chatTimeValid = true;                       //Bool：方便联系时间是否合法
+				var contactList = $('fieldset.contactItem');    //获取所有ContactItem
+				contactList.each(function(index){               //遍历ContactItem
 					if(!createView.CheckRequire($(this),'class','ContactName','联系人名字')){
 						contactValid = false;
 						return false;//实现break功能
 					}
+					//遍历该ContactItem下所有联系时间条目
 					$(this).find('.easyChat-wrap').each(function(index){
+						//检查该联系时间条目的开始时间与结束时间
 						if(!createView.CheckChatTimeValid($(this))){
 							chatTimeValid = false;
 							return false;//实现break功能
@@ -163,11 +191,73 @@ define([
 					})
 
 				});
-				if(!contactValid || !chatTimeValid){
+				if(!contactValid || !chatTimeValid){            //如果联系人、联系时间其中之一不合法
 					return false;
 				}
 				return true;
+			},
+
+			setStudentInfo:function(){
+				var nameCn = this.$el.find('input[name=studentName]').eq(0).val();
+				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
+				this.model.get('StudentInfo').set({
+					NameCn:nameCn,
+					LiveCity:liveCity
+				});
+				//return this.model.get('StudentInfo');
+			},
+			setAppRelation:function(){
+				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
+				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
+				this.model.get('AppRelation').set({
+					IsSign:isSign,
+					SaleConsultant:saleConsultant
+				});
+				//return this.model.get('AppRelation');
+			},
+			findContactItem:function(contactItemName,contactIdentity){
+				//获得符合contactValue的ContactItem
+				var contactItem = this.$el.find('select.contactIdentity').filter(function(){
+					return this.val() === contactIdentity;
+				});
+				if(!contactItem){
+					return false;
+				}
+				//Set ContactIdentity
+				var personIdentity = contactIdentity;
+				var nameCn = contactItem.find('input.ContactName').val();
+				var mobile = contactItem.find('input.Mobile').val();
+				var email = contactItem.find('input.ContactEmail').val();
+				this.model.get(contactItemName).get("ContactIdentity").set({
+					PersonIdentity:personIdentity,
+					NameCn:nameCn,
+					Mobile:mobile,
+					Email:email
+				});
+
+				//Set EasyChatTimes
+				contactItem.find('.easyChat-wrap').each(function(index){
+					var timeBegin = $(this).find("div.easyChat-begin input").eq(0).val();
+					var timeEnd = $(this).find("div.easyChat-end input").eq(0).val();
+					var ifStudentId = $(this).find("input.IfStudentID").eq(0).val();
+					var ifParentId = $(this).find("input.IfParentID").eq(0).val();
+					if(timeBegin != null && timeEnd != null){
+						require('models/StudentMgr/EasyChatTimeModel',function(EasyChatTimeModel){
+							this.model
+								.get(contactItemName)
+								.set("EasyChatTimes",new EasyChatTimeModel.EasyChatTimeEntity({
+									TimeBegin:timeBegin,
+									TimeEnd:timeEnd,
+									IfStudentID:ifStudentId,
+									IfParentID:ifParentId
+								}),
+								{add:true})
+						});
+					}
+				});
+				//return this.model.get(contactItemName);
 			}
+
 		})
 	});
 	return ClientManage.StudentMgr.Index.Create.View;

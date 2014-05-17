@@ -8,8 +8,12 @@ define(['app'],function(ClientManage){
 		Create.Controller = {
 			ShowCreate :function(contentRegion){
 				ClientManage.startSubApp("StudentMgr.Index.Create");
-				require(['apps/StudentMgr/Index/Create/create_view'],function(CreateView){
-					var createView = new CreateView.StudentCreateView();
+				require([
+					'apps/StudentMgr/Index/Create/create_view','models/StudentMgr/Index/StudentCreate']
+					,function(CreateView,StudentCreateModel){
+					var createView = new CreateView.StudentCreateView({
+						model:new StudentCreateModel()
+					});
 					contentRegion.show(createView);
 				})
 			}

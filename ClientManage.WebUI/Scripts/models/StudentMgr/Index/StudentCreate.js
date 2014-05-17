@@ -45,7 +45,7 @@ define([
 			{
 				type:Backbone.HasOne,
 				key:'ContactFather',
-				relatedModel:EasyChatTimeModel,
+				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
 				reverseRelation: {
 					key: 'StudentCreateModel',
 					type:Backbone.HasOne
@@ -55,7 +55,7 @@ define([
 			{
 				type:Backbone.HasOne,
 				key:'ContactMother',
-				relatedModel:EasyChatTimeModel,
+				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
 				reverseRelation: {
 					key: 'StudentCreateModel',
 					type:Backbone.HasOne
@@ -65,7 +65,7 @@ define([
 			{
 				type:Backbone.HasOne,
 				key:'ContactStudent',
-				relatedModel:EasyChatTimeModel,
+				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
 				reverseRelation: {
 					key: 'StudentCreateModel',
 					type:Backbone.HasOne
@@ -75,7 +75,7 @@ define([
 			{
 				type:Backbone.HasOne,
 				key:'ContactOther',
-				relatedModel:EasyChatTimeModel,
+				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
 				reverseRelation: {
 					key: 'StudentCreateModel',
 					type:Backbone.HasOne

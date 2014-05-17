@@ -51,5 +51,10 @@ define(['jquery','underscore','backbone','backbone.relational'],function($,_,Bac
 		]
 	});
 
-	return EasyChatTimeModel;
+	return {
+		ContactIdentity:ContactIdentity,
+		EasyChatTimeEntity:EasyChatTimeEntity,
+		EasyChatTimeList:EasyChatTimeList,
+		EasyChatTimeModel:EasyChatTimeModel
+	};
 })
