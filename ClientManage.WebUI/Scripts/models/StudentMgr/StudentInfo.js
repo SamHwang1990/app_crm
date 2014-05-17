@@ -4,7 +4,7 @@
  ***************************************/
 
 define(['jquery','underscore','backbone','backbone.relational'],function($,_,Backbone,Backbone_Relational){
-	var studentInfo = Backbone.Model.extend({
+	var studentInfo = Backbone.RelationalModel.extend({
 		default:{
 			StudentID:"",
 			NameCn:"",
