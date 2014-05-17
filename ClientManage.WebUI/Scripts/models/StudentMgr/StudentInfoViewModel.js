@@ -7,31 +7,14 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'backbone.relational',
 	'models/StudentMgr/StudentInfo',
 	'models/StudentMgr/AppRelation'
-	],function($,_,Backbone,Backbone_Relational,StudentInfoEntity,AppRelationEntity){
-	var studentInfoViewModel = Backbone.RelationalModel.extend({
-		relations:[
-			{
-				type:Backbone.HasOne,
-				key:"StudentInfo",
-				relatedModel:StudentInfoEntity,
-				reverseRelation: {
-					key: 'StudentInfoViewModel',
-					type:Backbone.HasOne
-				}
-			},
-			{
-				type:Backbone.HasOne,
-				key:"AppRelation",
-				relatedModel:AppRelationEntity,
-				reverseRelation: {
-					key: 'StudentInfoViewModel',
-					type:Backbone.HasOne
-				}
-			}
-		]
+	],function($,_,Backbone,StudentInfoEntity,AppRelationEntity){
+	var studentInfoViewModel = Backbone.Model.extend({
+		defaults:{
+			StudentInfo:new StudentInfoEntity,
+			AppRelation:new AppRelationEntity
+		}
 	});
 	return studentInfoViewModel;
 });

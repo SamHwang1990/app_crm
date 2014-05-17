@@ -3,8 +3,8 @@
  * Contact Easy Chat Time Model
  ***************************************/
 
-define(['jquery','underscore','backbone','backbone.relational'],function($,_,Backbone,Backbone_Relational){
-	var ContactIdentity = Backbone.RelationalModel.extend({
+define(['jquery','underscore','backbone'],function($,_,Backbone){
+	var ContactIdentity = Backbone.Model.extend({
 		default:{
 			PersonIdentity:"",
 			NameCn:"",
@@ -13,7 +13,7 @@ define(['jquery','underscore','backbone','backbone.relational'],function($,_,Bac
 		}
 	});
 
-	var EasyChatTimeEntity = Backbone.RelationalModel.extend({
+	var EasyChatTimeEntity = Backbone.Model.extend({
 		default:{
 			ItemID:"00000000-0000-0000-0000-000000000000",
 			TimeBegin:"00:00",
@@ -27,29 +27,12 @@ define(['jquery','underscore','backbone','backbone.relational'],function($,_,Bac
 		model:EasyChatTimeEntity
 	});
 
-	var EasyChatTimeModel = Backbone.RelationalModel.extend({
-		relations:[
-			{
-				type:Backbone.HasMany,
-				key:"EasyChatTimes",
-				relatedModel:EasyChatTimeEntity,
-				collectionType:EasyChatTimeList,
-				reverseRelation: {
-					key: 'StudentViewModel',
-					type:Backbone.HasOne
-				}
-			},
-			{
-				type:Backbone.HasOne,
-				key:"ContactIdentity",
-				relatedModel:ContactIdentity,
-				reverseRelation: {
-					key: 'EasyChatTimeModel',
-					type:Backbone.HasOne
-				}
-			}
-		]
-	});
+	var EasyChatTimeModel = Backbone.Model.extend({
+		defaults:{
+			ContactIdentity:new ContactIdentity,
+			EasyChatTimes:new EasyChatTimeList
+		}
+	})
 
 	return {
 		ContactIdentity:ContactIdentity,

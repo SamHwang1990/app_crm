@@ -47,7 +47,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             repository.SaveStudentInfo(studentInfo, appRelation);   //保存StudentInfo以及AppRelation信息
 
-            if (ajaxData.ContactStudent != null)
+            if (ajaxData.ContactStudent != null && ajaxData.ContactStudent.EasyChatTimes != null)
             {
                 foreach (EasyChatTimeEntity item in ajaxData.ContactStudent.EasyChatTimes)
                 {
@@ -90,10 +90,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             };
             repository.SaveStudentParent(other);    //添加Parent信息
 
-            foreach (EasyChatTimeEntity item in contact.EasyChatTimes)
+            if (contact.EasyChatTimes != null)
             {
-                item.IfParentID = other.ParentID;
-                repository.SaveEasyChatTime(item);  //添加EasyChatTime信息
+                foreach (EasyChatTimeEntity item in contact.EasyChatTimes)
+                {
+                    item.IfParentID = other.ParentID;
+                    repository.SaveEasyChatTime(item);  //添加EasyChatTime信息
+                }
             }
         }
     }

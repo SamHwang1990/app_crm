@@ -3,8 +3,8 @@
  * AppRelation Model
  ***************************************/
 
-define(['jquery','underscore','backbone','backbone.relational'],function($,_,Backbone,Backbone_Relational){
-	var appRelation = Backbone.RelationalModel.extend({
+define(['jquery','underscore','backbone'],function($,_,Backbone){
+	var appRelation = Backbone.Model.extend({
 		default:{
 			StudentID:"00000000-0000-0000-0000-000000000000",
 			IsSign:false,

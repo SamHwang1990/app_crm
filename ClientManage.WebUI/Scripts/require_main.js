@@ -9,7 +9,6 @@ requirejs.config({
 	baseUrl: "Scripts",
 	paths: {
 		backbone: "libs/backbone/backbone",
-		"backbone.relational":"libs/backbone/backbone-relational",
 		"backbone.picky": "libs/backbone/backbone.picky",
 		"backbone.syphon": "libs/backbone/backbone.syphon",
 		jquery: "libs/jquery/jquery-1.11.0",
@@ -25,10 +24,6 @@ requirejs.config({
 		backbone: {
 			deps: ["jquery", "underscore"],
 			exports: "Backbone"
-		},
-		"backbone.relational":{
-			deps:["backbone"],
-			exports:"Backbone_Relational"
 		},
 		"backbone.picky":{
 			deps: ["backbone"]

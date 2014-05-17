@@ -11,8 +11,9 @@ define(['app'],function(ClientManage){
 				require([
 					'apps/StudentMgr/Index/Create/create_view','models/StudentMgr/Index/StudentCreate']
 					,function(CreateView,StudentCreateModel){
-					var createView = new CreateView.StudentCreateView({
-						model:new StudentCreateModel()
+						var studentCreateModel = new StudentCreateModel();
+						var createView = new CreateView.StudentCreateView({
+							model:studentCreateModel
 					});
 					contentRegion.show(createView);
 				})

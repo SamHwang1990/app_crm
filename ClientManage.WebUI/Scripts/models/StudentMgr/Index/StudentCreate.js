@@ -7,83 +7,28 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'backbone.relational',
 	'models/StudentMgr/StudentInfo',
 	'models/StudentMgr/AppRelation',
 	'models/StudentMgr/EasyChatTimeModel'
-	],function($,_,Backbone,Backbone_Relational,StudentInfoEntity,AppRelationEntity,EasyChatTimeModel){
-	var invalid = Backbone.RelationalModel.extend({
+	],function($,_,Backbone,StudentInfoEntity,AppRelationEntity,EasyChatTimeModel){
+	var invalid = Backbone.Model.extend({
 		default:{
 			errMsg:""
 		}
 	})
 
 
-	var studentCreateModel = Backbone.RelationalModel.extend({
-		relations:[
-			//Ajax StudentInfo
-			{
-				type:Backbone.HasOne,
-				key:'StudentInfo',
-				relatedModel:StudentInfoEntity,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			},
-			//Ajax AppRelation
-			{
-				type:Backbone.HasOne,
-				key:'AppRelation',
-				relatedModel:AppRelationEntity,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			},
-			//Ajax ContactFather
-			{
-				type:Backbone.HasOne,
-				key:'ContactFather',
-				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			},
-			//Ajax ContactMother
-			{
-				type:Backbone.HasOne,
-				key:'ContactMother',
-				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			},
-			//Ajax ContactStudent
-			{
-				type:Backbone.HasOne,
-				key:'ContactStudent',
-				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			},
-			//Ajax ContactOther
-			{
-				type:Backbone.HasOne,
-				key:'ContactOther',
-				relatedModel:EasyChatTimeModel.EasyChatTimeModel,
-				reverseRelation: {
-					key: 'StudentCreateModel',
-					type:Backbone.HasOne
-				}
-			}
-		],
+	var studentCreateModel = Backbone.Model.extend({
 		initialize:function(){
 			this.set("invalid",new invalid);
+		},
+		defaults:{
+			StudentInfo:new StudentInfoEntity(),
+			AppRelation:new AppRelationEntity(),
+			ContactFather:new EasyChatTimeModel.EasyChatTimeModel(),
+			ContactMother:new EasyChatTimeModel.EasyChatTimeModel(),
+			ContactStudent:new EasyChatTimeModel.EasyChatTimeModel(),
+			ContactOther:new EasyChatTimeModel.EasyChatTimeModel()
 		}
 	});
 	return studentCreateModel;

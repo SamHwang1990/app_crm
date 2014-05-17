@@ -88,13 +88,13 @@ define([
 					//Collect the data from form
 					this.setStudentInfo();
 					this.setAppRelation();
-					this.findContactItem("ContactFather","父亲");
-					this.findContactItem("ContactMother","母亲");
-					this.findContactItem("ContactStudent","学生");
-					this.findContactItem("ContactOther","其他");
+					this.model.set("ContactFather",this.findContactItem("ContactFather","父亲"));
+					this.model.set("ContactMother",this.findContactItem("ContactMother","母亲"));
+					this.model.set("ContactStudent",this.findContactItem("ContactStudent","学生"));
+					this.model.set("ContactOther",this.findContactItem("ContactOther","其他"));
 
 					var postUrl = this.$el.find("form#createForm").eq(0).attr("action");
-					var ajaxData = this.model.toJSON();
+					var ajaxData = JSON.stringify(this.model);
 					$.ajax({
 						type: "POST",
 						url: postUrl,
@@ -218,15 +218,15 @@ define([
 			findContactItem:function(contactItemName,contactIdentity){
 				//获得符合contactValue的ContactItem
 				var contactItem = this.$el.find('select.contactIdentity').filter(function(){
-					return this.val() === contactIdentity;
-				});
-				if(!contactItem){
-					return false;
+					return $(this).val() === contactIdentity;
+				}).parent();
+				if(!contactItem.hasClass('contactItem')){
+					return null;
 				}
 				//Set ContactIdentity
 				var personIdentity = contactIdentity;
 				var nameCn = contactItem.find('input.ContactName').val();
-				var mobile = contactItem.find('input.Mobile').val();
+				var mobile = contactItem.find('input.ContactMobile').val();
 				var email = contactItem.find('input.ContactEmail').val();
 				this.model.get(contactItemName).get("ContactIdentity").set({
 					PersonIdentity:personIdentity,
@@ -245,17 +245,18 @@ define([
 						require('models/StudentMgr/EasyChatTimeModel',function(EasyChatTimeModel){
 							this.model
 								.get(contactItemName)
-								.set("EasyChatTimes",new EasyChatTimeModel.EasyChatTimeEntity({
-									TimeBegin:timeBegin,
-									TimeEnd:timeEnd,
-									IfStudentID:ifStudentId,
-									IfParentID:ifParentId
-								}),
-								{add:true})
+								.get("EasyChatTimes").add(
+									new EasyChatTimeModel.EasyChatTimeEntity({
+										TimeBegin:timeBegin,
+										TimeEnd:timeEnd,
+										IfStudentID:ifStudentId,
+										IfParentID:ifParentId
+									})
+								);
 						});
 					}
 				});
-				//return this.model.get(contactItemName);
+				return this.model.get(contactItemName);
 			}
 
 		})
