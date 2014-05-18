@@ -5,11 +5,12 @@
 
 define([
 	'app',
+	'models/StudentMgr/EasyChatTimeModel',
 	'text!templates/StudentMgr/Index/Create.html',                  //StudentMgr的Student Create模板
 	'text!templates/StudentMgr/Index/ContactContent.html',          //StudentMgr的联系人模板
 	'text!templates/StudentMgr/Index/EasyChatTime.html',            //StudentMgr的可联系时间模板,
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',   //bootstrap datetimepicker插件js引入
-	],function(ClientManage,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker,SaleConsultantView){
+	],function(ClientManage,EasyChatTimeModel,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker,SaleConsultantView){
 	ClientManage.module('StudentMgr.Index.Create.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentCreateView = Marionette.Layout.extend({
 			template:_.template(CreateTpl),
@@ -217,18 +218,20 @@ define([
 			},
 			findContactItem:function(contactItemName,contactIdentity){
 				//获得符合contactValue的ContactItem
-				var contactItem = this.$el.find('select.contactIdentity').filter(function(){
+				var $contactItem = this.$el.find('select.ContactIdentity').filter(function(){
 					return $(this).val() === contactIdentity;
 				}).parent();
-				if(!contactItem.hasClass('contactItem')){
+				if(!$contactItem.hasClass('contactItem')){
 					return null;
 				}
 				//Set ContactIdentity
 				var personIdentity = contactIdentity;
-				var nameCn = contactItem.find('input.ContactName').val();
-				var mobile = contactItem.find('input.ContactMobile').val();
-				var email = contactItem.find('input.ContactEmail').val();
-				this.model.get(contactItemName).get("ContactIdentity").set({
+				var nameCn = $contactItem.find('input.ContactName').val();
+				var mobile = $contactItem.find('input.ContactMobile').val();
+				var email = $contactItem.find('input.ContactEmail').val();
+
+				var contactItem = this.model.get(contactItemName);
+				contactItem.get("ContactIdentity").set({
 					PersonIdentity:personIdentity,
 					NameCn:nameCn,
 					Mobile:mobile,
@@ -236,24 +239,22 @@ define([
 				});
 
 				//Set EasyChatTimes
-				contactItem.find('.easyChat-wrap').each(function(index){
+				$contactItem.find('.easyChat-wrap').each(function(index){
 					var timeBegin = $(this).find("div.easyChat-begin input").eq(0).val();
 					var timeEnd = $(this).find("div.easyChat-end input").eq(0).val();
-					var ifStudentId = $(this).find("input.IfStudentID").eq(0).val();
-					var ifParentId = $(this).find("input.IfParentID").eq(0).val();
+					//var ifStudentId = $(this).find("input.IfStudentID").eq(0).val();
+					//var ifParentId = $(this).find("input.IfParentID").eq(0).val();
 					if(timeBegin != null && timeEnd != null){
-						require('models/StudentMgr/EasyChatTimeModel',function(EasyChatTimeModel){
-							this.model
-								.get(contactItemName)
-								.get("EasyChatTimes").add(
-									new EasyChatTimeModel.EasyChatTimeEntity({
-										TimeBegin:timeBegin,
-										TimeEnd:timeEnd,
-										IfStudentID:ifStudentId,
-										IfParentID:ifParentId
-									})
-								);
-						});
+						contactItem
+							.get("EasyChatTimes")
+							.add(
+								new EasyChatTimeModel.EasyChatTimeEntity({
+									TimeBegin:timeBegin,
+									TimeEnd:timeEnd/*,
+									IfStudentID:ifStudentId,
+									IfParentID:ifParentId*/
+								})
+							);
 					}
 				});
 				return this.model.get(contactItemName);

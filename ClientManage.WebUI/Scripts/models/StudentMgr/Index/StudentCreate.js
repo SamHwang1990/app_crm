@@ -25,10 +25,22 @@ define([
 		defaults:{
 			StudentInfo:new StudentInfoEntity(),
 			AppRelation:new AppRelationEntity(),
-			ContactFather:new EasyChatTimeModel.EasyChatTimeModel(),
-			ContactMother:new EasyChatTimeModel.EasyChatTimeModel(),
-			ContactStudent:new EasyChatTimeModel.EasyChatTimeModel(),
-			ContactOther:new EasyChatTimeModel.EasyChatTimeModel()
+			ContactFather:new EasyChatTimeModel.EasyChatTimeModel({
+				ContactIdentity:new EasyChatTimeModel.ContactIdentity,
+				EasyChatTimes:new EasyChatTimeModel.EasyChatTimeList
+			}),
+			ContactMother:new EasyChatTimeModel.EasyChatTimeModel({
+				ContactIdentity:new EasyChatTimeModel.ContactIdentity,
+				EasyChatTimes:new EasyChatTimeModel.EasyChatTimeList
+			}),
+			ContactStudent:new EasyChatTimeModel.EasyChatTimeModel({
+				ContactIdentity:new EasyChatTimeModel.ContactIdentity,
+				EasyChatTimes:new EasyChatTimeModel.EasyChatTimeList
+			}),
+			ContactOther:new EasyChatTimeModel.EasyChatTimeModel({
+				ContactIdentity:new EasyChatTimeModel.ContactIdentity,
+				EasyChatTimes:new EasyChatTimeModel.EasyChatTimeList
+			})
 		}
 	});
 	return studentCreateModel;

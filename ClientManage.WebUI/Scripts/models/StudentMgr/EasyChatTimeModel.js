@@ -28,9 +28,12 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	});
 
 	var EasyChatTimeModel = Backbone.Model.extend({
-		defaults:{
+		/*defaults:{
 			ContactIdentity:new ContactIdentity,
 			EasyChatTimes:new EasyChatTimeList
+		}*/
+		initialize:function(){
+
 		}
 	})
 
