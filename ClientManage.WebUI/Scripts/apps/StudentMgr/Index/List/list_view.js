@@ -13,7 +13,8 @@ define([
 			tagName:"tr",
 			templateHelpers:function(){
 				return {
-					StudentInfo:this.model.get("StudentInfo")
+					StudentInfo:this.model.get("StudentInfo"),
+					AppRelation:this.model.get("AppRelation")
 				}
 			}
 		});
@@ -23,6 +24,9 @@ define([
 			template: _.template(StudentsTpl),
 			itemView:View.StudentItemView,
 			itemViewContainer: "tbody",
+			/*initialize:function(){
+				_.bindAll(this,'SortCommit');
+			},*/
 			ui:{
 				"formSearch":".form-search",                //form 元素
 				"conditionCurrent":".condition-current",    //当前分类元素
@@ -40,13 +44,48 @@ define([
 				this.ui.conditionCurrent.html(sortName);                //修改当前分类显示
 				if($(event.target).hasClass('condition-all')){          //修改“全部分类”
 					this.ui.searchContent.attr('disabled','disabled');  //禁用输入框
-					this.ui.btnSubmit.attr('disabled','disabled');      //禁用搜索按钮
+					//this.ui.btnSubmit.attr('disabled','disabled');      //禁用搜索按钮
 					this.ui.searchContent.attr('placeholder','全部无需筛选');     //修改placeholder
 				}else{
 					this.ui.searchContent.removeAttr('disabled');       //
-					this.ui.btnSubmit.removeAttr('disabled');
+					//this.ui.btnSubmit.removeAttr('disabled');
 					this.ui.searchContent.attr('placeholder','请输入筛选的'+sortName);
 				}
+			},
+			SortCommit:function(event){
+				event.preventDefault();
+				var listView = this;
+				var condition = this.ui.conditionCurrent.text();
+				var searchContent = this.ui.searchContent.val();
+				if(condition==='全部'){       //如果筛选类型为“全部”
+					this.collection.fetch({
+						success:function(){
+							console.log("fetche data from server successfully");
+							return listView.render();
+						},
+						error:function(){
+							console.log("fetch data from server failed");
+							return alert("获取数据失败");
+						}
+					})
+				}
+				if(searchContent === ""){       //如果筛选内容为空，则刷新一下
+					return this.render();
+				}
+				this.collection.fetch({
+					data:{
+						sort:condition,
+						keyword:searchContent
+					},
+					success:function(){
+						console.log("fetche data from server successfully");
+						return listView.render();
+					},
+					error:function(){
+						console.log("fetch data from server failed");
+						return alert("获取数据失败");
+					}
+				})
 			}
 
 		});

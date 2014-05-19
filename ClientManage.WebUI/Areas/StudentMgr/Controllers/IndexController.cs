@@ -21,12 +21,29 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             repository = studentInfoRepository;
         }
 
-        [HttpGet]
-        public ActionResult List()
+        
+        public ActionResult List(string sort, string keyword)
         {
-            IEnumerable<StudentInfoViewModel> StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a })   //调用Join函数，连结两个集合，返回一个包对象
-                .OrderBy(r => r.StudentInfo.NameCn);
-            Array students = StudentsInfo.ToArray();
+            IEnumerable<StudentInfoViewModel> StudentsInfo = null;
+            if (sort == "学生")
+            {
+                StudentsInfo = repository.StudentsInfo
+                    .Where(s => s.NameCn == keyword)
+                    .Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a });
+            }
+            else if (sort == "销售负责人")
+            {
+                Guid saleConsultantID = repository.UsersInfo.FirstOrDefault(u => u.UserNameCn.Contains(keyword)).UserID;
+                StudentsInfo = repository.AppRelations
+                    .Where(a => a.SaleConsultant == saleConsultantID)
+                    .Join(repository.StudentsInfo, a => a.StudentID, s => s.StudentID, (a, s) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a });
+            }
+            else
+            {
+                StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+                    .OrderBy(r => r.StudentInfo.NameCn);
+            }
+            Array students = StudentsInfo.ToArray();        //用来调试时检测获取StudentsInfo内容之用，只是发布时可删除
             return Json(StudentsInfo, JsonRequestBehavior.AllowGet);
         }
 
@@ -39,6 +56,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             AppRelationsEntity appRelation = ajaxData.AppRelation;
             appRelation.SignDate = new DateTime(1990, 1, 1);
             appRelation.StudentID = studentInfo.StudentID;
+            appRelation.SaleConsultantName = GetUserName(appRelation.SaleConsultant);
 
             if (ajaxData.ContactStudent != null)
             {
@@ -98,6 +116,25 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     repository.SaveEasyChatTime(item);  //添加EasyChatTime信息
                 }
             }
+        }
+
+        /// <summary>
+        /// 根据用户ID返回用户名
+        /// </summary>
+        /// <param name="userIDString"></param>
+        /// <returns></returns>
+        public string GetUserName(Guid? userID)
+        {
+            var userName = "系统管理员";
+            if (userID != Guid.Empty)
+            {
+                UserInfoEntity user = repository.UsersInfo.FirstOrDefault(u => u.UserID == userID);
+                if (user != null)
+                {
+                    userName = user.UserNameCn;
+                }
+            }
+            return userName;
         }
     }
 }

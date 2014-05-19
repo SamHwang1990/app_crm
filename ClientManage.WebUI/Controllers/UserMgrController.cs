@@ -28,6 +28,25 @@ namespace ClientManage.WebUI.Controllers
             Array users = userList.ToArray();
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
-
+        
+        /// <summary>
+        /// 根据用户ID返回用户名
+        /// </summary>
+        /// <param name="userIDString"></param>
+        /// <returns></returns>
+        public string GetUserName(string userIDString)
+        {
+            var userName = "系统管理员";
+            if (userIDString != "")
+            {
+                Guid userID = new Guid(userIDString);
+                UserInfoEntity user = repository.UsersInfo.FirstOrDefault(u => u.UserID == userID);
+                if (user != null)
+                {
+                    userName = user.UserNameCn;
+                }
+            }
+            return userName;
+        }
     }
 }

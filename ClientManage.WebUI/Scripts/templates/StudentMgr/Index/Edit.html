@@ -1,0 +1,68 @@
+<div id="studentMgr-create-wrap">
+    <h2>添加学生信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="createForm" action="/StudentMgr/Index/Create" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="studentName">学生名：</label>
+            <div class="controls">
+                <input type="text" id="studentName" name="studentName" placeholder="请输入学生名字" value="<%= StudentInfo.NameCn %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <% if(AppRelation.IsSign == 0 || AppRelation.IsSign == 1){ %>
+                    <input type="checkbox" name="isSign" checked="checked" />
+                    <% } else { %>
+                    <input type="checkbox" name="isSign" />
+                    <% } %>
+                    已签约
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">居住城市：</label>
+            <div class="controls">
+                <input type="text" id="liveCity" name="liveCity" placeholder="请输入居住城市" value="<%= StudentInfo.LiveCity %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="saleConsultant">销售负责人：</label>
+            <div class="saleConsultantWrap controls">
+                <!--<select id="roleList" class="span2">
+
+                </select>
+                <select id="saleConsultant" class="span2">
+                    <option value="">选择销售角色</option>
+                </select>-->
+            </div>
+        </div>
+        <div class="control-group" id="contact-Wrap">
+            <label class="control-label">联系人：</label>
+            <div class="contact-content controls control-group inline">
+                <fieldset class="contactItem">
+                    <select class="ContactIdentity span1">
+                        <option value="学生" selected="selected">学生</option>
+                        <option value="父亲">父亲</option>
+                        <option value="母亲">母亲</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <input type="text" class="ContactName span2" placeholder="请输入联系人名字" />
+                    <input type="text" class="ContactMobile span2" placeholder="请输入手机号"/>
+                    <input type="text" class="ContactEmail" placeholder="请输入邮箱"/>
+                    <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+                    <br>
+                    <btn class="btnAddEasyChat btn">添加接电话时间</btn>
+                </fieldset>
+                <btn class="btnAddContact btn btn-info">继续添加联系人</btn>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

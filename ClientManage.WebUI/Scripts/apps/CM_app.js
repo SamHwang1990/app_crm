@@ -15,7 +15,8 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 
 				/*StudentMgr Router*/
 				"StudentMgr/Index/List":"StudentMgrIndexList",
-				"StudentMgr/Index/Create":"StudentMgrIndexCreate"
+				"StudentMgr/Index/Create":"StudentMgrIndexCreate",
+				"StudentMgr/Index/Edit/:id":"StudentMgrIndexEdit"
 			}
 		});
 
@@ -50,7 +51,12 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 			},
 			StudentMgrIndexCreate:function(){
 				require(['apps/StudentMgr/Index/Create/create_controller'],function(StudentMgrIndexCreateController){
-					executeAction(StudentMgrIndexCreateController.ShowCreate)
+					executeAction(StudentMgrIndexCreateController.ShowCreate);
+				})
+			},
+			StudentMgrIndexEdit:function(id){
+				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
+
 				})
 			}
 		};

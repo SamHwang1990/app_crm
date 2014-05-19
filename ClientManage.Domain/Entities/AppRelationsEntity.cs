@@ -89,10 +89,20 @@ namespace ClientManage.Domain.Entities
             set;
             get;
         }
+        public string SaleConsultantName
+        {
+            set;
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>
         public Guid? ApplyConsultant
+        {
+            set;
+            get;
+        }
+        public string ApplyConsultantName
         {
             set;
             get;
@@ -105,6 +115,11 @@ namespace ClientManage.Domain.Entities
             set;
             get;
         }
+        public string AssayConsultantName
+        {
+            set;
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -113,10 +128,20 @@ namespace ClientManage.Domain.Entities
             set;
             get;
         }
+        public string ActConsultantName
+        {
+            set;
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>
         public Guid? LanguageConsultant
+        {
+            set;
+            get;
+        }
+        public string LanguageConsultantName
         {
             set;
             get;
