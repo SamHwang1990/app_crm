@@ -136,5 +136,24 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             return userName;
         }
+
+        //根据学生ID返回StudentInfo和AppRelation
+        public JsonResult GetStudentInfoViewModel(string studentID)
+        {
+            StudentInfoEntity studentInfo = null;
+            AppRelationsEntity appRelation = null;
+            if (studentID == string.Empty || studentID == Guid.Empty.ToString())
+            {
+                studentInfo = new StudentInfoEntity();
+                appRelation = new AppRelationsEntity { StudentID = studentInfo.StudentID };
+            }
+            else
+            {
+                Guid id = new Guid(studentID);
+                studentInfo = repository.StudentsInfo.SingleOrDefault(s => s.StudentID == id);
+                appRelation = repository.AppRelations.SingleOrDefault(a => a.StudentID == id);
+            }
+            return Json(new { StudentInfo=studentInfo, AppRelation=appRelation },JsonRequestBehavior.AllowGet);
+        }
     }
 }

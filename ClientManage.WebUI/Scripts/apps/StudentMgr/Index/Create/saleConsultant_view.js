@@ -26,14 +26,23 @@ define([
 				events:{
 					"change":"changeUserList"
 				},
+				initialize:function(options){
+					this.curRoleID = options.curRoleID;
+					this.curUserID = options.curUserID;
+				},
 				onRender:function(){
-					var defaultRoleID = this.$el.find('option:first').val();    //获取第一个option的值
-					this.setUserList(defaultRoleID,this);
+					if(this.curRoleID !== ""){
+						this.$el.find('option[value='+this.curRoleID + ']').attr("selected","selected");
+					}else{
+						this.$el.find('option:first').attr("selected","selected");
+					}
+					var defaultRoleID = this.$el.val();    //获取select的值
+					this.setUserList(defaultRoleID,this,this.curUserID);
 				},
 				changeUserList:function(){                                      //绑定到el上的change事件处理程序
 					this.setUserList(this.$el.val(),this);
 				},
-				setUserList:function(roleID,rolesView){
+				setUserList:function(roleID,rolesView,curUserID){
 					var userList = new UserCol();                               //实例化一空的UserCollection
 					userList.fetch({
 						data:{                          //fetch请求时的查询参数
@@ -46,6 +55,10 @@ define([
 							});
 							var parent = rolesView.$el.parent().children("#saleConsultant").remove();
 							usersView.render();
+							//如果传入的当前用户ID不为空，则
+							if(curUserID !== "" || curUserID !== null){
+								usersView.$el.find('option[value='+ curUserID + ']').attr('selected','selected');
+							}
 							rolesView.$el.after(usersView.$el);
 						},
 						error:function(){

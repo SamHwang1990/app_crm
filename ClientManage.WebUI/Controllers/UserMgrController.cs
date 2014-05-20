@@ -48,5 +48,21 @@ namespace ClientManage.WebUI.Controllers
             }
             return userName;
         }
+
+        /// <summary>
+        /// 根据用户ID返回主要角色ID
+        /// </summary>
+        /// <param name="ajaxData"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult GetRoleID(string ajaxData)
+        {
+            string roleID = "";
+            if (ajaxData!=null && ajaxData != "" && ajaxData != Guid.Empty.ToString())
+            {
+                roleID = repository.UsersInfo.SingleOrDefault(u => u.UserID.ToString() == ajaxData).UserRole.ToString();
+            }
+            return Json(new { RoleID = roleID },JsonRequestBehavior.AllowGet);
+        }
     }
 }

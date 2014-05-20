@@ -16,7 +16,8 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				/*StudentMgr Router*/
 				"StudentMgr/Index/List":"StudentMgrIndexList",
 				"StudentMgr/Index/Create":"StudentMgrIndexCreate",
-				"StudentMgr/Index/Edit/:id":"StudentMgrIndexEdit"
+				"StudentMgr/Index/Edit/Student-:id":"StudentMgrIndexEditStudent",
+				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts"
 			}
 		});
 
@@ -54,9 +55,14 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 					executeAction(StudentMgrIndexCreateController.ShowCreate);
 				})
 			},
-			StudentMgrIndexEdit:function(id){
+			StudentMgrIndexEditStudent:function(id){
 				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
-
+					executeAction(StudentMgrIndexEditController.EditStudent,id);
+				})
+			},
+			StudentMgrIndexEditContacts:function(id){
+				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
+					executeAction(StudentMgrIndexEditController.EditContacts,id);
 				})
 			}
 		};
@@ -100,7 +106,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 					ClientManage.navigate(urlFragment);
 					//AppUISet.SetCurrentMenu(urlFragment);
 					urlFragment = urlFragment.replace(/\//g,'');
-					API[urlFragment]();
+					if(API.hasOwnProperty(urlFragment)){
+						API[urlFragment]();
+					}else{
+						ClientManage.trigger("home:index");
+					}
 				}
 			})
 		});

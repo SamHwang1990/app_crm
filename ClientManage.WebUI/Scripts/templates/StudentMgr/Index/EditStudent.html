@@ -1,0 +1,61 @@
+<div id="studentMgr-edit-wrap">
+    <h2>添加学生信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/StudentMgr/Index/EditStudent" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="studentName">学生名：</label>
+            <div class="controls">
+                <input type="text" id="studentName" name="studentName" placeholder="请输入学生名字" value="<%= StudentInfo.NameCn %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <% if(AppRelation.IsSign == 0 || AppRelation.IsSign == 1){ %>
+                    <input type="checkbox" name="isSign" />
+                    <% } else { %>
+                    <input type="checkbox" name="isSign" checked="checked" />
+                    <% } %>
+                    已签约
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">居住城市：</label>
+            <div class="controls">
+                <input type="text" id="liveCity" name="liveCity" placeholder="请输入居住城市" value="<%= StudentInfo.LiveCity %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="saleConsultant">销售负责人：</label>
+            <div class="saleConsultantWrap controls">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">联系电话：</label>
+            <div class="controls">
+                <input type="text" id="Mobile" name="Mobile" placeholder="请输入电话号码" value="<%= StudentInfo.Mobile %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">邮箱地址：</label>
+            <div class="controls">
+                <input type="text" id="Email" name="Email" placeholder="请输入邮箱地址" value="<%= StudentInfo.Email %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">方便联系时间：</label>
+            <div class="controls easyChatTimes">
+                <br>
+                <btn class="btnAddEasyChat btn">添加接电话时间</btn>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

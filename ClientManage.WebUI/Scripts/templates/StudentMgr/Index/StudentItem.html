@@ -5,11 +5,12 @@
 <td><%= StudentInfo.EducationIntention %></td>
 <td><%= AppRelation.SaleConsultantName %></td>
 <td>
-    <a href="/StudentMgr/Index/Edit" title='<%= StudentInfo.StudentID %>'>修改信息</a>
+    <a href="#StudentMgr/Index/Edit/Student-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改基本信息</a>
+    <a href="#StudentMgr/Index/Edit/Contacts-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改联系人信息</a>
     <% if (AppRelation.IsSign == '已签约' ) { %>
-    <a href="#" title='<%= StudentInfo.StudentID %>'>进入申请</a>
+    <a href="#" title='<%= StudentInfo.NameCn %>'>进入申请</a>
     <% } else { %>
-    <a href="#" title='<%= StudentInfo.StudentID %>'>进入销售</a>
+    <a href="#" title='<%= StudentInfo.NameCn %>'>进入销售</a>
     <% } %>
-    <a href="/StudentMgr/Index/Disable" title='<%= StudentInfo.StudentID %>'>禁用该学生</a>
+    <a href="#StudentMgr/Index/Disable" title='<%= StudentInfo.NameCn %>'>禁用该学生</a>
 </td>

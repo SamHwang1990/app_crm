@@ -14,6 +14,9 @@ define([
 		defaults:{
 			StudentInfo:new StudentInfoEntity,
 			AppRelation:new AppRelationEntity
+		},
+		initialize:function(options){
+			this.url = options.url;
 		}
 	});
 	return studentInfoViewModel;
