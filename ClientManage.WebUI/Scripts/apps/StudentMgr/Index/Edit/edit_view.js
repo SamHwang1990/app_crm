@@ -42,23 +42,29 @@ define([
 			},
 			onRender:function(){
 				var editStudentView  = this;
-				require(['collections/RoleMgr/RoleList','apps/StudentMgr/Index/Create/saleConsultant_view'],function(RoleCol,SaleConsultantView){
+				//设置销售负责人部分
+				require([
+					'collections/RoleMgr/RoleList',
+					'apps/StudentMgr/Index/Create/saleConsultant_view'
+					],function(RoleCol,SaleConsultantView){
 					var roleList = new RoleCol();
+					//Role Collection Fetch data from server
 					roleList.fetch({
 						success:function(){
-							var ajaxData = editStudentView.model.get("AppRelation").SaleConsultant;
-							var url = '/UserMgr/GetRoleID'
+							//获取学生销售负责人的ID，并根据这个ID，找到该负责人的角色ID
+							var userID = editStudentView.model.get("AppRelation").SaleConsultant;
+							var url = '/UserMgr/GetRoleID';
 							$.ajax({
-								type:"Get",
+								type:"GET",
 								url:url,
-								data:ajaxData,
-								dataType: 'json',
+								data:"userID="+userID,
+								dataType: 'text',
 								success: function (data){
 									console.log("Fetch role list from server successfully");
 									var rolesView = new SaleConsultantView.RolesView({              //如果RoleList集合获取成功，则渲染角色列表视图
 										collection:roleList,
-										curRoleID:data.RoleID,
-										curUserID:userIDString
+										curRoleID:data,
+										curUserID:userID
 									})
 									editStudentView.saleConsultantWrap.show(rolesView);
 								},

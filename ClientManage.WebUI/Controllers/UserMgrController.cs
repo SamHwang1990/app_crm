@@ -52,17 +52,20 @@ namespace ClientManage.WebUI.Controllers
         /// <summary>
         /// 根据用户ID返回主要角色ID
         /// </summary>
-        /// <param name="ajaxData"></param>
+        /// <param name="userID"></param>
         /// <returns></returns>
         [HttpGet]
-        public JsonResult GetRoleID(string ajaxData)
+        public string GetRoleID(string userID)
         {
             string roleID = "";
-            if (ajaxData!=null && ajaxData != "" && ajaxData != Guid.Empty.ToString())
+            if (userID != null && userID != "" && userID != Guid.Empty.ToString())
             {
-                roleID = repository.UsersInfo.SingleOrDefault(u => u.UserID.ToString() == ajaxData).UserRole.ToString();
+                Guid uID = new Guid(userID);
+                UserInfoEntity user = repository.UsersInfo.SingleOrDefault(u => u.UserID == uID);
+                roleID = user.UserRole.ToString();
             }
-            return Json(new { RoleID = roleID },JsonRequestBehavior.AllowGet);
+            //return Json(new { RoleID = roleID },JsonRequestBehavior.AllowGet);
+            return roleID; ;
         }
     }
 }
