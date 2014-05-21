@@ -66,9 +66,12 @@ define([
 				var contactTemp = _.template(ContactContentTpl);
 				$(event.target).before(contactTemp({}));
 			},
-			InsertEasyChatTemp:function(event){         //插入添加联系时间的HTML
+			InsertEasyChatTemp:function(event,chatTimeModel){         //插入添加联系时间的HTML
+				if(!chatTimeModel){
+					chatTimeModel = new EasyChatTimeModel.EasyChatTimeEntity();
+				}
 				var easyChatTemp = _.template(EasyChatTimeTpl);
-				$(event.target).before(easyChatTemp({}));
+				$(event.target).before(easyChatTemp(chatTimeModel.toJSON()));
 				$('div.easyChat-wrap .timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
 					format: "hh:ii",        //指定显示格式
 					autoclose: true,        //点击具体日期或时间后关闭选择框
@@ -250,9 +253,7 @@ define([
 							.add(
 								new EasyChatTimeModel.EasyChatTimeEntity({
 									TimeBegin:timeBegin,
-									TimeEnd:timeEnd/*,
-									IfStudentID:ifStudentId,
-									IfParentID:ifParentId*/
+									TimeEnd:timeEnd
 								})
 							);
 					}

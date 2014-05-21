@@ -12,7 +12,7 @@ define([
 	'models/StudentMgr/EasyChatTimeModel'
 	],function($,_,Backbone,StudentInfoEntity,AppRelationEntity,EasyChatTimeModel){
 	var invalid = Backbone.Model.extend({
-		default:{
+		defaults:{
 			errMsg:""
 		}
 	})

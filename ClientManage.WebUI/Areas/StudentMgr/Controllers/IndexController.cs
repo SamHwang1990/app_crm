@@ -90,6 +90,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(new { CreateReslut = true, StudentID = studentInfo.StudentID });
         }
 
+        [HttpPost]
+        public JsonResult EditStudent(StudentInfoEntity studentInfo, AppRelationsEntity appRelation, IEnumerable<EasyChatTimeEntity> easyChatTimeList)
+        {
+            bool editResult = true;
+            return Json(new { EditResult = editResult });
+        }
+
         /// <summary>
         /// 添加Parent及其EasyChatTime
         /// </summary>
@@ -165,7 +172,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(new { GetResult = false });
             }
             Guid contactID = new Guid(contactIDString);
-            if (identity == "student")
+            if (identity == "学生")
             {
                 list = repository.EasyChatTime.Where(e => e.IfStudentID == contactID).Select(e => e);
             }
@@ -173,7 +180,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             {
                 list = repository.EasyChatTime.Where(e => e.IfParentID == contactID).Select(e => e);
             }
-            return Json(new { GetResult = true, EasyChatTimes = list });
+            Array temp = list.ToArray();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

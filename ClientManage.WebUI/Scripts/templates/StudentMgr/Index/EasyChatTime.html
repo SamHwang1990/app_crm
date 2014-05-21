@@ -1,16 +1,18 @@
 <div class="easyChat-wrap">
+    <input type="hidden" name="ItemID" value="<%= ItemID %>" />
     <div class="input-append date timePicker easyChat-begin" data-date-format="hh:ii">
-        <input type="text" class="span1" placeholder="hh:ss" value=""/>
+        <input type="text" class="span1" placeholder="hh:ss" value="<%= TimeBegin %>" />
         <span class="add-on"><i class="icon-refresh"></i></span>
         <span class="add-on"><i class="icon-th"></i></span>
     </div>
     至
     <div class="input-append date timePicker easyChat-end" data-date-format="hh:ii">
-        <input type="text" class="span1" placeholder="hh:ss" />
+        <input type="text" class="span1" placeholder="hh:ss" value="<%= TimeEnd %>" />
         <span class="add-on"><i class="icon-refresh"></i></span>
         <span class="add-on"><i class="icon-th"></i></span>
     </div>
     &nbsp;
-
+    <input type="hidden" name="IfStudentID" value="<%= IfStudentID %>" />
+    <input type="hidden" name="IfParentID" value="<%= IfParentID %>" />
     <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
 </div>

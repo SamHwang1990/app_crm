@@ -5,7 +5,7 @@
 
 define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var ContactIdentity = Backbone.Model.extend({
-		default:{
+		defaults:{
 			PersonIdentity:"",
 			NameCn:"",
 			Mobile:"",
@@ -14,7 +14,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	});
 
 	var EasyChatTimeEntity = Backbone.Model.extend({
-		default:{
+		defaults:{
 			ItemID:"00000000-0000-0000-0000-000000000000",
 			TimeBegin:"00:00",
 			TimeEnd:"23:55",
@@ -26,7 +26,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var EasyChatTimeList = Backbone.Collection.extend({
 		model:EasyChatTimeEntity,
 		initialize:function(options){
-			this.url = options.url;
+			if(options){
+				this.url = options.url;
+			}
 		}
 	});
 

@@ -12,8 +12,8 @@ define([
 	],function($,_,Backbone,StudentInfoEntity,AppRelationEntity){
 	var studentInfoViewModel = Backbone.Model.extend({
 		defaults:{
-			StudentInfo:new StudentInfoEntity,
-			AppRelation:new AppRelationEntity
+			"StudentInfo":new StudentInfoEntity(),
+			"AppRelation":new AppRelationEntity()
 		},
 		initialize:function(options){
 			this.url = options.url;
