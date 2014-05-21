@@ -7,10 +7,9 @@ define([
 	'app',
 	'models/StudentMgr/EasyChatTimeModel',
 	'text!templates/StudentMgr/Index/EditStudent.html',             //StudentMgr的Student Create模板
-	'text!templates/StudentMgr/Index/ContactContent.html',          //StudentMgr的联系人模板
 	'text!templates/StudentMgr/Index/EasyChatTime.html',            //StudentMgr的可联系时间模板,
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min'    //bootstrap datetimepicker插件js引入
-	],function(ClientManage,EasyChatTimeModel,EditStudentTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker,SaleConsultantView){
+	],function(ClientManage,EasyChatTimeModel,EditStudentTpl,EasyChatTimeTpl,Datetimepicker){
 	ClientManage.module('StudentMgr.Index.Edit.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.EditStudentView = Marionette.Layout.extend({
 			template:_.template(EditStudentTpl),
@@ -77,6 +76,16 @@ define([
 							console.log("Fetch role list from server failed");
 						}
 					})
+				})
+
+				//设置学生联系时间
+				var easyChatTimeList = new EasyChatTimeModel.EasyChatTimeList({
+					url:'StudentMgr/Index/GetEasyChatTimeList'
+				});
+				easyChatTimeList.fetch({
+					success:function(){
+						console.log("fetch data from server!")
+					}
 				})
 			},
 			/*

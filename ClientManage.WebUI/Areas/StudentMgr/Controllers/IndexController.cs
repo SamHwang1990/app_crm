@@ -155,5 +155,25 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             return Json(new { StudentInfo=studentInfo, AppRelation=appRelation },JsonRequestBehavior.AllowGet);
         }
+
+        //根据联系人ID 返回EasyChatTimeList
+        public JsonResult GetEasyChatTimeList(string identity, string contactIDString)
+        {
+            IEnumerable<EasyChatTimeEntity> list = null;
+            if (contactIDString == "" || contactIDString == Guid.Empty.ToString())
+            {
+                return Json(new { GetResult = false });
+            }
+            Guid contactID = new Guid(contactIDString);
+            if (identity == "student")
+            {
+                list = repository.EasyChatTime.Where(e => e.IfStudentID == contactID).Select(e => e);
+            }
+            else
+            {
+                list = repository.EasyChatTime.Where(e => e.IfParentID == contactID).Select(e => e);
+            }
+            return Json(new { GetResult = true, EasyChatTimes = list });
+        }
     }
 }

@@ -24,7 +24,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	});
 
 	var EasyChatTimeList = Backbone.Collection.extend({
-		model:EasyChatTimeEntity
+		model:EasyChatTimeEntity,
+		initialize:function(options){
+			this.url = options.url;
+		}
 	});
 
 	var EasyChatTimeModel = Backbone.Model.extend({
