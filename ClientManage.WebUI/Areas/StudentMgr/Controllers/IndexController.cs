@@ -90,10 +90,35 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(new { CreateReslut = true, StudentID = studentInfo.StudentID });
         }
 
+        /// <summary>
+        /// 编辑学生基础信息
+        /// </summary>
+        /// <param name="studentInfo"></param>
+        /// <param name="appRelation"></param>
+        /// <param name="EasyChatTimes"></param>
+        /// <returns></returns>
         [HttpPost]
-        public JsonResult EditStudent(StudentInfoEntity studentInfo, AppRelationsEntity appRelation, IEnumerable<EasyChatTimeEntity> easyChatTimeList)
+        public JsonResult EditStudent(StudentInfoEntity studentInfo, AppRelationsEntity appRelation, IEnumerable<EasyChatTimeEntity> EasyChatTimes)
         {
             bool editResult = true;
+            if (studentInfo != null && appRelation != null)
+            {
+                //保存StudentInfo、AppRelation 信息到数据库中
+                repository.SaveStudentInfo(studentInfo, appRelation);
+
+                //删除EasyChatTimes中与学生有关的所有记录
+                repository.EmptyStudentEasyChatTimes(studentInfo.StudentID);
+
+                //遍历EasyChatTimes， 并添加到数据库中
+                foreach (EasyChatTimeEntity item in EasyChatTimes)
+                {
+                    repository.SaveEasyChatTime(item);
+                }
+            }
+            else
+            {
+                editResult = false;
+            }
             return Json(new { EditResult = editResult });
         }
 

@@ -128,18 +128,24 @@ namespace ClientManage.Domain.Concrete
 
         #region 对EasyChatTime 进行操作
 
+        public void EmptyStudentEasyChatTimes(Guid studentID)
+        {
+            context.EasyChatTime.RemoveRange(context.EasyChatTime.Where(e => e.IfStudentID == studentID));
+        }
+
         public void SaveEasyChatTime(EasyChatTimeEntity item)
         {
             if (item.ItemID == Guid.Empty)
                 item.ItemID = Guid.NewGuid();
+
             if (context.EasyChatTime.SingleOrDefault(e => e.ItemID == item.ItemID) == null)
                 context.EasyChatTime.Add(item);
-
             else
             {
                 EasyChatTimeEntity originItem = context.EasyChatTime.SingleOrDefault(e => e.ItemID == item.ItemID);
                 context.Entry(originItem).CurrentValues.SetValues(item);
             }
+
             context.SaveChanges();
         }
 

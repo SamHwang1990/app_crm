@@ -118,7 +118,9 @@ define([
 					chatTimeModel.set("TimeEnd",hourEnd + ":" + minuteEnd);
 				}
 				else{
-					chatTimeModel = new EasyChatTimeModel.EasyChatTimeEntity();
+					chatTimeModel = new EasyChatTimeModel.EasyChatTimeEntity({
+						IfStudentID:this.model.get("StudentInfo").StudentID
+					});
 				}
 				var easyChatTemp = _.template(EasyChatTimeTpl);
 				this.ui.btnAddEasyChat.before(easyChatTemp(chatTimeModel.toJSON()));
@@ -229,11 +231,15 @@ define([
 						dataType: 'json',
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
-							if(data.EditReslut == true){
+							if(data.EditResult == true){
 								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
 							} else {
 								alert("Edit Failed");
 							}
+						},
+						error:function(err){
+							alert(err);
+							ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
 						}
 					});
 				}else{
@@ -245,30 +251,26 @@ define([
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
 				var mobile = this.$el.find('input[name=Mobile]').eq(0).val();
 				var email = this.$el.find('input[name=Email]').eq(0).val();
-				var studentInfo = this.model.get('StudentInfo')/*.set({
-					NameCn:nameCn,
-					LiveCity:liveCity,
-					Mobile:mobile,
-					Email:email
-				});*/
+				var studentInfo = this.model.get('StudentInfo');
 				studentInfo.NameCn = nameCn;
 				studentInfo.LiveCity = liveCity;
 				studentInfo.Mobile = mobile;
 				studentInfo.Email = email;
+				studentInfo.CreateTime = this.transToDate(studentInfo.CreateTime);
 				//return this.model.get('StudentInfo');
 			},
 			setAppRelation:function(){
 				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
 				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
-				this.model.get('AppRelation').set({
-					IsSign:isSign,
-					SaleConsultant:saleConsultant
-				});
-				//return this.model.get('AppRelation');
+				var appRelation = this.model.get('AppRelation');
+				appRelation.IsSign = isSign;
+				appRelation.saleConsultant = saleConsultant;
+				appRelation.SignDate = this.transToDate(appRelation.SignDate);
 			},
 			setEasyChatTimes:function(){
 				//Set EasyChatTimes
-				this.set("EasyChatTimes",new EasyChatTimeModel.EasyChatTimeList);
+				var editView = this;
+				this.model.set("EasyChatTimes",new EasyChatTimeModel.EasyChatTimeList);
 				this.$el.find('.easyChat-wrap').each(function(index){
 					var itemID = $(this).find("input[name=ItemID]").eq(0).val();
 					var timeBegin = $(this).find("div.easyChat-begin input").eq(0).val();
@@ -276,7 +278,7 @@ define([
 					var ifStudentId = $(this).find("input[name=IfStudentID]").eq(0).val();
 					var ifParentId = $(this).find("input[name=IfParentID]").eq(0).val();
 					if(timeBegin != null && timeEnd != null){
-						this.model
+						editView.model
 							.get("EasyChatTimes")
 							.add(
 								new EasyChatTimeModel.EasyChatTimeEntity({
@@ -289,6 +291,12 @@ define([
 							);
 					}
 				});
+			},
+			//将字符串“/Date/*******/)”转为JS的Date类型
+			transToDate:function(msString){
+				var ms = msString.slice(6,-2);
+				var msDate = new Date(parseInt(ms));
+				return msDate;
 			}
 		});
 		View.EditContactView = Marionette.Layout.extend({

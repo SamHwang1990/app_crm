@@ -23,6 +23,7 @@ namespace ClientManage.Domain.Abstract
         void DeleteStudentInfo(StudentInfoEntity studentInfo);
 
         #region 对EasyChatTime 进行操作
+        void EmptyStudentEasyChatTimes(Guid studentID);
         void SaveEasyChatTime(EasyChatTimeEntity item);
         #endregion
 

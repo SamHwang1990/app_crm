@@ -238,8 +238,8 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        [DataType(DataType.Date,ErrorMessage="所提供日期超出范围")]
-        [HiddenInput(DisplayValue=false)]
+        [DataType(DataType.Date)]
+        [Range(typeof(DateTime), "1970/01/01", "2100/12/12", ErrorMessage = "时间超出范围")]
         public DateTime CreateTime
         {
             set { _CreateTime = value; }
