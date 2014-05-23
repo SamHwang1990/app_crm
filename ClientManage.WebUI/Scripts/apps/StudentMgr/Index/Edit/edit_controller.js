@@ -33,7 +33,7 @@ define(['app'],function(ClientManage){
 					})
 			},
 			EditContacts:function(contentRegion,studentID){
-				alert(studentID);
+				ClientManage.startSubApp("StudentMgr.Index.Edit");
 			}
 		}
 	});

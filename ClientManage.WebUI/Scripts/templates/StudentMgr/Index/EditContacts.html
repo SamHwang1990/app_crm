@@ -1,0 +1,20 @@
+<div id="studentMgr-edit-wrap">
+    <h2>修改<%= StudentInfo.NameCn %>的联系人信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/StudentMgr/Index/EditContacts" method="post" class="form-horizontal">
+        <div class="control-group" id="contact-Wrap">
+            <label class="control-label">联系人：</label>
+            <div class="contact-content controls control-group inline">
+
+                <btn class="btnAddContact btn btn-info">继续添加联系人</btn>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

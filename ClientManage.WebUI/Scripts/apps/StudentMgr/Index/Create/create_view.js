@@ -14,6 +14,11 @@ define([
 	ClientManage.module('StudentMgr.Index.Create.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentCreateView = Marionette.Layout.extend({
 			template:_.template(CreateTpl),
+			templateHelpers:function(){
+				return {
+					ContactIdentity: new EasyChatTimeModel.ContactIdentity()
+				}
+			},
 			regions:{
 				contactWrap:".contact-content",
 				saleConsultantWrap:".saleConsultantWrap"
@@ -64,7 +69,8 @@ define([
 			},
 			InsertContactTemp:function(event){          //插入添加联系人的HTML
 				var contactTemp = _.template(ContactContentTpl);
-				$(event.target).before(contactTemp({}));
+				var contactModel = new EasyChatTimeModel.ContactIdentity;
+				$(event.target).before(contactTemp(contactModel.toJSON()));
 			},
 			InsertEasyChatTemp:function(event,chatTimeModel){         //插入添加联系时间的HTML
 				if(!chatTimeModel){

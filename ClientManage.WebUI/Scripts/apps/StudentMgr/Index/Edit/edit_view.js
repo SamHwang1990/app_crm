@@ -39,6 +39,9 @@ define([
 				'changeDate @ui.timePicker':'ChatTimeChange',     //datetimepicker插件触发的changeDate事件
 				'submit':'EditSubmit'
 			},
+			/*
+			* Render后触发
+			* */
 			onRender:function(){
 				var editStudentView  = this;
 				//设置销售负责人部分
@@ -105,6 +108,10 @@ define([
 			RemoveParent:function(event){
 				$(event.currentTarget).parent().remove();
 			},
+			/*
+			* 插入方便联系时间元素到文档
+			* @param:chatTimeModel，联系时间数据
+			* */
 			InsertEasyChatTemp:function(event,chatTimeModel){         //插入添加联系时间的HTML
 				if(chatTimeModel){
 					var timeBegin = chatTimeModel.get("TimeBegin");
@@ -132,6 +139,9 @@ define([
 					maxView:0               //设置允许的最顶层选择框形式
 				});
 			},
+			/*
+			* 更改联系时间后检测有效性
+			* */
 			ChatTimeChange:function(event){             //当chattime的值改变时触发，用于验证
 				var easyChatWrap = $(event.currentTarget).parent();                 //找到父元素：div.easyChat-wrap
 				this.CheckChatTimeValid(easyChatWrap);
@@ -154,6 +164,9 @@ define([
 						break;
 				}
 			},
+			/*
+			* 检测时间有效性的具体逻辑
+			* */
 			CheckChatTimeValid:function(wrapEl){
 				var beginTime = wrapEl.find('.easyChat-begin input').val();   //获取可联系时间的开始值字符串
 				var endTime = wrapEl.find('.easyChat-end input').val();       //获取可联系时间的结束值字符串
@@ -213,7 +226,9 @@ define([
 				}
 				return true;
 			},
-
+			/*
+			* form 提交事件处理
+			* */
 			EditSubmit:function(event){
 				event.preventDefault();
 				if(this.validateForm()){
@@ -246,6 +261,9 @@ define([
 					return false;
 				}
 			},
+			/*
+			* 保存模型的StudentInfo信息
+			* */
 			setStudentInfo:function(){
 				var nameCn = this.$el.find('input[name=studentName]').eq(0).val();
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
@@ -259,6 +277,9 @@ define([
 				studentInfo.CreateTime = this.transToDate(studentInfo.CreateTime);
 				//return this.model.get('StudentInfo');
 			},
+			/*
+			* 保存模型的AppRelation信息
+			* */
 			setAppRelation:function(){
 				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
 				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
@@ -267,6 +288,9 @@ define([
 				appRelation.saleConsultant = saleConsultant;
 				appRelation.SignDate = this.transToDate(appRelation.SignDate);
 			},
+			/*
+			* 保存模型的EasyChatTimes信息
+			* */
 			setEasyChatTimes:function(){
 				//Set EasyChatTimes
 				var editView = this;
@@ -293,14 +317,38 @@ define([
 				});
 			},
 			//将字符串“/Date/*******/)”转为JS的Date类型
+			/*
+			* 将字符串/ Date / ******* / 转为JS的Date类型
+			* */
 			transToDate:function(msString){
 				var ms = msString.slice(6,-2);
 				var msDate = new Date(parseInt(ms));
 				return msDate;
 			}
 		});
-		View.EditContactView = Marionette.Layout.extend({
+		View.EditContactItemView = Marionette.ItemView.extend({
 
+		});
+		View.EditContactsView = Marionette.CompositeView.extend({
+			tagName:"div",
+			className:"wrap",
+			template: _.template(StudentsTpl),
+			itemView:View.StudentItemView,
+			/*itemViewContainer: "tbody",*/
+			/*initialize:function(){
+			 _.bindAll(this,'SortCommit');
+			 },*/
+			ui:{
+				"formSearch":".form-search",                //form 元素
+				"conditionCurrent":".condition-current",    //当前分类元素
+				"conditionList":".condition-list",          //分类列表
+				"searchContent":".search-content",          //筛选内容元素
+				"btnSubmit":"button[type=submit]"           //submit 按钮
+			},
+			events:{
+				'click @ui.conditionList a':'ConditionSortChange',      //搜索框交互
+				'submit':'SortCommit'
+			},
 		});
 	});
 	return ClientManage.StudentMgr.Index.Edit.View;

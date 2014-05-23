@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using ClientManage.Domain.Abstract;
 using ClientManage.Domain.Entities;
 using ClientManage.Domain.Enum;
-using ClientManage.WebUI.Areas.Students.Models;
+using ClientManage.WebUI.Areas.StudentMgr.Models;
 using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
@@ -40,7 +40,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             else
             {
-                StudentsInfo = repository.StudentsInfo.Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+                StudentsInfo = repository.StudentsInfo
+                    .Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
                     .OrderBy(r => r.StudentInfo.NameCn);
             }
             Array students = StudentsInfo.ToArray();        //用来调试时检测获取StudentsInfo内容之用，只是发布时可删除
@@ -120,6 +121,17 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 editResult = false;
             }
             return Json(new { EditResult = editResult });
+        }
+
+        /// <summary>
+        /// 编辑学生联系人信息
+        /// </summary>
+        /// <param name="Contacts">联系人信息列表</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult EditContacts(IEnumerable<EasyChatTimeModel> Contacts)
+        {
+            return Json(new { });
         }
 
         /// <summary>
@@ -207,6 +219,36 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             Array temp = list.ToArray();
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        //根据学生ID返回Contacts List
+        public JsonResult GetContacts(string studentID)
+        {
+            List<EasyChatTimeModel> contacts = new List<EasyChatTimeModel>();
+            IEnumerable<EasyChatTimeEntity> chatTimes = null;
+            ContactIdentity contactInfo = null;
+            IEnumerable<StudentParentEntity> parents = null;
+            if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
+            {
+                Guid id = new Guid(studentID);
+                parents = repository.StudentParent.Where(s => s.StudentID == id);
+            }
+            if (parents.Count() > 0)
+            {
+                foreach (StudentParentEntity parent in parents)
+                {
+                    contactInfo = new ContactIdentity
+                    {
+                        PersonIdentity = parent.PersonIdentity.ToString(),
+                        NameCn = parent.NameCn,
+                        Mobile = parent.Mobile,
+                        Email = parent.Email
+                    };
+                    chatTimes = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID);
+                    contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes });
+                }
+            }
+            return Json(contacts);
         }
     }
 }
