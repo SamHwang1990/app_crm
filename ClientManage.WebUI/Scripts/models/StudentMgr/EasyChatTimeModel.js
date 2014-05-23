@@ -40,12 +40,22 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		initialize:function(){
 
 		}
+	});
+
+	var StudentContactList = Backbone.Collection.extend({
+		model:EasyChatTimeModel,
+		initialize:function(options){
+			if(options){
+				this.url = options.url;
+			}
+		}
 	})
 
 	return {
 		ContactIdentity:ContactIdentity,
 		EasyChatTimeEntity:EasyChatTimeEntity,
 		EasyChatTimeList:EasyChatTimeList,
-		EasyChatTimeModel:EasyChatTimeModel
+		EasyChatTimeModel:EasyChatTimeModel,
+		StudentContactList:StudentContactList
 	};
 })

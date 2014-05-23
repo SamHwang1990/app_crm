@@ -129,9 +129,39 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <param name="Contacts">联系人信息列表</param>
         /// <returns></returns>
         [HttpPost]
-        public JsonResult EditContacts(IEnumerable<EasyChatTimeModel> Contacts)
+        public JsonResult EditContacts(EasyChatTimeModel[] Contacts, string studentID)
         {
-            return Json(new { });
+            bool editResult = true;
+            if (studentID == string.Empty || studentID == Guid.Empty.ToString())
+            {
+                return Json(false);
+            }
+            Guid id = new Guid(studentID);
+            EasyChatTimeModel contactFather = null;
+            EasyChatTimeModel contactMother = null;
+            EasyChatTimeModel contactOther = null;
+            if ((contactFather = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "父亲")) == null)
+            {
+
+            }
+            else
+            {
+            }
+            if ((contactMother = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "母亲")) == null)
+            {
+
+            }
+            else
+            {
+            }
+            if ((contactOther = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "其他")) == null)
+            {
+
+            }
+            else
+            {
+            }
+            return Json(editResult);
         }
 
         /// <summary>
@@ -248,7 +278,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes });
                 }
             }
-            return Json(contacts);
+            return Json(contacts,JsonRequestBehavior.AllowGet);
         }
     }
 }

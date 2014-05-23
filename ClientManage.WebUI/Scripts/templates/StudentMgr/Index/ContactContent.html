@@ -5,10 +5,30 @@
         <option value="母亲">母亲</option>
         <option value="其他">其他</option>
     </select>
-    <input type="text" class="ContactName span2" placeholder="请输入联系人名字" value="<%= NameCn %>" />
-    <input type="text" class="ContactMobile span2" placeholder="请输入手机号" value="<%= Mobile %>" />
-    <input type="text" class="ContactEmail" placeholder="请输入邮箱" value="<%= Email %>" />
+    <input type="text" class="ContactName span2" placeholder="请输入联系人名字" value="<%= ContactIdentity.NameCn %>" />
+    <input type="text" class="ContactMobile span2" placeholder="请输入手机号" value="<%= ContactIdentity.Mobile %>" />
+    <input type="text" class="ContactEmail" placeholder="请输入邮箱" value="<%= ContactIdentity.Email %>" />
     <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
     <br>
+    <% _.each(EasyChatTimes,function(chatTimeItem){ %>
+    <div class="easyChat-wrap">
+        <input type="hidden" name="ItemID" value="<%= chatTimeItem.ItemID %>" />
+        <div class="input-append date timePicker easyChat-begin" data-date-format="hh:ii">
+            <input type="text" class="span1" placeholder="hh:ss" value="<%= chatTimeItem.TimeBegin %>" />
+            <span class="add-on"><i class="icon-refresh"></i></span>
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        至
+        <div class="input-append date timePicker easyChat-end" data-date-format="hh:ii">
+            <input type="text" class="span1" placeholder="hh:ss" value="<%= chatTimeItem.TimeEnd %>" />
+            <span class="add-on"><i class="icon-refresh"></i></span>
+            <span class="add-on"><i class="icon-th"></i></span>
+        </div>
+        &nbsp;
+        <input type="hidden" name="IfStudentID" value="<%= chatTimeItem.IfStudentID %>" />
+        <input type="hidden" name="IfParentID" value="<%= chatTimeItem.IfParentID %>" />
+        <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+    </div>
+    <% }); %>
     <btn class="btnAddEasyChat btn">添加接电话时间</btn>
 </fieldset>

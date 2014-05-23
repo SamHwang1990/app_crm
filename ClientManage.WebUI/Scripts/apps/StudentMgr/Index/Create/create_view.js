@@ -69,7 +69,10 @@ define([
 			},
 			InsertContactTemp:function(event){          //插入添加联系人的HTML
 				var contactTemp = _.template(ContactContentTpl);
-				var contactModel = new EasyChatTimeModel.ContactIdentity;
+				var contactModel = new EasyChatTimeModel.EasyChatTimeModel({
+					ContactIdentity:new EasyChatTimeModel.ContactIdentity,
+					EasyChatTimes:new EasyChatTimeModel.EasyChatTimeList
+				});
 				$(event.target).before(contactTemp(contactModel.toJSON()));
 			},
 			InsertEasyChatTemp:function(event,chatTimeModel){         //插入添加联系时间的HTML

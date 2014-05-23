@@ -34,6 +34,29 @@ define(['app'],function(ClientManage){
 			},
 			EditContacts:function(contentRegion,studentID){
 				ClientManage.startSubApp("StudentMgr.Index.Edit");
+				require([
+					'apps/StudentMgr/Index/Edit/edit_view',
+					'models/StudentMgr/EasyChatTimeModel'
+				],function(EditView, EasyChatTimeModel){
+					var studentContactList = new EasyChatTimeModel.StudentContactList({
+						url:"/StudentMgr/Index/GetContacts"
+					});
+					studentContactList.fetch({
+						data:{
+							studentID:studentID
+						},
+						success:function(){
+							var editContactsView = new EditView.EditContactsView({
+								collection:studentContactList,
+								studentID:studentID
+							})
+							contentRegion.show(editContactsView);
+						},
+						error:function(){
+
+						}
+					})
+				})
 			}
 		}
 	});
