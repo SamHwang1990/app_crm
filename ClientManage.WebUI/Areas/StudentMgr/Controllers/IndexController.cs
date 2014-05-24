@@ -137,31 +137,58 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(false);
             }
             Guid id = new Guid(studentID);
+            string personIdentity = string.Empty;
             EasyChatTimeModel contactFather = null;
             EasyChatTimeModel contactMother = null;
             EasyChatTimeModel contactOther = null;
-            if ((contactFather = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "父亲")) == null)
+            try
             {
+                contactFather = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "父亲");
+            }
+            catch
+            {
+                contactFather = null;
+            }
 
-            }
-            else
+            try
             {
+                contactMother = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "母亲");
             }
-            if ((contactMother = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "母亲")) == null)
+            catch
             {
+                contactMother = null;
+            }
 
-            }
-            else
+            try
             {
+                contactOther = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "其他");
             }
-            if ((contactOther = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "其他")) == null)
+            catch
             {
+                contactOther = null;
+            }
 
-            }
-            else
-            {
-            }
+            EditContact(contactFather, "父亲", id);
+            EditContact(contactMother, "母亲", id);
+            EditContact(contactOther, "其他", id);
+            
             return Json(editResult);
+        }
+
+        /// <summary>
+        /// 检查StudentParent表中是否有学生的特定联系人
+        /// </summary>
+        /// <param name="personIdentity">联系人身份</param>
+        /// <param name="studentID">学生ID</param>
+        /// <returns></returns>
+        bool IsHaveContact(string personIdentity, Guid studentID)
+        {
+            PersonIdentity identity = (PersonIdentity)Enum.Parse(typeof(PersonIdentity), personIdentity);
+            StudentParentEntity contact = repository.StudentParent.FirstOrDefault(s => s.StudentID == studentID && s.PersonIdentity == identity);
+            if (contact == null)
+                return false;
+            else
+                return true;
         }
 
         /// <summary>
@@ -189,6 +216,66 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     item.IfParentID = other.ParentID;
                     repository.SaveEasyChatTime(item);  //添加EasyChatTime信息
                 }
+            }
+        }
+
+        /// <summary>
+        /// 编辑Parent及其EasyChatTime
+        /// </summary>
+        /// <param name="contact"></param>
+        /// <param name="studentID"></param>
+        void EditParentAndChattime(EasyChatTimeModel contact, Guid studentID)
+        {
+            PersonIdentity identity = (PersonIdentity)Enum.Parse(typeof(PersonIdentity), contact.ContactIdentity.PersonIdentity);
+            //根据联系人身份和学生ID找出数据库中的Parent记录
+            StudentParentEntity parent = repository.StudentParent
+                .FirstOrDefault(s => s.StudentID == studentID && s.PersonIdentity == identity);
+            
+            //联系人信息修改
+            parent.NameCn = contact.ContactIdentity.NameCn;
+            parent.Mobile = contact.ContactIdentity.Mobile;
+            parent.Email = contact.ContactIdentity.Email;
+
+            //保存联系人信息
+            repository.SaveStudentParent(parent);
+
+            //清空联系人的联系时间
+            repository.EmptyContactEasyChatTimes(parent.ParentID);
+
+            //重新添加联系人的联系时间
+            if (contact.EasyChatTimes != null)
+            {
+                foreach (EasyChatTimeEntity item in contact.EasyChatTimes)
+                {
+                    item.IfParentID = parent.ParentID;
+                    repository.SaveEasyChatTime(item);  //添加EasyChatTime信息
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 修改联系人
+        /// </summary>
+        /// <param name="contact">EasyChatTimeModel类型</param>
+        /// <param name="contactIdentity">联系人身份</param>
+        /// <param name="studentID"></param>
+        void EditContact(EasyChatTimeModel contact, string contactIdentity, Guid studentID)
+        {
+            PersonIdentity identity = (PersonIdentity)Enum.Parse(typeof(PersonIdentity), contactIdentity);
+            //联系人身份
+            string personIdentity = contactIdentity;
+            if (contact == null)
+            {
+                if (IsHaveContact(personIdentity, studentID))       //如果数据库中对应身份的联系人记录，则删掉
+                    repository.RemoveStudentParent(identity, studentID);
+            }
+            else
+            {
+                if (IsHaveContact(personIdentity, studentID))       //如果数据库中对应身份的联系人记录，则修改
+                    EditParentAndChattime(contact, studentID);
+                else
+                    AddParentAndChattime(contact, studentID);       //如果数据库中对应身份的联系人记录，则添加
             }
         }
 
@@ -255,7 +342,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         public JsonResult GetContacts(string studentID)
         {
             List<EasyChatTimeModel> contacts = new List<EasyChatTimeModel>();
-            IEnumerable<EasyChatTimeEntity> chatTimes = null;
+            //IEnumerable<EasyChatTimeEntity> chatTimes = null;
             ContactIdentity contactInfo = null;
             IEnumerable<StudentParentEntity> parents = null;
             if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
@@ -274,7 +361,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                         Mobile = parent.Mobile,
                         Email = parent.Email
                     };
-                    chatTimes = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID);
+                    IEnumerable<EasyChatTimeEntity> chatTimes = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID).Select(e => e);
+                    Array temp = chatTimes.ToArray();
                     contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes });
                 }
             }

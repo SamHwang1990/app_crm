@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
+
 using ClientManage.Domain.Abstract;
 using ClientManage.Domain.Entities;
-using System.Data.Entity;
+using ClientManage.Domain.Enum;
 
 namespace ClientManage.Domain.Concrete
 {
@@ -133,6 +135,11 @@ namespace ClientManage.Domain.Concrete
             context.EasyChatTime.RemoveRange(context.EasyChatTime.Where(e => e.IfStudentID == studentID));
         }
 
+        public void EmptyContactEasyChatTimes(Guid contactID)
+        {
+            context.EasyChatTime.RemoveRange(context.EasyChatTime.Where(e => e.IfParentID == contactID));
+        }
+
         public void SaveEasyChatTime(EasyChatTimeEntity item)
         {
             if (item.ItemID == Guid.Empty)
@@ -166,6 +173,17 @@ namespace ClientManage.Domain.Concrete
             }
             context.SaveChanges();
             
+        }
+
+        public void RemoveStudentParent(PersonIdentity personIdentity, Guid studentID)
+        {
+            
+            StudentParentEntity originEntity = context.StudentParent
+                .FirstOrDefault(s => s.StudentID == studentID && s.PersonIdentity == personIdentity);
+            context.StudentParent.Remove(originEntity);
+            EmptyContactEasyChatTimes(originEntity.ParentID);
+
+            context.SaveChanges();
         }
 
         #endregion

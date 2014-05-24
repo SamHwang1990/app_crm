@@ -91,7 +91,7 @@ namespace ClientManage.WebUI.Controllers
             { 
                 FormsAuthentication.SignOut();
             }
-            catch (Exception ex)
+            catch
             {
                 logoutResult = false;
             }

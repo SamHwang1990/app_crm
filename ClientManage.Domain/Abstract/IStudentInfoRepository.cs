@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ClientManage.Domain.Entities;
+using ClientManage.Domain.Enum;
 
 namespace ClientManage.Domain.Abstract
 {
@@ -24,11 +25,13 @@ namespace ClientManage.Domain.Abstract
 
         #region 对EasyChatTime 进行操作
         void EmptyStudentEasyChatTimes(Guid studentID);
+        void EmptyContactEasyChatTimes(Guid contactID);
         void SaveEasyChatTime(EasyChatTimeEntity item);
         #endregion
 
         #region 对StudentParent 进行操作
         void SaveStudentParent(StudentParentEntity parent);
+        void RemoveStudentParent(PersonIdentity personIdentity, Guid studentID);
         #endregion
 
         #region 对StudentTPInfo 进行操作
