@@ -133,11 +133,13 @@ namespace ClientManage.Domain.Concrete
         public void EmptyStudentEasyChatTimes(Guid studentID)
         {
             context.EasyChatTime.RemoveRange(context.EasyChatTime.Where(e => e.IfStudentID == studentID));
+            context.SaveChanges();
         }
 
         public void EmptyContactEasyChatTimes(Guid contactID)
         {
             context.EasyChatTime.RemoveRange(context.EasyChatTime.Where(e => e.IfParentID == contactID));
+            context.SaveChanges();
         }
 
         public void SaveEasyChatTime(EasyChatTimeEntity item)

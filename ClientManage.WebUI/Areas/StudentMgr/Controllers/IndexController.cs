@@ -342,9 +342,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         public JsonResult GetContacts(string studentID)
         {
             List<EasyChatTimeModel> contacts = new List<EasyChatTimeModel>();
-            //IEnumerable<EasyChatTimeEntity> chatTimes = null;
+            //以数组形式存储所有联系人的联系时间
+            IEnumerable<EasyChatTimeEntity>[] chatTimes = null;
+            //每个联系人的联系信息
             ContactIdentity contactInfo = null;
+            //所有联系人列表，从数据库中读取赋值
             IEnumerable<StudentParentEntity> parents = null;
+
             if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
             {
                 Guid id = new Guid(studentID);
@@ -352,8 +356,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             if (parents.Count() > 0)
             {
-                foreach (StudentParentEntity parent in parents)
+                //初始化所有联系人联系时间的数组长度
+                chatTimes = new IEnumerable<EasyChatTimeEntity>[parents.Count()];
+
+                for (int i = 0; i < parents.Count(); i++)
                 {
+                    StudentParentEntity parent = parents.ElementAt(i);
                     contactInfo = new ContactIdentity
                     {
                         PersonIdentity = parent.PersonIdentity.ToString(),
@@ -361,10 +369,23 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                         Mobile = parent.Mobile,
                         Email = parent.Email
                     };
-                    IEnumerable<EasyChatTimeEntity> chatTimes = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID).Select(e => e);
-                    Array temp = chatTimes.ToArray();
-                    contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes });
+                    chatTimes[i] = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID).Select(e => e);
+                    contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes[i] });
                 }
+
+                //以下的写法会导致chatTimes始终变成最后赋值的那个
+                //foreach (StudentParentEntity parent in parents)
+                //{
+                //    contactInfo = new ContactIdentity
+                //    {
+                //        PersonIdentity = parent.PersonIdentity.ToString(),
+                //        NameCn = parent.NameCn,
+                //        Mobile = parent.Mobile,
+                //        Email = parent.Email
+                //    };
+                //    chatTimes = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID).Select(e => e);
+                //    contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes });
+                //}
             }
             return Json(contacts,JsonRequestBehavior.AllowGet);
         }
