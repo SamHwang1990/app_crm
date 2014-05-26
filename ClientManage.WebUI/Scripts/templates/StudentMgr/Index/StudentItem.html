@@ -10,7 +10,7 @@
     <% if (AppRelation.IsSign == '已签约' ) { %>
     <a href="#" title='<%= StudentInfo.NameCn %>'>进入申请</a>
     <% } else { %>
-    <a href="#" title='<%= StudentInfo.NameCn %>'>进入销售</a>
+    <a href="#StudentMgr/SaleTrack/FirstInterview-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>进入销售</a>
     <% } %>
     <a href="#StudentMgr/Index/Disable" title='<%= StudentInfo.NameCn %>'>禁用该学生</a>
 </td>

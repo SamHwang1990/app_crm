@@ -1,0 +1,76 @@
+<div id="studentMgr-edit-wrap">
+    <h2>编辑初访通知</h2>
+    <br />
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/StudentMgr/SaleTrack/PostInterview" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="TrackPattern">初访方式：</label>
+            <div class="controls">
+                <select name="TrackPattern" id="TrackPattern">
+                    <option value="0">面谈</option>
+                    <option value="1">电话</option>
+                    <option value="2">邮件</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="TrackDate">初访日期：</label>
+            <div class="controls">
+                <div class="input-append date timePicker easyChat-begin" data-date-format="yyyy-mm-dd hh:ii">
+                    <input type="text" id="TrackDate" class="span1" placeholder="hh:ss" value="<%= SaleTrack.TrackDate %>" />
+                    <span class="add-on"><i class="icon-refresh"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="TrackToDo">初访内容：</label>
+            <div class="controls">
+                <input type="text" id="TrackToDo" name="TrackToDo" placeholder="请输入初访内容" value="<%= SaleTrack.TrackToDo %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">初访参与人：</label>
+            <div class="controls TrackParticipants">
+                <table>
+                    <tr>
+                        <th>名字</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Identity</th>
+                        <th>参与者来源</th>
+                    </tr>
+
+                </table>
+                <p class="KeepAddParticipant">
+                    <input class="btnKeepAddParticipant" name="btnKeepAddParticipant" type="button" value="继续添加参与人" />
+                </p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="IsComplete">初访进度：</label>
+            <div class="controls">
+                <select name="IsComplete" id="IsComplete">
+                    <option value="0">是</option>
+                    <option value="1">否</option>
+                    <option value="2">已致电但没接</option>
+                    <option value="3">已约另外时间（见备注）</option>
+                    <option value="4">其他（见备注）</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Remark">备注：</label>
+            <div class="controls">
+                <textarea id="Remark" name="Remark" placeholder="请输入初访备注信息"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

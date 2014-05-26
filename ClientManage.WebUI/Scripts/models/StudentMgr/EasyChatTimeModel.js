@@ -38,7 +38,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			EasyChatTimes:new EasyChatTimeList
 		}*/
 		initialize:function(){
-			
+
 		}
 	});
 

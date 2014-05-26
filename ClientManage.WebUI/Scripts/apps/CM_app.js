@@ -13,11 +13,21 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				"Home/Feedback":"HomeFeedback",
 				"SignOut":"SignOut",
 
-				/*StudentMgr Router*/
+				/*StudentMgr Index Router*/
 				"StudentMgr/Index/List":"StudentMgrIndexList",
 				"StudentMgr/Index/Create":"StudentMgrIndexCreate",
 				"StudentMgr/Index/Edit/Student-:id":"StudentMgrIndexEditStudent",
-				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts"
+				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts",
+
+				/*StudentMgr SaleTrack Router*/
+				//"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
+				//"StudentMgr/SaleTrack/Index":"StudentMgrSaleTrackIndex",
+				"StudentMgr/SaleTrack/FirstInterview-:id":"StudentMgrSaleTrackFirstInterview",
+				//"StudentMgr/SaleTrack/FirstRegFormInfo":"StudentMgrSaleTrackFirstRegFormInfo",
+				//"StudentMgr/SaleTrack/FirstRegFormTP":"StudentMgrSaleTrackFirstRegFormTP",
+				//"StudentMgr/SaleTrack/FirstRegFormFrom":"StudentMgrSaleTrackFirstRegFormFrom",
+				//"StudentMgr/SaleTrack/CommonInterview":"StudentMgrSaleTrackFirstCommonInterview",
+				//"StudentMgr/SaleTrack/GetFromInterview":"StudentMgrSaleTrackFirstGetFromInterview"
 			}
 		});
 
@@ -44,7 +54,7 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				});
 			},
 
-			/*StudentMgr Router Controller*/
+			/*StudentMgr Index Router Controller*/
 			StudentMgrIndexList:function(){
 				require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexListController){
 					executeAction(StudentMgrIndexListController.ShowList);
@@ -64,6 +74,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
 					executeAction(StudentMgrIndexEditController.EditContacts,id);
 				})
+			},
+
+			/*StudentMgr SaleTrack Router Controller*/
+			StudentMgrSaleTrackFirstInterview:function(id){
+				alert(id);
 			}
 		};
 

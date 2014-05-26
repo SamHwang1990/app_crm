@@ -332,7 +332,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
             else
                 trackId = new Guid(trackID);
             SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentID && (s.TrackItemID == trackId || s.TrackNo == trackNo));
-            trackItem.IsGefFromDone = true;
+            trackItem.IsGetFromDone = true;
             trackItem.GetFromTrack = getFrom;
             repository.SaveSaleTrack(trackItem);
 
@@ -581,7 +581,7 @@ namespace ClientManage.WebUI.Areas.Students.Controllers
         {
             bool isGetFromDone = false;
             SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.StudentID == studentId && s.TrackNo == trackNo);
-            isGetFromDone = trackItem.IsGefFromDone;
+            isGetFromDone = trackItem.IsGetFromDone;
             return isGetFromDone;
         }
         #endregion
