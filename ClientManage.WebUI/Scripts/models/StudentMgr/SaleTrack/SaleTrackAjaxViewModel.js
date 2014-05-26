@@ -11,10 +11,14 @@ define([
 		var SaleTrackAjaxViewModel = Backbone.Model.extend({
 			/*
 			* 两个成员：
-			* SaleTrackEntity: model
+			* SaleTrackItem: model
 			* SaleTrackParticipant: collection
 			* */
-		})
+			initialize:function(options){
+				if(options)
+					this.url = options.url;
+			}
+ 		})
 
 		return SaleTrackAjaxViewModel;
 	}

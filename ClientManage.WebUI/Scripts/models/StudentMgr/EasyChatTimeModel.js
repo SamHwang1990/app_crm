@@ -23,6 +23,15 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		}
 	});
 
+	var ContactIdentityList = Backbone.Collection.extend({
+		model:ContactIdentity,
+		initialize:function(options){
+			if(options){
+				this.url = options.url;
+			}
+		}
+	})
+
 	var EasyChatTimeList = Backbone.Collection.extend({
 		model:EasyChatTimeEntity,
 		initialize:function(options){
@@ -53,6 +62,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 
 	return {
 		ContactIdentity:ContactIdentity,
+		ContactIdentityList:ContactIdentityList,
 		EasyChatTimeEntity:EasyChatTimeEntity,
 		EasyChatTimeList:EasyChatTimeList,
 		EasyChatTimeModel:EasyChatTimeModel,

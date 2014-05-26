@@ -1,0 +1,38 @@
+<tr>
+    <td>
+        <% if (ParticipantSource == "no") { %>
+            <input type="text" class="ParticipantName" placeholder="参与人名字" value="<%= ParticipantName %>" />
+        <% } %>
+        <% if (ParticipantSource == "Users") { %>
+            <select class="ParticipantFromUsers">
+                <% _.each(Users,function(user){ %>
+                <option value="<%= user.UserNameCn %>"><%= user.UserNameCn %></option>
+                <% }); %>
+            </select>
+        <% } %>
+        <% if (ParticipantSource == "Contacts") { %>
+            <select class="ParticipantFromContacts">
+                <% _.each(Contacts,function(contact){ %>
+                <option value="<%= contact.NameCn %>"><%= contact.PersonIdentity %>：<%= contact.NameCn %></option>
+                <% }); %>
+            </select>
+        <% } %>
+    </td>
+    <td><input type="email" class="ParticipantEmail" placeholder="参与人邮箱" value="<%= ParticipantEmail %>" /></td>
+    <td><input type="text" class="ParticipantMobile" placeholder="参与人电话" value="<%= ParticipantMobile %>" /></td>
+    <td>
+        <select class="ParticipantIdentity">
+            <option value="咨询顾问">咨询顾问</option>
+            <option value="顾问助理">顾问助理</option>
+            <option value="学生">学生</option>
+            <option value="父亲">父亲</option>
+            <option value="母亲">母亲</option>
+            <option value="其他">其他</option>
+        </select>
+    </td>
+    <td>
+        <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+        <input type="hidden" class="ParticipantID" value="<%= ParticipantID %>" />
+        <input type="hidden" class="SaleTrackID" value="<%= SaleTrackID %>" />
+    </td>
+</tr>

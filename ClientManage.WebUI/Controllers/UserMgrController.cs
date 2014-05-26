@@ -23,9 +23,13 @@ namespace ClientManage.WebUI.Controllers
         [HttpGet]
         public JsonResult List(string roleIDString)
         {
-            Guid roleID = new Guid(roleIDString);
-            IEnumerable<UserInfoEntity> userList = repository.UsersInfo.Where(s => s.UserRole == roleID || s.UserSecondRole == roleID);
-            Array users = userList.ToArray();
+            IEnumerable<UserInfoEntity> userList = null;
+            if (roleIDString == null || roleIDString == string.Empty )
+                userList = repository.UsersInfo;
+            else{
+                Guid roleID = new Guid(roleIDString);
+                userList = repository.UsersInfo.Where(s => s.UserRole == roleID || s.UserSecondRole == roleID);
+            }
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
         

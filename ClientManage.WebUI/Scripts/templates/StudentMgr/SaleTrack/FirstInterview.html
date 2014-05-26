@@ -4,11 +4,11 @@
     <div class="feedbackMsg alert">
 
     </div>
-    <form id="editForm" action="/StudentMgr/SaleTrack/PostInterview" method="post" class="form-horizontal">
+    <form id="FirstInterviewForm" action="/StudentMgr/SaleTrack/PostInterview" method="post" class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="TrackPattern">初访方式：</label>
             <div class="controls">
-                <select name="TrackPattern" id="TrackPattern">
+                <select name="TrackPattern" id="TrackPattern" class="span1">
                     <option value="0">面谈</option>
                     <option value="1">电话</option>
                     <option value="2">邮件</option>
@@ -19,7 +19,7 @@
             <label class="control-label" for="TrackDate">初访日期：</label>
             <div class="controls">
                 <div class="input-append date timePicker easyChat-begin" data-date-format="yyyy-mm-dd hh:ii">
-                    <input type="text" id="TrackDate" class="span1" placeholder="hh:ss" value="<%= SaleTrack.TrackDate %>" />
+                    <input type="text" id="TrackDate" class="span2" placeholder="访谈时间" />
                     <span class="add-on"><i class="icon-refresh"></i></span>
                     <span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -28,24 +28,47 @@
         <div class="control-group">
             <label class="control-label" for="TrackToDo">初访内容：</label>
             <div class="controls">
-                <input type="text" id="TrackToDo" name="TrackToDo" placeholder="请输入初访内容" value="<%= SaleTrack.TrackToDo %>" />
+                <input type="text" id="TrackToDo" name="TrackToDo" placeholder="请输入初访内容" value="<%= SaleTrackItem.ToDo %>" />
             </div>
         </div>
         <div class="control-group">
             <label class="control-label">初访参与人：</label>
             <div class="controls TrackParticipants">
-                <table>
+                <table class="table table-striped table-bordered table-hover">
                     <tr>
                         <th>名字</th>
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>Identity</th>
-                        <th>参与者来源</th>
+                        <th>操作</th>
                     </tr>
-
+                    <% _.each(SaleTrackParticipant,function(participant){ %>
+                    <tr>
+                        <th><input type="text" class="ParticipantName" placeholder="参与人名字" value="<%= participant.ParticipantName %>" /></th>
+                        <th><input type="email" class="ParticipantEmail" placeholder="参与人邮箱" value="<%= participant.ParticipantEmail %>" /></th>
+                        <th><input type="text" class="ParticipantMobile" placeholder="参与人电话" value="<%= participant.ParticipantMobile %>" /></th>
+                        <th>
+                            <select class="ParticipantIdentity">
+                                <option value="0">咨询顾问</option>
+                                <option value="1">顾问助理</option>
+                                <option value="2">学生</option>
+                                <option value="3">父亲</option>
+                                <option value="4">母亲</option>
+                                <option value="5">其他</option>
+                            </select>
+                        </th>
+                        <th>
+                            <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+                            <input type="hidden" class="ParticipantID" value="<%= participant.ParticipantID %>" />
+                            <input type="hidden" class="SaleTrackID" value="<%= participant.SaleTrackID %>" />
+                        </th>
+                    </tr>
+                    <% }); %>
                 </table>
                 <p class="KeepAddParticipant">
-                    <input class="btnKeepAddParticipant" name="btnKeepAddParticipant" type="button" value="继续添加参与人" />
+                    <input class="AddParticipant btn btn-success" name="AddParticipant" type="button" value="添加参与人" />&emsp;
+                    <input class="AddParticipantFromContacts btn btn-success" name="AddParticipantFromContacts" type="button" value="从联系人中添加参与人" />&emsp;
+                    <input class="AddParticipantFromUsers btn btn-success" name="AddParticipantFromUsers" type="button" value="从系统用户中添加参与人" />&emsp;
                 </p>
             </div>
         </div>
@@ -53,8 +76,8 @@
             <label class="control-label" for="IsComplete">初访进度：</label>
             <div class="controls">
                 <select name="IsComplete" id="IsComplete">
-                    <option value="0">是</option>
-                    <option value="1">否</option>
+                    <option value="0">已完成</option>
+                    <option value="1">未完成</option>
                     <option value="2">已致电但没接</option>
                     <option value="3">已约另外时间（见备注）</option>
                     <option value="4">其他（见备注）</option>
@@ -64,12 +87,12 @@
         <div class="control-group">
             <label class="control-label" for="Remark">备注：</label>
             <div class="controls">
-                <textarea id="Remark" name="Remark" placeholder="请输入初访备注信息"></textarea>
+                <textarea id="Remark" name="Remark" placeholder="请输入初访备注信息"><%= SaleTrackItem.Remark %></textarea>
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存初访通知</button>
             </div>
         </div>
     </form>

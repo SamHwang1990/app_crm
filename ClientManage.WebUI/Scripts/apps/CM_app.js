@@ -78,7 +78,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 
 			/*StudentMgr SaleTrack Router Controller*/
 			StudentMgrSaleTrackFirstInterview:function(id){
-				alert(id);
+				require([
+					'apps/StudentMgr/SaleTrack/Interview/interview_controller'],
+					function(StudentMgrSaleTrackInterviewController){
+						executeAction(StudentMgrSaleTrackInterviewController.ShowFirstInterview,id);
+					})
 			}
 		};
 

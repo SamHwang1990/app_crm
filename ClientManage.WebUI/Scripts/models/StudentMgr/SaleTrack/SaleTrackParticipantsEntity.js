@@ -19,8 +19,8 @@ define([
 			this.set("invalid",new invalid);
 		},
 		defaults:{
-			ParticipantID:"",
-			SaleTrackID:"",
+			ParticipantID:"00000000-0000-0000-0000-000000000000",
+			SaleTrackID:"00000000-0000-0000-0000-000000000000",
 			ParticipantName:"",
 			ParticipantIdentity:"0",
 			ParticipantMobile:"",

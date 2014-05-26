@@ -389,5 +389,51 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             return Json(contacts,JsonRequestBehavior.AllowGet);
         }
+
+        //根据学生ID返回ContactIdentity List
+        public JsonResult GetContactIdentityList(string studentID)
+        {
+            List<ContactIdentity> contacts = new List<ContactIdentity>();
+            //每个联系人的联系信息
+            ContactIdentity contactInfo = null;
+            StudentInfoEntity studentInfo = null;
+            //所有联系人列表，从数据库中读取赋值
+            IEnumerable<StudentParentEntity> parents = null;
+
+            if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
+            {
+                Guid id = new Guid(studentID);
+                parents = repository.StudentParent.Where(s => s.StudentID == id);
+                studentInfo = repository.StudentsInfo.SingleOrDefault(s => s.StudentID == id);
+                contactInfo = new ContactIdentity
+                {
+                    PersonIdentity = "学生",
+                    NameCn = studentInfo.NameCn,
+                    Mobile = studentInfo.Mobile,
+                    Email = studentInfo.Email
+                };
+                contacts.Add(contactInfo);
+                contactInfo = null;
+            }
+            if (parents.Count() > 0)
+            {
+
+                for (int i = 0; i < parents.Count(); i++)
+                {
+                    StudentParentEntity parent = parents.ElementAt(i);
+                    contactInfo = new ContactIdentity
+                    {
+                        PersonIdentity = parent.PersonIdentity.ToString(),
+                        NameCn = parent.NameCn,
+                        Mobile = parent.Mobile,
+                        Email = parent.Email
+                    };
+                    contacts.Add(contactInfo);
+                    contactInfo = null;
+                }
+            }
+
+            return Json(contacts, JsonRequestBehavior.AllowGet);
+        }
     }
 }

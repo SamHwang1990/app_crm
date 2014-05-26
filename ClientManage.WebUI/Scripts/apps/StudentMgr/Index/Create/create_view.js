@@ -10,7 +10,7 @@ define([
 	'text!templates/StudentMgr/Index/ContactContent.html',          //StudentMgr的联系人模板
 	'text!templates/StudentMgr/Index/EasyChatTime.html',            //StudentMgr的可联系时间模板,
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min'    //bootstrap datetimepicker插件js引入
-	],function(ClientManage,EasyChatTimeModel,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker,SaleConsultantView){
+	],function(ClientManage,EasyChatTimeModel,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker){
 	ClientManage.module('StudentMgr.Index.Create.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentCreateView = Marionette.Layout.extend({
 			template:_.template(CreateTpl),
