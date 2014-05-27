@@ -5,11 +5,11 @@
   <!--邮件Title-->
   <EmailTitle>APP客户访谈邮件提醒，无需回复！</EmailTitle>
   <!--邮件smtp服务器-->
-  <EmailHost>mail.appedu.org</EmailHost>
+  <EmailHost>smtp.126.com</EmailHost>
   <!--发送方邮箱账号-->
-  <EmailAccount>service1</EmailAccount>
+  <EmailAccount>huangzhiyuan1990</EmailAccount>
   <!--发送方邮箱密码-->
-  <EmailPwd>408458</EmailPwd>
+  <EmailPwd>5a2467x0q8</EmailPwd>
   <!--发送方邮箱密码-->
-  <EmailFrom>service1@appedu.org</EmailFrom>
+  <EmailFrom>huangzhiyuan1990@126.com</EmailFrom>
 </EmailConfig>

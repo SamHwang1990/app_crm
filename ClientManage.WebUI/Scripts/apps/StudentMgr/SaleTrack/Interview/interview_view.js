@@ -11,8 +11,9 @@ define([
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',    //bootstrap datetimepicker插件js引入
 	'models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity',
 	'collections/StudentMgr/SaleTrack/SaleTrackParticipant',
-	'text!templates/StudentMgr/SaleTrack/SaleParticipantItem.html'
-	],function(ClientManage,SaleTrackAjaxViewModel,FirstInterviewTpl,Datetimepicker,SaleTrackParticipantsEntity,SaleTrackParticipantCol,SaleParticipantItemTpl){
+	'text!templates/StudentMgr/SaleTrack/SaleParticipantItem.html',
+	],
+	function(ClientManage,SaleTrackAjaxViewModel,FirstInterviewTpl,Datetimepicker,SaleTrackParticipantsEntity,SaleTrackParticipantCol,SaleParticipantItemTpl){
 	ClientManage.module('StudentMgr.SaleTrack.Interview.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.FirstInterviewView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewTpl),
@@ -29,14 +30,17 @@ define([
 				"AddParticipantFromUsers":"input.AddParticipantFromUsers",
 				"RemoveParent":"a.removeParent",
 				"TableParticipants":"div.TrackParticipants table",
-				"SubmitBtn":"div.btnSubmit"
+				"SubmitBtn":"div.btnSubmit",
+				"SendEmail":".btnSendEmails"
 			},
 			events:{
 				"submit":"FirstInterviewSubmit",
 				"click @ui.RemoveParent":"RemoveParent",
 				"click @ui.AddParticipant":"AddParticipant",
 				"click @ui.AddParticipantFromContacts":"AddParticipantFromContacts",
-				"click @ui.AddParticipantFromUsers":"AddParticipantFromUsers"
+				"click @ui.AddParticipantFromUsers":"AddParticipantFromUsers",
+				"change .TrackParticipants input,.TrackParticipants select":"ParticipantChange",
+				"click @ui.SendEmail":"SendEmailToUser"
 			},
 			initialize:function(options){
 				if(options){
@@ -188,6 +192,39 @@ define([
 					return $(this).text() == identity;
 				}).attr("selected","selected");
 			},
+			//当参与人列表信息改变时，隐藏发送邮件按钮
+			ParticipantChange:function(e){
+				if(!this.ui.SendEmail.hasClass("display"))
+					this.ui.SendEmail.addClass("display");
+			},
+			//点击发送邮件按钮时触发
+			SendEmailToUser:function(e){
+				var postUrl = $(e.target).attr("data-emailTo");
+				var trackItem = this.model.get("SaleTrackItem").TrackItemID;
+				var ajaxData = {
+					trackItem:trackItem
+				}
+				$.ajax({
+					type: "POST",
+					url: postUrl,
+					data:JSON.stringify(ajaxData),
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					success: function (data) {
+						if(data == true){
+							alert("已发送邮件!");
+							ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+						} else {
+							alert("Send Email Failed");
+						}
+					},
+					error:function(err){
+						alert(err);
+						ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+					}
+				});
+			},
+			//事件处理程序 结束
 			/*
 			 * 用于显示和隐藏feedback信息
 			 * msg：feedback信息
@@ -239,6 +276,8 @@ define([
 			FirstInterviewSubmit:function(e){
 				e.preventDefault();
 				if(this.validateForm()){
+					var firstInterview = this;
+
 					this.SetSaleTrackItem();
 					this.SetSaleTrackParticipant();
 
@@ -252,7 +291,8 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
 							if(data == true){
-								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+								//ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+								firstInterview.$el.find(".btnSendEmails").removeClass("display");
 							} else {
 								alert("Post Failed");
 							}
@@ -307,7 +347,7 @@ define([
 					}
 				})
 			}
-			//事件处理程序 结束
+
 
 
 		});

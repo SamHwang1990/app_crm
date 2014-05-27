@@ -22,7 +22,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
 
         
-        public ActionResult List(string sort, string keyword)
+        public JsonResult List(string sort, string keyword)
         {
             IEnumerable<StudentInfoViewModel> StudentsInfo = null;
             if (sort == "学生")

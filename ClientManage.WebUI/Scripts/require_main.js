@@ -15,7 +15,7 @@ requirejs.config({
 		marionette: "libs/backbone/backbone.marionette",
 		text: 'libs/require/text',
 		underscore: "libs/underscore/underscore",
-		'bootstrap':'../Content/bootstrap/js/bootstrap.min'
+		'bootstrap':'../Content/bootstrap/js/bootstrap.min',
 	},
 	shim: {
 		underscore: {

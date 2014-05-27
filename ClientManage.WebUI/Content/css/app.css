@@ -283,11 +283,14 @@ fieldset.contactItem{
 	padding-bottom: 10px;
 	border-bottom: 1px solid rgb(204, 204, 204);
 }
-btn.btnAddEasyChat{
+.btnAddEasyChat{
 	margin-top: 10px;
 }
 div.easyChat-wrap{
 	margin-top: 10px;
+}
+input.display{
+	display: none;
 }
 
 /*

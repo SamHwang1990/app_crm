@@ -164,6 +164,145 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(postResult);
         }
 
+        #region 功能模块响应
+
+        /// <summary>
+        /// 执行发送提示邮件
+        /// </summary>
+        /// <param name="trackItem">SaleTrackItemID</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult EmailToParticipant(string trackItem)
+        {
+            
+            if (trackItem == null || trackItem == string.Empty )
+            {
+                return Json(false);
+            }
+
+            Guid trackItemId = new Guid(trackItem);
+            if(repository.SaleTrack.SingleOrDefault(s => s.TrackItemID == trackItemId) == null)
+                return Json(false); 
+            bool setResult = SetEmail(trackItemId);
+            if (setResult)
+                return Json(true);
+            else
+                return Json(false);
+        }
+
+        #region 发送邮件逻辑代码
+
+        private bool SetEmail(Guid trackItemId)
+        {
+            bool setResult = true;
+
+            //获取EmailConfig
+            XDocument emailConfig = XDocument.Load(Server.MapPath(Url.Content("~/Content/xml/EmailConfig.xml")));
+
+            SaleTrackEntity currentTrackItem =
+                repository.SaleTrack
+                .SingleOrDefault(s => s.TrackItemID == trackItemId);
+            Guid studentId = currentTrackItem.StudentID;
+            IEnumerable<SaleTrackParticipantsEntity> currentParticipants =
+                repository.SaleTrackParticipants
+                .Where(s => s.SaleTrackID == trackItemId)
+                .Select(s => s);
+
+            //问候语句，从xml处读取，方便随时更改，stringFormat参数化的；{0}：参与人名字，{1}：访谈时间
+            //（看来也可以做到管理员管理的内容中，note by sam, 2014.03.16）
+            string greetStr = emailConfig.Descendants("EmailGreet").SingleOrDefault().Value;
+
+            #region 邮件正文
+
+            StringBuilder curInterviewContent = new StringBuilder();
+            curInterviewContent.Append("<p>&nbsp;</p><p>");
+            curInterviewContent.AppendFormat("回访阶段名：{0}，回访日期：{1}",
+                currentTrackItem.StateName, currentTrackItem.TrackDate.ToString("yyyy/MM/dd HH:mm"));
+            curInterviewContent.Append("<br/>");
+            curInterviewContent.Append("回访参与人：");
+
+            int participantCount = currentParticipants.Count();
+            foreach (SaleTrackParticipantsEntity participant in currentParticipants)
+            {
+                curInterviewContent.AppendFormat("{0}（{1}）；", participant.ParticipantName, participant.ParticipantIdentity);
+            }
+            curInterviewContent.Append("<br/>");
+            curInterviewContent.AppendFormat("回访内容：{0}</p>", currentTrackItem.ToDo);
+
+            if (currentTrackItem.TrackNo != 1)
+            {
+                curInterviewContent.Append("<p>历史回访记录：<br/>");
+                IEnumerable<SaleTrackEntity> historyTrackItem =
+                    repository.SaleTrack
+                    .Where(s => s.TrackNo < currentTrackItem.TrackNo && s.StudentID == studentId)
+                    .Select(s => s);
+                foreach (SaleTrackEntity trackItem in historyTrackItem)
+                {
+                    curInterviewContent.AppendFormat("回访阶段名：{0}，回访日期：{1}，获得信息：{2}<br/>",
+                        trackItem.StateName, trackItem.TrackDate.ToString("yyyy/MM/dd HH:mm"), trackItem.GetFromTrack);
+                }
+                curInterviewContent.Append("</p>");
+            }
+
+            curInterviewContent.AppendFormat("<p>&nbsp;</p><p>APP邮件提醒助手<br/>{0}</p>", DateTime.Now.ToLongDateString());
+
+            #endregion
+
+            string title = emailConfig.Descendants("EmailTitle").SingleOrDefault().Value;  //邮件标题
+            string strHost = emailConfig.Descendants("EmailHost").SingleOrDefault().Value; //邮件smtp服务器
+            string strAccount = emailConfig.Descendants("EmailAccount").SingleOrDefault().Value;   //发送方邮箱账号
+            string strPwd = emailConfig.Descendants("EmailPwd").SingleOrDefault().Value;   //发送方邮箱密码
+            string strFrom = emailConfig.Descendants("EmailFrom").SingleOrDefault().Value;  //发件人邮箱地址
+
+            //bool emailResult = sendMail(strTo1, strTo2, title, content, strHost, strAccount, strPwd, strFrom);
+            //return emailResult;
+
+            bool sendResult = true;
+            foreach (SaleTrackParticipantsEntity participant in currentParticipants
+                .Where(p => p.ParticipantIdentity == SaleParticipantIdentity.顾问助理 || p.ParticipantIdentity == SaleParticipantIdentity.咨询顾问)
+                .Select(p => p))
+            {
+                sendResult = sendMail(participant.ParticipantEmail, title,
+                    string.Format(greetStr, participant.ParticipantName, DateTime.Now.ToLongDateString()) + curInterviewContent,
+                    strHost, strAccount, strPwd, strFrom);
+                if (!sendResult)
+                    setResult = false;
+                break;
+            }
+            return setResult;
+        }
+
+        static bool sendMail(string emailTo, string emailTitle, string emailContent, string emailHost, string emailAccount, string emailPwd, string emailFrom)
+        {
+            SmtpClient _smtpClient = new SmtpClient();
+            _smtpClient.UseDefaultCredentials = true;
+            _smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;//指定电子邮件发送方式
+            _smtpClient.Host = emailHost; ;//指定SMTP服务器
+            _smtpClient.Credentials = new System.Net.NetworkCredential(emailAccount, emailPwd);//用户名和密码
+            
+
+            MailMessage _mailMessage = new MailMessage(emailFrom, emailTo);
+            _mailMessage.Subject = emailTitle;//主题
+            _mailMessage.Body = emailContent;//内容
+            _mailMessage.BodyEncoding = System.Text.Encoding.UTF8;//正文编码
+            _mailMessage.IsBodyHtml = true;//设置为HTML格式
+            _mailMessage.Priority = MailPriority.Normal;//优先级
+
+            try
+            {
+                _smtpClient.Send(_mailMessage);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
         #region 辅助函数
         /// <summary>
         /// 检测学生的某个销售进度是否已完成

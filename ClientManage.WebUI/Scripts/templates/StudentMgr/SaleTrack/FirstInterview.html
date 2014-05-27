@@ -74,7 +74,7 @@
                 <p class="KeepAddParticipant">
                     <input class="AddParticipant btn btn-success" name="AddParticipant" type="button" value="添加参与人" />&emsp;
                     <input class="AddParticipantFromContacts btn btn-success" name="AddParticipantFromContacts" type="button" value="从联系人中添加参与人" />&emsp;
-                    <input class="AddParticipantFromUsers btn btn-success" name="AddParticipantFromUsers" type="button" value="从系统用户中添加参与人" />&emsp;
+                    <input class="AddParticipantFromUsers btn btn-success" name="AddParticipantFromUsers" type="button" value="从系统用户中添加参与人" />
                 </p>
             </div>
         </div>
@@ -98,7 +98,8 @@
         </div>
         <div class="control-group">
             <div class="controls">
-                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存初访通知</button>
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存初访通知</button>&emsp;
+                <input class="display btnSendEmails btn btn-info" data-emailTo="/StudentMgr/SaleTrack/EmailToParticipant" type="button" value="发送邮件通知系统用户" />
             </div>
         </div>
     </form>
