@@ -4,7 +4,7 @@
     <div class="feedbackMsg alert">
 
     </div>
-    <form id="FirstInterviewForm" action="/StudentMgr/SaleTrack/PostInterview" method="post" class="form-horizontal">
+    <form id="FirstInterviewForm" action="/StudentMgr/SaleTrack/PostInterviewData" method="post" class="form-horizontal">
         <div class="control-group">
             <label class="control-label" for="TrackPattern">初访方式：</label>
             <div class="controls">
@@ -43,18 +43,24 @@
                         <th>操作</th>
                     </tr>
                     <% _.each(SaleTrackParticipant,function(participant){ %>
-                    <tr>
+                    <tr class="ParticipantTr">
                         <th><input type="text" class="ParticipantName" placeholder="参与人名字" value="<%= participant.ParticipantName %>" /></th>
                         <th><input type="email" class="ParticipantEmail" placeholder="参与人邮箱" value="<%= participant.ParticipantEmail %>" /></th>
                         <th><input type="text" class="ParticipantMobile" placeholder="参与人电话" value="<%= participant.ParticipantMobile %>" /></th>
                         <th>
                             <select class="ParticipantIdentity">
-                                <option value="0">咨询顾问</option>
-                                <option value="1">顾问助理</option>
-                                <option value="2">学生</option>
-                                <option value="3">父亲</option>
-                                <option value="4">母亲</option>
-                                <option value="5">其他</option>
+                                <option value="0" <%= (participant.ParticipantIdentity == '0') ?
+                                'selected="selected"' : "" %> >咨询顾问</option>
+                                <option value="1" <%= (participant.ParticipantIdentity == '1') ?
+                                'selected="selected"' : "" %>>顾问助理</option>
+                                <option value="2" <%= (participant.ParticipantIdentity == '2') ?
+                                'selected="selected"' : "" %>>学生</option>
+                                <option value="3" <%= (participant.ParticipantIdentity == '3') ?
+                                'selected="selected"' : "" %>>父亲</option>
+                                <option value="4" <%= (participant.ParticipantIdentity == '4') ?
+                                'selected="selected"' : "" %>>母亲</option>
+                                <option value="5" <%= (participant.ParticipantIdentity == '5') ?
+                                'selected="selected"' : "" %>>其他</option>
                             </select>
                         </th>
                         <th>

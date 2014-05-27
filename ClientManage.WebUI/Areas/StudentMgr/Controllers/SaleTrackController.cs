@@ -141,6 +141,29 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
         #endregion
 
+        [HttpPost]
+        public JsonResult PostInterviewData(SaleTrackAjaxViewModel ajaxData)
+        {
+            bool postResult = true;
+            if (ajaxData.SaleTrackItem.StudentID == Guid.Empty)
+            {
+                postResult = false;
+                return Json(postResult);
+            }
+            if (ajaxData.SaleTrackItem.TrackItemID == Guid.Empty)
+                ajaxData.SaleTrackItem.TrackItemID = Guid.NewGuid();
+
+            ajaxData.SaleTrackItem.ParticipantIDs = "";
+            foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
+            {
+                item.ParticipantID = Guid.NewGuid();
+                item.SaleTrackID = ajaxData.SaleTrackItem.TrackItemID;
+                ajaxData.SaleTrackItem.ParticipantIDs += (item.ParticipantID.ToString() + ",");
+            }
+            repository.SaveSaleTrack(ajaxData.SaleTrackItem, ajaxData.SaleTrackParticipant);
+            return Json(postResult);
+        }
+
         #region 辅助函数
         /// <summary>
         /// 检测学生的某个销售进度是否已完成
