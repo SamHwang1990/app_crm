@@ -164,6 +164,42 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(postResult);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">学生id</param>
+        /// <param name="trackID">TrackID</param>
+        /// <param name="isSign">是否已签约</param>
+        /// <param name="signDate">签约日期</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult SetGetFromDone(GetFromInterviewModel ajaxData)
+        {
+            Guid trackId;
+            Guid studentID;
+            if (ajaxData.trackID == string.Empty || ajaxData.trackID == null)
+                return Json(false);
+
+            trackId = new Guid(ajaxData.trackID);
+            SaleTrackEntity trackItem = repository.SaleTrack.SingleOrDefault(s => s.TrackItemID == trackId );
+            
+            studentID = trackItem.StudentID;
+            trackItem.IsGetFromDone = true;
+            trackItem.GetFromTrack = ajaxData.getFrom;
+            repository.SaveSaleTrack(trackItem);
+
+            if (ajaxData.isSign == true)
+            {
+                AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(s => s.StudentID == studentID);
+                appRelation.IsSign = IsSign.已签约;
+                appRelation.SignDate = ajaxData.signDate;
+                appRelation.SignTrackItem = trackId;
+                repository.SaveAppRelation(appRelation);
+            }
+
+            return Json(true);
+        }
+
         #region 功能模块响应
 
         /// <summary>

@@ -12,8 +12,17 @@ define([
 	'models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity',
 	'collections/StudentMgr/SaleTrack/SaleTrackParticipant',
 	'text!templates/StudentMgr/SaleTrack/SaleParticipantItem.html',
+	'text!templates/StudentMgr/SaleTrack/GetFromInterview.html'
 	],
-	function(ClientManage,SaleTrackAjaxViewModel,FirstInterviewTpl,Datetimepicker,SaleTrackParticipantsEntity,SaleTrackParticipantCol,SaleParticipantItemTpl){
+	function(
+		ClientManage,
+		SaleTrackAjaxViewModel,
+		FirstInterviewTpl,
+		Datetimepicker,
+		SaleTrackParticipantsEntity,
+		SaleTrackParticipantCol,
+		SaleParticipantItemTpl,
+		GetFromInterviewTpl){
 	ClientManage.module('StudentMgr.SaleTrack.Interview.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.FirstInterviewView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewTpl),
@@ -290,10 +299,13 @@ define([
 						dataType: 'json',
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
-							if(data == true){
-								//ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+							if(data && firstInterview.model.get("SaleTrackItem").IsComplete != "0"){
 								firstInterview.$el.find(".btnSendEmails").removeClass("display");
-							} else {
+							}
+							if(data && firstInterview.model.get("SaleTrackItem").IsComplete == "0"){
+								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+							}
+							if(!data){
 								alert("Post Failed");
 							}
 						},
@@ -351,6 +363,122 @@ define([
 
 
 		});
+
+		View.GetFromInterviewView = Marionette.Layout.extend({
+			template:_.template(GetFromInterviewTpl),
+			templateHelpers:function(){
+				return {
+
+				}
+			},
+			tagName:"div",
+			className:"wrap",
+			ui:{
+				"Form":"form#GetFromInterviewForm",
+				"ChkIsSign":"input[name=IsSign]",
+				"BtnSubmit":"#btnSubmit",
+				"SignDateWrap":".SignDateWrap"
+			},
+			events:{
+				"submit":"GetFromInterviewSubmit",
+				"click @ui.ChkIsSign":"ChangeIsSign"
+			},
+			//Render UI 初始化 开始
+			onRender:function(){
+				this.$el.find('.timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
+					format: "yyyy-mm-dd",        //指定显示格式
+					autoclose: true,        //点击具体日期或时间后关闭选择框
+					startView:2,            //设置起始选择框形式，2代表显示month
+					minView:2
+				});
+			},
+			ChangeIsSign:function(e){
+				this.ui.SignDateWrap.toggleClass("display");
+			},
+			/*
+			 * 用于显示和隐藏feedback信息
+			 * msg：feedback信息
+			 * className：用于显示feedback的类名
+			 * action：指明动作，只有两种值：Add、Remove
+			 * */
+			SetFeedbackMsg:function(msg,className,action){
+				var feedbackMsg = this.$el.find('.feedbackMsg');                    //获取div.feedbackMsg元素
+				feedbackMsg.html(msg);
+				switch (action){
+					case 'remove':
+						feedbackMsg.removeClass(className);
+						break;
+					case 'add':
+						feedbackMsg.addClass(className);
+						break;
+				}
+			},
+			/*
+			 * 用于检查基础信息是否有填写
+			 * @param inputName:表单元素的name属性
+			 * @param errMsg: 该表单元素的错误信息
+			 * */
+			CheckRequire:function(wrapEl,attrType,inputName,errMsg){
+				//为必填项保存一个消息
+				var requiredMsg = '请填写必填字段:';
+				var $targetInput = wrapEl.find('['+attrType+'*="'+inputName+'"]');
+				if($targetInput.val() === ""){
+					this.SetFeedbackMsg(requiredMsg+errMsg,'inputInvalid','add');
+					return false;
+				}
+				else{
+					this.SetFeedbackMsg('','inputInvalid','remove');
+					return true;
+				}
+			},
+			//检查表单元素的值是否合法
+			validateForm:function(){
+				var editView = this;
+				//检查基础必备信息是否已填写
+				if(!this.CheckRequire(this.$el,'name','GetFromTrack','本次访谈成果')){
+					return false;
+				}
+				return true;
+			},
+			GetFromInterviewSubmit:function(e){
+				e.preventDefault();
+				if(this.validateForm()){
+					var getFromView = this;
+					var postUrl = this.ui.Form.attr("action");
+					var trackID = this.model.get("SaleTrackItem").TrackItemID;
+					var trackNo = this.model.get("SaleTrackItem").TrackNo;
+					var getFrom = this.$el.find("#GetFromTrack").val();
+					var isSign = this.$el.find("input[name=IsSign]").eq(0).is(':checked');
+					var signDate = this.$el.find("input#SignDate").val();
+					var ajaxData = {
+						trackID: trackID,
+						trackNo: trackNo,
+						isSign: isSign,
+						signDate: signDate,
+						getFrom: getFrom
+					};
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data: JSON.stringify(ajaxData),
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data)
+								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+							else
+								alert("Post Failed");
+
+						},
+						error:function(data){
+							alert(data);
+						}
+					});
+				}else{
+					return false;
+				}
+			}
+		})
 	});
 	return ClientManage.StudentMgr.SaleTrack.Interview.View;
 })

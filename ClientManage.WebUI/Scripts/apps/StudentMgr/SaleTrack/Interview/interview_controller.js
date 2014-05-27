@@ -24,11 +24,26 @@ define(['app'],function(ClientManage){
 								studentID:studentID
 							},
 							success:function(){
-								console.log("fetch interview data from server successfully!");
-								var interviewView = new InterviewView.FirstInterviewView({
-									model:saleTrackAjaxViewModel,
-									StudentID:studentID
-								});
+								var trackNo = saleTrackAjaxViewModel.get("SaleTrackItem").TrackNo;
+								var isComplete = saleTrackAjaxViewModel.get("SaleTrackItem").IsComplete;
+								var interviewView;
+								if(trackNo == "1" && isComplete != "0"){
+									interviewView = new InterviewView.FirstInterviewView({
+										model:saleTrackAjaxViewModel,
+										StudentID:studentID
+									});
+								}
+								if(trackNo == "1" && isComplete == "0"){
+									interviewView = new InterviewView.GetFromInterviewView({
+										model:saleTrackAjaxViewModel
+									})
+								}
+								if(trackNo != "1" && isComplete != "0"){
+
+								}
+								if(trackNo != "1" && isComplete == "0"){
+
+								}
 								contentRegion.show(interviewView);
 							},
 							error:function(){

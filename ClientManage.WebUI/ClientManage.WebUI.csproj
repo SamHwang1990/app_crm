@@ -80,6 +80,7 @@
     <Compile Include="Areas\StudentMgr\Models\SaleTrackAjaxViewModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentCreateModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentInfoViewModel.cs" />
+    <Compile Include="Areas\StudentMgr\Models\GetFromInterviewModel.cs" />
     <Compile Include="Areas\StudentMgr\StudentMgrAreaRegistration.cs" />
     <Compile Include="Areas\Students\Controllers\ApplyInfoController.cs" />
     <Compile Include="Areas\Students\Controllers\SaleTrackController.cs" />

@@ -27,9 +27,9 @@ define([
 			ToDo:"",
 			GetFromTrack:"",
 			IsGetFromDone:false,
-			TrackNo:0,
+			TrackNo:"1",
 			ParticipantIDs:"",
-			IsComplete:1,
+			IsComplete:"1",
 			Remark:""
 		}
 	});

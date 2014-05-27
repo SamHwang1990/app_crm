@@ -1,0 +1,37 @@
+<div id="studentMgr-GetFromInterview-wrap">
+    <h2>编辑从<%= SaleTrackItem.StageName %>获得的信息</h2>
+    <br />
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="GetFromInterviewForm" action="/StudentMgr/SaleTrack/SetGetFromDone" method="post" class="form-horizontal" >
+        <div class="control-group">
+            <label class="control-label" for="GetFromTrack">本次访谈成果：</label>
+            <div class="controls">
+                <textarea id="GetFromTrack" name="GetFromTrack" placeholder="请输入访谈成果" value="<%= SaleTrackItem.GetFromTrack %>"></textarea>     </textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" name="IsSign" />已签约
+                </label>
+            </div>
+        </div>
+        <div class="SignDateWrap display control-group">
+            <label class="control-label" for="SignDate">签约日期：</label>
+            <div class="controls">
+                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                    <input type="text" id="SignDate" class="span2" placeholder="签约日期" />
+                    <span class="add-on"><i class="icon-refresh"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存信息</button>&emsp;
+            </div>
+        </div>
+    </form>
+</div>
