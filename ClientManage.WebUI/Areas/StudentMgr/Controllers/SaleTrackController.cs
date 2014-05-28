@@ -154,11 +154,14 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 ajaxData.SaleTrackItem.TrackItemID = Guid.NewGuid();
 
             ajaxData.SaleTrackItem.ParticipantIDs = "";
-            foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
+            if (ajaxData.SaleTrackParticipant != null && ajaxData.SaleTrackParticipant.Count() >0 )
             {
-                item.ParticipantID = Guid.NewGuid();
-                item.SaleTrackID = ajaxData.SaleTrackItem.TrackItemID;
-                ajaxData.SaleTrackItem.ParticipantIDs += (item.ParticipantID.ToString() + ",");
+                foreach (SaleTrackParticipantsEntity item in ajaxData.SaleTrackParticipant)
+                {
+                    item.ParticipantID = Guid.NewGuid();
+                    item.SaleTrackID = ajaxData.SaleTrackItem.TrackItemID;
+                    ajaxData.SaleTrackItem.ParticipantIDs += (item.ParticipantID.ToString() + ",");
+                }
             }
             repository.SaveSaleTrack(ajaxData.SaleTrackItem, ajaxData.SaleTrackParticipant);
             return Json(postResult);

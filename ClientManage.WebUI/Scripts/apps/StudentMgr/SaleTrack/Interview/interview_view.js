@@ -7,7 +7,7 @@
 define([
 	'app',
 	'models/StudentMgr/SaleTrack/SaleTrackAjaxViewModel',
-	'text!templates/StudentMgr/SaleTrack/FirstInterview.html',          //StudentMgr/SaleTrack的Create FirstInterview 模板
+	'text!templates/StudentMgr/SaleTrack/CommonInterview.html',          //StudentMgr/SaleTrack的Create FirstInterview 模板
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',    //bootstrap datetimepicker插件js引入
 	'models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity',
 	'collections/StudentMgr/SaleTrack/SaleTrackParticipant',
@@ -24,7 +24,7 @@ define([
 		SaleParticipantItemTpl,
 		GetFromInterviewTpl){
 	ClientManage.module('StudentMgr.SaleTrack.Interview.View',function(View,ClientManage,Backbone, Marionette, $, _){
-		View.FirstInterviewView = Marionette.Layout.extend({
+		View.CommonInterviewView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewTpl),
 			templateHelpers:function(){
 				return {
@@ -33,7 +33,7 @@ define([
 			tagName:"div",
 			className:"wrap",
 			ui:{
-				"Form":"#FirstInterviewForm",
+				"Form":"#CommonInterviewForm",
 				"AddParticipant":"input.AddParticipant",
 				"AddParticipantFromContacts":"input.AddParticipantFromContacts",
 				"AddParticipantFromUsers":"input.AddParticipantFromUsers",
@@ -43,7 +43,7 @@ define([
 				"SendEmail":".btnSendEmails"
 			},
 			events:{
-				"submit":"FirstInterviewSubmit",
+				"submit":"CommonInterviewSubmit",
 				"click @ui.RemoveParent":"RemoveParent",
 				"click @ui.AddParticipant":"AddParticipant",
 				"click @ui.AddParticipantFromContacts":"AddParticipantFromContacts",
@@ -72,7 +72,7 @@ define([
 			* */
 			setTrackDate:function(trackDate){
 				//获取日期的Year、Month、Date、Hour、Minute
-				var dateStr = trackDate.getFullYear() + "-" + trackDate.getMonth() + "-" + trackDate.getDate() + " " +
+				var dateStr = trackDate.getFullYear() + "-" + (trackDate.getMonth()+1) + "-" + trackDate.getDate() + " " +
 					trackDate.getHours() + ":" + trackDate.getMinutes();
 
 				//设置DOM元素 input#TrackDate 的值
@@ -272,7 +272,6 @@ define([
 			},
 			//检查表单元素的值是否合法
 			validateForm:function(){
-				var editView = this;
 				//检查基础必备信息是否已填写
 				if(!this.CheckRequire(this.$el,'id','TrackDate','初访时间')){
 					return false;
@@ -282,10 +281,10 @@ define([
 				}
 				return true;
 			},
-			FirstInterviewSubmit:function(e){
+			CommonInterviewSubmit:function(e){
 				e.preventDefault();
 				if(this.validateForm()){
-					var firstInterview = this;
+					var commonInterview = this;
 
 					this.SetSaleTrackItem();
 					this.SetSaleTrackParticipant();
@@ -299,11 +298,11 @@ define([
 						dataType: 'json',
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
-							if(data && firstInterview.model.get("SaleTrackItem").IsComplete != "0"){
-								firstInterview.$el.find(".btnSendEmails").removeClass("display");
+							if(data && commonInterview.model.get("SaleTrackItem").IsComplete != "0"){
+								commonInterview.$el.find(".btnSendEmails").removeClass("display");
 							}
-							if(data && firstInterview.model.get("SaleTrackItem").IsComplete == "0"){
-								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+							if(data && commonInterview.model.get("SaleTrackItem").IsComplete == "0"){
+								Backbone.history.loadUrl(Backbone.history.fragment);
 							}
 							if(!data){
 								alert("Post Failed");
@@ -464,11 +463,13 @@ define([
 						dataType: 'json',
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
-							if(data)
+							if(data && isSign)
 								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
-							else
+							else if(data && !isSign){
+								Backbone.history.loadUrl(Backbone.history.fragment);
+							}else{
 								alert("Post Failed");
-
+							}
 						},
 						error:function(data){
 							alert(data);

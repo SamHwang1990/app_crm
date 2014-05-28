@@ -97,8 +97,10 @@ namespace ClientManage.Domain.Concrete
                 context.SaleTrackParticipants.RemoveRange(context.SaleTrackParticipants.Where(s => s.SaleTrackID == originSaleTrackItem.TrackItemID).Select(s => s));
                 context.Entry(originSaleTrackItem).CurrentValues.SetValues(saleTrackItem);
             }
-
-            context.SaleTrackParticipants.AddRange(saleTrackParticipants);  //添加参与人
+            if (saleTrackParticipants != null && saleTrackParticipants.Count() > 0)
+            {
+                context.SaleTrackParticipants.AddRange(saleTrackParticipants);  //添加参与人
+            }
 
             context.SaveChanges();
         }

@@ -7,10 +7,10 @@
 <td>
     <a href="#StudentMgr/Index/Edit/Student-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改基本信息</a>
     <a href="#StudentMgr/Index/Edit/Contacts-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改联系人信息</a>
-    <% if (AppRelation.IsSign == '已签约' ) { %>
+    <% if (AppRelation.IsSign == '2' ) { %>
     <a href="#" title='<%= StudentInfo.NameCn %>'>进入申请</a>
     <% } else { %>
-    <a href="#StudentMgr/SaleTrack/FirstInterview-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>进入销售</a>
+    <a href="#StudentMgr/SaleTrack/AppInterview-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>进入销售</a>
     <% } %>
     <a href="#StudentMgr/Index/Disable" title='<%= StudentInfo.NameCn %>'>禁用该学生</a>
 </td>

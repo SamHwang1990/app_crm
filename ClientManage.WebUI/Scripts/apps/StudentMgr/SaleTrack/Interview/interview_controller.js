@@ -5,7 +5,7 @@
 define(['app'],function(ClientManage){
 	ClientManage.module('StudentMgr.SaleTrack.Interview',function(Interview,ClientManage,Backbone, Marionette, $, _){
 		Interview.Controller = {
-			ShowFirstInterview :function(contentRegion,studentID){
+			ShowInterview :function(contentRegion,studentID){
 				ClientManage.startSubApp("StudentMgr.SaleTrack.Interview");
 				require([
 					'apps/StudentMgr/SaleTrack/Interview/interview_view',
@@ -23,12 +23,15 @@ define(['app'],function(ClientManage){
 							data:{
 								studentID:studentID
 							},
-							success:function(){
+							success:function(data){
+								if(data.HasSign){
+									return ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+								}
 								var trackNo = saleTrackAjaxViewModel.get("SaleTrackItem").TrackNo;
 								var isComplete = saleTrackAjaxViewModel.get("SaleTrackItem").IsComplete;
 								var interviewView;
-								if(trackNo == "1" && isComplete != "0"){
-									interviewView = new InterviewView.FirstInterviewView({
+								if(isComplete != "0"){
+									interviewView = new InterviewView.CommonInterviewView({
 										model:saleTrackAjaxViewModel,
 										StudentID:studentID
 									});
@@ -38,11 +41,10 @@ define(['app'],function(ClientManage){
 										model:saleTrackAjaxViewModel
 									})
 								}
-								if(trackNo != "1" && isComplete != "0"){
-
-								}
 								if(trackNo != "1" && isComplete == "0"){
-
+									interviewView = new InterviewView.GetFromInterviewView({
+										model:saleTrackAjaxViewModel
+									})
 								}
 								contentRegion.show(interviewView);
 							},
