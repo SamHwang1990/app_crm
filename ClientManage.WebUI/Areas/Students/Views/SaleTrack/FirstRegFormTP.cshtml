@@ -25,8 +25,8 @@
             <td>
                 <input type="radio" name="IsLangTran" class="IsLangTran" value="无" @(Model.StudentTPInfo.IsLangTran ? "":"checked=\"checked\"") /><span>无</span>&nbsp;&nbsp;
                 <input type="radio" name="IsLangTran" class="IsLangTran" value="有"  @(Model.StudentTPInfo.IsLangTran ? "checked=\"checked\"" : "") /><span>有</span>&nbsp;&nbsp;
-                <span>课程</span><input type="text" name="LT1CouseName" class="LT1CouseName EnterTip" value="@(Model.StudentTPInfo.LT1CouseName ?? "请输入课程名")" />
-                <span>培训机构</span><input type="text" name="LT1CouseAddress" class="LT1CouseAddress EnterTip" value="@(Model.StudentTPInfo.LT1CouseAddress ?? "请输入机构名")" />
+                <span>课程</span><input type="text" name="LT1CouseName" class="LT1CouseName EnterTip" value="@(Model.StudentTPInfo.LT1CourseName ?? "请输入课程名")" />
+                <span>培训机构</span><input type="text" name="LT1CouseAddress" class="LT1CouseAddress EnterTip" value="@(Model.StudentTPInfo.LT1CourseAddress ?? "请输入机构名")" />
                 <span>时间：</span>
                 @Html.TextBox("LT1DateBegin", string.Format("{0:yyyy/MM}", Model.StudentTPInfo.LT1DateBegin), new { @class = "LT1DateBegin YeahMonthPick" })
                 <span>至</span>

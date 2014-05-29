@@ -31,11 +31,11 @@ namespace ClientManage.Domain.Entities
             _OtherTP3 = string.Empty;
             _OtherTP4 = string.Empty;
             _IsLangTran = false;
-            _LT1CouseName = string.Empty;
-            _LT1CouseAddress = string.Empty;
+            _LT1CourseName = string.Empty;
+            _LT1CourseAddress = string.Empty;
             _LT1DateBegin = DateTime.Now.AddMonths(-1);
             _LT1DateEnd = _LT1DateBegin.AddDays(1);
-            _LT2CouserName = string.Empty;
+            _LT2CourseName = string.Empty;
             _LT2CourseAddress = string.Empty;
             _LT2DateBegin = DateTime.Now.AddMonths(-1);
             _LT2DateEnd = _LT2DateBegin.AddDays(1);
@@ -54,11 +54,11 @@ namespace ClientManage.Domain.Entities
         private string _OtherTP3;
         private string _OtherTP4;
         private bool _IsLangTran;
-        private string _LT1CouseName;
-        private string _LT1CouseAddress;
+        private string _LT1CourseName;
+        private string _LT1CourseAddress;
         private DateTime _LT1DateBegin;
         private DateTime _LT1DateEnd;
-        private string _LT2CouserName;
+        private string _LT2CourseName;
         private string _LT2CourseAddress;
         private DateTime _LT2DateBegin;
         private DateTime _LT2DateEnd;
@@ -141,18 +141,18 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 语言课程培训1 名称
         /// </summary>
-        public string LT1CouseName
+        public string LT1CourseName
         {
-            set{_LT1CouseName = value;}
-            get{return _LT1CouseName;}
+            set{_LT1CourseName = value;}
+            get{return _LT1CourseName;}
         }
         /// <summary>
         /// 语言课程培训1 机构
         /// </summary>
-        public string LT1CouseAddress
+        public string LT1CourseAddress
         {
-            set{_LT1CouseAddress = value;}
-            get{return _LT1CouseAddress;}
+            set{_LT1CourseAddress = value;}
+            get{return _LT1CourseAddress;}
         }
         /// <summary>
         /// 语言课程培训1 开始时间
@@ -173,10 +173,10 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 语言课程培训2 名称
         /// </summary>
-        public string LT2CouserName
+        public string LT2CourseName
         {
-            set{_LT2CouserName = value;}
-            get{return _LT2CouserName;}
+            set{_LT2CourseName = value;}
+            get{return _LT2CourseName;}
         }
         /// <summary>
         /// 语言课程培训2 机构
@@ -202,6 +202,7 @@ namespace ClientManage.Domain.Entities
             set{_LT2DateEnd = value;}
             get{return _LT2DateEnd;}
         }
+
         /// <summary>
         /// 
         /// </summary>

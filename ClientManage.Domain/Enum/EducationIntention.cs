@@ -7,10 +7,10 @@ namespace ClientManage.Domain.Enum
 {
     public enum EducationIntention:byte
     {
-        高中=1,
-        本科=2,
-        研究生=3,
-        博士=4,
-        初中=5
+        高中=0,
+        本科=1,
+        研究生=2,
+        博士=3,
+        初中=4
     }
 }

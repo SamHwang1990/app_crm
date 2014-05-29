@@ -1,0 +1,201 @@
+<div id="studentMgr-FirstInterviewReg-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabFirstInterviewRegInfo" data-toggle="tab">学生基本信息</a></li>
+        <li><a href="#tabFirstInterviewRegTP" data-toggle="tab">语言课程信息</a></li>
+        <li><a href="#tabFirstInterviewRegFrom" data-toggle="tab">客户来源</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabFirstInterviewRegInfo">
+            <form id="FirstInterviewRegInfoForm" action="/StudentMgr/SaleTrack/PostFirstInterviewRegForm" method="post" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="Gender">性别：</label>
+                    <div class="GenderWrap controls">
+                        <select name="Gender" id="Gender" class="span1">
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                            <option value="2">未知</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="LiveCity">现居住城市：</label>
+                    <div class="controls">
+                        <input type="text" id="LiveCity" name="LiveCity" placeholder="请输入居住城市" value="<%= StudentInfo.LiveCity %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">倾向留学国家：</label>
+                    <div class="NationIntentionWrap controls">
+                        <input type="checkbox" class="AmericaIntention" />美国&emsp;
+                        <input type="checkbox" class="EnglandIntention" />英国&emsp;
+                        <input type="checkbox" class="CanadaIntention" />加拿大&emsp;
+                        <input type="checkbox" class="OtherIntention" />其他&nbsp;
+                        <input type="text" class="txtOtherIntention" placeholder="请输入其他留学意向" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="EducationIntention">留学阶段：</label>
+                    <div class="EducationIntentionWrap controls">
+                        <select name="EducationIntention" id="EducationIntention" class="span1">
+                            <option value="0">高中</option>
+                            <option value="1">本科</option>
+                            <option value="2">硕士</option>
+                            <option value="3">博士</option>
+                            <option value="4">初中</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="SchoolCn">就读学校名称：</label>
+                    <div class="controls">
+                        <input type="text" id="SchoolCn" name="SchoolCn" placeholder="请输入学校中文名" value="<%= StudentInfo.SchoolCn %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="Grade">年级：</label>
+                    <div class="GradeWrap controls">
+                        <select name="Grade" id="Grade" class="span1">
+                            <option value="7" >初一</option>
+                            <option value="8" >初二</option>
+                            <option value="9" >初三</option>
+                            <option value="11">高一</option>
+                            <option value="12">高二</option>
+                            <option value="13">高三</option>
+                            <option value="14">大一</option>
+                            <option value="15">大二</option>
+                            <option value="16">大三</option>
+                            <option value="17">大四</option>
+                            <option value="18">研一</option>
+                            <option value="19">研二</option>
+                            <option value="20">研三</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="GraduationDate">毕业日期：</label>
+                    <div class="controls">
+                        <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" id="GraduationDate" class="span2" placeholder="毕业日期" />
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="GradeRank">年纪排名：</label>
+                    <div class="controls">
+                        <input type="text" id="GradeRank" name="GradeRank" placeholder="请输入年纪排名" value="<%= StudentInfo.GradeRank %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="GradeScale">年纪人数：</label>
+                    <div class="controls">
+                        <input type="text" id="GradeScale" name="GradeScale" placeholder="请输入年纪排名" value="<%= StudentInfo.GradeScale %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="AverageScore">平均成绩：</label>
+                    <div class="controls">
+                        <input type="text" id="AverageScore" name="AverageScore" placeholder="请输入平均成绩" value="<%= StudentInfo.AverageScore %>" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="btnSubmitInfo" class="btn btn-large btn-success" type="submit">保存学生信息</button>&emsp;
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="tabFirstInterviewRegTP">
+            <form id="FirstInterviewRegTPForm" action="/StudentMgr/SaleTrack/PostFirstInterviewRegTPForm" method="post" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label">有无特殊课程：</label>
+                    <div class="controls">
+                        <input type="checkbox" class="IsIB" name="IsIB" />IB&emsp;
+                        <input type="checkbox" class="IsAP" name="IsAP" />AP&emsp;
+                        <input type="checkbox" class="IsALevel" name="IsALevel" />A-Level&emsp;
+                        <input type="text" class="OtherTP1" name="OtherTP1" placeholder="请输入其他课程名称" />
+                        <input type="text" class="OtherTP2" name="OtherTP2" placeholder="请输入其他课程名称" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" >有无参加语言培训：</label>
+                    <div class="IsLangTranWrap controls">
+                        <input type="radio" name="IsLangTran" class="IsLangTran" />无&emsp;
+                        <input type="radio" name="IsLangTran" class="IsLangTran" />有&emsp;
+                        <p class="HasLangTran">
+                            课程名称：<input type="text" name="LT1CourseName" class="LT1CouseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT1CourseName %>" />&emsp;
+                            培训机构：<input type="text" name="LT1CourseAddress" class="LT1CouseAddress" placeholder="请输入机构名称" value="<%= StudentTPInfo.LT1CourseAddress %>" />&emsp;
+                            时间：
+                                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" id="LT1DateBegin" class="span2" placeholder="开始培训时间" />
+                                    <span class="add-on"><i class="icon-refresh"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                            至
+                                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                    <input type="text" id="LT1DateEnd" class="span2" placeholder="结束培训时间" />
+                                    <span class="add-on"><i class="icon-refresh"></i></span>
+                                    <span class="add-on"><i class="icon-th"></i></span>
+                                </div>
+                        </p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">语言成绩：</label>
+                    <div class="controls">
+                        <input type="checkbox" class="IsTF" name="IsTF" />托福&emsp;
+                        <span class="TFWrap">
+                            <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
+                            总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="TFIELTSResult.Total" />&emsp;
+                            考试时间：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>&emsp;
+                            计划考试日期：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </span>
+                        <br />
+                        <input type="checkbox" class="IsIELTS" name="IsIELTS" />雅思&emsp;
+                        <span class="IELTSWrap">
+                            <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
+                            总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="TFIELTSResult.Total" />&emsp;
+                            考试时间：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>&emsp;
+                            计划考试日期：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">SAT&Iota;/SSAT 成绩：</label>
+                    <div class="SSATWrap controls">
+                        <input type="radio" name="IsHaveSATSSAT"
+                        <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
+                        总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" />&emsp;
+
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="tabFirstInterviewRegFrom">
+            <form id="FirstInterviewRegFromForm" action="/StudentMgr/SaleTrack/PostFirstInterviewRegFromForm" method="post" class="form-horizontal">
+
+            </form>
+        </div>
+    </div>
+</div>

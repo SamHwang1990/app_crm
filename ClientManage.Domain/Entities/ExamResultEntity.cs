@@ -48,6 +48,7 @@ namespace ClientManage.Domain.Entities
         private byte _ExamType;
         private byte _ExamName;
         private string _PointDelivery;
+        private DateTime _NextExamDate;
         private string _Remark;
         
         /// <summary>
@@ -129,6 +130,16 @@ namespace ClientManage.Domain.Entities
             set{_PointDelivery = value;}
             get{return _PointDelivery;}
         }
+
+        /// <summary>
+        /// 计划考试时间
+        /// </summary>
+        public DateTime NextExamDate
+        {
+            set { _NextExamDate = value; }
+            get { return _NextExamDate; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
