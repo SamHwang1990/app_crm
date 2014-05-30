@@ -165,7 +165,7 @@
                         <input type="checkbox" class="IsIELTS" name="IsIELTS" />雅思&emsp;
                         <span class="IELTSWrap">
                             <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
-                            总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="TFIELTSResult.Total" />&emsp;
+                            总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= TFIELTSResult.Total %>" />&emsp;
                             考试时间：
                             <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
                                 <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
@@ -183,18 +183,73 @@
                 </div>
                 <div class="control-group">
                     <label class="control-label">SAT&Iota;/SSAT 成绩：</label>
-                    <div class="SSATWrap controls">
-                        <input type="radio" name="IsHaveSATSSAT"
+                    <div class="SATSSATWrap controls">
+                        <input type="hidden" class="ResultID" value="<%= SATSSATResult.ResultID %>" />
+                        总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= SATSSATResult.Total %>" />&emsp;
+                        (
+                            <input type="text" class="Math span1" name="Math" placeholder="Math" value="<%= SATSSATResultDetail.MathScore %>" />
+                        &nbsp;/&nbsp;
+                            <input type="text" class="Reading span1" name="Reading" placeholder="Reading" value="<%= SATSSATResultDetail.Reading %>" />
+                            <input type="text" class="WriVoc span1" name="WriVoc" placeholder="WriVoc" value="<%= SATSSATResultDetail.WriVoc %>" />
+                        )&emsp;
+                        考试时间：
+                        <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>&emsp;
+                        计划考试日期：
+                        <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="SAT2Wrap control-group">
+                    <label class="control-label">SAT &Iota;&Iota;成绩：</label>
+                    <div class="controls">
                         <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
-                        总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" />&emsp;
-
+                        总分：<input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= TFIELTSResult.Total %>" />&emsp;
+                        考试时间：
+                        <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>&emsp;
+                        计划考试日期：
+                        <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                            <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
         <div class="tab-pane" id="tabFirstInterviewRegFrom">
             <form id="FirstInterviewRegFromForm" action="/StudentMgr/SaleTrack/PostFirstInterviewRegFromForm" method="post" class="form-horizontal">
-
+                <div class="control-group">
+                    <label class="control-label">如何知道APP：</label>
+                    <div class="StudentFromWrap controls">
+                        <% _.each(StudentSourceItemEntity,function(SourceItem){ %>
+                        <p class="SourceItemWrap">
+                            <input type="checkbox" class="chkIsFrom" />&nbsp;
+                            <span class="SourceName"><%= SourceItem.SourceName %></span>
+                            <% if(SourceItem.DetailKeyword != null && SourceItem.DetailKeyword != "") { %>
+                            ，<span class="DetailKeyword"><%= SourceItem.DetailKeyword %></span>
+                            <% } %>
+                            ：
+                            <input type="text" placeholder="请输入来源信息" class="DetailContent" />
+                        </p>
+                        <% }); %>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="btnSubmitFrom" class="btn btn-large btn-success" type="submit">保存学生来源</button>&emsp;
+                    </div>
+                </div>
             </form>
         </div>
     </div>
