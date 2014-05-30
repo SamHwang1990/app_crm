@@ -79,6 +79,11 @@ namespace ClientManage.Domain.Concrete
             get { return context.StudentSourceItem; }
         }
 
+        public IQueryable<StudentFromEntity> StudentFrom
+        {
+            get { return context.StudentFrom; }
+        }
+
         #endregion
 
         #region 数据库交互

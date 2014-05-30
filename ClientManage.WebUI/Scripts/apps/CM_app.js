@@ -86,7 +86,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 					})
 			},
 			StudentMgrSaleTrackFirstInterviewReg:function(id){
-
+				require([
+					'apps/StudentMgr/SaleTrack/FirstInterviewReg/firstInterviewReg_controller'],
+				function(StudentMgrSaleTrackFirstInterviewRegController){
+					executeAction(StudentMgrSaleTrackFirstInterviewRegController.ShowFirstInterviewReg,id);
+				})
 			}
 		};
 

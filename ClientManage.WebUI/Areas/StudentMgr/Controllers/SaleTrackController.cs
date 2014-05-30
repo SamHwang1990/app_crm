@@ -141,6 +141,166 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
         #endregion
 
+        #region FirstInterviewReg 
+        /// <summary>
+        /// 根据学生ID获取初访数据
+        /// </summary>
+        /// <param name="studentID">学生ID</param>
+        /// <returns></returns>
+        public JsonResult GetFirstInterviewRegData(string studentID)
+        {
+            if (studentID == null || studentID == string.Empty)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            Guid id = new Guid(studentID);
+            StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == id);
+            AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(a => a.StudentID == id);
+            StudentTPInfoEntity studentTP = GetStudentTP(id);
+            ExamResultTFIELTSModel tfIELTSModel = GetTFIELTSExamResult(id);
+            ExamResultSATSSATModel satSSATModel = GetSATSSATExamResult(id);
+            ExamResultEntity sat2Model = GetSAT2ExamResult(id);
+            IEnumerable<StudentSourceItemEntity> studentSourceList = GetStudentSourceList();
+            IEnumerable<StudentFromEntity> studentFromList = GetStudentFromList(id);
+
+            FirstInterviewRegModel firstInterviewRegMode = new FirstInterviewRegModel
+            {
+                StudentInfo = studentInfo,
+                AppRelation = appRelation,
+                StudentTPInfo = studentTP,
+                TFIELTSResult = tfIELTSModel.ExamResult,
+                TFIELTSResultDetail = tfIELTSModel.ExamResultDetail,
+                SATSSATResult = satSSATModel.ExamResult,
+                SATSSATResultDetail = satSSATModel.ExamResultDetail,
+                SAT2Result = sat2Model,
+                StudentSourceList = studentSourceList,
+                StudentFromList = studentFromList
+            };
+
+            return Json(firstInterviewRegMode, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 根据学生ID返回课程信息TPInfo
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
+        StudentTPInfoEntity GetStudentTP(Guid studentID)
+        {
+            StudentTPInfoEntity tpInfo = repository.StudentTPInfo.SingleOrDefault(s => s.StudentID == studentID);
+            if (tpInfo == null)
+            {
+                tpInfo = new StudentTPInfoEntity { StudentID = studentID };
+                return tpInfo;
+            }
+            else
+            {
+                return tpInfo;
+            }
+        }
+
+        /// <summary>
+        /// 从数据库返回所有StudentSource
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<StudentSourceItemEntity> GetStudentSourceList()
+        {
+            IEnumerable<StudentSourceItemEntity> sourceList = repository.StudentSourceItem;
+            return sourceList;
+        }
+
+        /// <summary>
+        /// 从数据库返回该学生所有来源数据
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
+        IEnumerable<StudentFromEntity> GetStudentFromList(Guid studentID)
+        {
+            IEnumerable<StudentFromEntity> studentFromList = repository.StudentFrom.Where(s => s.StudentID == studentID);
+            return studentFromList;
+        }
+
+        ExamResultTFIELTSModel GetTFIELTSExamResult(Guid studentID)
+        {
+            //从数据库中根据StudentID、ExamDate、ExamType 选择考试条目
+            ExamResultEntity examResult = repository.ExamResult
+                .FirstOrDefault(e => e.StudentID == studentID && e.IsBeforeSign == true && (e.ExamType == ExamType.TOFEL || e.ExamType == ExamType.IELTS));
+            if (examResult == null)
+            {
+                examResult = new ExamResultEntity
+                {
+                    ResultID = Guid.NewGuid(),
+                    StudentID = studentID,
+                    ExamID = Guid.NewGuid(),
+                    IsBeforeSign = true
+                };
+            }
+            ExamResultTFIELTSEntity examResultDetail = repository.ExamResultTFIELTS.SingleOrDefault(e => e.ExamID == examResult.ExamID);
+            if (examResultDetail == null)
+            {
+                examResultDetail = new ExamResultTFIELTSEntity { 
+                    ExamID = examResult.ExamID,
+                    Total = examResult.Total
+                };
+            }
+            return new ExamResultTFIELTSModel
+            {
+                ExamResult = examResult,
+                ExamResultDetail = examResultDetail
+            };
+        }
+
+        ExamResultSATSSATModel GetSATSSATExamResult(Guid studentID)
+        {
+            //从数据库中根据StudentID、ExamDate、ExamType 选择考试条目
+            ExamResultEntity examResult = repository.ExamResult
+                .FirstOrDefault(e => e.StudentID == studentID && e.IsBeforeSign == true && (e.ExamType == ExamType.SAT || e.ExamType == ExamType.SSAT));
+            if (examResult == null)
+            {
+                examResult = new ExamResultEntity
+                {
+                    ResultID = Guid.NewGuid(),
+                    StudentID = studentID,
+                    ExamID = Guid.NewGuid(),
+                    IsBeforeSign = true
+                };
+            }
+            ExamResultSATSSATEntity examResultDetail = repository.ExamResultSATSSAT.SingleOrDefault(e => e.ExamID == examResult.ExamID);
+            if (examResultDetail == null)
+            {
+                examResultDetail = new ExamResultSATSSATEntity
+                {
+                    ExamID = examResult.ExamID,
+                    Total = examResult.Total
+                };
+            }
+            return new ExamResultSATSSATModel
+            {
+                ExamResult = examResult,
+                ExamResultDetail = examResultDetail
+            };
+        }
+
+        ExamResultEntity GetSAT2ExamResult(Guid studentID)
+        {
+            //从数据库中根据StudentID、ExamDate、ExamType 选择考试条目
+            ExamResultEntity examResult = repository.ExamResult
+                .FirstOrDefault(e => e.StudentID == studentID && e.IsBeforeSign == true && e.ExamType == ExamType.SAT2);
+            if (examResult == null)
+            {
+                examResult = new ExamResultEntity
+                {
+                    ResultID = Guid.NewGuid(),
+                    StudentID = studentID,
+                    ExamID = Guid.NewGuid(),
+                    IsBeforeSign = true
+                };
+            }
+            return examResult;
+        }
+
+        #endregion
+
         [HttpPost]
         public JsonResult PostInterviewData(SaleTrackAjaxViewModel ajaxData)
         {
@@ -168,7 +328,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 处理Interview GetFrom
         /// </summary>
         /// <param name="id">学生id</param>
         /// <param name="trackID">TrackID</param>

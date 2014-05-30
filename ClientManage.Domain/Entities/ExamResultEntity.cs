@@ -27,12 +27,13 @@ namespace ClientManage.Domain.Entities
             _ResultID = Guid.Empty;
             _ExamID = Guid.Empty;
             _ExamDate = DateTime.Now;
-            _Times = 0;
+            _Times = 1;
             _ExamAddress = string.Empty;
             _ExamType = 0;
-            _ExamName = 0;
+            _ExamName = string.Empty ;
             _PointDelivery = string.Empty;
             _Remark = string.Empty;
+            _IsBeforeSign = false;
 		}
         
         
@@ -46,9 +47,10 @@ namespace ClientManage.Domain.Entities
         private byte _Times;
         private string _ExamAddress;
         private byte _ExamType;
-        private byte _ExamName;
+        private string _ExamName;
         private string _PointDelivery;
         private DateTime _NextExamDate;
+        private bool _IsBeforeSign;
         private string _Remark;
         
         /// <summary>
@@ -117,7 +119,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public byte ExamName
+        public string ExamName
         {
             set{_ExamName = value;}
             get{return _ExamName;}
@@ -138,6 +140,15 @@ namespace ClientManage.Domain.Entities
         {
             set { _NextExamDate = value; }
             get { return _NextExamDate; }
+        }
+
+        /// <summary>
+        /// 是否是签约前考的
+        /// </summary>
+        public bool IsBeforeSign
+        {
+            set { _IsBeforeSign = value; }
+            get { return _IsBeforeSign; }
         }
 
         /// <summary>

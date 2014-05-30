@@ -22,6 +22,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<ExamResultSATSSATEntity> ExamResultSATSSAT { get; }
         IQueryable<ExamResultTFIELTSEntity> ExamResultTFIELTS { get; }
         IQueryable<StudentSourceItemEntity> StudentSourceItem { get; }
+        IQueryable<StudentFromEntity> StudentFrom { get; }
 
         void SaveSaleTrack(SaleTrackEntity saleTrackItem, IEnumerable<SaleTrackParticipantsEntity> saleTrackParticipants);
         void SaveSaleTrack(SaleTrackEntity saleTrackItem);
