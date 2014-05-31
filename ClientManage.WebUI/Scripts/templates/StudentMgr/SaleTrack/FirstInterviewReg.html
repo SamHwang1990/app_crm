@@ -26,11 +26,11 @@
                 <div class="control-group">
                     <label class="control-label">倾向留学国家：</label>
                     <div class="NationIntentionWrap controls">
-                        <input type="checkbox" class="AmericaIntention" />美国&emsp;
-                        <input type="checkbox" class="EnglandIntention" />英国&emsp;
-                        <input type="checkbox" class="CanadaIntention" />加拿大&emsp;
-                        <input type="checkbox" class="OtherIntention" />其他&nbsp;
-                        <input type="text" class="txtOtherIntention" placeholder="请输入其他留学意向" />
+                        <input type="checkbox" class="CommonNationIntention AmericaIntention" data-nationIntention="美国" />美国&emsp;
+                        <input type="checkbox" class="CommonNationIntention EnglandIntention" data-nationIntention="英国" />英国&emsp;
+                        <input type="checkbox" class="CommonNationIntention CanadaIntention" data-nationIntention="加拿大" />加拿大&emsp;
+                        <input type="checkbox" class="OtherNationIntention"  data-nationIntention="其他" />其他&nbsp;
+                        <input type="text" class="txtOtherIntention" placeholder="请输入其他留学意向" value="<%= StudentInfo.OtherNationIntention %>" />
                     </div>
                 </div>
                 <div class="control-group">
@@ -223,6 +223,11 @@
                             <span class="add-on"><i class="icon-refresh"></i></span>
                             <span class="add-on"><i class="icon-th"></i></span>
                         </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="btnSubmitTP" class="btn btn-large btn-success" type="submit">保存考试成绩</button>&emsp;
                     </div>
                 </div>
             </form>

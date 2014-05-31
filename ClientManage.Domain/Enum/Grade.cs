@@ -21,7 +21,6 @@ namespace ClientManage.Domain.Enum
         大三=16,
         大四=17,
         研一=18,
-        研二=19,
-        研三=20
+        研二=19
     }
 }

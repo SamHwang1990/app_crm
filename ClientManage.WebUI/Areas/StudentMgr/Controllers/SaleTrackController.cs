@@ -232,7 +232,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     ResultID = Guid.NewGuid(),
                     StudentID = studentID,
                     ExamID = Guid.NewGuid(),
-                    IsBeforeSign = true
+                    IsBeforeSign = true,
+                    ExamType = ExamType.TOFEL
                 };
             }
             ExamResultTFIELTSEntity examResultDetail = repository.ExamResultTFIELTS.SingleOrDefault(e => e.ExamID == examResult.ExamID);
@@ -262,7 +263,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     ResultID = Guid.NewGuid(),
                     StudentID = studentID,
                     ExamID = Guid.NewGuid(),
-                    IsBeforeSign = true
+                    IsBeforeSign = true,
+                    ExamType = ExamType.SAT
                 };
             }
             ExamResultSATSSATEntity examResultDetail = repository.ExamResultSATSSAT.SingleOrDefault(e => e.ExamID == examResult.ExamID);
@@ -293,7 +295,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     ResultID = Guid.NewGuid(),
                     StudentID = studentID,
                     ExamID = Guid.NewGuid(),
-                    IsBeforeSign = true
+                    IsBeforeSign = true,
+                    ExamType = ExamType.SAT2
                 };
             }
             return examResult;

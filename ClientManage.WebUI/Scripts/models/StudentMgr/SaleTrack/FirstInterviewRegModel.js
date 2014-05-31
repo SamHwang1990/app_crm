@@ -5,7 +5,10 @@
 
 define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var FirstInterviewRegModel = Backbone.Model.extend({
-
+		initialize:function(options){
+			if(options)
+				this.url = options.url;
+		}
 	});
 	return FirstInterviewRegModel;
 })

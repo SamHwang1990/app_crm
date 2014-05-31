@@ -14,7 +14,7 @@ define(['app'],function(ClientManage){
 					'models/StudentMgr/ExamResult/ExamResultModels',
 					'models/StudentMgr/StudentInfo',
 					'models/StudentMgr/AppRelation',
-					'models/StduentMgr/SaleTrack/StudentTPInfoModel',
+					'models/StudentMgr/SaleTrack/StudentTPInfoModel',
 					'collections/StudentMgr/SaleTrack/StudentFromCollection',
 					'collections/StudentMgr/SaleTrack/StudentSourceCollection'
 					],function(FirstInterviewRegView,
@@ -38,6 +38,27 @@ define(['app'],function(ClientManage){
 							StudentSourceList:new StudentSourceCollection,
 							StudentFromList:new StudentFromCollection,
 							url:"/StudentMgr/SaleTrack/GetFirstInterviewRegData"
+						})
+
+						firstInterviewRegModel.fetch({
+							data:{
+								studentID:studentID
+							},
+							success:function(data){
+								if(!data){
+									return ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+								}
+								var regView = new FirstInterviewRegView.FirstInterviewRegView({
+									model:firstInterviewRegModel,
+									StudentID:studentID
+								})
+
+								contentRegion.show(regView);
+							},
+							error:function(data){
+								alert(data);
+								console.log("Fetching data from server failed!");
+							}
 						})
 					}
 				)

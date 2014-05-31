@@ -36,6 +36,7 @@ namespace ClientManage.Domain.Entities
         private DateTime _GraduationDate;
         private byte _EducationIntention;
         private string _NationIntention;
+        private string _OtherNationIntention;
         private string _SpecialtyIntention;
         private DateTime _CreateTime;
         private string _LiveWith;
@@ -227,6 +228,16 @@ namespace ClientManage.Domain.Entities
             set { _NationIntention = value; }
             get { return _NationIntention; }
         }
+
+        /// <summary>
+        /// 其他留学国家意向
+        /// </summary>
+        public string OtherNationIntention
+        {
+            set { _OtherNationIntention = value; }
+            get { return _OtherNationIntention; }
+        }
+
         /// <summary>
         /// 留学专业倾向
         /// </summary>
@@ -293,7 +304,7 @@ namespace ClientManage.Domain.Entities
             Grade = Enum.Grade.高二;
             GraduationDate = new DateTime(2015, 06, 07);
             EducationIntention = Enum.EducationIntention.本科;
-
+            OtherNationIntention = "";
         }
 
     }
