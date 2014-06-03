@@ -180,10 +180,14 @@ define([
 
 				},
 				SetSatSsat:function(){
-					if(this.ui.SelectEducationIntention.val() != "1" && this.ui.SelectEducationIntention.val() != "0"){
+					var eduIntention = this.ui.SelectEducationIntention.val();
+					if(eduIntention != "1" && eduIntention != "0"){
 						return this.ui.IsSatSsatWrap.addClass("display");
+					}else if(eduIntention == "1"){
+						this.model.get("SATSSATResult").ExamType = "2"
+					}else if(eduIntention == "0"){
+						this.model.get("SATSSATResult").ExamType = "4"
 					}
-
 					var examType = this.model.get("SATSSATResult").ExamType;
 					var total = this.model.get("SATSSATResult").Total;
 					var examDate = this.TransToDate(this.model.get("SATSSATResult").ExamDate);
@@ -337,6 +341,62 @@ define([
 					return false;
 				}
 			},
+			SubmitStudentTP:function(e){
+				e.preventDefault();
+				this.SetModel.SetStudentTPInfo.call(this);
+				this.SetModel.SetTfIeltsResult.call(this);
+				this.SetModel.SetSatSsatResult.call(this);
+				this.SetModel.SetSat2Result.call(this);
+				var ajaxData = JSON.stringify(this.model);
+				var postUrl = this.ui.FormStudentTP.attr("action");
+				$.ajax({
+					type: "POST",
+					url: postUrl,
+					data: ajaxData,
+					dataType: 'json',
+					contentType: 'application/json; charset=utf-8',
+					success: function (data) {
+						if(data)
+							alert("Post Successfully");
+						else{
+							alert("Post Failed");
+						}
+					},
+					error:function(data){
+						alert(JSON.stringify(data));
+					}
+				});
+
+			},
+			SubmitStudentFrom:function(e){
+				e.preventDefault();
+				var that = this;
+				require([
+					'models/StudentMgr/SaleTrack/StudentFromModel',
+					'collections/StudentMgr/SaleTrack/StudentFromCollection'
+					],function(StudentFromModel,StudentFromCollection){
+					that.SetModel.SetStudentFromList.call(that,StudentFromModel,StudentFromCollection);
+					var ajaxData = JSON.stringify(that.model);
+					var postUrl = that.ui.FormStudentFrom.attr("action");
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data: ajaxData,
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data)
+								alert("Post Successfully");
+							else{
+								alert("Post Failed");
+							}
+						},
+						error:function(data){
+							alert(JSON.stringify(data));
+						}
+					});
+				})
+			},
 			SetModel:{
 				SetStudentInfo:function(){
 					var studentInfo = this.model.get("StudentInfo");
@@ -371,6 +431,121 @@ define([
 					studentInfo.GradeScale = gradeScale;
 					studentInfo.AverageScore = averScore;
 
+					return;
+				},
+				SetStudentTPInfo:function(){
+					var studentTPInfo = this.model.get("StudentTPInfo");
+					var tpform = this.ui.FormStudentTP;
+
+					var isIB = tpform.find(".IsIB").is(":checked");
+					var isAP = tpform.find(".IsAP").is(":checked");
+					var isALevel = tpform.find(".IsALevel").is(":checked");
+					var otherTP1 = tpform.find(".OtherTP1").val();
+					var otherTP2 = tpform.find(".OtherTP2").val();
+					var isLangTran = tpform.find("[name=IsLangTran]:checked").val() == "NoLangTran" ? false : true;
+					var lt1CourseName = tpform.find(".LT1CourseName").val();
+					var lt1CourseAddress = tpform.find(".LT1CourseAddress").val();
+					var lt1DateBegin = tpform.find(".LT1DateBegin").val();
+					var lt1DateEnd = tpform.find(".LT1DateEnd").val();
+
+					studentTPInfo.IsIB = isIB;
+					studentTPInfo.IsALevel = isALevel;
+					studentTPInfo.IsAP = isAP;
+					studentTPInfo.OtherTP1 = otherTP1;
+					studentTPInfo.OtherTP2 = otherTP2;
+					studentTPInfo.IsLangTran = isLangTran;
+					if(!isLangTran){
+						studentTPInfo.LT1CourseName =
+							studentTPInfo.LT1CouseAddress =
+								studentTPInfo.LT1DateBegin =
+									studentTPInfo.LT1DateEnd = '';
+					}else{
+						studentTPInfo.LT1CourseName = lt1CourseName;
+						studentTPInfo.LT1CouseAddress = lt1CourseAddress;
+						studentTPInfo.LT1DateBegin = lt1DateBegin;
+						studentTPInfo.LT1DateEnd = lt1DateEnd;
+					}
+
+					return;
+				},
+				SetTfIeltsResult:function(){
+					var tpform = this.ui.FormStudentTP;
+					var tfIELTSWrap = this.ui.TFIELTSWrap;
+					var tFIELTSResult = this.model.get("TFIELTSResult");
+					var tFIELTSResultDetail = this.model.get("TFIELTSResultDetail");
+
+					var examType = tpform.find(".IsTFIELTS").val() == "IsTF" ? 0 : 1;
+					var total = tfIELTSWrap.find(".Total").val();
+					var examDate = tfIELTSWrap.find(".ExamDate").val();
+					var nextExamDate = tfIELTSWrap.find(".NextExamDate").val();
+
+					tFIELTSResult.ExamType = examType;
+					tFIELTSResult.Total = tFIELTSResultDetail.Total = total;
+					tFIELTSResult.ExamDate = examDate;
+					tFIELTSResult.NextExamDate = nextExamDate;
+				},
+				SetSatSsatResult:function(){
+					var isSatSsatWrap = this.ui.IsSatSsatWrap;
+					var satSsatWrap = isSatSsatWrap.find(".SATSSATWrap");
+					var satSsatResult = this.model.get("SATSSATResult");
+					var satSsatResultDetail = this.model.get("SATSSATResultDetail");
+
+					var examType = this.model.get("SATSSATResult").ExamType;
+					var total = satSsatWrap.find(".Total").val();
+					var examDate = satSsatWrap.find(".ExamDate").val();
+					var nextExamDate = satSsatWrap.find(".NextExamDate").val();
+					var math = satSsatWrap.find(".Math").val();
+					var reading = satSsatWrap.find(".Reading").val();
+					var wriVoc = satSsatWrap.find(".WriVoc").val();
+					var writing,vocabulary;
+					if(examType == "2"){
+						writing = wriVoc;
+					}else if(examType == "4"){
+						vocabulary = wriVoc;
+					}
+
+					satSsatResult.ExamType = examType;
+					satSsatResult.Total = satSsatResultDetail.Total = total;
+					satSsatResult.ExamDate = examDate;
+					satSsatResult.NextExamDate = nextExamDate;
+
+					satSsatResultDetail.MathScore = math;
+					satSsatResultDetail.Reading = reading;
+					satSsatResultDetail.Writing = writing;
+					satSsatResultDetail.Vocabulary = vocabulary;
+
+				},
+				SetSat2Result:function(){
+					var sat2Wrap = this.ui.IsSAT2Wrap;
+					var sat2Result = this.model.get("SAT2Result");
+
+					var total = sat2Wrap.find(".Total").val();
+					var examDate = sat2Wrap.find(".ExamDate").val();
+					var nextExamDate = sat2Wrap.find(".NextExamDate").val();
+
+					sat2Result.Total = total;
+					sat2Result.ExamDate = examDate;
+					sat2Result.NextExamDate = nextExamDate;
+				},
+				SetStudentFromList:function(StudentFromModel,StudentFromCollection){
+					var studentID = this.StudentID;
+					var studentFromList = new StudentFromCollection()
+
+					var chkIsFrom = this.$el.find(".chkIsFrom:checked");
+					chkIsFrom.each(function(i){
+						var itemName = $(this).siblings("span.SourceName").text();
+						var itemKeyword = $(this).siblings(".SourceDetailKeyword").val();
+						var itemContent = $(this).siblings(".DetailContent").val();
+						studentFromList.add(
+							new StudentFromModel({
+								StudentID : studentID,
+								SourceName : itemName,
+								SourceDetailKeyword : itemKeyword,
+								SourceDetailContent : itemContent
+							})
+						)
+					});
+					this.model.set("StudentFromList",studentFromList);
 					return;
 				}
 			}

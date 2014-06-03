@@ -131,8 +131,8 @@
                         </div>
 
                         <div class="HasLangTranWrap display">
-                            课程名称： <input type="text" name="LT1CourseName" class="LT1CouseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT1CourseName %>" />&emsp;
-                            培训机构： <input type="text" name="LT1CourseAddress" class="LT1CouseAddress" placeholder="请输入机构名称" value="<%= StudentTPInfo.LT1CourseAddress %>" />&emsp;
+                            课程名称： <input type="text" name="LT1CourseName" class="LT1CourseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT1CourseName %>" />&emsp;
+                            培训机构： <input type="text" name="LT1CourseAddress" class="LT1CourseAddress" placeholder="请输入机构名称" value="<%= StudentTPInfo.LT1CourseAddress %>" />&emsp;
                         </div>
                         <div class="HasLangTranWrap display">
                             时　　间：
@@ -251,6 +251,7 @@
                         <% _.each(StudentSourceList,function(SourceItem){ %>
                         <p class="SourceItemWrap SourceItem-<%= SourceItem.SourceName %>">
                             <input type="checkbox" class="chkIsFrom" />&nbsp;
+                            <input type="hidden" class="SourceDetailKeyword" value="<%= SourceItem.DetailKeyword %>" />
                             <span class="SourceName"><%= SourceItem.SourceName %></span>
                             <% if(SourceItem.DetailKeyword != null && SourceItem.DetailKeyword != "") { %>
                             ，<span class="DetailKeyword"><%= SourceItem.DetailKeyword %></span>
