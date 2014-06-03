@@ -23,11 +23,11 @@ namespace ClientManage.Domain.Entities
 		private void SetDefaultValues()
 		{
             _ExamID = Guid.Empty;
-            _Reading = 0;
-            _Listening = 0;
-            _Speaking = 0;
-            _Writing = 0;
-            _Total = 0;
+            //_Reading = 0;
+            //_Listening = 0;
+            //_Speaking = 0;
+            //_Writing = 0;
+            //_Total = 0;
             _Remark = string.Empty;
 		}
         

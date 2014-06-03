@@ -9,7 +9,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			StudentID:"00000000-0000-0000-0000-000000000000",
 			ExamID:"00000000-0000-0000-0000-000000000000",
 			ExamDate:new Date(),
-			Total:0,
+			Total:'',
 			Times:1,
 			ExamAddress:"",
 			ExamType:"0",
@@ -24,11 +24,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var ExamResultTFIELTSEntity = Backbone.Model.extend({
 		defaults:{
 			ExamID:"00000000-0000-0000-0000-000000000000",
-			Reading:0,
-			Listening:0,
-			Speaking:0,
-			Writing:0,
-			Total:0,
+			Reading:'',
+			Listening:'',
+			Speaking:'',
+			Writing:'',
+			Total:'',
 			Remark:""
 		}
 	})
@@ -36,11 +36,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var ExamResultSATSSATEntity = Backbone.Model.extend({
 		defaults:{
 			ExamID:"00000000-0000-0000-0000-000000000000",
-			MathScore:0,
-			Reading:0,
-			Vocabulary:0,
-			Writing:0,
-			Total:0,
+			MathScore:'',
+			Reading:'',
+			Vocabulary:'',
+			Writing:'',
+			Total:'',
 			Remark:""
 		}
 	})
@@ -48,10 +48,10 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var ExamResultGREGMATEntity = Backbone.Model.extend({
 		defaults:{
 			ExamID:"00000000-0000-0000-0000-000000000000",
-			MathScore:0,
-			Verbal:0,
-			Writing:0,
-			Total:0,
+			MathScore:'',
+			Verbal:'',
+			Writing:'',
+			Total:'',
 			Remark:""
 		}
 	})

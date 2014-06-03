@@ -33,12 +33,12 @@ namespace ClientManage.Domain.Entities
             _IsLangTran = false;
             _LT1CourseName = string.Empty;
             _LT1CourseAddress = string.Empty;
-            _LT1DateBegin = DateTime.Now.AddMonths(-1);
-            _LT1DateEnd = _LT1DateBegin.AddDays(1);
+            LT1DateBegin = DateTime.Now.AddMonths(-1);
+            LT1DateEnd = _LT1DateBegin.AddDays(1);
             _LT2CourseName = string.Empty;
             _LT2CourseAddress = string.Empty;
-            _LT2DateBegin = DateTime.Now.AddMonths(-1);
-            _LT2DateEnd = _LT2DateBegin.AddDays(1);
+            LT2DateBegin = DateTime.Now.AddMonths(-1);
+            LT2DateEnd = _LT2DateBegin.AddDays(1);
             _Remark = string.Empty;
 		}
         
@@ -157,18 +157,18 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 语言课程培训1 开始时间
         /// </summary>
-        public DateTime LT1DateBegin
+        public Nullable<DateTime> LT1DateBegin
         {
-            set{_LT1DateBegin = value;}
-            get{return _LT1DateBegin;}
+            set;
+            get;
         }
         /// <summary>
         /// 语言课程培训1 结束时间
         /// </summary>
-        public DateTime LT1DateEnd
+        public Nullable<DateTime> LT1DateEnd
         {
-            set{_LT1DateEnd = value;}
-            get{return _LT1DateEnd;}
+            set;
+            get;
         }
         /// <summary>
         /// 语言课程培训2 名称
@@ -189,18 +189,18 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 语言课程培训2 开始时间
         /// </summary>
-        public DateTime LT2DateBegin
+        public Nullable<DateTime> LT2DateBegin
         {
-            set{_LT2DateBegin = value;}
-            get{return _LT2DateBegin;}
+            set;
+            get;
         }
         /// <summary>
         /// 语言课程培训2 结束时间
         /// </summary>
-        public DateTime LT2DateEnd
+        public Nullable<DateTime> LT2DateEnd
         {
-            set{_LT2DateEnd = value;}
-            get{return _LT2DateEnd;}
+            set;
+            get;
         }
 
         /// <summary>

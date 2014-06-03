@@ -23,10 +23,10 @@ namespace ClientManage.Domain.Entities
 		private void SetDefaultValues()
 		{
             _ExamID = Guid.Empty;
-            _MathScore = 0;
-            _Verbal = 0;
-            _Writing = 0;
-            _Total = 0;
+            //_MathScore = 0;
+            //_Verbal = 0;
+            //_Writing = 0;
+            //_Total = 0;
             _Remark = string.Empty;
 		}
         

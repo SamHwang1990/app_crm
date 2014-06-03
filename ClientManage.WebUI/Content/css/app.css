@@ -302,3 +302,10 @@ input.display,.display{
 	border-color: #eed3d7;
 	color: #b94a48;
 }
+
+/*
+* @section FirstInterviewReg Class style
+*/
+.HasLangTranWrap,.TFIELTSWrap,.SATSSATWrap,.Sat2Wrap{
+	margin-top: 5px;
+}
