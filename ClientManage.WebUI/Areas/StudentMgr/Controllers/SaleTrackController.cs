@@ -366,6 +366,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(true);
         }
 
+        [HttpPost]
+        public JsonResult PostFirstInterviewRegInfoForm(FirstInterviewRegModel ajaxData)
+        {
+            return Json(true);
+        }
+
         #region 功能模块响应
 
         /// <summary>

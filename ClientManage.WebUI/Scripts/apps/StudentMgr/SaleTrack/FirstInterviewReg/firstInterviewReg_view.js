@@ -51,8 +51,12 @@ define([
 
 				"StudentFromWrap":".StudentFromWrap"
 			},
-			event:{
-
+			events:{
+				"click .IsLangTran":"ClickIsLangTran",
+				//"change @ui.SelectEducationIntention":"ChangeEducationIntention"
+				"submit @ui.FormStudentInfo":"SubmitStudentInfo",
+				"submit @ui.FormStudentTP":"SubmitStudentTP",
+				"submit @ui.FormStudentFrom":"SubmitStudentFrom"
 			},
 			initialize:function(options){
 				if(options){
@@ -234,6 +238,17 @@ define([
 					})
 				}
 			},
+
+			ClickIsLangTran:function(e){
+				var hasLangTranDiv = this.ui.HasLangTranWrap;
+				var isLangTran = $(e.target).val();
+				if(isLangTran == "NoLangTran"){
+					hasLangTranDiv.addClass("display");
+				}else if(isLangTran == "HasLangTran"){
+					hasLangTranDiv.removeClass("display");
+				}
+			},
+
 			/*
 			 * 将字符串/ Date / ******* / 转为JS的Date类型
 			 * 并转为ShortDateString，如1990-10-10
@@ -244,8 +259,120 @@ define([
 				}
 				var ms = msString.slice(6,-2);
 				var msDate = new Date(parseInt(ms));
-				var dateStr = msDate.getFullYear() + "-" + (msDate.getMonth()+1) + "-" + msDate.getDate();
-				return dateStr;
+				return msDate.getFullYear() + "-" + (msDate.getMonth()+1) + "-" + msDate.getDate();
+			},
+			/*
+			 * 用于显示和隐藏feedback信息
+			 * msg：feedback信息
+			 * className：用于显示feedback的类名
+			 * action：指明动作，只有两种值：Add、Remove
+			 * */
+			SetFeedbackMsg:function(msg,className,action){
+				var feedbackMsg = this.$el.find('.feedbackMsg');                    //获取div.feedbackMsg元素
+				feedbackMsg.html(msg);
+				switch (action){
+					case 'remove':
+						feedbackMsg.removeClass(className);
+						break;
+					case 'add':
+						feedbackMsg.addClass(className);
+						break;
+				}
+			},
+			/*
+			 * 用于检查基础信息是否有填写
+			 * @param inputName:表单元素的name属性
+			 * @param errMsg: 该表单元素的错误信息
+			 * */
+			CheckRequire:function(wrapEl,attrType,inputName,errMsg){
+				//为必填项保存一个消息
+				var requiredMsg = '请填写必填字段:';
+				var $targetInput = wrapEl.find('input['+attrType+'*="'+inputName+'"]');
+				if($targetInput.val() === ""){
+					this.SetFeedbackMsg(requiredMsg+errMsg,'inputInvalid','add');
+					return false;
+				}
+				else{
+					this.SetFeedbackMsg('','inputInvalid','remove');
+					return true;
+				}
+			},
+			validateInfoForm:function(){
+				//检查基础必备信息是否已填写
+				if(!this.CheckRequire(this.$el,'id','SchoolCn','学校名称')){
+					return false;
+				}
+				return true;
+			},
+			validateTPForm:function(){
+
+			},
+			validateFromForm:function(){
+
+			},
+			SubmitStudentInfo:function(e){
+				e.preventDefault();
+				if(this.validateInfoForm()){
+					this.SetModel.SetStudentInfo.call(this);
+					var ajaxData = JSON.stringify(this.model);
+					var postUrl = this.ui.FormStudentInfo.attr("action");
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data: ajaxData,
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data)
+								alert("Post Successfully");
+							else{
+								alert("Post Failed");
+							}
+						},
+						error:function(data){
+							alert(JSON.stringify(data));
+						}
+					});
+				}else{
+					return false;
+				}
+			},
+			SetModel:{
+				SetStudentInfo:function(){
+					var studentInfo = this.model.get("StudentInfo");
+					var infoForm = this.ui.FormStudentInfo;
+					var gender = infoForm.find("#Gender").val();
+					var liveCity = infoForm.find("#LiveCity").val();
+					var nationIntention = '';
+					this.ui.ChkCommonNationIntention.each(function(index){
+						if($(this).is(":checked")){
+							nationIntention += nationIntention + $(this).attr("data-nationIntention");
+						}
+					})
+					var otherNationIntention = infoForm.find(".txtOtherNationIntention").val();
+
+					var educationIntention = infoForm.find("#EducationIntention").val();
+					var schoolCn = infoForm.find("#SchoolCn").val();
+					var grade = infoForm.find("#Grade").val();
+					var graduationDate = infoForm.find("#GraduationDate").val();
+					var gradeRank = infoForm.find("#GradeRank").val();
+					var gradeScale = infoForm.find("#GradeScale").val();
+					var averScore = infoForm.find("#AverageScore").val();
+
+					studentInfo.Gender = gender;
+					studentInfo.LiveCity = liveCity;
+					studentInfo.NationIntention = nationIntention;
+					studentInfo.OtherNationIntention = otherNationIntention;
+					studentInfo.EducationIntention = educationIntention;
+					studentInfo.SchoolCn = schoolCn;
+					studentInfo.Grade = grade;
+					studentInfo.GraduationDate = graduationDate;
+					studentInfo.GradeRank = gradeRank;
+					studentInfo.GradeScale = gradeScale;
+					studentInfo.AverageScore = averScore;
+
+					return;
+				}
 			}
 		})
 	})
