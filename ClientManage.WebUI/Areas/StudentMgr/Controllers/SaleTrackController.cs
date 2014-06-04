@@ -445,7 +445,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             StudentTPInfoEntity studentTPInfo = ajaxData.StudentTPInfo;
             StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == ajaxData.StudentInfo.StudentID);
+            AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(a=>a.StudentID == studentInfo.StudentID);
+            
+            studentInfo.EducationIntention = ajaxData.StudentInfo.EducationIntention;
+            
             studentInfoRepository.SaveStudentTPInfo(studentTPInfo);
+            studentInfoRepository.SaveStudentInfo(studentInfo, appRelation);
 
             ExamResultEntity _TFIELTSResult = ajaxData.TFIELTSResult;
             ExamResultTFIELTSEntity _TFIELTSResultDetail = ajaxData.TFIELTSResultDetail;

@@ -20,6 +20,8 @@ define([
 			tagName:"div",
 			className:"wrap",
 			ui:{
+				"NavRegFrom":"#FirstInterviewRegFromNav",
+
 				"TabStudentInfo":"div#tabFirstInterviewRegInfo",
 				"TabStudentTP":"div#tabFirstInterviewRegInfo",
 				"TabStudentFrom":"div#tabFirstInterviewRegFrom",
@@ -180,7 +182,7 @@ define([
 					if(examType == EnumExamType.IELTS){
 						this.ui.RadioIsTFIELTS.filter("[value=IsIELTS]").attr("checked","checked");
 					}
-					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.RadioIsTFIELTS,"TFIELTSResult");
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.TFIELTSWrap,"TFIELTSResult");
 
 				},
 				SetSatSsat:function(){
@@ -236,8 +238,8 @@ define([
 				SetFromItem:function(){
 					var regView = this;
 					_.each(this.model.get("StudentFromList"),function(fromItem){
-						var itemName = "SourceItem-" + fromItem.SourceName;
-						var $targetP = regView.ui.StudentFromWrap.find("p." + itemName);
+						var itemName = fromItem.SourceName;
+						var $targetP = regView.ui.StudentFromWrap.find("p[data-ItemName='" + itemName + "']");
 						$targetP.find(".chkIsFrom").attr("checked","checked");
 						$targetP.find(".DetailContent").val(fromItem.SourceDetailContent);
 					})
@@ -336,6 +338,7 @@ define([
 			SubmitStudentInfo:function(e){
 				e.preventDefault();
 				if(this.validateInfoForm()){
+					var regView = this;
 					this.SetModel.SetStudentInfo.call(this);
 					var ajaxData = JSON.stringify(this.model);
 					var postUrl = this.ui.FormStudentInfo.attr("action");
@@ -347,7 +350,7 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
 							if(data)
-								alert("Post Successfully");
+								regView.ui.NavRegFrom.find("li:eq(1) a").tab('show');
 							else{
 								alert("Post Failed");
 							}
@@ -362,12 +365,15 @@ define([
 			},
 			SubmitStudentTP:function(e){
 				e.preventDefault();
+				this.SetModel.SetStudentInfo.call(this);
 				this.SetModel.SetStudentTPInfo.call(this);
 				this.SetModel.SetTfIeltsResult.call(this);
 				this.SetModel.SetSatSsatResult.call(this);
 				this.SetModel.SetSat2Result.call(this);
 				this.SetModel.SetAPResult.call(this);
 				this.SetModel.SetGreGmatResult.call(this);
+
+				var regView = this;
 
 				var ajaxData = JSON.stringify(this.model);
 				var postUrl = this.ui.FormStudentTP.attr("action");
@@ -379,7 +385,7 @@ define([
 					contentType: 'application/json; charset=utf-8',
 					success: function (data) {
 						if(data)
-							alert("Post Successfully");
+							regView.ui.NavRegFrom.find("li:eq(2) a").tab('show');
 						else{
 							alert("Post Failed");
 						}
@@ -408,7 +414,7 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
 							if(data)
-								alert("Post Successfully");
+								ClientManage.navigate("StudentMgr/SaleTrack/AppInterview-"+that.StudentID,{trigger:true});
 							else{
 								alert("Post Failed");
 							}
@@ -496,7 +502,7 @@ define([
 					var tFIELTSResult = this.model.get("TFIELTSResult");
 					var tFIELTSResultDetail = this.model.get("TFIELTSResultDetail");
 
-					var examType = tpform.find(".IsTFIELTS:checked").val() == "IsTF" ? 0 : 1;
+					var examType = tpform.find(".IsTFIELTS:checked").val() == "IsTF" ? "0" : "1";
 					var total = tfIELTSWrap.find(".Total").val();
 					var examDate = tfIELTSWrap.find(".ExamDate").val();
 					var nextExamDate = tfIELTSWrap.find(".NextExamDate").val();
