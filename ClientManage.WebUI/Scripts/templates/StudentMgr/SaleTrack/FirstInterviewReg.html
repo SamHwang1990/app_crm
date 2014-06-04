@@ -1,4 +1,5 @@
 <div id="studentMgr-FirstInterviewReg-wrap">
+    <h3>编写客户初访表：<%= StudentInfo.NameCn %></h3>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tabFirstInterviewRegInfo" data-toggle="tab">学生基本信息</a></li>
         <li><a href="#tabFirstInterviewRegTP" data-toggle="tab">语言课程信息</a></li>
@@ -179,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="IsSATSSATWrap control-group">
+                <div class="ExamResultWrap IsSATSSATWrap display control-group">
                     <label class="control-label">SAT&Iota;/SSAT 成绩：</label>
                     <div class="controls">
                         <div class="SATSSATWrap">
@@ -211,12 +212,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="IsSAT2Wrap display control-group">
+                <div class="ExamResultWrap IsSAT2Wrap display control-group">
                     <label class="control-label">SAT &Iota;&Iota;成绩：</label>
                     <div class="controls">
                         <div class="Sat2Wrap">
-                            <input type="hidden" class="ResultID" value="<%= TFIELTSResult.ResultID %>" />
-                            总分　　　　： <input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= TFIELTSResult.Total %>" />&emsp;
+                            <input type="hidden" class="ResultID" value="<%= SAT2Result.ResultID %>" />
+                            总分　　　　： <input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= SAT2Result.Total %>" />&emsp;
                         </div>
                         <div class="Sat2Wrap">
                             考试时间　　：
@@ -227,6 +228,67 @@
                             </div>&emsp;
                         </div>
                         <div class="Sat2Wrap">
+                            计划考试日期：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ExamResultWrap IsGREGMATWrap display control-group">
+                    <label class="control-label">GRE/GMAT 成绩：</label>
+                    <div class="controls">
+                        <div class="HasGREGMASTChose">
+                            <input type="radio" class="IsGREGMAT" value="5" name="IsGREGMAT" />GRE&emsp;
+                            <input type="radio" class="IsGREGMAT" value="6" name="IsGREGMAT" />GMAT&emsp;
+                        </div>
+                        <div class="GREGMATWrap">
+                            <input type="hidden" class="ResultID" value="<%= GREGMATResult.ResultID %>" />
+                            总分　　　　： <input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= GREGMATResult.Total %>" />&emsp;
+                            (
+                            <input type="text" class="Math span1" name="Math" placeholder="Math" value="<%= GREGMATResultDetail.MathScore %>" />
+                            &nbsp;/&nbsp;
+                            <input type="text" class="Verbal span1" name="Verbal" placeholder="Verbal" value="<%= GREGMATResultDetail.Verbal %>" />
+                            &nbsp;/&nbsp;
+                            <input type="text" class="Writing span1" name="Writing" placeholder="Writing" value="<%= GREGMATResultDetail.Writing %>" />
+                            )&emsp;
+                        </div>
+                        <div class="GREGMATWrap">
+                            考试时间　　：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>&emsp;
+                        </div>
+                        <div class="GREGMATWrap">
+                            计划考试日期：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ExamResultWrap IsAPWrap display control-group">
+                    <label class="control-label">AP 成绩：</label>
+                    <div class="controls">
+                        <div class="APWrap">
+                            <input type="hidden" class="ResultID" value="<%= APResult.ResultID %>" />
+                            总分　　　　： <input type="text" name="Total" class="Total" placeholder="请输入总分" value="<%= APResult.Total %>" />&emsp;
+                        </div>
+                        <div class="APWrap">
+                            考试时间　　：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" class="ExamDate" class="span2" placeholder="考试日期" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>&emsp;
+                        </div>
+                        <div class="APWrap">
                             计划考试日期：
                             <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
                                 <input type="text" class="NextExamDate" class="span2" placeholder="计划考试日期" />

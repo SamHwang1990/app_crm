@@ -7,8 +7,10 @@ define([
 	'app',
 	'models/StudentMgr/SaleTrack/FirstInterviewRegModel',
 	'text!templates/StudentMgr/SaleTrack/FirstInterviewReg.html',
-	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min'
-	],function(ClientManage,FirstInterviewRegModel,FirstInterviewRegTpl,Datetimepicker){
+	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',
+	'models/StudentMgr/EnumModel/ExamType',
+	'models/StudentMgr/EnumModel/EducationIntention'
+	],function(ClientManage,FirstInterviewRegModel,FirstInterviewRegTpl,Datetimepicker,EnumExamType,EnumEducationIntention){
 	ClientManage.module('StudentMgr.SaleTrack.FirstInterviewReg.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.FirstInterviewRegView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewRegTpl),
@@ -43,17 +45,24 @@ define([
 				"DateLT1Begin":"#LT1DateBegin",
 				"DateLT1End":"#LT1DateEnd",
 
+				"ExamResultWrap":".ExamResultWrap",
+
 				"RadioIsTFIELTS":".IsTFIELTS",
 				"TFIELTSWrap":".TFIELTSWrap",
 
 				"IsSatSsatWrap":".IsSATSSATWrap",
 				"IsSAT2Wrap":".IsSAT2Wrap",
+				"IsAPWrap":".IsAPWrap",
+
+				"IsGREGMATWrap":".IsGREGMATWrap",
+				"HasGREGMASTChose":".HasGREGMASTChose",
+				"GREGMATWrap":".GREGMATWrap",
 
 				"StudentFromWrap":".StudentFromWrap"
 			},
 			events:{
 				"click .IsLangTran":"ClickIsLangTran",
-				//"change @ui.SelectEducationIntention":"ChangeEducationIntention"
+				"change @ui.SelectEducationIntention":"ChangeEducationIntention",
 				"submit @ui.FormStudentInfo":"SubmitStudentInfo",
 				"submit @ui.FormStudentTP":"SubmitStudentTP",
 				"submit @ui.FormStudentFrom":"SubmitStudentFrom"
@@ -92,6 +101,9 @@ define([
 				this.RenderStudentTPHandler.SetIsTFIELTS.call(this);
 				this.RenderStudentTPHandler.SetSAT2Wrap.call(this);
 				this.RenderStudentTPHandler.SetSatSsat.call(this);
+				this.RenderStudentTPHandler.SetAPResult.call(this);
+				this.RenderStudentTPHandler.SetGreGmat.call(this);
+				this.ui.SelectEducationIntention.trigger("change");
 			},
 			//初始化StudentFrom Form的信息
 			RenderStudentFrom:function(){
@@ -162,72 +174,52 @@ define([
 				},
 				SetIsTFIELTS:function(){
 					var examType = this.model.get("TFIELTSResult").ExamType;
-					var total = this.model.get("TFIELTSResult").Total;
-					var examDate = this.TransToDate(this.model.get("TFIELTSResult").ExamDate);
-					var nextExamDate = this.TransToDate(this.model.get("TFIELTSResult").NextExamDate);
-					if(examType == "0"){
+					if(examType == EnumExamType.TOFEL){
 						this.ui.RadioIsTFIELTS.filter("[value=IsTF]").attr("checked","checked");
 					}
-					if(examType == "1"){
+					if(examType == EnumExamType.IELTS){
 						this.ui.RadioIsTFIELTS.filter("[value=IsIELTS]").attr("checked","checked");
 					}
-					this.ui.TFIELTSWrap.find("input.ExamDate").val(examDate);
-					this.ui.TFIELTSWrap.find("input.NextExamDate").val(nextExamDate);
-
-					if(total == '0' || total== null || total == ''){   //如果total为0或null，则表示数据库中并无符合条件的考试记录
-						this.ui.TFIELTSWrap.find("input").val('');      //清空TFIELTSWrap 下所有input元素的value
-					}
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.RadioIsTFIELTS,"TFIELTSResult");
 
 				},
 				SetSatSsat:function(){
 					var eduIntention = this.ui.SelectEducationIntention.val();
-					if(eduIntention != "1" && eduIntention != "0"){
-						return this.ui.IsSatSsatWrap.addClass("display");
-					}else if(eduIntention == "1"){
-						this.model.get("SATSSATResult").ExamType = "2"
-					}else if(eduIntention == "0"){
-						this.model.get("SATSSATResult").ExamType = "4"
-					}
-					var examType = this.model.get("SATSSATResult").ExamType;
-					var total = this.model.get("SATSSATResult").Total;
-					var examDate = this.TransToDate(this.model.get("SATSSATResult").ExamDate);
-					var nextExamDate = this.TransToDate(this.model.get("SATSSATResult").NextExamDate);
 					var vocabulary = this.model.get("SATSSATResultDetail").Vocabulary;
 					var writing = this.model.get("SATSSATResultDetail").Writing;
 					var $WriVoc = this.ui.IsSatSsatWrap.find("[name=WriVoc]");
 
-					if(examType == "2"){
+					if(eduIntention == EnumEducationIntention.UnderGrade){
+						this.model.get("SATSSATResult").ExamType = EnumExamType.SAT;
 						$WriVoc.attr("placeholder","Writing");
 						$WriVoc.val(writing);
-					}
-					if(examType == "4"){
+					}else if(eduIntention == EnumEducationIntention.Senior){
+						this.model.get("SATSSATResult").ExamType = EnumExamType.SSAT;
 						$WriVoc.attr("placeholder","Vocabulary");
 						$WriVoc.val(vocabulary);
 					}
-					this.ui.IsSatSsatWrap.find("input.ExamDate").val(examDate);
-					this.ui.IsSatSsatWrap.find("input.NextExamDate").val(nextExamDate);
 
-					if(total == '0' || total== null || total == ''){   //如果total为0或null，则表示数据库中并无符合条件的考试记录
-						this.ui.IsSatSsatWrap.find("input").val('');      //清空TFIELTSWrap 下所有input元素的value
-					}
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsSatSsatWrap,"SATSSATResult");
 				},
 				SetSAT2Wrap:function(){
-					if(this.ui.SelectEducationIntention.val() == "1"){
-						this.ui.IsSAT2Wrap.removeClass("display");
-						this.ui.IsSAT2Wrap.find("input").val('');
-						return;
-					}
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsSAT2Wrap,"SAT2Result");
+				},
+				SetAPResult:function(){
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsAPWrap,"APResult");
+				},
+				SetGreGmat:function(){
+					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsGREGMATWrap,"GREGMATResult");
+				},
+				SetInputCommon:function(inputWrap, modelName){
+					var total = this.model.get(modelName).Total;
+					var examDate = this.TransToDate(this.model.get(modelName).ExamDate);
+					var nextExamDate = this.TransToDate(this.model.get(modelName).NextExamDate);
 
-					var examType = this.model.get("SAT2Result").ExamType;
-					var total = this.model.get("SAT2Result").Total;
-					var examDate = this.TransToDate(this.model.get("SAT2Result").ExamDate);
-					var nextExamDate = this.TransToDate(this.model.get("SAT2Result").NextExamDate);
-
-					this.ui.IsSAT2Wrap.find("input.ExamDate").val(examDate);
-					this.ui.IsSAT2Wrap.find("input.NextExamDate").val(nextExamDate);
+					inputWrap.find("input.ExamDate").val(examDate);
+					inputWrap.find("input.NextExamDate").val(nextExamDate);
 
 					if(total == '0' || total== null || total == ''){   //如果total为0或null，则表示数据库中并无符合条件的考试记录
-						this.ui.IsSAT2Wrap.find("input").val('');      //清空TFIELTSWrap 下所有input元素的value
+						inputWrap.find("input").val('');      //清空TFIELTSWrap 下所有input元素的value
 					}
 				}
 			},
@@ -250,6 +242,24 @@ define([
 					hasLangTranDiv.addClass("display");
 				}else if(isLangTran == "HasLangTran"){
 					hasLangTranDiv.removeClass("display");
+				}
+			},
+			ChangeEducationIntention:function(e){
+				var intention = $(e.target).val();
+				this.ui.ExamResultWrap.addClass("display");
+				switch (intention){
+					case EnumEducationIntention.Senior:
+						this.ui.IsSatSsatWrap.removeClass("display");
+						break;
+					case EnumEducationIntention.UnderGrade:
+						this.ui.IsSatSsatWrap.removeClass("display");
+						this.ui.IsSAT2Wrap.removeClass("display");
+						break;
+					case EnumEducationIntention.Master:
+						this.ui.IsGREGMATWrap.removeClass("display");
+						break;
+					default :
+						break;
 				}
 			},
 

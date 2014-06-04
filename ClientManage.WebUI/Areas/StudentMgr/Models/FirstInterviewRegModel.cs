@@ -22,6 +22,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Models
         public ExamResultEntity SATSSATResult { get; set; }
         public ExamResultSATSSATEntity SATSSATResultDetail { get; set; }
         public ExamResultEntity SAT2Result { get; set; }
+        public ExamResultEntity GREGMATResult { get; set; }
+        public ExamResultGREGMATEntity GREGMATResultDetail { get; set; }
+        public ExamResultEntity APResult { get; set; }
         public IEnumerable<StudentSourceItemEntity> StudentSourceList { get; set; }
         public IEnumerable<StudentFromEntity> StudentFromList { get; set; }
     }

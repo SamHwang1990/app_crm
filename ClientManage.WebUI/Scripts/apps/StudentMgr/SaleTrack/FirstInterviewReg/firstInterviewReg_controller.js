@@ -35,6 +35,9 @@ define(['app'],function(ClientManage){
 							SATSSATResult:new ExamResultModels.ExamResultEntity,
 							SATSSATResultDetail:new ExamResultModels.ExamResultSATSSATEntity,
 							SAT2Result:new ExamResultModels.ExamResultEntity,
+							GREGMATResult:new ExamResultModels.ExamResultEntity,
+							GREGMATResultDetail:new ExamResultModels.ExamResultGREGMATEntity,
+							APResult:new ExamResultModels.ExamResultEntity,
 							StudentSourceList:new StudentSourceCollection,
 							StudentFromList:new StudentFromCollection,
 							url:"/StudentMgr/SaleTrack/GetFirstInterviewRegData"

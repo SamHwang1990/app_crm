@@ -160,6 +160,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             ExamResultTFIELTSModel tfIELTSModel = GetTFIELTSExamResult(id);
             ExamResultSATSSATModel satSSATModel = GetSATSSATExamResult(id);
             ExamResultEntity sat2Model = GetSAT2ExamResult(id);
+            ExamResultGREGMATModel greGmatModel = GetGREGMATExamResult(id);
+            ExamResultEntity apModel = GetAPResult(id);
             IEnumerable<StudentSourceItemEntity> studentSourceList = GetStudentSourceList();
             IEnumerable<StudentFromEntity> studentFromList = GetStudentFromList(id);
 
@@ -173,6 +175,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 SATSSATResult = satSSATModel.ExamResult,
                 SATSSATResultDetail = satSSATModel.ExamResultDetail,
                 SAT2Result = sat2Model,
+                GREGMATResult = greGmatModel.ExamResult,
+                GREGMATResultDetail = greGmatModel.ExamResultDetail,
+                APResult = apModel,
                 StudentSourceList = studentSourceList,
                 StudentFromList = studentFromList
             };
@@ -297,6 +302,57 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     ExamID = Guid.NewGuid(),
                     IsBeforeSign = true,
                     ExamType = ExamType.SAT2
+                };
+            }
+            return examResult;
+        }
+
+        ExamResultGREGMATModel GetGREGMATExamResult(Guid studentID)
+        {
+            //从数据库中根据StudentID、ExamDate、ExamType 选择考试条目
+            ExamResultEntity examResult = repository.ExamResult
+                .FirstOrDefault(e => e.StudentID == studentID && e.IsBeforeSign == true && (e.ExamType == ExamType.GMAT || e.ExamType == ExamType.GRE));
+            if (examResult == null)
+            {
+                examResult = new ExamResultEntity
+                {
+                    ResultID = Guid.NewGuid(),
+                    StudentID = studentID,
+                    ExamID = Guid.NewGuid(),
+                    IsBeforeSign = true,
+                    ExamType = ExamType.GRE
+                };
+            }
+            ExamResultGREGMATEntity examResultDetail = repository.ExamResultGREGMAT.SingleOrDefault(e => e.ExamID == examResult.ExamID);
+            if (examResultDetail == null)
+            {
+                examResultDetail = new ExamResultGREGMATEntity
+                {
+                    ExamID = examResult.ExamID,
+                    Total = examResult.Total
+                };
+            }
+            return new ExamResultGREGMATModel
+            {
+                ExamResult = examResult,
+                ExamResultDetail = examResultDetail
+            };
+        }
+
+        ExamResultEntity GetAPResult(Guid studentID)
+        {
+            //从数据库中根据StudentID、ExamDate、ExamType 选择考试条目
+            ExamResultEntity examResult = repository.ExamResult
+                .FirstOrDefault(e => e.StudentID == studentID && e.IsBeforeSign == true && e.ExamType == ExamType.AP);
+            if (examResult == null)
+            {
+                examResult = new ExamResultEntity
+                {
+                    ResultID = Guid.NewGuid(),
+                    StudentID = studentID,
+                    ExamID = Guid.NewGuid(),
+                    IsBeforeSign = true,
+                    ExamType = ExamType.AP
                 };
             }
             return examResult;
