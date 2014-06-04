@@ -26,7 +26,8 @@ namespace ClientManage.Domain.Entities
 		{
             _ResultID = Guid.Empty;
             _ExamID = Guid.Empty;
-            _ExamDate = DateTime.Now;
+            _ExamDate = DateTime.Now.AddMonths(-1);
+            _NextExamDate = _ExamDate.AddMonths(1);
             _Times = 1;
             _ExamAddress = string.Empty;
             _ExamType = 0;

@@ -34,9 +34,9 @@ namespace ClientManage.Domain.Entities
         #region Base Members
 
         private Guid _ExamID;
-        private byte _MathScore;
-        private byte _Verbal;
-        private byte _Writing;
+        private short _MathScore;
+        private short _Verbal;
+        private short _Writing;
         private short _Total;
         private string _Remark;
         
@@ -53,7 +53,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public byte MathScore
+        public short MathScore
         {
             set { _MathScore = value; }
             get { return _MathScore; }
@@ -61,7 +61,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public byte Verbal
+        public short Verbal
         {
             set{_Verbal = value;}
             get{return _Verbal;}
@@ -69,7 +69,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public byte Writing
+        public short Writing
         {
             set{_Writing = value;}
             get{return _Writing;}

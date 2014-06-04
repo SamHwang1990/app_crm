@@ -68,6 +68,7 @@ namespace ClientManage.Domain.Concrete
             else
             {
                 StudentInfoEntity originStudent = context.StudentsInfo.Where(u => u.StudentID == studentInfo.StudentID).SingleOrDefault();  //根据StudentID查找到就的StudentInfo
+                studentInfo.CreateTime = originStudent.CreateTime;
                 context.Entry(originStudent).CurrentValues.SetValues(studentInfo);
             }
 
@@ -106,6 +107,9 @@ namespace ClientManage.Domain.Concrete
             }
             else
             {   //如果已有Student的信息，则为更新
+                if(appRelation.IsSign == originRelation.IsSign)
+                    appRelation.SignDate = originRelation.SignDate;
+
                 context.Entry(originRelation).CurrentValues.SetValues(appRelation);
             }
         }

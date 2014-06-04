@@ -28,5 +28,10 @@ namespace ClientManage.Domain.Abstract
         void SaveSaleTrack(SaleTrackEntity saleTrackItem);
         void SaveAppRelation(AppRelationsEntity appRelation);
 
+        void SaveExamResult(ExamResultEntity examResult);
+        void SaveExamResultTFIELTS(ExamResultTFIELTSEntity tfIELTSDetail);
+        void SaveExamResultSATSSAT(ExamResultSATSSATEntity satSSATDetail);
+        void SaveExamResultGREGMAT(ExamResultGREGMATEntity greGMATDetail);
+
     }
 }

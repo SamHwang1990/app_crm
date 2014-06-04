@@ -143,6 +143,99 @@ namespace ClientManage.Domain.Concrete
         }
         #endregion
 
+        #region 对ExamResult & ExamResultDetail 进行操作
+
+        public void SaveExamResult(ExamResultEntity examResult)
+        {
+            ExamResultEntity originResult = context.ExamResult.SingleOrDefault(e => e.ResultID == examResult.ResultID);
+            if (originResult == null)
+            {
+                if (examResult.Total > 0)
+                {
+                    context.ExamResult.Add(examResult);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (examResult.Total > 0)
+                {
+                    context.Entry(originResult).CurrentValues.SetValues(examResult);
+                }
+                else
+                {
+                    context.ExamResult.Remove(originResult);
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public void SaveExamResultTFIELTS(ExamResultTFIELTSEntity tfIELTSDetail)
+        {
+            ExamResultTFIELTSEntity originDetail = context.ExamResult_TF_IELTS.SingleOrDefault(e => e.ExamID == tfIELTSDetail.ExamID);
+            if (originDetail == null)
+            {
+                if (tfIELTSDetail.Total > 0)
+                    context.ExamResult_TF_IELTS.Add(tfIELTSDetail);
+                else
+                    return;
+            }
+            else
+            {
+                if (tfIELTSDetail.Total > 0)
+                    context.Entry(originDetail).CurrentValues.SetValues(tfIELTSDetail);
+                else
+                    context.ExamResult_TF_IELTS.Remove(originDetail);
+            }
+            context.SaveChanges();
+        }
+
+        public void SaveExamResultSATSSAT(ExamResultSATSSATEntity satSSATDetail)
+        {
+            ExamResultSATSSATEntity originDetail = context.ExamResult_SAT_SSAT.SingleOrDefault(e => e.ExamID == satSSATDetail.ExamID);
+            if (originDetail == null)
+            {
+                if (satSSATDetail.Total > 0)
+                    context.ExamResult_SAT_SSAT.Add(satSSATDetail);
+                else
+                    return;
+            }
+            else
+            {
+                if (satSSATDetail.Total > 0)
+                    context.Entry(originDetail).CurrentValues.SetValues(satSSATDetail);
+                else
+                    context.ExamResult_SAT_SSAT.Remove(originDetail);
+            }
+            context.SaveChanges();
+        }
+
+        public void SaveExamResultGREGMAT(ExamResultGREGMATEntity greGMATDetail)
+        {
+            ExamResultGREGMATEntity originDetail = context.ExamResult_GRE_GMAT.SingleOrDefault(e => e.ExamID == greGMATDetail.ExamID);
+            if (originDetail == null)
+            {
+                if (greGMATDetail.Total > 0)
+                    context.ExamResult_GRE_GMAT.Add(greGMATDetail);
+                else
+                    return;
+            }
+            else
+            {
+                if (greGMATDetail.Total > 0)
+                    context.Entry(originDetail).CurrentValues.SetValues(greGMATDetail);
+                else
+                    context.ExamResult_GRE_GMAT.Remove(originDetail);
+            }
+            context.SaveChanges();
+        }
+
+
+        #endregion
+
         #endregion
     }
 }

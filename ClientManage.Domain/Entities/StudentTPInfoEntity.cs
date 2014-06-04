@@ -33,12 +33,12 @@ namespace ClientManage.Domain.Entities
             _IsLangTran = false;
             _LT1CourseName = string.Empty;
             _LT1CourseAddress = string.Empty;
-            LT1DateBegin = DateTime.Now.AddMonths(-1);
-            LT1DateEnd = _LT1DateBegin.AddDays(1);
+            _LT1DateBegin = DateTime.Now.AddMonths(-1);
+            _LT1DateEnd = _LT1DateBegin.AddDays(1);
             _LT2CourseName = string.Empty;
             _LT2CourseAddress = string.Empty;
-            LT2DateBegin = DateTime.Now.AddMonths(-1);
-            LT2DateEnd = _LT2DateBegin.AddDays(1);
+            _LT2DateBegin = DateTime.Now.AddMonths(-1);
+            _LT2DateEnd = _LT2DateBegin.AddDays(1);
             _Remark = string.Empty;
 		}
         

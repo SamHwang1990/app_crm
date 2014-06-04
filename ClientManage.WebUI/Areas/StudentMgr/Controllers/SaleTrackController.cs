@@ -18,10 +18,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
     public class SaleTrackController : Controller
     {
         private ISaleTrackRepository repository;
+        private IStudentInfoRepository studentInfoRepository;
 
-        public SaleTrackController(ISaleTrackRepository saleTrackRepository)
+        public SaleTrackController(ISaleTrackRepository saleTrackRepository, IStudentInfoRepository _StudentInfoRepository)
         {
             repository = saleTrackRepository;
+            studentInfoRepository = _StudentInfoRepository;
         }
 
         
@@ -425,19 +427,113 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         [HttpPost]
         public JsonResult PostFirstInterviewRegInfoForm(FirstInterviewRegModel ajaxData)
         {
+            if(ajaxData == null || ajaxData.StudentInfo == null)
+                return Json(false);
+
+            StudentInfoEntity studentInfo = ajaxData.StudentInfo;
+            AppRelationsEntity appRelation = ajaxData.AppRelation;
+            studentInfoRepository.SaveStudentInfo(studentInfo, appRelation);
+
             return Json(true);
         }
 
         [HttpPost]
         public JsonResult PostFirstInterviewRegTPForm(FirstInterviewRegModel ajaxData)
         {
+            if (ajaxData == null || ajaxData.StudentInfo == null)
+                return Json(false);
+
+            StudentTPInfoEntity studentTPInfo = ajaxData.StudentTPInfo;
+            StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == ajaxData.StudentInfo.StudentID);
+            studentInfoRepository.SaveStudentTPInfo(studentTPInfo);
+
+            ExamResultEntity _TFIELTSResult = ajaxData.TFIELTSResult;
+            ExamResultTFIELTSEntity _TFIELTSResultDetail = ajaxData.TFIELTSResultDetail;
+            if ((_TFIELTSResult.ExamType == ExamType.TOFEL || _TFIELTSResult.ExamType == ExamType.IELTS))
+            {
+                repository.SaveExamResult(_TFIELTSResult);
+                if (_TFIELTSResultDetail.ExamID != _TFIELTSResult.ExamID)
+                {
+                    _TFIELTSResultDetail.ExamID = _TFIELTSResult.ExamID = Guid.NewGuid();
+                }
+                repository.SaveExamResultTFIELTS(_TFIELTSResultDetail);
+            }
+
+            EducationIntention eduIntention = studentInfo.EducationIntention;
+            switch (eduIntention)
+            {
+                case EducationIntention.高中:
+                    {
+                        ajaxData.SATSSATResult.ExamType = ExamType.SSAT;
+                        SaveSSATResult(ajaxData.SATSSATResult, ajaxData.SATSSATResultDetail);
+                        break;
+                    }
+                case EducationIntention.本科:
+                    {
+                        ajaxData.SATSSATResult.ExamType = ExamType.SAT;
+                        repository.SaveExamResult(ajaxData.SAT2Result);
+                        SaveSATResult(ajaxData.SATSSATResult, ajaxData.SATSSATResultDetail);
+                        break;
+                    }
+                case EducationIntention.研究生:
+                    SaveGreGmatResult(ajaxData.GREGMATResult, ajaxData.GREGMATResultDetail);
+                    break;
+                default:
+                    break;
+            }
+
+
+
             return Json(true);
         }
 
         [HttpPost]
         public JsonResult PostFirstInterviewRegFromForm(FirstInterviewRegModel ajaxData)
         {
+            if (ajaxData == null || ajaxData.StudentInfo == null)
+                return Json(false);
+
+            Guid studentID = ajaxData.StudentInfo.StudentID;
+            IEnumerable<StudentFromEntity> studentFromList = ajaxData.StudentFromList;
+            studentInfoRepository.SaveStudentFrom(studentFromList, studentID);
+
             return Json(true);
+        }
+
+        void SaveSSATResult(ExamResultEntity ssatResult, ExamResultSATSSATEntity ssatResultDetail)
+        {
+            repository.SaveExamResult(ssatResult);
+            if (ssatResultDetail.ExamID != ssatResult.ExamID)
+            {
+                ssatResultDetail.ExamID = ssatResult.ExamID = Guid.NewGuid();
+            }
+            repository.SaveExamResultSATSSAT(ssatResultDetail);
+        }
+
+        void SaveSATResult(ExamResultEntity satResult, ExamResultSATSSATEntity satResultDetail)
+        {
+            repository.SaveExamResult(satResult);
+            if (satResultDetail.ExamID != satResult.ExamID)
+            {
+                satResultDetail.ExamID = satResult.ExamID = Guid.NewGuid();
+            }
+            repository.SaveExamResultSATSSAT(satResultDetail);
+        }
+
+        void SaveGreGmatResult(ExamResultEntity greGmatResult, ExamResultGREGMATEntity greGmatResultDetail)
+        {
+            if (greGmatResult.ExamType == ExamType.GRE || greGmatResult.ExamType == ExamType.GMAT)
+            {
+                repository.SaveExamResult(greGmatResult);
+                if (greGmatResultDetail.ExamID != greGmatResult.ExamID)
+                {
+                    greGmatResultDetail.ExamID = greGmatResult.ExamID = Guid.NewGuid();
+                }
+                repository.SaveExamResultGREGMAT(greGmatResultDetail);
+                return;
+            }
+            else
+                return;
         }
 
         #region 功能模块响应

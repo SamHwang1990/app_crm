@@ -208,6 +208,15 @@ define([
 					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsAPWrap,"APResult");
 				},
 				SetGreGmat:function(){
+					var greGmatResult = this.model.get("GREGMATResult");
+					if(greGmatResult.Total > 0){
+						var examType = greGmatResult.ExamType;
+						this.ui.HasGREGMASTChose.find(".IsGREGMAT").each(function(i){
+							if($(this).val() == examType){
+								$(this).attr("checked","checked");
+							}
+						})
+					}
 					this.RenderStudentTPHandler.SetInputCommon.call(this,this.ui.IsGREGMATWrap,"GREGMATResult");
 				},
 				SetInputCommon:function(inputWrap, modelName){
@@ -219,7 +228,7 @@ define([
 					inputWrap.find("input.NextExamDate").val(nextExamDate);
 
 					if(total == '0' || total== null || total == ''){   //如果total为0或null，则表示数据库中并无符合条件的考试记录
-						inputWrap.find("input").val('');      //清空TFIELTSWrap 下所有input元素的value
+						inputWrap.find("input[type=text]").val('');      //清空TFIELTSWrap 下所有input元素的value
 					}
 				}
 			},
@@ -357,6 +366,9 @@ define([
 				this.SetModel.SetTfIeltsResult.call(this);
 				this.SetModel.SetSatSsatResult.call(this);
 				this.SetModel.SetSat2Result.call(this);
+				this.SetModel.SetAPResult.call(this);
+				this.SetModel.SetGreGmatResult.call(this);
+
 				var ajaxData = JSON.stringify(this.model);
 				var postUrl = this.ui.FormStudentTP.attr("action");
 				$.ajax({
@@ -484,7 +496,7 @@ define([
 					var tFIELTSResult = this.model.get("TFIELTSResult");
 					var tFIELTSResultDetail = this.model.get("TFIELTSResultDetail");
 
-					var examType = tpform.find(".IsTFIELTS").val() == "IsTF" ? 0 : 1;
+					var examType = tpform.find(".IsTFIELTS:checked").val() == "IsTF" ? 0 : 1;
 					var total = tfIELTSWrap.find(".Total").val();
 					var examDate = tfIELTSWrap.find(".ExamDate").val();
 					var nextExamDate = tfIELTSWrap.find(".NextExamDate").val();
@@ -536,6 +548,40 @@ define([
 					sat2Result.Total = total;
 					sat2Result.ExamDate = examDate;
 					sat2Result.NextExamDate = nextExamDate;
+				},
+				SetGreGmatResult:function(){
+					var greGmatWrap = this.ui.GREGMATWrap;
+					var greGmatResult = this.model.get("GREGMATResult");
+					var greGmatResultDetail = this.model.get("GREGMATResultDetail");
+
+					var examType = this.ui.HasGREGMASTChose.find(".IsGREGMAT:checked").val();
+					var total = greGmatWrap.find(".Total").val();
+					var examDate = greGmatWrap.find(".ExamDate").val();
+					var nextExamDate = greGmatWrap.find(".NextExamDate").val();
+					var math = greGmatWrap.find(".Math").val();
+					var verbel = greGmatWrap.find(".Verbal").val();
+					var writing = greGmatWrap.find(".Writing").val();
+
+					greGmatResult.ExamType = examType;
+					greGmatResult.Total = greGmatResultDetail.Total = total;
+					greGmatResult.ExamDate = examDate;
+					greGmatResult.NextExamDate = nextExamDate;
+
+					greGmatResultDetail.MathScore = math;
+					greGmatResultDetail.Verbal = verbel;
+					greGmatResultDetail.Writing = writing;
+				},
+				SetAPResult:function(){
+					var apWrap = this.ui.IsAPWrap;
+					var apResult = this.model.get("APResult");
+
+					var total = apWrap.find(".Total").val();
+					var examDate = apWrap.find(".ExamDate").val();
+					var nextExamDate = apWrap.find(".NextExamDate").val();
+
+					apResult.Total = total;
+					apResult.ExamDate = examDate;
+					apResult.NextExamDate = nextExamDate;
 				},
 				SetStudentFromList:function(StudentFromModel,StudentFromCollection){
 					var studentID = this.StudentID;
