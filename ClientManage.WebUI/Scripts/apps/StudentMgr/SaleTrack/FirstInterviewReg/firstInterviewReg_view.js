@@ -473,8 +473,8 @@ define([
 					var isLangTran = tpform.find("[name=IsLangTran]:checked").val() == "NoLangTran" ? false : true;
 					var lt1CourseName = tpform.find(".LT1CourseName").val();
 					var lt1CourseAddress = tpform.find(".LT1CourseAddress").val();
-					var lt1DateBegin = tpform.find(".LT1DateBegin").val();
-					var lt1DateEnd = tpform.find(".LT1DateEnd").val();
+					var lt1DateBegin = tpform.find("#LT1DateBegin").val();
+					var lt1DateEnd = tpform.find("#LT1DateEnd").val();
 
 					studentTPInfo.IsIB = isIB;
 					studentTPInfo.IsALevel = isALevel;
@@ -484,12 +484,12 @@ define([
 					studentTPInfo.IsLangTran = isLangTran;
 					if(!isLangTran){
 						studentTPInfo.LT1CourseName =
-							studentTPInfo.LT1CouseAddress =
-								studentTPInfo.LT1DateBegin =
-									studentTPInfo.LT1DateEnd = '';
+							studentTPInfo.LT1CourseAddress ='';
+						studentTPInfo.LT1DateBegin =
+							studentTPInfo.LT1DateEnd = null;
 					}else{
 						studentTPInfo.LT1CourseName = lt1CourseName;
-						studentTPInfo.LT1CouseAddress = lt1CourseAddress;
+						studentTPInfo.LT1CourseAddress = lt1CourseAddress;
 						studentTPInfo.LT1DateBegin = lt1DateBegin;
 						studentTPInfo.LT1DateEnd = lt1DateEnd;
 					}

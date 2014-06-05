@@ -41,6 +41,7 @@ define(['app'],function(ClientManage){
 										model:saleTrackAjaxViewModel
 									})
 								}
+
 								if(trackNo != "1" && isComplete == "0"){
 									interviewView = new InterviewView.GetFromInterviewView({
 										model:saleTrackAjaxViewModel

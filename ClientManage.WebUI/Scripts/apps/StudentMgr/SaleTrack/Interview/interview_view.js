@@ -302,7 +302,11 @@ define([
 								commonInterview.$el.find(".btnSendEmails").removeClass("display");
 							}
 							if(data && commonInterview.model.get("SaleTrackItem").IsComplete == "0"){
-								Backbone.history.loadUrl(Backbone.history.fragment);
+								if(commonInterview.model.get("SaleTrackItem").TrackNo == "1"){
+									ClientManage.navigate("StudentMgr/SaleTrack/FirstInterviewReg-" + commonInterview.StudentID,{trigger:true});
+								}else{
+									Backbone.history.loadUrl(Backbone.history.fragment);
+								}
 							}
 							if(!data){
 								alert("Post Failed");
