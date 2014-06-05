@@ -53,12 +53,19 @@ define([
 				var sortName = event.target.text;                       //获取分类名字
 				this.ui.conditionCurrent.html(sortName);                //修改当前分类显示
 				if($(event.target).hasClass('condition-all')){          //修改“全部分类”
-					this.ui.searchContent.attr('disabled','disabled');  //禁用输入框
-					//this.ui.btnSubmit.attr('disabled','disabled');      //禁用搜索按钮
+					this.ui.searchContent.attr('disabled','disabled');           //禁用输入框
+					this.ui.searchContent.val("");
 					this.ui.searchContent.attr('placeholder','全部无需筛选');     //修改placeholder
-				}else{
-					this.ui.searchContent.removeAttr('disabled');       //
-					//this.ui.btnSubmit.removeAttr('disabled');
+					this.ui.formSearch.trigger("submit");
+				}
+				else if($(event.target).hasClass('condition-HasSign') || $(event.target).hasClass('condition-NoSign')){
+					this.ui.searchContent.attr('disabled','disabled');           //禁用输入框
+					this.ui.searchContent.attr('placeholder','全部无需筛选');     //修改placeholder
+					this.ui.searchContent.val("");
+					this.ui.formSearch.trigger("submit");
+				}
+				else{
+					this.ui.searchContent.removeAttr('disabled');
 					this.ui.searchContent.attr('placeholder','请输入筛选的'+sortName);
 				}
 			},
@@ -71,7 +78,6 @@ define([
 					this.collection.fetch({
 						success:function(){
 							console.log("fetche data from server successfully");
-							return listView.render();
 						},
 						error:function(){
 							console.log("fetch data from server failed");
@@ -79,23 +85,22 @@ define([
 						}
 					})
 				}
-				if(searchContent === ""){       //如果筛选内容为空，则刷新一下
-					return this.render();
+				else{
+					this.collection.fetch({
+						data:{
+							sort:condition,
+							keyword:searchContent
+						},
+						success:function(){
+							console.log("fetche data from server successfully");
+
+						},
+						error:function(){
+							console.log("fetch data from server failed");
+							return alert("获取数据失败");
+						}
+					})
 				}
-				this.collection.fetch({
-					/*data:{
-						sort:condition,
-						keyword:searchContent
-					},*/
-					success:function(){
-						console.log("fetche data from server successfully");
-						return listView.render();
-					},
-					error:function(){
-						console.log("fetch data from server failed");
-						return alert("获取数据失败");
-					}
-				})
 			}
 
 		});

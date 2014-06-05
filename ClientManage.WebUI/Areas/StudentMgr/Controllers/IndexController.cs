@@ -25,13 +25,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         public JsonResult List(string sort, string keyword)
         {
             IEnumerable<StudentInfoViewModel> StudentsInfo = null;
-            if (sort == "学生")
+            if (sort == "学生" && keyword != "")
             {
                 StudentsInfo = repository.StudentsInfo
                     .Where(s => s.NameCn == keyword)
                     .Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a });
             }
-            else if (sort == "销售负责人")
+            else if (sort == "销售负责人" && keyword != "")
             {
                 Guid saleConsultantID = repository.UsersInfo.FirstOrDefault(u => u.UserNameCn.Contains(keyword)).UserID;
                 StudentsInfo = repository.AppRelations

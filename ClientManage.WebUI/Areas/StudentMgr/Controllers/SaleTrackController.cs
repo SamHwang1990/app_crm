@@ -30,15 +30,45 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// 获取所有销售数据
         /// </summary>
         /// <returns></returns>
-        public JsonResult List()
+        public JsonResult List(string sort, string keyword)
         {
             IEnumerable<StudentInfoViewModel> StudentsInfo = null;
             List<SaleTrackListItemModel> SaleTrackList = new List<SaleTrackListItemModel>();
             SaleTrackListItemModel saleTrackListItem = null;
 
-            StudentsInfo = repository.StudentInfo
-                    .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+            if (sort == "学生" && keyword != "")
+            {
+                StudentsInfo = repository.StudentInfo
+                    .Where(s => s.NameCn == keyword)
+                    .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a });
+            }
+            else if (sort == "销售负责人" && keyword != "")
+            {
+                Guid saleConsultantID = repository.UserInfo.FirstOrDefault(u => u.UserNameCn.Contains(keyword)).UserID;
+                StudentsInfo = repository.AppRelation
+                    .Where(a => a.SaleConsultant == saleConsultantID)
+                    .Join(repository.StudentInfo, a => a.StudentID, s => s.StudentID, (a, s) => new StudentInfoViewModel { StudentInfo = s, AppRelation = a });
+            }
+            else if (sort == "已签约")
+            {
+                StudentsInfo = repository.AppRelation
+                    .Where(a=>a.IsSign == IsSign.已签约)
+                    .Join(repository.StudentInfo, a => a.StudentID, s => s.StudentID, (a, s) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
                     .OrderBy(r => r.StudentInfo.NameCn);
+            }
+            else if (sort == "未签约")
+            {
+                StudentsInfo = repository.AppRelation
+                   .Where(a => a.IsSign != IsSign.已签约)
+                   .Join(repository.StudentInfo, a => a.StudentID, s => s.StudentID, (a, s) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+                   .OrderBy(r => r.StudentInfo.NameCn);
+            }
+            else
+            {
+                StudentsInfo = repository.StudentInfo
+                        .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+                        .OrderBy(r => r.StudentInfo.NameCn);
+            }
 
             foreach (StudentInfoViewModel studentInfoViewModel in StudentsInfo)
             {

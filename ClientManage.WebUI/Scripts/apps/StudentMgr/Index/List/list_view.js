@@ -75,7 +75,24 @@ define([
 					this.collection.fetch({
 						success:function(){
 							console.log("fetche data from server successfully");
-							return listView.render();
+							//return listView.render();
+						},
+						error:function(){
+							console.log("fetch data from server failed");
+							return alert("获取数据失败");
+						}
+					})
+				}else if(searchContent === ""){       //如果筛选内容为空，则刷新一下
+					return this.render();
+				}else {
+					this.collection.fetch({
+						data:{
+							sort:condition,
+							keyword:searchContent
+						},
+						success:function(){
+							console.log("fetche data from server successfully");
+							//return listView.render();
 						},
 						error:function(){
 							console.log("fetch data from server failed");
@@ -83,23 +100,6 @@ define([
 						}
 					})
 				}
-				if(searchContent === ""){       //如果筛选内容为空，则刷新一下
-					return this.render();
-				}
-				this.collection.fetch({
-					data:{
-						sort:condition,
-						keyword:searchContent
-					},
-					success:function(){
-						console.log("fetche data from server successfully");
-						return listView.render();
-					},
-					error:function(){
-						console.log("fetch data from server failed");
-						return alert("获取数据失败");
-					}
-				})
 			}
 
 		});
