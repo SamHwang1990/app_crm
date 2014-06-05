@@ -6,14 +6,28 @@
 define([
 	'app',
 	'text!templates/StudentMgr/Index/StudentItem.html',
-	'text!templates/StudentMgr/Index/List.html'],function(ClientManage,StudentItemTpl,StudentsTpl){
+	'text!templates/StudentMgr/Index/List.html',
+	'models/StudentMgr/EnumModel/EducationIntention',
+	'models/StudentMgr/EnumModel/Grade',
+	'models/StudentMgr/EnumModel/Gender'
+	],function(ClientManage,StudentItemTpl,StudentsTpl,EnumEducationIntention,EnumGrade,EnumGender){
 	ClientManage.module('StudentMgr.Index.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentItemView = Marionette.ItemView.extend({
 			template:_.template(StudentItemTpl),
 			tagName:"tr",
 			templateHelpers:function(){
+				var studentInfo = this.model.get("StudentInfo");
+
+				var originEduIntention = studentInfo.EducationIntention;
+				studentInfo.EducationIntention = EnumEducationIntention.EducationIntentionInverse[originEduIntention];
+
+				var originGrade = studentInfo.Grade;
+				studentInfo.Grade = EnumGrade.GradeInverse[originGrade];
+
+				var originGender = studentInfo.Gender;
+				studentInfo.Gender = EnumGender.GenderInverse[originGender];
 				return {
-					StudentInfo:this.model.get("StudentInfo"),
+					StudentInfo:studentInfo,
 					AppRelation:this.model.get("AppRelation")
 				}
 			}

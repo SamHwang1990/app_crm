@@ -26,7 +26,37 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             studentInfoRepository = _StudentInfoRepository;
         }
 
-        
+        /// <summary>
+        /// 获取所有销售数据
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult List()
+        {
+            IEnumerable<StudentInfoViewModel> StudentsInfo = null;
+            List<SaleTrackListItemModel> SaleTrackList = new List<SaleTrackListItemModel>();
+            SaleTrackListItemModel saleTrackListItem = null;
+
+            StudentsInfo = repository.StudentInfo
+                    .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
+                    .OrderBy(r => r.StudentInfo.NameCn);
+
+            foreach (StudentInfoViewModel studentInfo in StudentsInfo)
+            {
+                saleTrackListItem = new SaleTrackListItemModel
+                {
+                    StudentInfo = studentInfo.StudentInfo,
+                    AppRelation = studentInfo.AppRelation
+                };
+                Guid id = studentInfo.StudentInfo.StudentID;
+                int maxTrackNo = repository.SaleTrack.Where(s => s.StudentID == id).Max(s => s.TrackNo);
+                SaleTrackEntity saleTrackEntity = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == maxTrackNo);
+                saleTrackListItem.CurrentSaleTrack = saleTrackEntity;
+
+                SaleTrackList.Add(saleTrackListItem);
+            }
+
+            return Json(SaleTrackList, JsonRequestBehavior.AllowGet);
+        }
 
         /// <summary>
         /// 根据学生ID，获取申请进度，并返回JSON格式的进度数据

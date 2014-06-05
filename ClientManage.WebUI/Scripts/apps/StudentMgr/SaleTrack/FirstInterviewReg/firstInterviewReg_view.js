@@ -191,11 +191,11 @@ define([
 					var writing = this.model.get("SATSSATResultDetail").Writing;
 					var $WriVoc = this.ui.IsSatSsatWrap.find("[name=WriVoc]");
 
-					if(eduIntention == EnumEducationIntention.UnderGrade){
+					if(eduIntention == EnumEducationIntention.EducationIntention.UnderGrade){
 						this.model.get("SATSSATResult").ExamType = EnumExamType.SAT;
 						$WriVoc.attr("placeholder","Writing");
 						$WriVoc.val(writing);
-					}else if(eduIntention == EnumEducationIntention.Senior){
+					}else if(eduIntention == EnumEducationIntention.EducationIntention.Senior){
 						this.model.get("SATSSATResult").ExamType = EnumExamType.SSAT;
 						$WriVoc.attr("placeholder","Vocabulary");
 						$WriVoc.val(vocabulary);
@@ -259,14 +259,14 @@ define([
 				var intention = $(e.target).val();
 				this.ui.ExamResultWrap.addClass("display");
 				switch (intention){
-					case EnumEducationIntention.Senior:
+					case EnumEducationIntention.EducationIntention.Senior:
 						this.ui.IsSatSsatWrap.removeClass("display");
 						break;
-					case EnumEducationIntention.UnderGrade:
+					case EnumEducationIntention.EducationIntention.UnderGrade:
 						this.ui.IsSatSsatWrap.removeClass("display");
 						this.ui.IsSAT2Wrap.removeClass("display");
 						break;
-					case EnumEducationIntention.Master:
+					case EnumEducationIntention.EducationIntention.Master:
 						this.ui.IsGREGMATWrap.removeClass("display");
 						break;
 					default :

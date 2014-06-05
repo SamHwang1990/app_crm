@@ -10,6 +10,16 @@ define([],function(){
 		Master:"2",       //硕士
 		Doctor:"3",       //博士
 		Junior:"4"        //初中
+	};
+	var EducationIntentionInverse = {
+		0:"高中",
+		1:"本科",
+		2:"硕士",
+		3:"博士",
+		4:"初中"
 	}
-	return EducationIntention;
+	return {
+		EducationIntention:EducationIntention,
+		EducationIntentionInverse:EducationIntentionInverse
+	};
 })
