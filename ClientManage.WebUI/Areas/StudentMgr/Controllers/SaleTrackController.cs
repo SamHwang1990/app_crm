@@ -40,16 +40,39 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
                     .OrderBy(r => r.StudentInfo.NameCn);
 
-            foreach (StudentInfoViewModel studentInfo in StudentsInfo)
+            foreach (StudentInfoViewModel studentInfoViewModel in StudentsInfo)
             {
                 saleTrackListItem = new SaleTrackListItemModel
                 {
-                    StudentInfo = studentInfo.StudentInfo,
-                    AppRelation = studentInfo.AppRelation
+                    StudentInfo = studentInfoViewModel.StudentInfo,
+                    AppRelation = studentInfoViewModel.AppRelation
                 };
-                Guid id = studentInfo.StudentInfo.StudentID;
-                int maxTrackNo = repository.SaleTrack.Where(s => s.StudentID == id).Max(s => s.TrackNo);
-                SaleTrackEntity saleTrackEntity = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == maxTrackNo);
+                Guid id = studentInfoViewModel.StudentInfo.StudentID;
+                int maxTrackNo;
+                SaleTrackEntity saleTrackEntity = null;
+
+                if (repository.SaleTrack.Where(s => s.StudentID == id).Count() <= 0)
+                {
+                    maxTrackNo = 0;
+                    saleTrackEntity = new SaleTrackEntity
+                    {
+                        TrackItemID = Guid.Empty,
+                        StudentID = id,
+                        TrackNo = 0,
+                        Inputor = HttpContext.User.Identity.Name,
+                        StateName = "未开始",
+                        TrackPattern = TrackPattern.电话,
+                        TrackDate = studentInfoViewModel.StudentInfo.CreateTime,
+                        ToDo = "客户主动咨询",
+                        IsComplete = TrackIsComplete.否,
+                        Remark = ""
+                    };
+                }
+                else
+                {
+                    maxTrackNo = repository.SaleTrack.Where(s => s.StudentID == id).Max(s => s.TrackNo);
+                    saleTrackEntity = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == maxTrackNo);
+                }
                 saleTrackListItem.CurrentSaleTrack = saleTrackEntity;
 
                 SaleTrackList.Add(saleTrackListItem);

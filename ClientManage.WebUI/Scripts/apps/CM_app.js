@@ -20,15 +20,9 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts",
 
 				/*StudentMgr SaleTrack Router*/
-				//"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
-				//"StudentMgr/SaleTrack/Index":"StudentMgrSaleTrackIndex",
+				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
 				"StudentMgr/SaleTrack/AppInterview-:id":"StudentMgrSaleTrackAppInterview",
 				"StudentMgr/SaleTrack/FirstInterviewReg-:id":"StudentMgrSaleTrackFirstInterviewReg"
-				//"StudentMgr/SaleTrack/FirstRegFormInfo":"StudentMgrSaleTrackFirstRegFormInfo",
-				//"StudentMgr/SaleTrack/FirstRegFormTP":"StudentMgrSaleTrackFirstRegFormTP",
-				//"StudentMgr/SaleTrack/FirstRegFormFrom":"StudentMgrSaleTrackFirstRegFormFrom",
-				//"StudentMgr/SaleTrack/CommonInterview":"StudentMgrSaleTrackFirstCommonInterview",
-				//"StudentMgr/SaleTrack/GetFromInterview":"StudentMgrSaleTrackFirstGetFromInterview"
 			}
 		});
 
@@ -78,6 +72,14 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 			},
 
 			/*StudentMgr SaleTrack Router Controller*/
+
+			StudentMgrSaleTrackList:function(){
+				require([
+					'apps/StudentMgr/SaleTrack/List/list_controller'],
+					function(StudentMgrSaleTrackListController){
+						executeAction(StudentMgrSaleTrackListController.ShowList);
+					})
+			},
 			StudentMgrSaleTrackAppInterview:function(id){
 				require([
 					'apps/StudentMgr/SaleTrack/Interview/interview_controller'],
