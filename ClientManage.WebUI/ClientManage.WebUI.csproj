@@ -32,6 +32,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="EFDbContext-Deployment" Order="1" Enabled="False">
+          <Destination Path="" />
+          <Object Type="dbFullSql" Enabled="False">
+            <PreSource Path="Data Source=WIN-1BSGQQGHI96%3bInitial Catalog=App_ClientManage%3bPersist Security Info=True%3bUser ID=App_ClientManage%3bPassword=%2ahope8848%3b MultipleActiveResultSets=true" ScriptSchema="False" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\EFDbContext-Deployment_DataOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <PublishDatabases>false</PublishDatabases>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -131,21 +144,146 @@
     <Content Include="Content\xml\EmailConfig.xml" />
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />
-    <Content Include="Scripts\mainApp.js" />
-    <Content Include="Scripts\mainLogin.js" />
-    <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
-    <Content Include="Scripts\clientManage\FirstRegFormInfo.js" />
-    <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
-    <Content Include="Scripts\clientManage\GetFromInterview.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\apps\CM_app.js" />
+    <Content Include="Scripts\apps\Common\AdminBar_view.js" />
+    <Content Include="Scripts\apps\Common\AdminContent_view.js" />
+    <Content Include="Scripts\apps\Common\AdminFooter_view.js" />
+    <Content Include="Scripts\apps\Common\AdminMenu_view.js" />
+    <Content Include="Scripts\apps\Common\index_view.js" />
+    <Content Include="Scripts\apps\Config\appConfig.js" />
+    <Content Include="Scripts\apps\Config\config.js" />
+    <Content Include="Scripts\apps\Home\Feedback\feedback_controller.js" />
+    <Content Include="Scripts\apps\Home\Feedback\feedback_view.js" />
+    <Content Include="Scripts\apps\Home\Home_app.js" />
+    <Content Include="Scripts\apps\Home\Index\index_controller.js" />
+    <Content Include="Scripts\apps\Home\Index\index_view.js" />
+    <Content Include="Scripts\apps\SignIn\Check\check_controller.js" />
+    <Content Include="Scripts\apps\SignIn\SignIn\signIn_controller.js" />
+    <Content Include="Scripts\apps\SignIn\SignIn\signIn_view.js" />
+    <Content Include="Scripts\apps\SignIn\SignIn_app.js" />
+    <Content Include="Scripts\apps\SignIn\SignOut\signOut_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\Create\create_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\Create\create_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\Create\saleConsultant_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\Edit\edit_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\Edit\edit_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\List\list_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Index\List\list_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\FirstInterviewReg\firstInterviewReg_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\FirstInterviewReg\firstInterviewReg_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\Interview\interview_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\Interview\interview_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\List\list_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\SaleTrack\List\list_view.js" />
+    <Content Include="Scripts\assets\AppUISet.js" />
+    <Content Include="Scripts\assets\CheckLogin.js" />
+    <Content Include="Scripts\collections\RoleMgr\RoleList.js" />
+    <Content Include="Scripts\collections\StudentMgr\Index\StudentList.js" />
+    <Content Include="Scripts\collections\StudentMgr\SaleTrack\SaleTrackList.js" />
+    <Content Include="Scripts\collections\StudentMgr\SaleTrack\SaleTrackParticipant.js" />
+    <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentFromCollection.js" />
+    <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentSourceCollection.js" />
+    <Content Include="Scripts\collections\UserMgr\UserList.js" />
+    <Content Include="Scripts\libs\backbone\backbone-relational.js" />
+    <Content Include="Scripts\libs\backbone\backbone.js" />
+    <Content Include="Scripts\libs\backbone\backbone.marionette.js" />
     <Content Include="Scripts\libs\backbone\backbone.min.js" />
+    <Content Include="Scripts\libs\backbone\backbone.picky.js" />
+    <Content Include="Scripts\libs\backbone\backbone.picky.min.js" />
+    <Content Include="Scripts\libs\backbone\backbone.syphon.js" />
+    <Content Include="Scripts\libs\backbone\backbone.syphon.min.js" />
+    <Content Include="Scripts\libs\backbone\BackboneConfig.js" />
+    <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.css" />
+    <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\libs\chardin\chardinjs.min.js" />
     <Content Include="Scripts\libs\html5shiv.min.js" />
+    <Content Include="Scripts\libs\jquery\jquery-1.11.0.js" />
     <Content Include="Scripts\libs\jquery\jquery-1.11.0.min.js" />
     <Content Include="Scripts\libs\modernizr-1.7.min.js" />
     <Content Include="Scripts\libs\require\domReady.js" />
     <Content Include="Scripts\libs\require\require.js" />
     <Content Include="Scripts\libs\require\text.js" />
     <Content Include="Scripts\libs\underscore\underscore.js" />
-    <None Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\mainApp.js" />
+    <Content Include="Scripts\mainLogin.js" />
+    <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
+    <Content Include="Scripts\clientManage\FirstRegFormInfo.js" />
+    <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
+    <Content Include="Scripts\clientManage\GetFromInterview.js" />
+    <None Include="Scripts\libs\backbone\backbone-min.map" />
+    <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
+    <None Include="Scripts\libs\underscore\underscore-min.map" />
+    <Content Include="Views\Home\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Home\Login.cshtml" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\Microsoft.Web.Infrastructure.resources.dll" />
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.Razor.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.Deployment.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Razor.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Helpers.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
+    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Mvc.resources.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
+    <Content Include="Scripts\models\Home\Feedback.js" />
+    <Content Include="Scripts\models\LoginUser.js" />
+    <Content Include="Scripts\models\RoleMgr\RoleInfo.js" />
+    <Content Include="Scripts\models\StudentMgr\AppRelation.js" />
+    <Content Include="Scripts\models\StudentMgr\EasyChatTimeModel.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\EducationIntention.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\ExamType.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\Gender.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\Grade.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\IsSign.js" />
+    <Content Include="Scripts\models\StudentMgr\EnumModel\TrackIsComplete.js" />
+    <Content Include="Scripts\models\StudentMgr\ExamResult\ExamResultModels.js" />
+    <Content Include="Scripts\models\StudentMgr\Index\StudentCreate.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\FirstInterviewRegModel.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\SaleTrackAjaxViewModel.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\SaleTrackEntity.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\SaleTrackListItem.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\SaleTrackParticipantsEntity.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentFromModel.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentSourceItem.js" />
+    <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentTPInfoModel.js" />
+    <Content Include="Scripts\models\StudentMgr\StudentInfo.js" />
+    <Content Include="Scripts\models\StudentMgr\StudentInfoViewModel.js" />
+    <Content Include="Scripts\models\UserMgr\UserInfo.js" />
+    <Content Include="Scripts\require_main.js" />
+    <Content Include="Scripts\templates\Common\adminMenu.html" />
+    <Content Include="Scripts\templates\Common\appAdminBar.html" />
+    <Content Include="Scripts\templates\Common\appBody-content.html" />
+    <Content Include="Scripts\templates\Common\Footer.html" />
+    <Content Include="Scripts\templates\Common\index.html" />
+    <Content Include="Scripts\templates\Home\Feedback.html" />
+    <Content Include="Scripts\templates\Home\Index.html" />
+    <Content Include="Scripts\templates\Home\SignIn.html" />
+    <Content Include="Scripts\templates\Home\Temp.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\ContactContent.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\Create.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\EasyChatTime.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\Edit.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\EditContacts.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\EditStudent.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\List.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\RoleItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\StudentItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\Index\UserItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\CommonInterview.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\FirstInterviewReg.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\GetFromInterview.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\List.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\SaleParticipantItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\SaleTrack\SaleTrackItem.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -168,10 +306,6 @@
     <Folder Include="Areas\ToolMgr\Views\Shared\" />
     <Folder Include="Infrastructure\Abstract\" />
     <Folder Include="Infrastructure\Concrete\" />
-    <Folder Include="Scripts\collections\" />
-    <Folder Include="Scripts\models\" />
-    <Folder Include="Scripts\templates\" />
-    <Folder Include="Scripts\views\" />
     <Folder Include="UploadFiles\Students\" />
     <Folder Include="UploadFiles\Users\" />
     <Folder Include="Views\Common\" />
@@ -258,7 +392,6 @@
     <Content Include="Areas\Students\Views\SaleTrack\GetFromInterview.cshtml" />
     <Content Include="Areas\ToolMgr\Views\Web.config" />
     <Content Include="Areas\StudentMgr\Views\Web.config" />
-    <None Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Shared\libsjs.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
