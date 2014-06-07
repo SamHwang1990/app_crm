@@ -95,6 +95,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                         TrackDate = studentInfoViewModel.StudentInfo.CreateTime,
                         ToDo = "客户主动咨询",
                         IsComplete = TrackIsComplete.否,
+                        SignIntention = studentInfoViewModel.AppRelation.IsSign,
                         Remark = ""
                     };
                 }
@@ -159,6 +160,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         JsonResult GetFirstInterviewData(Guid id)
         {
             StudentInfoEntity studentInfo = repository.StudentInfo.FirstOrDefault(s => s.StudentID == id);
+            AppRelationsEntity appRelation = repository.AppRelation.FirstOrDefault(a => a.StudentID == id);
             SaleTrackEntity SaleTrack;
             IEnumerable<SaleTrackParticipantsEntity> SaleTrackParticipants = null;
             if (repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == 1) != null)
@@ -178,6 +180,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     TrackDate = studentInfo.CreateTime.AddDays(1),
                     ToDo = "了解客户需求，完成初访登记表！",
                     IsComplete = TrackIsComplete.否,
+                    SignIntention = appRelation.IsSign,
                     Remark = ""
                 };
                 SaleTrackParticipants = Enumerable.Empty<SaleTrackParticipantsEntity>();
@@ -193,6 +196,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         JsonResult GetCommonInterviewData(Guid id, int TrackNo)
         {
             StudentInfoEntity studentInfo = repository.StudentInfo.FirstOrDefault(s => s.StudentID == id);
+            AppRelationsEntity appRelation = repository.AppRelation.FirstOrDefault(a => a.StudentID == id);
             SaleTrackEntity SaleTrack;
             IEnumerable<SaleTrackParticipantsEntity> SaleTrackParticipants = null;
             if (repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == TrackNo) != null)
@@ -214,6 +218,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     TrackDate = nextDate.AddDays(1),
                     ToDo = "第" + TrackNo.ToString() + "次回访",
                     IsComplete = TrackIsComplete.否,
+                    SignIntention = appRelation.IsSign,
                     Remark = "请输入备注信息 "
                 };
                 SaleTrackParticipants = Enumerable.Empty<SaleTrackParticipantsEntity>();
@@ -493,16 +498,22 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             studentID = trackItem.StudentID;
             trackItem.IsGetFromDone = true;
             trackItem.GetFromTrack = ajaxData.getFrom;
+            trackItem.ClientMostCare = ajaxData.clientMostCare;
             repository.SaveSaleTrack(trackItem);
 
-            if (ajaxData.isSign == true)
+
+            AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(s => s.StudentID == studentID);
+            if (ajaxData.isSign == IsSign.已签约)
             {
-                AppRelationsEntity appRelation = repository.AppRelation.SingleOrDefault(s => s.StudentID == studentID);
                 appRelation.IsSign = IsSign.已签约;
                 appRelation.SignDate = ajaxData.signDate;
                 appRelation.SignTrackItem = trackId;
-                repository.SaveAppRelation(appRelation);
             }
+            else
+            {
+                appRelation.IsSign = trackItem.SignIntention;
+            }
+            repository.SaveAppRelation(appRelation);
 
             return Json(true);
         }

@@ -26,10 +26,12 @@ define([
 			TrackDate:new Date(),
 			ToDo:"",
 			GetFromTrack:"",
+			ClientMostCare:"",
 			IsGetFromDone:false,
 			TrackNo:"1",
 			ParticipantIDs:"",
 			IsComplete:"1",
+			SignIntention:"0",
 			Remark:""
 		}
 	});

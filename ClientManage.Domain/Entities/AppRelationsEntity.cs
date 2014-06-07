@@ -36,7 +36,7 @@ namespace ClientManage.Domain.Entities
 
         private Guid _StudentID;
         private byte _IsSign;
-        private DateTime _SignDate;
+        private Nullable<DateTime> _SignDate;
         private bool _IsFirstStageFee;
         private decimal _FirstStageFee;
         private bool _IsSecondStageFee;
@@ -68,7 +68,7 @@ namespace ClientManage.Domain.Entities
         /// </summary>
         [DataType(DataType.Date)]
         [Range(typeof(DateTime), "1970/01/01", "2100/12/12", ErrorMessage = "时间超出范围")]
-        public DateTime SignDate
+        public Nullable<DateTime> SignDate
         {
             set { _SignDate = value; }
             get { return _SignDate; }

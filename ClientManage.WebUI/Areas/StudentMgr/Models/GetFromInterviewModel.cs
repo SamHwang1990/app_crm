@@ -13,8 +13,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Models
     {
         public string trackID { get; set; }
         public int trackNo { get; set; }
-        public bool isSign { get; set; }
+        public IsSign isSign { get; set; }
         public DateTime signDate { get; set; }
         public string getFrom { get; set; }
+        public string clientMostCare { get; set; }
     }
 }

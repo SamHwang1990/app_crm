@@ -11,15 +11,21 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="IsSign">签约意愿：</label>
             <div class="controls">
-                <label class="checkbox">
-                    <% if(AppRelation.IsSign == 0 || AppRelation.IsSign == 1){ %>
-                    <input type="checkbox" name="isSign" />
-                    <% } else { %>
-                    <input type="checkbox" name="isSign" checked="checked" />
-                    <% } %>
-                    已签约
-                </label>
+                <select name="IsSign" id="IsSign">
+                    <option value="0">未签约</option>
+                    <option value="1">可能性低</option>
+                    <option value="2">可能性一般</option>
+                    <option value="3">可能性高</option>
+                    <option value="4" class="IsSign-Done">已签约</option>
+                </select>
+                &emsp;
+                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                    <input type="text" id="SignDate" class="span2" placeholder="签约日期" value="<%= SignDate %>"/>
+                    <span class="add-on"><i class="icon-refresh"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
             </div>
         </div>
         <div class="control-group">

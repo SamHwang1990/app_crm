@@ -18,7 +18,8 @@ define([
 			templateHelpers:function(){
 				return {
 					StudentInfo:this.model.get("StudentInfo"),
-					AppRelation:this.model.get("AppRelation")
+					AppRelation:this.model.get("AppRelation"),
+					SignDate:this.transToDate(this.model.get("AppRelation").SignDate)
 				}
 			},
 			tagName:"div",
@@ -284,10 +285,12 @@ define([
 			* */
 			setAppRelation:function(){
 				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
-				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
+				var saleConsultant = this.$el.find('select#saleConsultant').val();
+				var saleConsultantName = this.$el.find('select#saleConsultant option:selected').text();
 				var appRelation = this.model.get('AppRelation');
 				appRelation.IsSign = isSign;
-				appRelation.saleConsultant = saleConsultant;
+				appRelation.SaleConsultant = saleConsultant;
+				appRelation.SaleConsultantName = saleConsultantName;
 				appRelation.SignDate = this.transToDate(appRelation.SignDate);
 			},
 			/*
@@ -322,6 +325,9 @@ define([
 			* 将字符串/ Date / ******* / 转为JS的Date类型
 			* */
 			transToDate:function(msString){
+				if(msString === null || msString == '')
+					return "";
+
 				var ms = msString.slice(6,-2);
 				var msDate = new Date(parseInt(ms));
 				return msDate;

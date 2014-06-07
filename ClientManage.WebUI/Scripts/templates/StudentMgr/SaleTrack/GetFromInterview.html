@@ -8,14 +8,25 @@
         <div class="control-group">
             <label class="control-label" for="GetFromTrack">本次访谈成果：</label>
             <div class="controls">
-                <textarea id="GetFromTrack" name="GetFromTrack" placeholder="请输入访谈成果" value="<%= SaleTrackItem.GetFromTrack %>"></textarea>     </textarea>
+                <textarea id="GetFromTrack" name="GetFromTrack" placeholder="请输入访谈成果" value="<%= SaleTrackItem.GetFromTrack %>"></textarea>
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="ClientMostCare">客户最关心的方面：</label>
             <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox" name="IsSign" />已签约
-                </label>
+                <textarea id="ClientMostCare" name="ClientMostCare" placeholder="请输入客户最关心的方面" value="<%= SaleTrackItem.ClientMostCare %>"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="SignIntention">签约意愿：</label>
+            <div class="controls">
+                <select name="SignIntention" id="SignIntention">
+                    <option value="0">未签约</option>
+                    <option value="1">可能性低</option>
+                    <option value="2">可能性一般</option>
+                    <option value="3">可能性高</option>
+                    <option value="4">已签约</option>
+                </select>
             </div>
         </div>
         <div class="SignDateWrap display control-group">

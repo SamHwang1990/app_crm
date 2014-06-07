@@ -7,14 +7,18 @@ define([],function(){
 
 	var IsSign = {
 		No:0,
-		Possible:1,
-		Done:2
+		LowPossible:1,
+		MiddlePossible:2,
+		HighPossible:3,
+		Done:4
 	}
 
 	var IsSignInverse = {
 		0:"未签约",
-		1:"可能性强",
-		2:"已签约"
+		1:"可能性低",
+		2:"可能性一般",
+		3:"可能性高",
+		4:"已签约"
 	}
 
 	return{

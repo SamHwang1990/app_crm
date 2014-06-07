@@ -10,7 +10,6 @@ namespace ClientManage.Domain.Enum
         高中=0,
         本科=1,
         研究生=2,
-        博士=3,
-        初中=4
+        初中=3
     }
 }

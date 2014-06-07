@@ -14,9 +14,7 @@ define([],function(){
 		UnderGrade1:14,
 		UnderGrade2:15,
 		UnderGrade3:16,
-		UnderGrade4:17,
-		Master1:18,
-		Master2:19
+		UnderGrade4:17
 	};
 	var GradeInverse = {
 		 7:"初一",
@@ -28,9 +26,7 @@ define([],function(){
 		14:"大一",
 		15:"大二",
 		16:"大三",
-		17:"大四",
-		18:"研一",
-		19:"研二"
+		17:"大四"
 	}
 	return {
 		Grade:Grade,

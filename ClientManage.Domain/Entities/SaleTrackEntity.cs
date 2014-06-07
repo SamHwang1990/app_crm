@@ -31,11 +31,13 @@ namespace ClientManage.Domain.Entities
             _TrackPattern = 0;
             _TrackDate = DateTime.Now;
             _ToDo = string.Empty;
+            _ClientMostCare = string.Empty;
             _GetFromTrack = string.Empty;
             _IsGetFromDone = false;
             _TrackNo = 1;
             _ParticipantIDs = string.Empty;
             _IsComplete = 0;
+            _SignIntention = 0;
             _Remark = string.Empty;
 		}
         
@@ -49,11 +51,13 @@ namespace ClientManage.Domain.Entities
         private byte _TrackPattern;
         private DateTime _TrackDate;
         private string _ToDo;
+        private string _ClientMostCare;
         private string _GetFromTrack;
         private bool _IsGetFromDone;
         private byte _TrackNo;
         private string _ParticipantIDs;
         private byte _IsComplete;
+        private byte _SignIntention;
         private string _Remark;
         
         /// <summary>
@@ -126,7 +130,17 @@ namespace ClientManage.Domain.Entities
             set{_GetFromTrack = value;}
             get{return _GetFromTrack;}
         }
-
+        /// <summary>
+        /// 客户最关心的点
+        /// </summary>
+        public string ClientMostCare
+        {
+            set { _ClientMostCare = value; }
+            get { return _ClientMostCare; }
+        }
+        /// <summary>
+        /// 标记是否从当此访谈中获取完信息
+        /// </summary>
         public bool IsGetFromDone
         {
             set { _IsGetFromDone = value; }
@@ -157,6 +171,15 @@ namespace ClientManage.Domain.Entities
             set{_IsComplete = (byte)value;}
             get{return (TrackIsComplete)_IsComplete;}
         }
+        /// <summary>
+        /// 签约意愿；
+        /// </summary>
+        public IsSign SignIntention
+        {
+            set { _SignIntention = (byte)value; }
+            get { return (IsSign)_SignIntention; }
+        }
+
         /// <summary>
         /// 备注
         /// </summary>

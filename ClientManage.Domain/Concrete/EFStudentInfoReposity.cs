@@ -107,9 +107,7 @@ namespace ClientManage.Domain.Concrete
             }
             else
             {   //如果已有Student的信息，则为更新
-                if(appRelation.IsSign == originRelation.IsSign)
-                    appRelation.SignDate = originRelation.SignDate;
-
+                
                 context.Entry(originRelation).CurrentValues.SetValues(appRelation);
             }
         }

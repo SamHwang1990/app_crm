@@ -55,9 +55,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             studentInfo.StudentID = Guid.NewGuid();
 
             AppRelationsEntity appRelation = ajaxData.AppRelation;
-            appRelation.SignDate = new DateTime(1990, 1, 1);
+            if (appRelation.IsSign != IsSign.已签约)
+            {
+                appRelation.SignDate = null;
+            }
             appRelation.StudentID = studentInfo.StudentID;
-            appRelation.SaleConsultantName = GetUserName(appRelation.SaleConsultant);
+            //appRelation.SaleConsultantName = GetUserName(appRelation.SaleConsultant);
 
             if (ajaxData.ContactStudent != null)
             {

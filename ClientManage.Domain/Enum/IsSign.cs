@@ -11,7 +11,9 @@ namespace ClientManage.Domain.Enum
     public enum IsSign:byte
     {
         未签约=0,
-        可能性强=1,
-        已签约=2
+        可能性低=1,
+        可能性一般=2,
+        可能性高=3,
+        已签约=4
     }
 }

@@ -217,16 +217,16 @@ define([
 					NameCn:nameCn,
 					LiveCity:liveCity
 				});
-				//return this.model.get('StudentInfo');
 			},
 			setAppRelation:function(){
-				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
+				var isSign = this.$el.find('select#IsSign').val();
 				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
+				var saleConsultantName = this.$el.find('select#saleConsultant option:selected').text();
 				this.model.get('AppRelation').set({
 					IsSign:isSign,
-					SaleConsultant:saleConsultant
+					SaleConsultant:saleConsultant,
+					SaleConsultantName:saleConsultantName
 				});
-				//return this.model.get('AppRelation');
 			},
 			findContactItem:function(contactItemName,contactIdentity){
 				//获得符合contactValue的ContactItem
