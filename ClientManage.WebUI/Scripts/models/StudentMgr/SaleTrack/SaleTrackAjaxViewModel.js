@@ -6,8 +6,10 @@
 define([
 	'jquery',
 	'underscore',
-	'backbone'
-	],function($,_,Backbone){
+	'backbone',
+	'models/StudentMgr/SaleTrack/SaleTrackEntity',
+	'collections/StudentMgr/SaleTrack/SaleTrackParticipant'
+	],function($,_,Backbone,SaleTrackEntity,SaleTrackParticipants){
 		var SaleTrackAjaxViewModel = Backbone.Model.extend({
 			/*
 			* 两个成员：
@@ -17,6 +19,10 @@ define([
 			initialize:function(options){
 				if(options)
 					this.url = options.url;
+			},
+			defaults:{
+				SaleTrackItem: new SaleTrackEntity,
+				SaleTrackParticipant: new SaleTrackParticipants
 			}
  		})
 

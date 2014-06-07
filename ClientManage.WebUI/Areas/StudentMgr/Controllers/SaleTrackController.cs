@@ -67,7 +67,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             {
                 StudentsInfo = repository.StudentInfo
                         .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
-                        .OrderBy(r => r.StudentInfo.NameCn);
+                        .OrderByDescending(r => r.AppRelation.IsSign);
             }
 
             foreach (StudentInfoViewModel studentInfoViewModel in StudentsInfo)
@@ -110,6 +110,30 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
 
             return Json(SaleTrackList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取客户的访谈历史
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
+        public JsonResult GetSaleTrackHistory(string studentID)
+        {
+            if (studentID == null || studentID == string.Empty)
+                return Json(false, JsonRequestBehavior.AllowGet);
+
+            Guid id = new Guid(studentID);
+
+            List<SaleTrackAjaxViewModel> historyList = new List<SaleTrackAjaxViewModel>();
+            IEnumerable<SaleTrackParticipantsEntity> participants = null;
+            foreach (SaleTrackEntity item in repository.SaleTrack.Where(s=>s.StudentID == id).OrderBy(s=>s.TrackNo))
+            {
+                participants = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == item.TrackItemID);
+                historyList.Add(new SaleTrackAjaxViewModel { SaleTrackItem = item, SaleTrackParticipant = participants });
+            }
+
+            StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == id);
+            return Json(new { StudentInfo = studentInfo, SaleTrackHistory = historyList }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -499,6 +523,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             trackItem.IsGetFromDone = true;
             trackItem.GetFromTrack = ajaxData.getFrom;
             trackItem.ClientMostCare = ajaxData.clientMostCare;
+            trackItem.SignIntention = ajaxData.isSign;
             repository.SaveSaleTrack(trackItem);
 
 

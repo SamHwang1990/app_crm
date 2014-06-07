@@ -6,12 +6,13 @@
 define([
 	'app',
 	'models/StudentMgr/EasyChatTimeModel',
+	'models/StudentMgr/EnumModel/IsSign',
 	'text!templates/StudentMgr/Index/EditStudent.html',             //StudentMgr的Student Create模板
 	'text!templates/StudentMgr/Index/EasyChatTime.html',            //StudentMgr的可联系时间模板,
 	'text!templates/StudentMgr/Index/EditContacts.html',            //EditContacts 模板
 	'text!templates/StudentMgr/Index/ContactContent.html',          //ContactContent 模板
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min'    //bootstrap datetimepicker插件js引入
-	],function(ClientManage,EasyChatTimeModel,EditStudentTpl,EasyChatTimeTpl,EditContactsTpl,ContactContentTpl,Datetimepicker){
+	],function(ClientManage,EasyChatTimeModel,EnumIsSign,EditStudentTpl,EasyChatTimeTpl,EditContactsTpl,ContactContentTpl,Datetimepicker){
 	ClientManage.module('StudentMgr.Index.Edit.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.EditStudentView = Marionette.Layout.extend({
 			template:_.template(EditStudentTpl),
@@ -33,12 +34,15 @@ define([
 				"saleConsultant":"#saleConsultant",
 				"contactWrap":".contact-content",
 				"btnAddEasyChat":".btnAddEasyChat",
+				"selectIsSign":"#IsSign",
+				"wrapSignDate":"#SignDateWrap",
 				"removeParent":".removeParent",
 				"timePicker":"div.easyChat-wrap .timePicker"
 			},
 			events:{
 				'click @ui.btnAddEasyChat':'InsertEasyChatTemp',
 				'click @ui.removeParent':'RemoveParent',
+				'change @ui.selectIsSign':"ChangeIsSign",
 				'changeDate @ui.timePicker':'ChatTimeChange',     //datetimepicker插件触发的changeDate事件
 				'submit':'EditSubmit'
 			},
@@ -47,6 +51,12 @@ define([
 			* */
 			onRender:function(){
 				var editStudentView  = this;
+
+				//设置是否已签约
+				var isSign = this.model.get("AppRelation").IsSign;
+				this.ui.selectIsSign.find("option[value="+ isSign + "]").attr("selected","selected");
+				this.ui.selectIsSign.trigger("change");
+
 				//设置销售负责人部分
 				require([
 					'collections/RoleMgr/RoleList',
@@ -104,6 +114,28 @@ define([
 					}
 				})
 			},
+
+			ChangeIsSign:function(e){
+				var selectSign = $(e.target).val();
+				if(selectSign == EnumIsSign.IsSign.Done){
+					this.ui.wrapSignDate.removeClass("display");
+					this.RenderDateTimePicker("yyyy-mm-dd",2,2,2,this.ui.wrapSignDate);
+				}
+				else{
+					this.ui.wrapSignDate.addClass("display");
+					this.ui.wrapSignDate.find("#SignDate").val('');
+				}
+			},
+			//初始化所有日期选择器
+			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker){
+				targetPicker.datetimepicker({     //调用bootstrap的datetimepicker插件
+					format: dateFormatString,        //指定显示格式
+					autoclose: true,        //点击具体日期或时间后关闭选择框
+					startView:startView,            //设置起始选择框形式，2代表显示month
+					minView:minView,
+					maxView:maxView
+				});
+			},
 			/*
 			 * 删除当前元素的父元素
 			 * 用于删除可联系时间
@@ -134,13 +166,7 @@ define([
 				}
 				var easyChatTemp = _.template(EasyChatTimeTpl);
 				this.ui.btnAddEasyChat.before(easyChatTemp(chatTimeModel.toJSON()));
-				$('div.easyChat-wrap .timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
-					format: "hh:ii",        //指定显示格式
-					autoclose: true,        //点击具体日期或时间后关闭选择框
-					startView:0,            //设置起始选择框形式，0代表显示hour
-					minView:0,              //设置允许的最低层选择框形式
-					maxView:0               //设置允许的最顶层选择框形式
-				});
+				this.RenderDateTimePicker("hh:ii",0,0,0,this.$el.find(".easyChat-wrap .timePicker"));
 			},
 			/*
 			* 更改联系时间后检测有效性
@@ -284,14 +310,14 @@ define([
 			* 保存模型的AppRelation信息
 			* */
 			setAppRelation:function(){
-				var isSign = this.$el.find('input[name=isSign]').eq(0).is(":checked");
+				var isSign = this.$el.find('#IsSign').val();
 				var saleConsultant = this.$el.find('select#saleConsultant').val();
 				var saleConsultantName = this.$el.find('select#saleConsultant option:selected').text();
 				var appRelation = this.model.get('AppRelation');
 				appRelation.IsSign = isSign;
 				appRelation.SaleConsultant = saleConsultant;
 				appRelation.SaleConsultantName = saleConsultantName;
-				appRelation.SignDate = this.transToDate(appRelation.SignDate);
+				appRelation.SignDate = this.$el.find("#SignDate").val();
 			},
 			/*
 			* 保存模型的EasyChatTimes信息
@@ -330,7 +356,8 @@ define([
 
 				var ms = msString.slice(6,-2);
 				var msDate = new Date(parseInt(ms));
-				return msDate;
+				return msDate.getFullYear() + "-" + (msDate.getMonth()+1) + "-" + msDate.getDate();
+
 			}
 		});
 		View.EditContactItemView = Marionette.ItemView.extend({

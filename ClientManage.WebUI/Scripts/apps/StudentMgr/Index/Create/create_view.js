@@ -6,11 +6,12 @@
 define([
 	'app',
 	'models/StudentMgr/EasyChatTimeModel',
+	'models/StudentMgr/EnumModel/IsSign',
 	'text!templates/StudentMgr/Index/Create.html',                  //StudentMgr的Student Create模板
 	'text!templates/StudentMgr/Index/ContactContent.html',          //StudentMgr的联系人模板
 	'text!templates/StudentMgr/Index/EasyChatTime.html',            //StudentMgr的可联系时间模板,
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min'    //bootstrap datetimepicker插件js引入
-	],function(ClientManage,EasyChatTimeModel,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker){
+	],function(ClientManage,EasyChatTimeModel,EnumIsSign,CreateTpl,ContactContentTpl,EasyChatTimeTpl,Datetimepicker){
 	ClientManage.module('StudentMgr.Index.Create.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentCreateView = Marionette.Layout.extend({
 			template:_.template(CreateTpl),
@@ -32,6 +33,8 @@ define([
 				"contactWrap":".contact-content",
 				"btnAddEasyChat":".btnAddEasyChat",
 				"btnAddContact":".btnAddContact",
+				"selectIsSign":"#IsSign",
+				"wrapSignDate":"#SignDateWrap",
 				"removeParent":".removeParent",
 				"timePicker":"div.easyChat-wrap .timePicker"
 			},
@@ -39,11 +42,16 @@ define([
 				'click @ui.btnAddEasyChat':'InsertEasyChatTemp',
 				'click @ui.btnAddContact':'InsertContactTemp',
 				'click @ui.removeParent':'RemoveParent',
+				'change @ui.selectIsSign':"ChangeIsSign",
 				'changeDate @ui.timePicker':'ChatTimeChange',     //datetimepicker插件触发的changeDate事件
 				'submit':'CreateSubmit'
 			},
 			onRender:function(){
 				var createView  = this;
+
+				//绑定select isSign 事件
+				this.ui.selectIsSign.trigger("change");
+
 				require(['collections/RoleMgr/RoleList','apps/StudentMgr/Index/Create/saleConsultant_view'],function(RoleCol,SaleConsultantView){
 					var roleList = new RoleCol();
 					roleList.fetch({
@@ -59,6 +67,27 @@ define([
 						}
 					})
 				})
+			},
+			ChangeIsSign:function(e){
+				var selectSign = $(e.target).val();
+				if(selectSign == EnumIsSign.IsSign.Done){
+					this.ui.wrapSignDate.removeClass("display");
+					this.RenderDateTimePicker("yyyy-mm-dd",2,2,2,this.ui.wrapSignDate);
+				}
+				else{
+					this.ui.wrapSignDate.addClass("display");
+					this.ui.wrapSignDate.find("#SignDate").val('');
+				}
+			},
+			//初始化所有日期选择器
+			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker){
+				targetPicker.datetimepicker({     //调用bootstrap的datetimepicker插件
+					format: dateFormatString,        //指定显示格式
+					autoclose: true,        //点击具体日期或时间后关闭选择框
+					startView:startView,            //设置起始选择框形式，2代表显示month
+					minView:minView,
+					maxView:maxView
+				});
 			},
 			/*
 			 * 删除当前元素的父元素
@@ -81,13 +110,7 @@ define([
 				}
 				var easyChatTemp = _.template(EasyChatTimeTpl);
 				$(event.target).before(easyChatTemp(chatTimeModel.toJSON()));
-				$('div.easyChat-wrap .timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
-					format: "hh:ii",        //指定显示格式
-					autoclose: true,        //点击具体日期或时间后关闭选择框
-					startView:0,            //设置起始选择框形式，0代表显示hour
-					minView:0,              //设置允许的最低层选择框形式
-					maxView:0               //设置允许的最顶层选择框形式
-				});
+				this.RenderDateTimePicker("hh:ii",0,0,0,this.$el.find(".easyChat-wrap .timePicker"));
 			},
 			ChatTimeChange:function(event){             //当chattime的值改变时触发，用于验证
 				var easyChatWrap = $(event.currentTarget).parent();                 //找到父元素：div.easyChat-wrap

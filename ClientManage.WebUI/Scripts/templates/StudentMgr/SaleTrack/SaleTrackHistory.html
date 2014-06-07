@@ -1,0 +1,43 @@
+<div id="StudentMgr-SaleTrack-SaleTrackHistory">
+    <h2>学生：<%= StudentInfo.NameCn %>的销售列表</h2>
+    <div class="accordion" id="saleHistory">
+        <% _.each(SaleTrackHistory,function(HistoryItem){ %>
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#saleHistory" href="#collapse<%= HistoryItem.SaleTrackItem.TrackNo %>">
+                        <span class="badge badge-info"><%= HistoryItem.SaleTrackItem.TrackNo %></span>
+                        &emsp;
+                        <%= HistoryItem.SaleTrackItem.StateName %>
+                    </a>
+                </div>
+                <div id="collapse<%= HistoryItem.SaleTrackItem.TrackNo %>" class="accordion-body collapse <%= (HistoryItem.SaleTrackItem.TrackNo == '1') ? 'in' : '' %>">
+                    <div class="accordion-inner">
+                        <dl class="dl-horizontal">
+                            <dt>访谈方式</dt>
+                            <dd><%= HistoryItem.SaleTrackItem.TrackPattern %></dd>
+                            <dt>访谈日期</dt>
+                            <dd><%= HistoryItem.SaleTrackItem.TrackDate %></dd>
+                            <dt>访谈内容</dt>
+                            <dd><%= HistoryItem.SaleTrackItem.ToDo %></dd>
+                            <dt>进度</dt>
+                            <dd>
+                                <span class="label label-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
+                                    <%= HistoryItem.SaleTrackItem.IsComplete %>
+                                </span>
+                            </dd>
+                            <dt>访谈成果</dt>
+                            <dd><%= HistoryItem.SaleTrackItem.GetFromTrack %></dd>
+                            <dt>签约意愿</dt>
+                            <dd><%= HistoryItem.SaleTrackItem.SignIntention %></dd>
+                            <dt>访谈参与人</dt>
+                            <% _.each(HistoryItem.SaleTrackParticipant,function(Participant){ %>
+                            <dd><%= Participant.ParticipantName %>（<%= Participant.ParticipantIdentity %>）</dd>
+                            <% }); %>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+</div>

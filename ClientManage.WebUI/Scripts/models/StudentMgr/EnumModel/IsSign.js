@@ -6,11 +6,11 @@
 define([],function(){
 
 	var IsSign = {
-		No:0,
-		LowPossible:1,
-		MiddlePossible:2,
-		HighPossible:3,
-		Done:4
+		No:"0",
+		LowPossible:"1",
+		MiddlePossible:"2",
+		HighPossible:"3",
+		Done:"4"
 	}
 
 	var IsSignInverse = {

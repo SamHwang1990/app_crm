@@ -7,6 +7,7 @@
 define([
 	'app',
 	'models/StudentMgr/SaleTrack/SaleTrackAjaxViewModel',
+	'models/StudentMgr/EnumModel/IsSign',
 	'text!templates/StudentMgr/SaleTrack/CommonInterview.html',          //StudentMgr/SaleTrack的Create FirstInterview 模板
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',    //bootstrap datetimepicker插件js引入
 	'models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity',
@@ -17,6 +18,7 @@ define([
 	function(
 		ClientManage,
 		SaleTrackAjaxViewModel,
+		EnumIsSign,
 		FirstInterviewTpl,
 		Datetimepicker,
 		SaleTrackParticipantsEntity,
@@ -378,25 +380,40 @@ define([
 			className:"wrap",
 			ui:{
 				"Form":"form#GetFromInterviewForm",
-				"ChkIsSign":"input[name=IsSign]",
-				"BtnSubmit":"#btnSubmit",
-				"SignDateWrap":".SignDateWrap"
+				"selectSignIntention":"#SignIntention",
+				"wrapSignDate":"#SignDateWrap",
+				"BtnSubmit":"#btnSubmit"
 			},
 			events:{
 				"submit":"GetFromInterviewSubmit",
+				'change @ui.selectSignIntention':"ChangeIsSign",
 				"click @ui.ChkIsSign":"ChangeIsSign"
 			},
 			//Render UI 初始化 开始
 			onRender:function(){
-				this.$el.find('.timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
-					format: "yyyy-mm-dd",        //指定显示格式
-					autoclose: true,        //点击具体日期或时间后关闭选择框
-					startView:2,            //设置起始选择框形式，2代表显示month
-					minView:2
-				});
+				//绑定select isSign 事件
+				this.ui.selectSignIntention.trigger("change");
 			},
 			ChangeIsSign:function(e){
-				this.ui.SignDateWrap.toggleClass("display");
+				var selectSign = $(e.target).val();
+				if(selectSign == EnumIsSign.IsSign.Done){
+					this.ui.wrapSignDate.removeClass("display");
+					this.RenderDateTimePicker("yyyy-mm-dd",2,2,2,this.ui.wrapSignDate);
+				}
+				else{
+					this.ui.wrapSignDate.addClass("display");
+					this.ui.wrapSignDate.find("#SignDate").val('');
+				}
+			},
+			//初始化所有日期选择器
+			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker){
+				targetPicker.datetimepicker({     //调用bootstrap的datetimepicker插件
+					format: dateFormatString,        //指定显示格式
+					autoclose: true,        //点击具体日期或时间后关闭选择框
+					startView:startView,            //设置起始选择框形式，2代表显示month
+					minView:minView,
+					maxView:maxView
+				});
 			},
 			/*
 			 * 用于显示和隐藏feedback信息
@@ -451,14 +468,16 @@ define([
 					var trackID = this.model.get("SaleTrackItem").TrackItemID;
 					var trackNo = this.model.get("SaleTrackItem").TrackNo;
 					var getFrom = this.$el.find("#GetFromTrack").val();
-					var isSign = this.$el.find("input[name=IsSign]").eq(0).is(':checked');
+					var clientMostCare = this.$el.find("#ClientMostCare").val();
+					var isSign = this.ui.selectSignIntention.val();
 					var signDate = this.$el.find("input#SignDate").val();
 					var ajaxData = {
 						trackID: trackID,
 						trackNo: trackNo,
 						isSign: isSign,
 						signDate: signDate,
-						getFrom: getFrom
+						getFrom: getFrom,
+						clientMostCare:clientMostCare
 					};
 					$.ajax({
 						type: "POST",
@@ -467,7 +486,7 @@ define([
 						dataType: 'json',
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
-							if(data && isSign)
+							if(data && isSign == EnumIsSign.IsSign.Done)
 								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
 							else if(data && !isSign){
 								Backbone.history.loadUrl(Backbone.history.fragment);

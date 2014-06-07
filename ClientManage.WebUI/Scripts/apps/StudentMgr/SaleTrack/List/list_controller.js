@@ -1,6 +1,6 @@
 /***************************************
  * Created by samhwang1990@gmail.com on 14-6-5.
- * StudentMgr/SaleTrack/List Controlelr
+ * StudentMgr/SaleTrack/List Controller
  ***************************************/
 
 define(['app'],function(ClientManage){

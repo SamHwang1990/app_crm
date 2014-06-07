@@ -22,7 +22,8 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
 				"StudentMgr/SaleTrack/AppInterview-:id":"StudentMgrSaleTrackAppInterview",
-				"StudentMgr/SaleTrack/FirstInterviewReg-:id":"StudentMgrSaleTrackFirstInterviewReg"
+				"StudentMgr/SaleTrack/FirstInterviewReg-:id":"StudentMgrSaleTrackFirstInterviewReg",
+				"StudentMgr/SaleTrack/SaleTrackHistory-:id":"StudentMgrSaleTrackSaleTrackHistory"
 			}
 		});
 
@@ -93,6 +94,13 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				function(StudentMgrSaleTrackFirstInterviewRegController){
 					executeAction(StudentMgrSaleTrackFirstInterviewRegController.ShowFirstInterviewReg,id);
 				})
+			},
+			StudentMgrSaleTrackSaleTrackHistory:function(id){
+				require([
+					'apps/StudentMgr/SaleTrack/History/history_controller'],
+					function(StudentMgrSaleTrackHistoryController){
+						executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
+					})
 			}
 		};
 

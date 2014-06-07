@@ -42,7 +42,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             {
                 StudentsInfo = repository.StudentsInfo
                     .Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
-                    .OrderBy(r => r.StudentInfo.NameCn);
+                     .OrderByDescending(r => r.AppRelation.IsSign);
             }
             Array students = StudentsInfo.ToArray();        //用来调试时检测获取StudentsInfo内容之用，只是发布时可删除
             return Json(StudentsInfo, JsonRequestBehavior.AllowGet);
@@ -114,9 +114,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 repository.EmptyStudentEasyChatTimes(studentInfo.StudentID);
 
                 //遍历EasyChatTimes， 并添加到数据库中
-                foreach (EasyChatTimeEntity item in EasyChatTimes)
+                if (EasyChatTimes != null)
                 {
-                    repository.SaveEasyChatTime(item);
+                    foreach (EasyChatTimeEntity item in EasyChatTimes)
+                    {
+                        repository.SaveEasyChatTime(item);
+                    }
                 }
             }
             else
