@@ -125,12 +125,26 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             Guid id = new Guid(studentID);
 
             List<SaleTrackAjaxViewModel> historyList = new List<SaleTrackAjaxViewModel>();
-            IEnumerable<SaleTrackParticipantsEntity> participants = null;
-            foreach (SaleTrackEntity item in repository.SaleTrack.Where(s=>s.StudentID == id).OrderBy(s=>s.TrackNo))
+            IEnumerable<SaleTrackParticipantsEntity>[] participantsArray = null;
+            IEnumerable<SaleTrackEntity> saleTrackEntityHistory = repository.SaleTrack.Where(s => s.StudentID == id).OrderBy(s => s.TrackNo);
+            if (saleTrackEntityHistory.Count() > 0)
             {
-                participants = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == item.TrackItemID);
-                historyList.Add(new SaleTrackAjaxViewModel { SaleTrackItem = item, SaleTrackParticipant = participants });
+                participantsArray = new IEnumerable<SaleTrackParticipantsEntity>[saleTrackEntityHistory.Count()];
+                for (int i = 0; i < saleTrackEntityHistory.Count(); i++)
+                {
+                    SaleTrackEntity item = saleTrackEntityHistory.ElementAt(i);
+                    participantsArray[i] = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == item.TrackItemID);
+                    historyList.Add(new SaleTrackAjaxViewModel { SaleTrackItem = item, SaleTrackParticipant = participantsArray[i] });
+                }
             }
+
+            //以下写法会造成SaleTrackHistory中出现一样的ParticipantList
+            //foreach (SaleTrackEntity item in repository.SaleTrack.Where(s=>s.StudentID == id).OrderBy(s=>s.TrackNo))
+            //{
+            //    IEnumerable<SaleTrackParticipantsEntity> participants = repository.SaleTrackParticipants.Where(s => s.SaleTrackID == item.TrackItemID);
+            //    historyList.Add(new SaleTrackAjaxViewModel { SaleTrackItem = item, SaleTrackParticipant = participants });
+            //    participants = null;
+            //}
 
             StudentInfoEntity studentInfo = repository.StudentInfo.SingleOrDefault(s => s.StudentID == id);
             return Json(new { StudentInfo = studentInfo, SaleTrackHistory = historyList }, JsonRequestBehavior.AllowGet);

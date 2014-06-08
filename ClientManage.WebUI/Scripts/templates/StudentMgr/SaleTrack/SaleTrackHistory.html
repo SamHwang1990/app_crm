@@ -5,8 +5,9 @@
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#saleHistory" href="#collapse<%= HistoryItem.SaleTrackItem.TrackNo %>">
-                        <span class="badge badge-info"><%= HistoryItem.SaleTrackItem.TrackNo %></span>
-                        &emsp;
+                        <span class="badge badge-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
+                            <%= HistoryItem.SaleTrackItem.TrackNo %>
+                        </span>
                         <%= HistoryItem.SaleTrackItem.StateName %>
                     </a>
                 </div>

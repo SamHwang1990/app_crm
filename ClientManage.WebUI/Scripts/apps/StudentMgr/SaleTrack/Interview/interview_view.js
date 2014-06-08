@@ -338,6 +338,9 @@ define([
 
 				var remark = this.$el.find("#Remark").val();
 				this.model.get("SaleTrackItem").Remark = remark;
+
+				var signIntention = this.model.get("SaleTrackItem").SignIntention;
+				this.model.get("SaleTrackItem").SignIntention = signIntention.toString();
 			},
 			SetSaleTrackParticipant:function(){
 				var participantTr = this.$el.find("tr.ParticipantTr");
@@ -488,7 +491,7 @@ define([
 						success: function (data) {
 							if(data && isSign == EnumIsSign.IsSign.Done)
 								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
-							else if(data && !isSign){
+							else if(data && isSign != EnumIsSign.IsSign.Done){
 								Backbone.history.loadUrl(Backbone.history.fragment);
 							}else{
 								alert("Post Failed");
