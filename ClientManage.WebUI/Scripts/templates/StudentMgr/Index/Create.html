@@ -3,67 +3,101 @@
     <div class="feedbackMsg alert">
 
     </div>
-    <form id="createForm" action="/StudentMgr/Index/Create" method="post" class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label" for="studentName">学生名：</label>
-            <div class="controls">
-                <input type="text" id="studentName" name="studentName" placeholder="请输入学生名字" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="IsSign">签约意愿：</label>
-            <div class="controls">
-                <select name="IsSign" id="IsSign">
-                    <option value="0">未签约</option>
-                    <option value="1">可能性低</option>
-                    <option value="2">可能性一般</option>
-                    <option value="3">可能性高</option>
-                    <option value="4">已签约</option>
-                </select>
-                &nbsp;
-                <div id="SignDateWrap" class="input-append date timePicker display" data-date-format="yyyy-mm-dd">
-                    <input type="text" id="SignDate" class="span2" placeholder="签约日期"/>
-                    <span class="add-on"><i class="icon-refresh"></i></span>
-                    <span class="add-on"><i class="icon-th"></i></span>
+    <ul class="nav nav-tabs" id="CreateFromNav">
+        <li class="active"><a href="#tabCreateStudentInfoForm" data-href="#tabCreateStudentInfoForm" data-toggle="tab">学生基本信息</a></li>
+        <li class="disabled"><a data-href="#tabCreateStudentFromForm" data-toggle="">客户来源</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabCreateStudentInfoForm">
+            <form id="createForm" action="/StudentMgr/Index/Create" method="post" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label" for="studentName">学生名：</label>
+                    <div class="controls">
+                        <input type="text" id="studentName" name="studentName" placeholder="请输入学生名字" />
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="liveCity">居住城市：</label>
-            <div class="controls">
-                <input type="text" id="liveCity" name="liveCity" placeholder="请输入居住城市" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="saleConsultant">销售顾问：</label>
-            <div class="saleConsultantWrap controls">
+                <div class="control-group">
+                    <label class="control-label" for="IsSign">签约意愿：</label>
+                    <div class="controls">
+                        <select name="IsSign" id="IsSign">
+                            <option value="0">未签约</option>
+                            <option value="1">可能性低</option>
+                            <option value="2">可能性一般</option>
+                            <option value="3">可能性高</option>
+                            <option value="4">已签约</option>
+                        </select>
+                        &nbsp;
+                        <div id="SignDateWrap" class="input-append date timePicker display" data-date-format="yyyy-mm-dd">
+                            <input type="text" id="SignDate" class="span2" placeholder="签约日期"/>
+                            <span class="add-on"><i class="icon-refresh"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="liveCity">居住城市：</label>
+                    <div class="controls">
+                        <input type="text" id="liveCity" name="liveCity" placeholder="请输入居住城市" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="saleConsultant">销售顾问：</label>
+                    <div class="saleConsultantWrap controls">
 
-            </div>
+                    </div>
+                </div>
+                <div class="control-group" id="contact-Wrap">
+                    <label class="control-label">联系人：</label>
+                    <div class="contact-content controls control-group inline">
+                        <fieldset class="contactItem">
+                            <select class="ContactIdentity span1">
+                                <option value="学生" selected="selected">学生</option>
+                                <option value="父亲">父亲</option>
+                                <option value="母亲">母亲</option>
+                                <option value="其他">其他</option>
+                            </select>
+                            <input type="text" class="ContactName span2" placeholder="请输入联系人名字" />
+                            <input type="text" class="ContactMobile span2" placeholder="请输入手机号"/>
+                            <input type="text" class="ContactEmail" placeholder="请输入邮箱"/>
+                            <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+                            <br>
+                            <btn class="btnAddEasyChat btn">添加接电话时间</btn>
+                        </fieldset>
+                        <btn class="btnAddContact btn btn-info">继续添加联系人</btn>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="control-group" id="contact-Wrap">
-            <label class="control-label">联系人：</label>
-            <div class="contact-content controls control-group inline">
-                <fieldset class="contactItem">
-                    <select class="ContactIdentity span1">
-                        <option value="学生" selected="selected">学生</option>
-                        <option value="父亲">父亲</option>
-                        <option value="母亲">母亲</option>
-                        <option value="其他">其他</option>
-                    </select>
-                    <input type="text" class="ContactName span2" placeholder="请输入联系人名字" />
-                    <input type="text" class="ContactMobile span2" placeholder="请输入手机号"/>
-                    <input type="text" class="ContactEmail" placeholder="请输入邮箱"/>
-                    <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
-                    <br>
-                    <btn class="btnAddEasyChat btn">添加接电话时间</btn>
-                </fieldset>
-                <btn class="btnAddContact btn btn-info">继续添加联系人</btn>
-            </div>
+        <div class="tab-pane" id="tabCreateStudentFromForm">
+            <form id="CreateStudentFromForm" action="/StudentMgr/SaleTrack/PostCreateFromForm" method="post" class="form-horizontal">
+                <div class="control-group">
+                    <label class="control-label">如何知道APP：</label>
+                    <div class="StudentFromWrap controls">
+                        <% _.each(StudentSourceList,function(SourceItem){ %>
+                        <p class="SourceItemWrap" data-ItemName="<%= SourceItem.SourceName %>">
+                            <input type="checkbox" class="chkIsFrom" />&nbsp;
+                            <input type="hidden" class="SourceDetailKeyword" value="<%= SourceItem.DetailKeyword %>" />
+                            <span class="SourceName"><%= SourceItem.SourceName %></span>
+                            <% if(SourceItem.DetailKeyword != null && SourceItem.DetailKeyword != "") { %>
+                            ，<span class="DetailKeyword"><%= SourceItem.DetailKeyword %></span>
+                            <% } %>
+                            ：
+                            <input type="text" placeholder="请输入来源信息" class="DetailContent" />
+                        </p>
+                        <% }); %>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button id="btnSubmitFrom" class="btn btn-large btn-success" type="submit">保存学生来源</button>&emsp;
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="control-group">
-            <div class="controls">
-                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>

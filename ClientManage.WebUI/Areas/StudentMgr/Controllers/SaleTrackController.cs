@@ -314,6 +314,16 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
 
         /// <summary>
+        /// Ajax返回StudentSourceList
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetAjaxStudentSourceList()
+        {
+            IEnumerable<StudentSourceItemEntity> studentSourceList = GetStudentSourceList();
+            return Json(studentSourceList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// 根据学生ID返回课程信息TPInfo
         /// </summary>
         /// <param name="studentID"></param>
@@ -672,6 +682,29 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             else
                 return;
+        }
+
+        [HttpPost]
+        public JsonResult PostCreateFromForm(IEnumerable<StudentFromEntity> ajaxData)
+        {
+            if (ajaxData == null)
+            {
+                return Json(false);
+            }
+            if (ajaxData.Count() <= 0)
+            {
+                return Json(true);
+            }
+            else
+            {
+                Guid studentID = ajaxData.ElementAt(0).StudentID;
+                IEnumerable<StudentFromEntity> studentFromList = ajaxData;
+                studentInfoRepository.SaveStudentFrom(studentFromList, studentID);
+                return Json(true);
+            }
+
+            
+
         }
 
         #region 功能模块响应

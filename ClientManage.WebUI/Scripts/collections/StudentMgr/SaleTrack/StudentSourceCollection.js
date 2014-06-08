@@ -10,7 +10,12 @@ define([
 	'models/StudentMgr/SaleTrack/StudentSourceItem'
 	],function($,_,Backbone,StudentSourceItem){
 		var StudentSourceCollection = Backbone.Collection.extend({
-			model:StudentSourceItem
+			model:StudentSourceItem,
+			initialize:function(options){
+				if(options != null){
+					this.url = options.url;
+				}
+			}
 		});
 		return StudentSourceCollection;
 	}

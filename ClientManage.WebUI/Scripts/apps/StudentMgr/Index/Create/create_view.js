@@ -15,9 +15,15 @@ define([
 	ClientManage.module('StudentMgr.Index.Create.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentCreateView = Marionette.Layout.extend({
 			template:_.template(CreateTpl),
+			initialize:function(options){
+				if(options != null){
+					this.StudentSourceList = options.StudentSourceList
+				}
+			},
 			templateHelpers:function(){
 				return {
-					ContactIdentity: new EasyChatTimeModel.ContactIdentity()
+					ContactIdentity: new EasyChatTimeModel.ContactIdentity(),
+					StudentSourceList:this.StudentSourceList.toJSON()
 				}
 			},
 			regions:{
@@ -36,7 +42,9 @@ define([
 				"selectIsSign":"#IsSign",
 				"wrapSignDate":"#SignDateWrap",
 				"removeParent":".removeParent",
-				"timePicker":"div.easyChat-wrap .timePicker"
+				"timePicker":"div.easyChat-wrap .timePicker",
+				"NavRegFrom":"#CreateFromNav",
+				"CreateStudentFromForm":"#CreateStudentFromForm"
 			},
 			events:{
 				'click @ui.btnAddEasyChat':'InsertEasyChatTemp',
@@ -44,7 +52,8 @@ define([
 				'click @ui.removeParent':'RemoveParent',
 				'change @ui.selectIsSign':"ChangeIsSign",
 				'changeDate @ui.timePicker':'ChatTimeChange',     //datetimepicker插件触发的changeDate事件
-				'submit':'CreateSubmit'
+				'submit #createForm':'CreateSubmit',
+				'submit #CreateStudentFromForm':'FromSubmit'
 			},
 			onRender:function(){
 				var createView  = this;
@@ -121,6 +130,8 @@ define([
 				event.preventDefault();
 				//如果表单通过验证检查
 				if(this.validateForm()){
+					var createView = this;
+
 					//Collect the data from form
 					this.setStudentInfo();
 					this.setAppRelation();
@@ -139,14 +150,76 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
 							if(data.CreateReslut == true){
-								/*var url = "/Students/SaleTrack/FirstInterview/?id=" + data.StudentID.toString();
-								 window.location.href = url;*/
-								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+								createView.StudentID = data.StudentID;
+
+								var curLi = createView.ui.NavRegFrom.find("li:eq(0)");
+								var curA = curLi.find("a");
+								curLi.addClass("disabled");
+								curA.removeAttr("href");
+								curA.attr("data-toggle","");
+
+								var nextLi = createView.ui.NavRegFrom.find("li:eq(1)");
+								var nextA = nextLi.find("a");
+								nextLi.removeClass("disabled");
+								nextA.attr("href",nextA.attr("data-href"));
+								nextA.attr("data-toggle","tab");
+								createView.ui.NavRegFrom.find("li:eq(1) a").tab('show');
 							}
 						}
 					});
 				}else{
 					return false;
+				}
+			},
+			FromSubmit:function(event){
+				event.preventDefault();
+				var that = this;
+				require([
+					'models/StudentMgr/SaleTrack/StudentFromModel',
+					'collections/StudentMgr/SaleTrack/StudentFromCollection'
+				],function(StudentFromModel,StudentFromCollection){
+					var studentFromList = that.SetModel.SetStudentFromList.call(that,StudentFromModel,StudentFromCollection);
+					var ajaxData = JSON.stringify(studentFromList);
+					var postUrl = that.ui.CreateStudentFromForm.attr("action");
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data: ajaxData,
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data)
+								ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+							else{
+								alert("Post Failed");
+							}
+						},
+						error:function(data){
+							alert(JSON.stringify(data));
+						}
+					});
+				})
+			},
+			SetModel:{
+				SetStudentFromList:function(StudentFromModel,StudentFromCollection){
+					var studentID = this.StudentID;
+					var studentFromList = new StudentFromCollection()
+
+					var chkIsFrom = this.$el.find(".chkIsFrom:checked");
+					chkIsFrom.each(function(i){
+						var itemName = $(this).siblings("span.SourceName").text();
+						var itemKeyword = $(this).siblings(".SourceDetailKeyword").val();
+						var itemContent = $(this).siblings(".DetailContent").val();
+						studentFromList.add(
+							new StudentFromModel({
+								StudentID : studentID,
+								SourceName : itemName,
+								SourceDetailKeyword : itemKeyword,
+								SourceDetailContent : itemContent
+							})
+						)
+					});
+					return studentFromList;
 				}
 			},
 			/*
