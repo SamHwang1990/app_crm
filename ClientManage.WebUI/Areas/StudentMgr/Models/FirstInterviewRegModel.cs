@@ -27,5 +27,6 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Models
         public ExamResultEntity APResult { get; set; }
         public IEnumerable<StudentSourceItemEntity> StudentSourceList { get; set; }
         public IEnumerable<StudentFromEntity> StudentFromList { get; set; }
+        public IEnumerable<StudentFlashPointEntity> StudentFlashPointList { get; set; }
     }
 }

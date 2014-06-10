@@ -16,7 +16,8 @@ define(['app'],function(ClientManage){
 					'models/StudentMgr/AppRelation',
 					'models/StudentMgr/SaleTrack/StudentTPInfoModel',
 					'collections/StudentMgr/SaleTrack/StudentFromCollection',
-					'collections/StudentMgr/SaleTrack/StudentSourceCollection'
+					'collections/StudentMgr/SaleTrack/StudentSourceCollection',
+					'collections/StudentMgr/SaleTrack/FlashPointCollection'
 					],function(FirstInterviewRegView,
 				               FirstInterviewRegModel,
 				               ExamResultModels,
@@ -24,7 +25,8 @@ define(['app'],function(ClientManage){
 				               AppRelationModel,
 				               StudentTPInfoModel,
 				               StudentFromCollection,
-				               StudentSourceCollection)
+				               StudentSourceCollection,
+				               FlashPointCollection)
 					{
 						var firstInterviewRegModel = new FirstInterviewRegModel({
 							StudentInfo:new StudentInfoModel,
@@ -40,6 +42,7 @@ define(['app'],function(ClientManage){
 							APResult:new ExamResultModels.ExamResultEntity,
 							StudentSourceList:new StudentSourceCollection,
 							StudentFromList:new StudentFromCollection,
+							StudentFlashPointList:new FlashPointCollection,
 							url:"/StudentMgr/SaleTrack/GetFirstInterviewRegData"
 						})
 

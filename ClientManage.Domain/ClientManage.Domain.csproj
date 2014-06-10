@@ -77,6 +77,7 @@
     <Compile Include="Entities\RolesInfo.cs" />
     <Compile Include="Entities\SaleTrackEntity.cs" />
     <Compile Include="Entities\SaleTrackParticipantsEntity.cs" />
+    <Compile Include="Entities\StudentFlashPointEntity.cs" />
     <Compile Include="Entities\StudentFromEntity.cs" />
     <Compile Include="Entities\StudentInfoEntity.cs" />
     <Compile Include="Entities\StudentParentEntity.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Enum\EducationDegree.cs" />
     <Compile Include="Enum\EducationIntention.cs" />
     <Compile Include="Enum\ExamType.cs" />
+    <Compile Include="Enum\FlashPointType.cs" />
     <Compile Include="Enum\Gender.cs" />
     <Compile Include="Enum\Grade.cs" />
     <Compile Include="Enum\IsSign.cs" />

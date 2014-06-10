@@ -292,6 +292,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             ExamResultEntity apModel = GetAPResult(id);
             IEnumerable<StudentSourceItemEntity> studentSourceList = GetStudentSourceList();
             IEnumerable<StudentFromEntity> studentFromList = GetStudentFromList(id);
+            IEnumerable<StudentFlashPointEntity> studentFlashPointList = GetFlashPointList(id);
 
             FirstInterviewRegModel firstInterviewRegMode = new FirstInterviewRegModel
             {
@@ -307,7 +308,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 GREGMATResultDetail = greGmatModel.ExamResultDetail,
                 APResult = apModel,
                 StudentSourceList = studentSourceList,
-                StudentFromList = studentFromList
+                StudentFromList = studentFromList,
+                StudentFlashPointList = studentFlashPointList
             };
 
             return Json(firstInterviewRegMode, JsonRequestBehavior.AllowGet);
@@ -361,6 +363,17 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         {
             IEnumerable<StudentFromEntity> studentFromList = repository.StudentFrom.Where(s => s.StudentID == studentID);
             return studentFromList;
+        }
+
+        /// <summary>
+        /// 从数据库中返回该学生的所有闪光点
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
+        IEnumerable<StudentFlashPointEntity> GetFlashPointList(Guid studentID)
+        {
+            IEnumerable<StudentFlashPointEntity> flashPointList = repository.StudentFlashPoint.Where(s => s.StudentID == studentID);
+            return flashPointList;
         }
 
         ExamResultTFIELTSModel GetTFIELTSExamResult(Guid studentID)
@@ -644,6 +657,19 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             Guid studentID = ajaxData.StudentInfo.StudentID;
             IEnumerable<StudentFromEntity> studentFromList = ajaxData.StudentFromList;
             studentInfoRepository.SaveStudentFrom(studentFromList, studentID);
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        public JsonResult PostFirstInterviewRegFlashPointForm(FirstInterviewRegModel ajaxData)
+        {
+            if (ajaxData == null || ajaxData.StudentInfo == null)
+                return Json(false);
+
+            Guid studentID = ajaxData.StudentInfo.StudentID;
+            IEnumerable<StudentFlashPointEntity> flashPointList = ajaxData.StudentFlashPointList;
+            repository.SaveStudentFlashPoint(flashPointList, studentID);
 
             return Json(true);
         }

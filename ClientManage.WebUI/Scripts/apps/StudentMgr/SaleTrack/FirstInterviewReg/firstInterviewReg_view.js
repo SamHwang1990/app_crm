@@ -9,8 +9,9 @@ define([
 	'text!templates/StudentMgr/SaleTrack/FirstInterviewReg.html',
 	'libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min',
 	'models/StudentMgr/EnumModel/ExamType',
-	'models/StudentMgr/EnumModel/EducationIntention'
-	],function(ClientManage,FirstInterviewRegModel,FirstInterviewRegTpl,Datetimepicker,EnumExamType,EnumEducationIntention){
+	'models/StudentMgr/EnumModel/EducationIntention',
+	'text!templates/StudentMgr/SaleTrack/FlashPointItem.html'
+	],function(ClientManage,FirstInterviewRegModel,FirstInterviewRegTpl,Datetimepicker,EnumExamType,EnumEducationIntention,FlashPointItemTpl){
 	ClientManage.module('StudentMgr.SaleTrack.FirstInterviewReg.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.FirstInterviewRegView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewRegTpl),
@@ -25,14 +26,17 @@ define([
 				"TabStudentInfo":"div#tabFirstInterviewRegInfo",
 				"TabStudentTP":"div#tabFirstInterviewRegInfo",
 				"TabStudentFrom":"div#tabFirstInterviewRegFrom",
+				"TabFlashPoint":"div#tabFirstInterviewRegFlashPoint",
 
 				"FormStudentInfo":"form#FirstInterviewRegInfoForm",
 				"FormStudentTP":"form#FirstInterviewRegTPForm",
 				"FormStudentFrom":"form#FirstInterviewRegFromForm",
+				"FormFlashPoint":"form#FirstInterviewRegFlashPointForm",
 
 				"BtnSubmitInfo":"#btnSubmitInfo",
 				"BtnSubmitTP":"#btnSubmitTP",
 				"BtnSubmitFrom":"#btnSubmitFrom",
+				"BtnSubmitFlashPoint":"#btnSubmitFlashPoint",
 
 				"SelectGender":"#Gender",
 				"SelectEducationIntention":"#EducationIntention",
@@ -60,14 +64,21 @@ define([
 				"HasGREGMASTChose":".HasGREGMASTChose",
 				"GREGMATWrap":".GREGMATWrap",
 
-				"StudentFromWrap":".StudentFromWrap"
+				"StudentFromWrap":".StudentFromWrap",
+
+				"FlashPointItem":".flashPointItem",
+				"FieldSetFlashPointFuncBtn":"#flashPointFuncBtn",
+				"BtnRemoveParent":".removeParent"
 			},
 			events:{
 				"click .IsLangTran":"ClickIsLangTran",
 				"change @ui.SelectEducationIntention":"ChangeEducationIntention",
 				"submit @ui.FormStudentInfo":"SubmitStudentInfo",
 				"submit @ui.FormStudentTP":"SubmitStudentTP",
-				"submit @ui.FormStudentFrom":"SubmitStudentFrom"
+				"submit @ui.FormStudentFrom":"SubmitStudentFrom",
+				"submit @ui.FormFlashPoint":"SubmitFlashPoint",
+				"click .btnAddFlashPoint":"AddFlashPoint",
+				"click @ui.BtnRemoveParent":"ClickRemoveParent"
 			},
 			initialize:function(options){
 				if(options){
@@ -273,6 +284,15 @@ define([
 						break;
 				}
 			},
+			AddFlashPoint:function(e){
+				e.preventDefault();
+				var newPointTpl = _.template(FlashPointItemTpl);
+				this.ui.FieldSetFlashPointFuncBtn.before(newPointTpl());
+			},
+			ClickRemoveParent:function(e){
+				e.preventDefault();
+				$(e.currentTarget).parent().remove();
+			},
 
 			/*
 			 * 将字符串/ Date / ******* / 转为JS的Date类型
@@ -406,6 +426,35 @@ define([
 					that.SetModel.SetStudentFromList.call(that,StudentFromModel,StudentFromCollection);
 					var ajaxData = JSON.stringify(that.model);
 					var postUrl = that.ui.FormStudentFrom.attr("action");
+					$.ajax({
+						type: "POST",
+						url: postUrl,
+						data: ajaxData,
+						dataType: 'json',
+						contentType: 'application/json; charset=utf-8',
+						success: function (data) {
+							if(data)
+								regView.ui.NavRegFrom.find("li:eq(3) a").tab('show');
+							else{
+								alert("Post Failed");
+							}
+						},
+						error:function(data){
+							alert(JSON.stringify(data));
+						}
+					});
+				})
+			},
+			SubmitFlashPoint:function(e){
+				e.preventDefault();
+				var that = this;
+				require([
+					'models/StudentMgr/SaleTrack/FlashPointModel',
+					'collections/StudentMgr/SaleTrack/FlashPointCollection'
+				],function(FlashPointModel,FlashPointCollection){
+					that.SetModel.SetFlashPointList.call(that,FlashPointModel,FlashPointCollection);
+					var ajaxData = JSON.stringify(that.model);
+					var postUrl = that.ui.FormFlashPoint.attr("action");
 					$.ajax({
 						type: "POST",
 						url: postUrl,
@@ -591,7 +640,7 @@ define([
 				},
 				SetStudentFromList:function(StudentFromModel,StudentFromCollection){
 					var studentID = this.StudentID;
-					var studentFromList = new StudentFromCollection()
+					var studentFromList = new StudentFromCollection();
 
 					var chkIsFrom = this.$el.find(".chkIsFrom:checked");
 					chkIsFrom.each(function(i){
@@ -608,6 +657,26 @@ define([
 						)
 					});
 					this.model.set("StudentFromList",studentFromList);
+					return;
+				},
+				SetFlashPointList:function(FlashPointModel,FlashPointCollection){
+					var studentID = this.StudentID;
+					var flashPointList = new FlashPointCollection();
+
+					this.ui.FlashPointItem.each(function(i){
+						var flashPointType = $(this).find(".FlashPointType").val();
+						var flashPointIntro = $(this).find(".FlashPointIntro").val();
+						var flashPointDate = $(this).find(".FlashPointDate").val();
+						flashPointList.add(
+							new FlashPointModel({
+								StudentID:studentID,
+								FlashPointType:flashPointType.toString(),
+								FlashPointIntro:flashPointIntro,
+								FlashPointDate:flashPointDate
+							})
+						);
+					});
+					this.model.set("StudentFlashPointList",flashPointList);
 					return;
 				}
 			}

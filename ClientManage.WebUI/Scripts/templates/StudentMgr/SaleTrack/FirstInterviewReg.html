@@ -1,9 +1,10 @@
-<div id="studentMgr-FirstInterviewReg-wrap">
+<div id="studentMgr-FirstInterviewReg-wrap" xmlns="http://www.w3.org/1999/html">
     <h3>编写客户初访表：<%= StudentInfo.NameCn %></h3>
     <ul class="nav nav-tabs" id="FirstInterviewRegFromNav">
         <li class="active"><a href="#tabFirstInterviewRegInfo" data-toggle="tab">学生基本信息</a></li>
         <li><a href="#tabFirstInterviewRegTP" data-toggle="tab">语言课程信息</a></li>
         <li><a href="#tabFirstInterviewRegFrom" data-toggle="tab">客户来源</a></li>
+        <li><a href="#tabFirstInterviewRegFlashPoint" data-toggle="tab">客户闪光点</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tabFirstInterviewRegInfo">
@@ -326,6 +327,37 @@
                         <button id="btnSubmitFrom" class="btn btn-large btn-success" type="submit">保存学生来源</button>&emsp;
                     </div>
                 </div>
+            </form>
+        </div>
+        <div class="tab-pane" id="tabFirstInterviewRegFlashPoint">
+            <form id="FirstInterviewRegFlashPointForm" action="/StudentMgr/SaleTrack/PostFirstInterviewRegFlashPointForm" method="post" class="form-horizontal">
+                <% _.each(StudentFlashPointList,function(FlashPointItem){ %>
+                <fieldset class="flashPointItem">
+                    <span>闪光点类别：</span>
+                    <select name="FlashPointType"class="FlashPointType span1">
+                        <option value="0" <%= (FlashPointItem.FlashPointType == "0") ?
+                        'selected="selected"' : "" %> >奖项</option>
+                        <option value="1" <%= (FlashPointItem.FlashPointType == "1") ?
+                        'selected="selected"' : "" %> >活动</option>
+                        <option value="2" <%= (FlashPointItem.FlashPointType == "2") ?
+                        'selected="selected"' : "" %> >经历</option>
+                        <option value="3" <%= (FlashPointItem.FlashPointType == "3") ?
+                        'selected="selected"' : "" %> >爱好</option>
+                    </select>
+                    &nbsp;
+                    <input type="text" class="FlashPointIntro span3" name="FlashPointIntro" placeholder="请输入闪光点简介" value="<%= FlashPointItem.FlashPointIntro %>" />
+                    &nbsp;
+                    <input type="text" class="FlashPointDate" placeholder="请输入发生日期" value="<%= FlashPointItem.FlashPointDate %>" />
+                    &nbsp;
+                    <a class="removeParent" href="javascript:void(0)"><i class="icon-remove"></i></a>
+                </fieldset>
+                <% }); %>
+                <fieldset id="flashPointFuncBtn">
+                    <button class="btnAddFlashPoint btn btn-info">添加闪光点</button>
+                    <br />
+                    <br />
+                    <button id="btnSubmitFlashPoint" class="btn btn-large btn-success" type="submit">提交所有闪光点</button>
+                </fieldset>
             </form>
         </div>
     </div>

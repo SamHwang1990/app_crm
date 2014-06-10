@@ -23,6 +23,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<ExamResultTFIELTSEntity> ExamResultTFIELTS { get; }
         IQueryable<StudentSourceItemEntity> StudentSourceItem { get; }
         IQueryable<StudentFromEntity> StudentFrom { get; }
+        IQueryable<StudentFlashPointEntity> StudentFlashPoint { get; }
 
         void SaveSaleTrack(SaleTrackEntity saleTrackItem, IEnumerable<SaleTrackParticipantsEntity> saleTrackParticipants);
         void SaveSaleTrack(SaleTrackEntity saleTrackItem);
@@ -32,6 +33,8 @@ namespace ClientManage.Domain.Abstract
         void SaveExamResultTFIELTS(ExamResultTFIELTSEntity tfIELTSDetail);
         void SaveExamResultSATSSAT(ExamResultSATSSATEntity satSSATDetail);
         void SaveExamResultGREGMAT(ExamResultGREGMATEntity greGMATDetail);
+
+        void SaveStudentFlashPoint(IEnumerable<StudentFlashPointEntity> studentFlashPoints, Guid studentID);
 
     }
 }

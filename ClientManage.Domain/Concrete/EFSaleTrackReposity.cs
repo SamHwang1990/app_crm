@@ -84,6 +84,11 @@ namespace ClientManage.Domain.Concrete
             get { return context.StudentFrom; }
         }
 
+        public IQueryable<StudentFlashPointEntity> StudentFlashPoint 
+        {
+            get { return context.StudentFlashPoint; }
+        }
+
         #endregion
 
         #region 数据库交互
@@ -234,6 +239,31 @@ namespace ClientManage.Domain.Concrete
         }
 
 
+        #endregion
+
+        #region 对StudentFlashPoint 进行操作
+        public void SaveStudentFlashPoint(IEnumerable<StudentFlashPointEntity> studentFlashPoints, Guid studentID)
+        {
+            if (studentFlashPoints == null || studentFlashPoints.Count() == 0)
+                return;
+
+            StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentID);
+            if (studentInfo == null)
+            {
+                throw new Exception("当前学生信息不存在");
+            }
+            else
+            {
+                context.StudentFlashPoint.RemoveRange(context.StudentFlashPoint.Where(s => s.StudentID == studentInfo.StudentID).Select(s => s));
+                foreach (StudentFlashPointEntity flashPointItem in studentFlashPoints)
+                {
+                    flashPointItem.FlashPointID = Guid.NewGuid();       //重置ID
+                    context.StudentFlashPoint.Add(flashPointItem);   
+                }
+            }
+
+            context.SaveChanges();
+        }
         #endregion
 
         #endregion

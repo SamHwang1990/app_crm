@@ -291,11 +291,8 @@ namespace ClientManage.Domain.Concrete
                 context.StudentFrom.RemoveRange(context.StudentFrom.Where(s => s.StudentID == studentInfo.StudentID).Select(s => s));
                 foreach (StudentFromEntity fromItem in studentFroms)
                 {
-                    if (fromItem.ID == Guid.Empty)
-                    {
-                        fromItem.ID = Guid.NewGuid();
-                        context.StudentFrom.Add(fromItem);
-                    }
+                    fromItem.ID = Guid.NewGuid();       //重置ID
+                    context.StudentFrom.Add(fromItem);
                 }
             }
 
