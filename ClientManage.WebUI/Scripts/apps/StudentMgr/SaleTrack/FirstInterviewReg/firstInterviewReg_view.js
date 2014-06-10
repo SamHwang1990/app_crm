@@ -66,7 +66,6 @@ define([
 
 				"StudentFromWrap":".StudentFromWrap",
 
-				"FlashPointItem":".flashPointItem",
 				"FieldSetFlashPointFuncBtn":"#flashPointFuncBtn",
 				"BtnRemoveParent":".removeParent"
 			},
@@ -434,7 +433,7 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success: function (data) {
 							if(data)
-								regView.ui.NavRegFrom.find("li:eq(3) a").tab('show');
+								that.ui.NavRegFrom.find("li:eq(3) a").tab('show');
 							else{
 								alert("Post Failed");
 							}
@@ -663,9 +662,12 @@ define([
 					var studentID = this.StudentID;
 					var flashPointList = new FlashPointCollection();
 
-					this.ui.FlashPointItem.each(function(i){
+					this.$el.find(".flashPointItem").each(function(i){
 						var flashPointType = $(this).find(".FlashPointType").val();
 						var flashPointIntro = $(this).find(".FlashPointIntro").val();
+						if(flashPointIntro === "")
+							return;
+
 						var flashPointDate = $(this).find(".FlashPointDate").val();
 						flashPointList.add(
 							new FlashPointModel({

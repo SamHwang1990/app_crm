@@ -278,13 +278,14 @@ namespace ClientManage.Domain.Concrete
         #region 对StudentFrom 进行操作
         public void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms,Guid studentID)
         {
-            if (studentFroms == null || studentFroms.Count() == 0)
-                return;
-
             StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentID);
             if (studentInfo == null)
             {
                 throw new Exception("当前学生信息不存在");
+            }
+            if (studentFroms == null || studentFroms.Count() == 0)
+            {
+                context.StudentFrom.RemoveRange(context.StudentFrom.Where(s => s.StudentID == studentInfo.StudentID).Select(s => s));
             }
             else
             {

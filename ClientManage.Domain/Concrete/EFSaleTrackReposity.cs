@@ -244,13 +244,14 @@ namespace ClientManage.Domain.Concrete
         #region 对StudentFlashPoint 进行操作
         public void SaveStudentFlashPoint(IEnumerable<StudentFlashPointEntity> studentFlashPoints, Guid studentID)
         {
-            if (studentFlashPoints == null || studentFlashPoints.Count() == 0)
-                return;
-
             StudentInfoEntity studentInfo = context.StudentsInfo.FirstOrDefault(s => s.StudentID == studentID);
             if (studentInfo == null)
             {
                 throw new Exception("当前学生信息不存在");
+            }
+            if (studentFlashPoints == null || studentFlashPoints.Count() == 0)
+            {
+                context.StudentFlashPoint.RemoveRange(context.StudentFlashPoint.Where(s => s.StudentID == studentInfo.StudentID).Select(s => s));
             }
             else
             {
