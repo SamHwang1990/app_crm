@@ -31,13 +31,45 @@ define([
 					this.curUserID = options.curUserID;             //当前销售负责人的ID
 				},
 				onRender:function(){
-					if(this.curRoleID !== ""){                      //如果主角色ID不为空，就设定对应的option为选中
+					/*if(this.curRoleID !== ""){                      //如果主角色ID不为空，就设定对应的option为选中
 						this.$el.find('option[value='+this.curRoleID + ']').attr("selected","selected");
 					}else{                                          //否则，设置第一个option为选中
 						this.$el.find('option:first').attr("selected","selected");
 					}
 					var defaultRoleID = this.$el.val();             //获取select的值
-					this.setUserList(defaultRoleID,this,this.curUserID);
+					this.setUserList(defaultRoleID,this,this.curUserID);*/
+					this.renderRoleAndUserList();
+				},
+				renderRoleAndUserList:function(){
+					var rolesView = this;
+					var CurrentRoleAndUserModel = Backbone.Model.extend({
+						defaults:{
+							CurRoleID:"",
+							CurUserID:""
+						},
+						initialize:function(){
+							this.url = '/StudentMgr/Index/GetNextJobRoleAndUser';
+						}
+					});
+					var currentRoleAndUser = new CurrentRoleAndUserModel();
+					currentRoleAndUser.fetch({
+						success:function(data){
+							var curRoleID = currentRoleAndUser.get("CurRoleID");
+							var curUserID = currentRoleAndUser.get("CurUserID");
+							if(curRoleID !== ''){
+								rolesView.$el.find('option[value='+curRoleID + ']').attr("selected","selected");
+							}else{                                          //否则，设置第一个option为选中
+								rolesView.$el.find('option:first').attr("selected","selected");
+							}
+
+							var defaultRoleID = rolesView.$el.val();             //获取select的值
+							rolesView.setUserList(defaultRoleID,rolesView,curUserID);
+						},
+						error:function(){
+							alert("自动安排下一个销售顾问失败")
+						}
+					})
+
 				},
 				changeUserList:function(){                          //绑定到el上的change事件处理程序
 					this.setUserList(this.$el.val(),this);

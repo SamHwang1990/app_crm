@@ -7,6 +7,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		var roleInfoModel = Backbone.Model.extend({
 			defaults:{
 				RoleID:'',
+				IsForSaleTrack:false,
 				RoleName:'',
 				RoleEN:'',
 				RoleRemark:''

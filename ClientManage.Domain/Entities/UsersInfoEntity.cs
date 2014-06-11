@@ -34,6 +34,7 @@ namespace ClientManage.Domain.Entities
         private string _Mobile;
         private string _UserRemark;
         private DateTime _LastJobDate;
+        private bool _IsForSaleTrack;
 
         /// <summary>
         /// 
@@ -132,6 +133,12 @@ namespace ClientManage.Domain.Entities
         }
 
         public DateTime? LastLoginTime
+        {
+            get;
+            set;
+        }
+
+        public bool IsForSaleTrack
         {
             get;
             set;

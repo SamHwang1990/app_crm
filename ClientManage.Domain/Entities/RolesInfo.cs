@@ -23,6 +23,15 @@ namespace ClientManage.Domain.Entities
             set { _RoleID = value; }
             get { return _RoleID; }
         }
+
+        private bool _IsForSaleTrack;
+
+        public bool IsForSaleTrack
+        {
+            get;
+            set;
+        }
+
         private string _RoleName;
         
         [Required(ErrorMessage="Please enter a role name")]

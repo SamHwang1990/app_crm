@@ -128,12 +128,15 @@ define([
 			},
 			//初始化所有日期选择器
 			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker){
+				var dateNow = new Date();
+				var today = dateNow.getFullYear() + "-" + dateNow.getMonth() + "-" + dateNow.getDate() + " "
 				targetPicker.datetimepicker({     //调用bootstrap的datetimepicker插件
 					format: dateFormatString,        //指定显示格式
 					autoclose: true,        //点击具体日期或时间后关闭选择框
 					startView:startView,            //设置起始选择框形式，2代表显示month
 					minView:minView,
-					maxView:maxView
+					maxView:maxView,
+					startDate: new Date(today)
 				});
 			},
 			/*
@@ -436,12 +439,15 @@ define([
 				}
 				var easyChatTemp = _.template(EasyChatTimeTpl);
 				$(event.target).before(easyChatTemp(chatTimeModel.toJSON()));
+				var dateNow = new Date();
+				var today = dateNow.getFullYear() + "-" + dateNow.getMonth() + "-" + dateNow.getDate() + " "
 				$('div.easyChat-wrap .timePicker').datetimepicker({     //调用bootstrap的datetimepicker插件
 					format: "hh:ii",        //指定显示格式
 					autoclose: true,        //点击具体日期或时间后关闭选择框
 					startView:0,            //设置起始选择框形式，0代表显示hour
 					minView:0,              //设置允许的最低层选择框形式
-					maxView:0               //设置允许的最顶层选择框形式
+					maxView:0,               //设置允许的最顶层选择框形式
+					startDate: new Date(today)
 				});
 			},
 			ChatTimeChange:function(event){             //当chattime的值改变时触发，用于验证

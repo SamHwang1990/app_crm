@@ -13,11 +13,12 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		}
 	});
 
+
 	var EasyChatTimeEntity = Backbone.Model.extend({
 		defaults:{
 			ItemID:"00000000-0000-0000-0000-000000000000",
-			TimeBegin:"00:00",
-			TimeEnd:"23:55",
+			TimeBegin:"09:00",
+			TimeEnd:"10:00",
 			IfStudentID:"00000000-0000-0000-0000-000000000000",
 			IfParentID:"00000000-0000-0000-0000-000000000000"
 		}

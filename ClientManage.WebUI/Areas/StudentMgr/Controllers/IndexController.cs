@@ -15,10 +15,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
     public class IndexController : Controller
     {
         private IStudentInfoRepository repository;
+        private IUserInfoRepository userRepository;
 
-        public IndexController(IStudentInfoRepository studentInfoRepository)
+        public IndexController(IStudentInfoRepository studentInfoRepository,IUserInfoRepository _userRepository)
         {
             repository = studentInfoRepository;
+            userRepository = _userRepository;
         }
 
         
@@ -68,6 +70,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 studentInfo.Email = ajaxData.ContactStudent.ContactIdentity.Email;
             }
             repository.SaveStudentInfo(studentInfo, appRelation);   //保存StudentInfo以及AppRelation信息
+
+            //更新销售顾问的LastJobData
+            UserInfoEntity saleUser = repository.UsersInfo.SingleOrDefault(u => u.UserID == appRelation.SaleConsultant);
+            saleUser.LastJobDate = DateTime.Now;
+            userRepository.SaveUserInfo(saleUser);
 
             if (ajaxData.ContactStudent != null && ajaxData.ContactStudent.EasyChatTimes != null)
             {
@@ -447,6 +454,34 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         {
             IEnumerable<StudentSchoolEntity> schoolList = repository.StudentSchool;
             return Json(schoolList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 返回下一个Sale 的UserID 和 RoleID
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetNextJobRoleAndUser()
+        {
+            IEnumerable<UserInfoEntity> forSaleUser = repository.UsersInfo.Where(s => s.IsForSaleTrack == true);
+            object returnResult = null;
+            if (forSaleUser == null || forSaleUser.Count() <= 0)
+            {
+                returnResult = new {CurRoleID = "", CurUserID = ""};
+            }
+            else
+            {
+                DateTime minLastJobDate = forSaleUser.Min(u => u.LastJobDate);
+                UserInfoEntity nextSaler = forSaleUser.FirstOrDefault(u => u.LastJobDate == minLastJobDate);
+                if (nextSaler == null)
+                {
+                    returnResult = new { CurRoleID = "", CurUserID = "" };
+                }
+                else
+                {
+                    returnResult = new { CurRoleID = nextSaler.UserRole, CurUserID = nextSaler.UserID };
+                }
+            }
+            return Json(returnResult,JsonRequestBehavior.AllowGet);
         }
     }
 }

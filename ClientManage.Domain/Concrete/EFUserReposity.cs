@@ -31,7 +31,7 @@ namespace ClientManage.Domain.Concrete
             UserInfoEntity originUser = context.UsersInfo.Where(u => u.UserID == userInfo.UserID).SingleOrDefault();  //根据UserID查找到就的UserInfo
             if (originUser == null)
             {
-                SetNewUserLastJob(userInfo);
+                SetNewUserLastJob(userInfo);        //初始化新用户LastJobDate
                 userInfo.CreateTime = DateTime.Now; //初始化新用户的创建时间
                 userInfo.LastLoginTime = DateTime.Now;  //初始化新用户的最后登录时间
                 context.UsersInfo.Add(userInfo);

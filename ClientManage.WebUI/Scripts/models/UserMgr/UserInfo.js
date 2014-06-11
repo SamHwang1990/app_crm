@@ -15,7 +15,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				Email:'',
 				Mobile:'',
 				UserRemark:'',
-				LastJobDate:new Date()
+				LastJobDate:new Date(),
+				IsForSaleTrack:false
 			}
 		});
 		return userInfoModel;
