@@ -52,6 +52,12 @@ namespace ClientManage.Domain.Concrete
         {
             get { return context.SaleTrack; }
         }
+
+        public IQueryable<StudentSchoolEntity> StudentSchool
+        {
+            get { return context.StudentSchool; }
+        }
+
         #endregion
 
         #region 保存操作

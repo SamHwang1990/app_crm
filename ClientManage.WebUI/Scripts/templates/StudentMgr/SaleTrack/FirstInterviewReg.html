@@ -31,7 +31,7 @@
                         <input type="checkbox" class="CommonNationIntention AmericaIntention" data-nationIntention="美国" />美国&emsp;
                         <input type="checkbox" class="CommonNationIntention EnglandIntention" data-nationIntention="英国" />英国&emsp;
                         <input type="checkbox" class="CommonNationIntention CanadaIntention" data-nationIntention="加拿大" />加拿大&emsp;
-                        <input type="checkbox" class="OtherNationIntention"  data-nationIntention="其他" />其他&nbsp;
+                        <span>其他留学意向：</span>&nbsp;
                         <input type="text" class="txtOtherNationIntention" placeholder="请输入其他留学意向" value="<%= StudentInfo.OtherNationIntention %>" />
                     </div>
                 </div>
@@ -50,7 +50,8 @@
                 <div class="control-group">
                     <label class="control-label" for="SchoolCn">就读学校名称：</label>
                     <div class="controls">
-                        <input type="text" id="SchoolCn" name="SchoolCn" placeholder="请输入学校中文名" value="<%= StudentInfo.SchoolCn %>" />
+                        <select name="SchoolCn" id="SchoolCn" >
+                        </select>
                     </div>
                 </div>
                 <div class="control-group">

@@ -18,6 +18,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<StudentParentEntity> StudentParent { get; }
         IQueryable<StudentFromEntity> StudentFrom { get; }
         IQueryable<SaleTrackEntity> SaleTrack { get; }
+        IQueryable<StudentSchoolEntity> StudentSchool { get; }
 
         void SaveStudentInfo(StudentInfoEntity studentInfo,AppRelationsEntity appRelation);
 

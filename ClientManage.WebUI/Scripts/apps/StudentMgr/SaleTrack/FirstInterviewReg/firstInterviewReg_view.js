@@ -11,7 +11,13 @@ define([
 	'models/StudentMgr/EnumModel/ExamType',
 	'models/StudentMgr/EnumModel/EducationIntention',
 	'text!templates/StudentMgr/SaleTrack/FlashPointItem.html'
-	],function(ClientManage,FirstInterviewRegModel,FirstInterviewRegTpl,Datetimepicker,EnumExamType,EnumEducationIntention,FlashPointItemTpl){
+	],function(ClientManage,
+               FirstInterviewRegModel,
+               FirstInterviewRegTpl,
+               Datetimepicker,
+               EnumExamType,
+               EnumEducationIntention,
+               FlashPointItemTpl){
 	ClientManage.module('StudentMgr.SaleTrack.FirstInterviewReg.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.FirstInterviewRegView = Marionette.Layout.extend({
 			template:_.template(FirstInterviewRegTpl),
@@ -106,6 +112,7 @@ define([
 				this.RenderStudentInfoHandler.SetGrade.call(this);
 				this.RenderStudentInfoHandler.SetGraduationDate.call(this);
 				this.RenderStudentInfoHandler.SetNationIntention.call(this);
+				this.RenderStudentInfoHandler.SetStudentSchool.call(this);
 			},
 			//初始化StudentTP Form的信息
 			RenderStudentTP:function(){
@@ -155,10 +162,36 @@ define([
 							}
 						})
 					}
+				},
+				SetStudentSchool:function(){
+					var schoolCn = this.model.get("StudentInfo").SchoolCn;
+					var $SchoolCn = this.$el.find("#SchoolCn")
+					require([
+						'collections/StudentMgr/Index/StudentSchoolList',
+						'text!templates/StudentMgr/Index/StudentSchoolItem.html'
+						],function(StudentSchoolCol,StudentSchoolItemTpl){
+						var studentSchoolList = new StudentSchoolCol({
+							url:"/StudentMgr/Index/GetStudentSchoolList"
+						});
+						studentSchoolList.fetch({
+							success:function(){
+								_.each(studentSchoolList.models,function(SchoolItem){
+									var schoolItemTpl = _.template(StudentSchoolItemTpl);
+									var schoolItemHtml = schoolItemTpl(SchoolItem.toJSON());
+									$SchoolCn.append(schoolItemHtml);
+								});
 
-					if(otherNation != null && otherNation !== "" ){
-						this.ui.ChkOtherNationIntention.attr('checked','checked');
-					}
+								if(schoolCn != ''){
+									$SchoolCn.find("option").removeAttr("selected");
+									$SchoolCn.find("option[value=" + schoolCn + "]").attr("selected","selected");
+								}
+
+							},
+							error:function(){
+
+							}
+						})
+					})
 				}
 			},
 			RenderStudentTPHandler:{
@@ -482,9 +515,12 @@ define([
 					var nationIntention = '';
 					this.ui.ChkCommonNationIntention.each(function(index){
 						if($(this).is(":checked")){
-							nationIntention += nationIntention + $(this).attr("data-nationIntention");
+							nationIntention += $(this).attr("data-nationIntention") + ',';
 						}
-					})
+					});
+
+
+
 					var otherNationIntention = infoForm.find(".txtOtherNationIntention").val();
 
 					var educationIntention = infoForm.find("#EducationIntention").val();

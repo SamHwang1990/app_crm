@@ -441,5 +441,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             return Json(contacts, JsonRequestBehavior.AllowGet);
         }
+
+        //返回所有就读学校列表
+        public JsonResult GetStudentSchoolList()
+        {
+            IEnumerable<StudentSchoolEntity> schoolList = repository.StudentSchool;
+            return Json(schoolList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -81,6 +81,7 @@
     <Compile Include="Entities\StudentFromEntity.cs" />
     <Compile Include="Entities\StudentInfoEntity.cs" />
     <Compile Include="Entities\StudentParentEntity.cs" />
+    <Compile Include="Entities\StudentSchoolEntity.cs" />
     <Compile Include="Entities\StudentSourceItemEntity.cs" />
     <Compile Include="Entities\StudentTPInfoEntity.cs" />
     <Compile Include="Entities\UsersInfoEntity.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Enum\PersonIdentity.cs" />
     <Compile Include="Enum\PointDelivery.cs" />
     <Compile Include="Enum\SaleParticipantIdentity.cs" />
+    <Compile Include="Enum\SchoolType.cs" />
     <Compile Include="Enum\TrackIsComplete.cs" />
     <Compile Include="Enum\TrackPattern.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

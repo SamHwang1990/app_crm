@@ -29,5 +29,6 @@ namespace ClientManage.Domain.Concrete
         public DbSet<StudentSourceItemEntity> StudentSourceItem { get; set; }
         public DbSet<StudentTPInfoEntity> StudentTPInfo { get; set; }
         public DbSet<StudentFlashPointEntity> StudentFlashPoint { get; set; }
+        public DbSet<StudentSchoolEntity> StudentSchool { get; set; }
     }
 }
