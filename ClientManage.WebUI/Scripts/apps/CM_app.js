@@ -23,7 +23,12 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
 				"StudentMgr/SaleTrack/AppInterview-:id":"StudentMgrSaleTrackAppInterview",
 				"StudentMgr/SaleTrack/FirstInterviewReg-:id":"StudentMgrSaleTrackFirstInterviewReg",
-				"StudentMgr/SaleTrack/SaleTrackHistory-:id":"StudentMgrSaleTrackSaleTrackHistory"
+				"StudentMgr/SaleTrack/SaleTrackHistory-:id":"StudentMgrSaleTrackSaleTrackHistory",
+
+				/*RoleMgr Router*/
+				"RoleMgr/List":"RoleMgrList",
+				"RoleMgr/Add":"RoleMgrAdd",
+				"RoleMgr/Edit-:id":"RoleMgrEdit"
 			}
 		});
 
@@ -73,7 +78,6 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 			},
 
 			/*StudentMgr SaleTrack Router Controller*/
-
 			StudentMgrSaleTrackList:function(){
 				require([
 					'apps/StudentMgr/SaleTrack/List/list_controller'],
@@ -101,6 +105,29 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 					function(StudentMgrSaleTrackHistoryController){
 						executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
 					})
+			},
+
+			/*RoleMgr Router Controller*/
+			RoleMgrList:function(){
+				require([
+					'apps/RoleMgr/List/list_controller'],
+					function(RoleMgrListController){
+						executeAction(RoleMgrListController.ShowList);
+					})
+			},
+			RoleMgrAdd:function(){
+				require([
+					'apps/RoleMgr/Create/create_controller'],
+					function(RoleMgrCreateController){
+						executeAction(RoleMgrCreateController.ShowCreate)
+					})
+			},
+			RoleMgrEdit:function(id){
+				require([
+					'apps/RoleMgr/Edit/edit_controller'
+				],function(RoleMgrEditController){
+					executeAction(RoleMgrEditController.ShowEdit,id)
+				})
 			}
 		};
 

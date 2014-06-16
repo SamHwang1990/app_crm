@@ -1,0 +1,40 @@
+<div class="roleMgr-edit-wrap">
+    <h2>编辑角色信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/RoleMgr/Edit" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="RoleName">角色中文名：</label>
+            <div class="controls">
+                <input type="text" id="RoleName" name="RoleName" placeholder="请输入角色中文名" value="<%= RoleName %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="RoleEN">角色英文名：</label>
+            <div class="controls">
+                <input type="text" id="RoleEN" name="RoleEN" placeholder="请输入角色英文名" value="<%= RoleEN %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="RoleRemark">备注：</label>
+            <div class="controls">
+                <textarea id="RoleRemark" placeholder="请输入角色备注"><%= RoleRemark %></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForSaleTrack" name="IsForSaleTrack" <%= (IsForSaleTrack == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责销售
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

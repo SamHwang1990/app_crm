@@ -28,5 +28,26 @@ namespace ClientManage.WebUI.Controllers
             return Json(roleList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult Edit(RoleInfo ajaxData)
+        {
+            repository.SaveRoleInfo(ajaxData);
+            return Json(new { SaveResult = true });
+        }
+
+        /// <summary>
+        /// 根据角色ID返回角色实体
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        public JsonResult Edit(string roleID)
+        {
+            if (roleID == null || roleID == string.Empty || roleID == Guid.Empty.ToString())
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            RoleInfo roleInfo = repository.RolesInfo.Single(r => r.RoleID == new Guid(roleID));
+            return Json(roleInfo, JsonRequestBehavior.AllowGet);
+        }
     }
 }
