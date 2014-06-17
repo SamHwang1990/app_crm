@@ -32,7 +32,8 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 
 				/*UserMgr Router*/
 				"UserMgr/List":"UserMgrList",
-				"UserMgr/Edit-:id":"UserMgrEdit"
+				"UserMgr/Edit-:id":"UserMgrEdit",
+				"UserMgr/Add":"UserMgrAdd"
 			}
 		});
 
@@ -147,6 +148,13 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 					'apps/UserMgr/Edit/edit_controller'],
 					function(UserMgrEditController){
 						executeAction(UserMgrEditController.ShowEdit,id)
+					})
+			},
+			UserMgrAdd:function(){
+				require([
+					'apps/UserMgr/Create/create_controller'],
+					function(UserMgrCreateController){
+						executeAction(UserMgrCreateController.ShowEdit)
 					})
 			}
 		};

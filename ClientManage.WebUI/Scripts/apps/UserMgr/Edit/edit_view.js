@@ -37,9 +37,46 @@ define([
 				"btnSubmit":"#btnSubmit"
 			},
 			events:{
-				'changed @ui.selectUserRole':"ChangeUserRole",
-				'changed @ui.selectUserSecondRole':"ChangeUserSecondRole",
+				'change @ui.selectUserRole':"ChangeUserRole",
+				'change @ui.selectUserSecondRole':"ChangeUserSecondRole",
 				'submit @ui.EditForm':'EditSubmit'
+			},
+			onRender:function(){
+				this.RenderIsForSaleTrack();
+			},
+			RenderIsForSaleTrack:function(){
+				var userRoleID = this.model.get("UserRole");
+				this.ui.selectUserRole.find('option[value=' + userRoleID + ']').attr("selected","selected");
+
+				var userSecondRoleID = this.model.get("UserSecondRole");
+				this.ui.selectUserSecondRole.find('option[value=' + userSecondRoleID + ']').attr("selected","selected");
+
+				var isForSaleTrack = this.model.get('IsForSaleTrack');
+				if(isForSaleTrack.toString() == 'true')
+					this.ui.inputIsForSaleTrack.attr('checked','checked');
+				else
+					this.ui.inputIsForSaleTrack.removeAttr('checked');
+			},
+			ChangeUserRole:function(e){
+				this.ChangeIsForSaleTrack();
+			},
+			ChangeUserSecondRole:function(e){
+				this.ChangeIsForSaleTrack();
+			},
+			ChangeIsForSaleTrack:function(){
+				var userRoleOpt = this.ui.selectUserRole.find("option:selected");
+				var mainRoleForSale = userRoleOpt.attr("data-IsForSale");
+
+				var userSecondRoleOpt = this.ui.selectUserSecondRole.find("option:selected");
+				var secondRoleForSale = userSecondRoleOpt.attr("data-IsForSale");
+
+				var isForSaleTrack = mainRoleForSale || secondRoleForSale;
+
+				var chkIsForSaleTrack = this.ui.inputIsForSaleTrack;
+				if(isForSaleTrack.toString() == 'true')
+					chkIsForSaleTrack.attr('checked','checked');
+				else
+					chkIsForSaleTrack.removeAttr('checked');
 			},
 			/*
 			 * 用于显示和隐藏feedback信息
@@ -94,17 +131,37 @@ define([
 				return true;
 			},
 			setUserInfo:function(){
-				/*var roleName = this.ui.inputRoleName.val();
-				var roleEn = this.ui.inputRoleEN.val();
-				var roleRemark = this.ui.textAreaRoleRemark.val();
+				var userNameCn = this.ui.inputUserNameCn.val();
+				var userNameEn = this.ui.inputUserNameEn.val();
+				var userPass = this.ui.inputUserPass.val();
+
+				var userRole = this.ui.selectUserRole.val();
+				var userRoleName = this.ui.selectUserRole.find('option:selected').text();
+				var userSecondRole = this.ui.selectUserSecondRole.val();
+				var userSecondRoleName = this.ui.selectUserSecondRole.find('option:selected').text();
+
+				var email = this.ui.inputEmail.val();
+				var mobile = this.ui.inputMobile.val();
+				var userRemark = this.ui.textAreaUserRemark.val();
+
 				var isForSaleTrack = this.ui.inputIsForSaleTrack.is(":checked");
 
-				this.model.set("RoleName",roleName);
-				this.model.set("RoleEN",roleEn);
-				this.model.set("RoleRemark",roleRemark);
-				this.model.set("IsForSaleTrack",isForSaleTrack);*/
+				this.model.set("UserNameCn",userNameCn);
+				this.model.set("UserNameEn",userNameEn);
+				this.model.set("UserPass",userPass);
+
+				this.model.set("UserRole",userRole);
+				this.model.set("UserRoleName",userRoleName);
+				this.model.set("UserSecondRole",userSecondRole);
+				this.model.set("UserSecondRoleName",userSecondRoleName);
+
+				this.model.set("Email",email);
+				this.model.set("Mobile",mobile);
+				this.model.set("UserRemark",userRemark);
+
+				this.model.set("IsForSaleTrack",isForSaleTrack);
 			},
-			CreateSubmit:function(event){
+			EditSubmit:function(event){
 				//阻止默认的表单提交行为
 				event.preventDefault();
 				if(this.validateForm()){

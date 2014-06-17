@@ -86,5 +86,12 @@ namespace ClientManage.WebUI.Controllers
             UserInfoEntity userInfo = repository.UsersInfo.Single(r => r.UserID == new Guid(userID));
             return Json(userInfo, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult Edit(UserInfoEntity ajaxData)
+        {
+            repository.SaveUserInfo(ajaxData);
+            return Json(new { SaveResult = true });
+        }
     }
 }

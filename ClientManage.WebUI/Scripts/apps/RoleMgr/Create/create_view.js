@@ -8,7 +8,7 @@ define([
 	'models/RoleMgr/RoleInfo',
 	'text!templates/RoleMgr/Edit.html'
 	],function(ClientManage,RoleInfoModel,RoleEditTpl){
-	ClientManage.module('RoleMgr.Create.View',function(View,ClientManage,Backbone,Marionette,$,_){
+	ClientManage.module('RoleMgr.Edit.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.RoleCreateView = Marionette.Layout.extend({
 			template:_.template(RoleEditTpl),
 			tagName:"div",
@@ -108,5 +108,5 @@ define([
 			}
 		});
 	});
-	return ClientManage.RoleMgr.Create.View;
+	return ClientManage.RoleMgr.Edit.View;
 })

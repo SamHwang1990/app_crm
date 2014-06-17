@@ -7,7 +7,7 @@ define(['app'],function(ClientManage){
 	ClientManage.module('UserMgr.Edit',function(Edit,ClientManage,Backbone, Marionette, $, _){
 		Edit.Controller = {
 			ShowEdit:function(contentRegion,userID){
-				ClientManage.startSubApp("UserMgr.Create");
+				ClientManage.startSubApp("UserMgr.Edit");
 				require([
 					'apps/UserMgr/Edit/edit_view',
 					'models/UserMgr/UserInfo',

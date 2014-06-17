@@ -4,10 +4,10 @@
  ***************************************/
 
 define(['app'],function(ClientManage){
-	ClientManage.module('RoleMgr.Create',function(Create,ClientManage,Backbone, Marionette, $, _){
-		Create.Controller = {
+	ClientManage.module('RoleMgr.Edit',function(Edit,ClientManage,Backbone, Marionette, $, _){
+		Edit.Controller = {
 			ShowCreate:function(contentRegion){
-				ClientManage.startSubApp("RoleMgr.Create");
+				ClientManage.startSubApp("RoleMgr.Edit");
 				require([
 					'apps/RoleMgr/Create/create_view',
 					'models/RoleMgr/RoleInfo']
@@ -21,5 +21,5 @@ define(['app'],function(ClientManage){
 			}
 		}
 	});
-	return ClientManage.RoleMgr.Create.Controller;
+	return ClientManage.RoleMgr.Edit.Controller;
 })
