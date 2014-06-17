@@ -29,7 +29,9 @@ namespace ClientManage.Domain.Entities
         private string _UserNameEn;
         private string _UserPass;
         private Guid _UserRole;
+        private string _UserRoleName;
         private Guid _UserSecondRole;
+        private string _UserSecondRoleName;
         private string _Email;
         private string _Mobile;
         private string _UserRemark;
@@ -82,6 +84,16 @@ namespace ClientManage.Domain.Entities
             set{_UserRole = value;}
             get{return _UserRole;}
         }
+
+        /// <summary>
+        /// 用户主角色名字
+        /// </summary>
+        public string UserRoleName
+        {
+            set { _UserRoleName = value; }
+            get { return _UserRoleName; }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -92,6 +104,16 @@ namespace ClientManage.Domain.Entities
             set{_UserSecondRole = value;}
             get{return _UserSecondRole;}
         }
+
+        /// <summary>
+        /// 用户辅助角色名
+        /// </summary>
+        public string UserSecondRoleName
+        {
+            set { _UserSecondRoleName = value; }
+            get { return _UserSecondRoleName; }
+        }
+
         /// <summary>
         /// 
         /// </summary>

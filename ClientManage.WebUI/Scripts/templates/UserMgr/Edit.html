@@ -1,0 +1,78 @@
+<div class="userMgr-edit-wrap">
+    <h2>编辑用户信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/UserMgr/Edit" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="UserNameCn">用户中文名：</label>
+            <div class="controls">
+                <input type="text" id="UserNameCn" name="UserNameCn" placeholder="请输入用户中文名" value="<%= UserNameCn %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="UserNameEn">用户英文名：</label>
+            <div class="controls">
+                <input type="text" id="UserNameEn" name="UserNameEn" placeholder="请输入用户英文名" value="<%= UserNameEn %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="UserPass">修改用户密码：</label>
+            <div class="controls">
+                <input type="password" id="UserPass" name="UserPass" placeholder="请输入用户密码" value="<%= UserPass %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="UserRole">用户主角色：</label>
+            <div class="UserRoleWrap controls">
+                <select name="UserRole" id="UserRole">
+                    <% _.each(RoleList,function(RoleInfo){ %>
+                    <option value="<%= RoleInfo.RoleID %>" data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"><%= RoleInfo.RoleName %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="UserSecondRole">用户辅助角色：</label>
+            <div class="UserSecondRoleWrap controls">
+                <select name="UserSecondRole" id="UserSecondRole">
+                    <% _.each(RoleList,function(RoleInfo){ %>
+                    <option value="<%= RoleInfo.RoleID %>" data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"><%= RoleInfo.RoleName %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Email">用户邮箱：</label>
+            <div class="controls">
+                <input type="text" id="Email" name="Email" placeholder="请输入用户邮箱" value="<%= Email %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Mobile">用户电话：</label>
+            <div class="controls">
+                <input type="text" id="Mobile" name="Mobile" placeholder="请输入用户电话" value="<%= Mobile %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForSaleTrack" name="IsForSaleTrack" <%= (IsForSaleTrack == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责销售
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="UserRemark">备注：</label>
+            <div class="controls">
+                <textarea id="UserRemark" placeholder="请输入用户备注"><%= UserRemark %></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

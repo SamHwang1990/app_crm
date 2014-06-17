@@ -54,6 +54,8 @@ namespace ClientManage.WebUI.Controllers
             else
             {
                 FormsAuthentication.SetAuthCookie(UserName, RememberMe);
+                user.LastLoginTime = DateTime.Now;
+                repository.SaveUserInfo(user);
                 loginResult = true;
             }
 

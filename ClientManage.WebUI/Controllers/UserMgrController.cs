@@ -71,5 +71,20 @@ namespace ClientManage.WebUI.Controllers
             //return Json(new { RoleID = roleID },JsonRequestBehavior.AllowGet);
             return roleID; ;
         }
+
+        /// <summary>
+        /// 根据用户ID返回用户信息实体
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public JsonResult Edit(string userID)
+        {
+            if (userID == null || userID == string.Empty || userID == Guid.Empty.ToString())
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            UserInfoEntity userInfo = repository.UsersInfo.Single(r => r.UserID == new Guid(userID));
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
+        }
     }
 }

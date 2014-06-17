@@ -1,5 +1,5 @@
-<div id="RoleMgr-List-Content">
-    <h2>您所管理的角色列表</h2>
+<div id="UserMgr-List-Content">
+    <h2>系统用户列表</h2>
     <form class="form-search">
         <div class="input-prepend">
             <div class="btn-group">
@@ -9,7 +9,7 @@
                 </button>
                 <ul class="condition-list dropdown-menu">
                     <li><a href="#" class="condition-all">全部</a></li>
-                    <li><a href="#">角色名</a></li>
+                    <li><a href="#">用户名</a></li>
                 </ul>
             </div>
             <input class="span2 search-content" type="text" placeholder="全部无需筛选" disabled="disabled">
@@ -17,13 +17,18 @@
         <button type="submit" class="btn">Search</button>
     </form>
     <p>
-        <a href="#RoleMgr/Add" class="btn btn-success">添加角色</a>
+        <a href="#UserMgr/Add" class="btn btn-success">添加用户</a>
     </p>
     <table class="table table-striped table-bordered table-hover">
         <thead>
         <tr>
-            <th>角色名字</th>
-            <th>角色备注</th>
+            <th>用户名字</th>
+            <th>主角色</th>
+            <th>辅助角色</th>
+            <th>邮箱</th>
+            <th>电话</th>
+            <th>是否负责销售</th>
+            <th>上次登录时间</th>
             <th>操作</th>
         </tr>
         </thead>

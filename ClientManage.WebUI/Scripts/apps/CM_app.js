@@ -28,7 +28,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				/*RoleMgr Router*/
 				"RoleMgr/List":"RoleMgrList",
 				"RoleMgr/Add":"RoleMgrAdd",
-				"RoleMgr/Edit-:id":"RoleMgrEdit"
+				"RoleMgr/Edit-:id":"RoleMgrEdit",
+
+				/*UserMgr Router*/
+				"UserMgr/List":"UserMgrList",
+				"UserMgr/Edit-:id":"UserMgrEdit"
 			}
 		});
 
@@ -128,6 +132,22 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				],function(RoleMgrEditController){
 					executeAction(RoleMgrEditController.ShowEdit,id)
 				})
+			},
+
+			/*UserMgr Router Controller*/
+			UserMgrList:function(){
+				require([
+					'apps/UserMgr/List/list_controller'],
+					function(UserMgrListController){
+						executeAction(UserMgrListController.ShowList);
+					})
+			},
+			UserMgrEdit:function(id){
+				require([
+					'apps/UserMgr/Edit/edit_controller'],
+					function(UserMgrEditController){
+						executeAction(UserMgrEditController.ShowEdit,id)
+					})
 			}
 		};
 

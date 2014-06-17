@@ -19,9 +19,9 @@
             <li><a href="#StudentMgr/Index/Create"><i class="icon-plus icon-white"></i>&nbsp;新建 </a> </li>
         </ul>
         <div class="dropdown pull-right">
-            <a href="<%= AppConfig.sitePath %>User/Edit" class="editUser" data-toggle="dropdown">您好，<%= CurrentUser.UserName %>&nbsp;&nbsp;<i class="icon-user icon-white"></i> </a>
+            <a href="#" class="editUser" data-toggle="dropdown">您好，<%= CurrentUser.UserName %>&nbsp;&nbsp;<i class="icon-user icon-white"></i> </a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="#">编辑我的个人资料</a></li>
+                <li><a href="#UserMgr/Edit-<%= CurrentUser.UserID %>">编辑我的个人资料</a></li>
                 <li><a href="#SignOut">登出</a> </li>
             </ul>
         </div>

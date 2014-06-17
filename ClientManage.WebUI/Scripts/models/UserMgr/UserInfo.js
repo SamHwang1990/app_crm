@@ -11,12 +11,21 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				UserNameEn:'',
 				UserPass:'',
 				UserRole:'',
+				UserRoleName:'',
 				UserSecondRole:'',
+				UserSecondRoleName:'',
 				Email:'',
 				Mobile:'',
 				UserRemark:'',
 				LastJobDate:new Date(),
+				LastLoginTime:new Date(),
+				CreateTime:new Date(),
 				IsForSaleTrack:false
+			},
+			initialize:function(options){
+				if(options != null){
+					this.url = options.url;
+				}
 			}
 		});
 		return userInfoModel;
