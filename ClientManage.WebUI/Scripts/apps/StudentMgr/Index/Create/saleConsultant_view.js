@@ -31,7 +31,7 @@ define([
 					this.curUserID = options.curUserID;             //当前销售负责人的ID
 				},
 				onRender:function(){
-					if(this.curRoleID !== ""){                      //如果主角色ID不为空，就设定对应的option为选中
+					if(this.curRoleID !== "" && this.curRoleID !== undefined){                      //如果主角色ID不为空，就设定对应的option为选中
 						this.$el.find('option[value='+this.curRoleID + ']').attr("selected","selected");
 						var defaultRoleID = this.$el.val();             //获取select的值
 						this.setUserList(defaultRoleID,this,this.curUserID);
