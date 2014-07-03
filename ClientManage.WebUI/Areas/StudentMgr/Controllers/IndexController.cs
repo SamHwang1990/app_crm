@@ -114,13 +114,19 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             bool editResult = true;
             if (studentInfo != null && appRelation != null)
             {
+                //获取学生现在的销售顾问的ID，等下将要与新的销售顾问进行比较
+                Guid? currentSaleConsultantID = repository.AppRelations.Single(a => a.StudentID == studentInfo.StudentID).SaleConsultant;
+
                 //保存StudentInfo、AppRelation 信息到数据库中
                 repository.SaveStudentInfo(studentInfo, appRelation);
 
-                //更新销售顾问的LastJobData
-                UserInfoEntity saleUser = repository.UsersInfo.SingleOrDefault(u => u.UserID == appRelation.SaleConsultant);
-                saleUser.LastJobDate = DateTime.Now;
-                userRepository.SaveUserInfo(saleUser);
+                //只有在销售顾问有变化时才更新新销售顾问的LastJobData
+                if (currentSaleConsultantID != appRelation.SaleConsultant)
+                {
+                    UserInfoEntity saleUser = repository.UsersInfo.SingleOrDefault(u => u.UserID == appRelation.SaleConsultant);
+                    saleUser.LastJobDate = DateTime.Now;
+                    userRepository.SaveUserInfo(saleUser);
+                }
 
                 //删除EasyChatTimes中与学生有关的所有记录
                 repository.EmptyStudentEasyChatTimes(studentInfo.StudentID);

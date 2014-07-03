@@ -29,6 +29,7 @@ namespace ClientManage.Domain.Entities
         private string _LiveCity;
         private string _SchoolCn;
         private string _SchoolEn;
+        private string _OtherSchool;
         private byte _Grade;
         private short _GradeRank;
         private short _GradeScale;
@@ -166,6 +167,11 @@ namespace ClientManage.Domain.Entities
         {
             set { _SchoolEn = value; }
             get { return _SchoolEn; }
+        }
+        public string OtherSchool
+        {
+            set { _OtherSchool = value; }
+            get { return _OtherSchool; }
         }
         /// <summary>
         /// 年级

@@ -26,9 +26,19 @@ define([
 
 				var originGender = studentInfo.Gender;
 				studentInfo.Gender = EnumGender.GenderInverse[originGender];
+
+				var schoolCn = studentInfo.SchoolCn;
+				var otherSchool = studentInfo.OtherSchool;
+				var SchoolCn;
+				if(schoolCn == null){
+					SchoolCn = "";
+				}else if(schoolCn.indexOf('其他') >= 0)
+					SchoolCn = otherSchool;
+
 				return {
 					StudentInfo:studentInfo,
-					AppRelation:this.model.get("AppRelation")
+					AppRelation:this.model.get("AppRelation"),
+					SchoolCn:SchoolCn
 				}
 			}
 		});

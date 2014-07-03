@@ -312,9 +312,11 @@ define([
 			setStudentInfo:function(){
 				var nameCn = this.$el.find('input[name=studentName]').eq(0).val();
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
+				var remark = this.$el.find('#Remark').val();
 				this.model.get('StudentInfo').set({
 					NameCn:nameCn,
-					LiveCity:liveCity
+					LiveCity:liveCity,
+					Remark:remark
 				});
 			},
 			setAppRelation:function(){

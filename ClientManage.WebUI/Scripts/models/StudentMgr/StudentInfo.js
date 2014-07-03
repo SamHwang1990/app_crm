@@ -20,6 +20,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			LiveCity:"广州",
 			SchoolCn:"",
 			SchoolEn:"",
+			OtherSchool:"",
 			Grade:"12",
 			GradeRank:1,
 			GradeScale:"",

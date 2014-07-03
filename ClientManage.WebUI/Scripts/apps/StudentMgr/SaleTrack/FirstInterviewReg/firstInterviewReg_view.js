@@ -78,6 +78,7 @@ define([
 			events:{
 				"click .IsLangTran":"ClickIsLangTran",
 				"change @ui.SelectEducationIntention":"ChangeEducationIntention",
+				"change #SchoolCn":"ChangeStudentSchool",
 				"submit @ui.FormStudentInfo":"SubmitStudentInfo",
 				"submit @ui.FormStudentTP":"SubmitStudentTP",
 				"submit @ui.FormStudentFrom":"SubmitStudentFrom",
@@ -165,7 +166,9 @@ define([
 				},
 				SetStudentSchool:function(){
 					var schoolCn = this.model.get("StudentInfo").SchoolCn;
-					var $SchoolCn = this.$el.find("#SchoolCn")
+					var otherSchool = this.model.get("StudentInfo").OtherSchool;
+					var $SchoolCn = this.$el.find("#SchoolCn");
+					var $OtherSchool = this.$el.find("#OtherSchool");
 					require([
 						'collections/StudentMgr/Index/StudentSchoolList',
 						'text!templates/StudentMgr/Index/StudentSchoolItem.html'
@@ -184,7 +187,15 @@ define([
 								if(schoolCn != ''){
 									$SchoolCn.find("option").removeAttr("selected");
 									$SchoolCn.find("option[value=" + schoolCn + "]").attr("selected","selected");
-								};
+								}else{
+									$SchoolCn.find('option:first').attr("selected","selected");
+								}
+
+								if($SchoolCn.val().indexOf('其他') < 0 ){
+									$OtherSchool.addClass("display");
+								}else{
+									$OtherSchool.removeClass("display");
+								}
 
 							},
 							error:function(){
@@ -314,6 +325,16 @@ define([
 						break;
 					default :
 						break;
+				}
+			},
+			ChangeStudentSchool:function(e){
+				var school = $(e.target).val();
+				var $otherSchool = $("#OtherSchool");
+				if(school.indexOf('其他') >= 0){
+					$otherSchool.removeClass('display');
+				}else{
+					$otherSchool.addClass('display');
+					$otherSchool.val('');
 				}
 			},
 			AddFlashPoint:function(e){
@@ -519,12 +540,11 @@ define([
 						}
 					});
 
-
-
 					var otherNationIntention = infoForm.find(".txtOtherNationIntention").val();
 
 					var educationIntention = infoForm.find("#EducationIntention").val();
 					var schoolCn = infoForm.find("#SchoolCn").val();
+					var otherSchool = infoForm.find("#OtherSchool").val();
 					var grade = infoForm.find("#Grade").val();
 					var graduationDate = infoForm.find("#GraduationDate").val();
 					var gradeRank = infoForm.find("#GradeRank").val();
@@ -537,6 +557,7 @@ define([
 					studentInfo.OtherNationIntention = otherNationIntention;
 					studentInfo.EducationIntention = educationIntention;
 					studentInfo.SchoolCn = schoolCn;
+					studentInfo.OtherSchool = otherSchool;
 					studentInfo.Grade = grade;
 					studentInfo.GraduationDate = graduationDate;
 					studentInfo.GradeRank = gradeRank;
