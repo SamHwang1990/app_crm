@@ -301,12 +301,14 @@ define([
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
 				var mobile = this.$el.find('input[name=Mobile]').eq(0).val();
 				var email = this.$el.find('input[name=Email]').eq(0).val();
+				var remark = this.$el.find('#Remark').val();
 				var studentInfo = this.model.get('StudentInfo');
 				studentInfo.NameCn = nameCn;
 				studentInfo.LiveCity = liveCity;
 				studentInfo.Mobile = mobile;
 				studentInfo.Email = email;
 				studentInfo.CreateTime = this.transToDate(studentInfo.CreateTime);
+				studentInfo.Remark = remark;
 				//return this.model.get('StudentInfo');
 			},
 			/*
