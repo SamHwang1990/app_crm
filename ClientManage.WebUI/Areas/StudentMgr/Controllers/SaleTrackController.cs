@@ -713,7 +713,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         [HttpPost]
         public JsonResult PostCreateFromForm(IEnumerable<StudentFromEntity> ajaxData)
         {
-            if (ajaxData.Count() <= 0)
+            if (ajaxData == null || ajaxData.Count() <= 0)
             {
                 return Json(true);
             }

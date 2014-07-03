@@ -184,7 +184,7 @@ define([
 								if(schoolCn != ''){
 									$SchoolCn.find("option").removeAttr("selected");
 									$SchoolCn.find("option[value=" + schoolCn + "]").attr("selected","selected");
-								}
+								};
 
 							},
 							error:function(){

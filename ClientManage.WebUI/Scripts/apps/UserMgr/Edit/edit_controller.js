@@ -25,7 +25,6 @@ define(['app'],function(ClientManage){
 									return alert("传入的用户ID不能为空");
 								}
 								else{
-
 									var roleList = new RoleListCollection;
 									roleList.fetch({
 										success:function(){

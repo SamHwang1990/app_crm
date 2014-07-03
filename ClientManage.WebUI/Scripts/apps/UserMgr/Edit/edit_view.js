@@ -160,6 +160,10 @@ define([
 				this.model.set("UserRemark",userRemark);
 
 				this.model.set("IsForSaleTrack",isForSaleTrack);
+
+				var lastJobDatePattern = /\d+/;
+				var lastJobDateMatches = lastJobDatePattern.exec(this.model.get("LastJobDate"));
+				this.model.set("LastJobDate",new Date(parseInt(lastJobDateMatches[0])));
 			},
 			EditSubmit:function(event){
 				//阻止默认的表单提交行为
