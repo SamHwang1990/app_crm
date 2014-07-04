@@ -18,6 +18,7 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				"StudentMgr/Index/Create":"StudentMgrIndexCreate",
 				"StudentMgr/Index/Edit/Student-:id":"StudentMgrIndexEditStudent",
 				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts",
+				"StudentMgr/AssignConsultant-:id":"StudentMgrAssignConsultant",
 
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
@@ -79,6 +80,11 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 			StudentMgrIndexEditContacts:function(id){
 				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
 					executeAction(StudentMgrIndexEditController.EditContacts,id);
+				})
+			},
+			StudentMgrAssignConsultant:function(id){
+				require(['apps/StudentMgr/AssignConsultant/assign_controller'],function(StudentMgrAssignConsultantController){
+					executeAction(StudentMgrAssignConsultantController.AssignConsultant,id);
 				})
 			},
 

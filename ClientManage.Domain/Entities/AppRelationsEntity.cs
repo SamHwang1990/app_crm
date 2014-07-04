@@ -81,6 +81,11 @@ namespace ClientManage.Domain.Entities
             set;
             get;
         }
+        public bool HasAssignConsultant
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -110,12 +115,12 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public Guid? AssayConsultant
+        public Guid? EssayConsultant
         {
             set;
             get;
         }
-        public string AssayConsultantName
+        public string EssayConsultantName
         {
             set;
             get;
@@ -136,12 +141,12 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 
         /// </summary>
-        public Guid? LanguageConsultant
+        public Guid? ExamConsultant
         {
             set;
             get;
         }
-        public string LanguageConsultantName
+        public string ExamConsultantName
         {
             set;
             get;

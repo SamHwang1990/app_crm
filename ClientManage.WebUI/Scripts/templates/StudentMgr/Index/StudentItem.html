@@ -8,7 +8,11 @@
     <a href="#StudentMgr/Index/Edit/Student-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改基本信息</a>
     <a href="#StudentMgr/Index/Edit/Contacts-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>'>修改联系人信息</a>
     <% if (AppRelation.IsSign == '4' ) { %>
-    <a href="#" title='<%= StudentInfo.NameCn %>' class="btn btn-success btn-mini">进入申请</a>
+        <% if (AppRelation.HasAssignConsultant) { %>
+        <a href="#" title='<%= StudentInfo.NameCn %>' class="btn btn-success btn-mini">进入申请</a>
+        <% } else { %>
+        <a href="#StudentMgr/AssignConsultant-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>' class="btn btn-info btn-mini">分配顾问</a>
+        <% } %>
     <% } else { %>
     <a href="#StudentMgr/SaleTrack/AppInterview-<%= StudentInfo.StudentID %>" title='<%= StudentInfo.NameCn %>' class="btn btn-info btn-mini">进入销售</a>
     <% } %>
