@@ -24,14 +24,6 @@ namespace ClientManage.Domain.Entities
             get { return _RoleID; }
         }
 
-        private bool _IsForSaleTrack;
-
-        public bool IsForSaleTrack
-        {
-            get;
-            set;
-        }
-
         private string _RoleName;
         
         [Required(ErrorMessage="Please enter a role name")]
@@ -54,6 +46,42 @@ namespace ClientManage.Domain.Entities
         {
             set { _RoleRemark = value; }
             get { return _RoleRemark; }
+        }
+
+        public bool IsForSaleTrack
+        {
+            get;
+            set;
+        }
+
+        public bool IsForApply
+        {
+            get;
+            set;
+        }
+
+        public bool IsForEssay
+        {
+            get;
+            set;
+        }
+
+        public bool IsForAct
+        {
+            get;
+            set;
+        }
+
+        public bool IsForExam
+        {
+            get;
+            set;
+        }
+
+        public bool IsForManage
+        {
+            get;
+            set;
         }
 
         #endregion

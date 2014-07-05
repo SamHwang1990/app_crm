@@ -11,6 +11,17 @@ using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI.Controllers
 {
+    public struct UserBasicInfo
+    {
+        public string UserName;
+        public Guid UserID;
+        //public UserBasicInfo(string _UserName, Guid _UserID)
+        //{
+        //    UserName = _UserName;
+        //    UserID = _UserID;
+        //}
+    }
+
     public class UserMgrController : Controller
     {
         private IUserInfoRepository repository;
@@ -30,6 +41,63 @@ namespace ClientManage.WebUI.Controllers
                 Guid roleID = new Guid(roleIDString);
                 userList = repository.UsersInfo.Where(s => s.UserRole == roleID || s.UserSecondRole == roleID);
             }
+            return Json(userList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 返回申请顾问列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetApplyConsultant()
+        {
+            UserBasicInfo tempA = new UserBasicInfo { UserName = "aha", UserID = Guid.NewGuid() };
+            Array userList = repository.UsersInfo
+                .Where(u => u.IsForApply)
+                .OrderBy(u => u.LastJobDate)
+                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID })
+                .ToArray<UserBasicInfo>();
+            return Json(userList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 返回申请顾问列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetEssayConsultant()
+        {
+            IEnumerable<UserBasicInfo> userList = null;
+            userList = repository.UsersInfo
+                .Where(u => u.IsForEssay == true)
+                .OrderBy(u => u.LastJobDate)
+                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
+            return Json(userList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 返回活动顾问列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetActConsultant()
+        {
+            IEnumerable<UserBasicInfo> userList = null;
+            userList = repository.UsersInfo
+                .Where(u => u.IsForAct == true)
+                .OrderBy(u => u.LastJobDate)
+                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
+            return Json(userList, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 返回语言顾问列表
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetExamConsultant()
+        {
+            IEnumerable<UserBasicInfo> userList = null;
+            userList = repository.UsersInfo
+                .Where(u => u.IsForExam == true)
+                .OrderBy(u => u.LastJobDate)
+                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
         

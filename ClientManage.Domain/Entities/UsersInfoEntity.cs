@@ -36,7 +36,6 @@ namespace ClientManage.Domain.Entities
         private string _Mobile;
         private string _UserRemark;
         private DateTime _LastJobDate;
-        private bool _IsForSaleTrack;
 
         /// <summary>
         /// 
@@ -161,6 +160,36 @@ namespace ClientManage.Domain.Entities
         }
 
         public bool IsForSaleTrack
+        {
+            get;
+            set;
+        }
+
+        public bool IsForApply
+        {
+            get;
+            set;
+        }
+
+        public bool IsForEssay
+        {
+            get;
+            set;
+        }
+
+        public bool IsForAct
+        {
+            get;
+            set;
+        }
+
+        public bool IsForExam
+        {
+            get;
+            set;
+        }
+
+        public bool IsForManage
         {
             get;
             set;
