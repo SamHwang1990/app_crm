@@ -147,6 +147,48 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return Json(new { EditResult = editResult });
         }
 
+        [HttpPost]
+        public JsonResult AssignConsultant(AssignConsultantData ajaxData)
+        {
+            if (ajaxData == null || ajaxData.StudentID == null || ajaxData.StudentID == Guid.Empty)
+                return Json(false);
+
+            StudentInfoEntity studentInfo = repository.StudentsInfo.Single(s => s.StudentID == ajaxData.StudentID);
+            AppRelationsEntity relation = repository.AppRelations.Single(a => a.StudentID == ajaxData.StudentID);
+            relation.ApplyConsultant = ajaxData.ApplyConsultant;
+            relation.ApplyConsultantName = ajaxData.ApplyConsultantName;
+            relation.EssayConsultant = ajaxData.EssayConsultant;
+            relation.EssayConsultantName = ajaxData.EssayConsultantName;
+            relation.ActConsultant = ajaxData.ActConsultant;
+            relation.ActConsultantName = ajaxData.ActConsultantName;
+            relation.ExamConsultant = ajaxData.ExamConsultant;
+            relation.ExamConsultantName = ajaxData.ExamConsultantName;
+            relation.HasAssignConsultant = true;
+
+            repository.SaveStudentInfo(studentInfo, relation);
+            List<UserInfoEntity> userList = new List<UserInfoEntity>();
+
+            UserInfoEntity applyConsultant = userRepository.UsersInfo.Single(u => u.UserID == ajaxData.ApplyConsultant);
+            applyConsultant.LastJobDate = DateTime.Now;
+            userList.Add(applyConsultant);
+
+            UserInfoEntity essayConsultant = userRepository.UsersInfo.Single(u => u.UserID == ajaxData.EssayConsultant);
+            essayConsultant.LastJobDate = DateTime.Now;
+            userList.Add(essayConsultant);
+
+            UserInfoEntity actConsultant = userRepository.UsersInfo.Single(u => u.UserID == ajaxData.ActConsultant);
+            actConsultant.LastJobDate = DateTime.Now;
+            userList.Add(actConsultant);
+
+            UserInfoEntity examConsultant = userRepository.UsersInfo.Single(u => u.UserID == ajaxData.ExamConsultant);
+            examConsultant.LastJobDate = DateTime.Now;
+            userList.Add(examConsultant);
+
+            userRepository.SaveUserList(userList);
+
+            return Json(true);
+        }
+
         /// <summary>
         /// 编辑学生联系人信息
         /// </summary>

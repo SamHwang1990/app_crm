@@ -90,6 +90,7 @@
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\SaleTrackController.cs" />
+    <Compile Include="Areas\StudentMgr\Models\AssignConsultantData.cs" />
     <Compile Include="Areas\StudentMgr\Models\ExamResultModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\FirstInterviewRegModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\SaleTrackAjaxViewModel.cs" />

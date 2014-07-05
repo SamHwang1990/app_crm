@@ -43,6 +43,31 @@ namespace ClientManage.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void SaveUserList(List<UserInfoEntity> userList)
+        {
+            foreach (UserInfoEntity userInfo in userList)
+            {
+                if (userInfo.UserID == Guid.Empty)  //如果传入的Guid全为0，则为添加
+                {
+                    userInfo.UserID = Guid.NewGuid();
+                }
+                UserInfoEntity originUser = context.UsersInfo.Where(u => u.UserID == userInfo.UserID).SingleOrDefault();  //根据UserID查找到就的UserInfo
+                if (originUser == null)
+                {
+                    SetNewUserLastJob(userInfo);        //初始化新用户LastJobDate
+                    userInfo.CreateTime = DateTime.Now; //初始化新用户的创建时间
+                    userInfo.LastLoginTime = DateTime.Now;  //初始化新用户的最后登录时间
+                    context.UsersInfo.Add(userInfo);
+                }
+                else
+                {   //传入的Guid有效，则为更新
+                    context.Entry(originUser).CurrentValues.SetValues(userInfo);
+                }
+                originUser = null;
+            }
+            context.SaveChanges();
+        }
+
         public void DeleteUserInfo(UserInfoEntity userInfo)
         {
             UserInfoEntity originUser = context.UsersInfo.Where(u => u.UserID == userInfo.UserID).SingleOrDefault();  //根据UserID查找到就的UserInfo

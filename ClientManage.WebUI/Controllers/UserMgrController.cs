@@ -11,7 +11,7 @@ using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI.Controllers
 {
-    public struct UserBasicInfo
+    public class UserBasicInfo
     {
         public string UserName;
         public Guid UserID;
@@ -50,12 +50,10 @@ namespace ClientManage.WebUI.Controllers
         /// <returns></returns>
         public JsonResult GetApplyConsultant()
         {
-            UserBasicInfo tempA = new UserBasicInfo { UserName = "aha", UserID = Guid.NewGuid() };
-            Array userList = repository.UsersInfo
+            var userList = repository.UsersInfo
                 .Where(u => u.IsForApply)
                 .OrderBy(u => u.LastJobDate)
-                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID })
-                .ToArray<UserBasicInfo>();
+                .Select(u => new { UserName = u.UserNameCn, UserID = u.UserID });
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
 
@@ -65,11 +63,10 @@ namespace ClientManage.WebUI.Controllers
         /// <returns></returns>
         public JsonResult GetEssayConsultant()
         {
-            IEnumerable<UserBasicInfo> userList = null;
-            userList = repository.UsersInfo
+            var userList = repository.UsersInfo
                 .Where(u => u.IsForEssay == true)
                 .OrderBy(u => u.LastJobDate)
-                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
+                .Select(u => new { UserName = u.UserNameCn, UserID = u.UserID });
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
 
@@ -79,11 +76,10 @@ namespace ClientManage.WebUI.Controllers
         /// <returns></returns>
         public JsonResult GetActConsultant()
         {
-            IEnumerable<UserBasicInfo> userList = null;
-            userList = repository.UsersInfo
+            var userList = repository.UsersInfo
                 .Where(u => u.IsForAct == true)
                 .OrderBy(u => u.LastJobDate)
-                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
+                .Select(u => new { UserName = u.UserNameCn, UserID = u.UserID });
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
 
@@ -93,11 +89,10 @@ namespace ClientManage.WebUI.Controllers
         /// <returns></returns>
         public JsonResult GetExamConsultant()
         {
-            IEnumerable<UserBasicInfo> userList = null;
-            userList = repository.UsersInfo
+            var userList = repository.UsersInfo
                 .Where(u => u.IsForExam == true)
                 .OrderBy(u => u.LastJobDate)
-                .Select(u => new UserBasicInfo { UserName = u.UserNameCn, UserID = u.UserID });
+                .Select(u => new { UserName = u.UserNameCn, UserID = u.UserID });
             return Json(userList, JsonRequestBehavior.AllowGet);
         }
         
