@@ -20,7 +20,12 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				LastJobDate:new Date(),
 				LastLoginTime:new Date(),
 				CreateTime:new Date(),
-				IsForSaleTrack:false
+				IsForSaleTrack:false,
+				IsForApply:false,
+				IsForEssay:false,
+				IsForAct:false,
+				IsForExam:false,
+				IsForManage:false
 			},
 			initialize:function(options){
 				if(options != null){

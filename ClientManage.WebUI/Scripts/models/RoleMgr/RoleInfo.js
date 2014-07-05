@@ -8,6 +8,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			defaults:{
 				RoleID:'00000000-0000-0000-0000-000000000000',
 				IsForSaleTrack:false,
+				IsForApply:false,
+				IsForEssay:false,
+				IsForAct:false,
+				IsForExam:false,
+				IsForManage:false,
 				RoleName:'',
 				RoleEN:'',
 				RoleRemark:''

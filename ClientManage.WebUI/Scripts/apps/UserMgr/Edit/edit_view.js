@@ -34,6 +34,11 @@ define([
 				"inputMobile":"#Mobile",
 				"textAreaUserRemark":"#UserRemark",
 				"inputIsForSaleTrack":"#IsForSaleTrack",
+				"inputIsForApply":"#IsForApply",
+				"inputIsForEssay":"#IsForEssay",
+				"inputIsForAct":"#IsForAct",
+				"inputIsForExam":"#IsForExam",
+				"inputIsForManage":"#IsForManage",
 				"btnSubmit":"#btnSubmit"
 			},
 			events:{
@@ -42,41 +47,55 @@ define([
 				'submit @ui.EditForm':'EditSubmit'
 			},
 			onRender:function(){
-				this.RenderIsForSaleTrack();
+				this.RenderResponseAndUserRole();
 			},
-			RenderIsForSaleTrack:function(){
+			RenderResponseAndUserRole:function(){
 				var userRoleID = this.model.get("UserRole");
 				this.ui.selectUserRole.find('option[value=' + userRoleID + ']').attr("selected","selected");
 
 				var userSecondRoleID = this.model.get("UserSecondRole");
 				this.ui.selectUserSecondRole.find('option[value=' + userSecondRoleID + ']').attr("selected","selected");
 
-				var isForSaleTrack = this.model.get('IsForSaleTrack');
-				if(isForSaleTrack.toString() == 'true')
-					this.ui.inputIsForSaleTrack.attr('checked','checked');
+				this.RenderResponseHandler("IsForSaleTrack",this.ui.inputIsForSaleTrack);
+				this.RenderResponseHandler("IsForApply",this.ui.inputIsForApply);
+				this.RenderResponseHandler("IsForEssay",this.ui.inputIsForEssay);
+				this.RenderResponseHandler("IsForAct",this.ui.inputIsForAct);
+				this.RenderResponseHandler("IsForExam",this.ui.inputIsForExam);
+				this.RenderResponseHandler("IsForManage",this.ui.inputIsForManage);
+			},
+			RenderResponseHandler:function(responseType,responseInput){
+				var isResponse = this.model.get(responseType);
+				if(isResponse.toString() == 'true')
+					responseInput.prop('checked', true);
 				else
-					this.ui.inputIsForSaleTrack.removeAttr('checked');
+					responseInput.prop('checked', false);
 			},
 			ChangeUserRole:function(e){
-				this.ChangeIsForSaleTrack();
+				this.ChangeResponse();
 			},
 			ChangeUserSecondRole:function(e){
-				this.ChangeIsForSaleTrack();
+				this.ChangeResponse();
 			},
-			ChangeIsForSaleTrack:function(){
+			ChangeResponse:function(){
+				this.ChangeResponseHandler("data-IsForSale",this.ui.inputIsForSaleTrack);
+				this.ChangeResponseHandler("data-IsForApply",this.ui.inputIsForApply);
+				this.ChangeResponseHandler("data-IsForEssay",this.ui.inputIsForEssay);
+				this.ChangeResponseHandler("data-IsForAct",this.ui.inputIsForAct);
+				this.ChangeResponseHandler("data-IsForExam",this.ui.inputIsForExam);
+				this.ChangeResponseHandler("data-Isformanage",this.ui.inputIsForManage);
+			},
+			ChangeResponseHandler:function(responseAttr,responseInput){
 				var userRoleOpt = this.ui.selectUserRole.find("option:selected");
-				var mainRoleForSale = userRoleOpt.attr("data-IsForSale");
+				var mainRoleForResponse = userRoleOpt.attr(responseAttr);
 
 				var userSecondRoleOpt = this.ui.selectUserSecondRole.find("option:selected");
-				var secondRoleForSale = userSecondRoleOpt.attr("data-IsForSale");
+				var secondRoleForResponse = userSecondRoleOpt.attr(responseAttr);
 
-				var isForSaleTrack = mainRoleForSale || secondRoleForSale;
-
-				var chkIsForSaleTrack = this.ui.inputIsForSaleTrack;
-				if(isForSaleTrack.toString() == 'true')
-					chkIsForSaleTrack.attr('checked','checked');
+				var isResponse = (mainRoleForResponse === 'true') || (secondRoleForResponse === 'true');
+				if(isResponse == true)
+					responseInput.prop('checked', true);
 				else
-					chkIsForSaleTrack.removeAttr('checked');
+					responseInput.prop('checked', false);
 			},
 			/*
 			 * 用于显示和隐藏feedback信息
@@ -145,6 +164,11 @@ define([
 				var userRemark = this.ui.textAreaUserRemark.val();
 
 				var isForSaleTrack = this.ui.inputIsForSaleTrack.is(":checked");
+				var isForApply = this.ui.inputIsForApply.is(":checked");
+				var isForEssay = this.ui.inputIsForEssay.is(":checked");
+				var isForAct = this.ui.inputIsForAct.is(":checked");
+				var isForExam = this.ui.inputIsForExam.is(":checked");
+				var isForManage = this.ui.inputIsForManage.is(":checked");
 
 				this.model.set("UserNameCn",userNameCn);
 				this.model.set("UserNameEn",userNameEn);
@@ -160,6 +184,11 @@ define([
 				this.model.set("UserRemark",userRemark);
 
 				this.model.set("IsForSaleTrack",isForSaleTrack);
+				this.model.set("IsForApply",isForApply);
+				this.model.set("IsForEssay",isForEssay);
+				this.model.set("IsForAct",isForAct);
+				this.model.set("IsForExam",isForExam);
+				this.model.set("IsForManage",isForManage);
 
 				var lastJobDatePattern = /\d+/;
 				var lastJobDateMatches = lastJobDatePattern.exec(this.model.get("LastJobDate"));

@@ -33,6 +33,51 @@
         </div>
         <div class="control-group">
             <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForApply" name="IsForApply" <%= (IsForApply == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责申请
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForEssay" name="IsForEssay" <%= (IsForEssay == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责文书
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForAct" name="IsForAct" <%= (IsForAct == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责活动策划
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForExam" name="IsForExam" <%= (IsForExam == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责语言考试
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForManage" name="IsForManage" <%= (IsForManage == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责系统管理
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
                 <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
             </div>
         </div>

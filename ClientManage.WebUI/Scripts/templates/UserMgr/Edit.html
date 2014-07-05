@@ -27,7 +27,14 @@
             <div class="UserRoleWrap controls">
                 <select name="UserRole" id="UserRole">
                     <% _.each(RoleList,function(RoleInfo){ %>
-                    <option value="<%= RoleInfo.RoleID %>" data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"><%= RoleInfo.RoleName %></option>
+                    <option value="<%= RoleInfo.RoleID %>"
+                            data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"
+                            data-IsForApply="<%= RoleInfo.IsForApply %>"
+                            data-IsForEssay="<%= RoleInfo.IsForEssay %>"
+                            data-IsForAct="<%= RoleInfo.IsForAct %>"
+                            data-IsForExam="<%= RoleInfo.IsForExam %>"
+                            data-IsForManage="<%= RoleInfo.IsForManage %>"
+                            ><%= RoleInfo.RoleName %></option>
                     <% }) %>
                 </select>
             </div>
@@ -37,7 +44,14 @@
             <div class="UserSecondRoleWrap controls">
                 <select name="UserSecondRole" id="UserSecondRole">
                     <% _.each(RoleList,function(RoleInfo){ %>
-                    <option value="<%= RoleInfo.RoleID %>" data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"><%= RoleInfo.RoleName %></option>
+                    <option value="<%= RoleInfo.RoleID %>"
+                            data-IsForSale="<%= RoleInfo.IsForSaleTrack %>"
+                            data-IsForApply="<%= RoleInfo.IsForApply %>"
+                            data-IsForEssay="<%= RoleInfo.IsForEssay %>"
+                            data-IsForAct="<%= RoleInfo.IsForAct %>"
+                            data-IsForExam="<%= RoleInfo.IsForExam %>"
+                            data-IsForManage="<%= RoleInfo.IsForManage %>"
+                            ><%= RoleInfo.RoleName %></option>
                     <% }) %>
                 </select>
             </div>
@@ -60,6 +74,51 @@
                     <input type="checkbox" id="IsForSaleTrack" name="IsForSaleTrack" <%= (IsForSaleTrack == true) ?
                     'checked="checked"' : "" %> />
                     是否负责销售
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForApply" name="IsForApply" <%= (IsForApply == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责申请
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForEssay" name="IsForEssay" <%= (IsForEssay == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责文书
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForAct" name="IsForAct" <%= (IsForAct == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责活动策划
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForExam" name="IsForExam" <%= (IsForExam == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责语言考试
+                </label>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox" id="IsForManage" name="IsForManage" <%= (IsForManage == true) ?
+                    'checked="checked"' : "" %> />
+                    是否负责系统管理
                 </label>
             </div>
         </div>

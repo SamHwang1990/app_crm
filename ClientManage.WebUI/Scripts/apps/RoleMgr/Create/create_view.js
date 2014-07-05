@@ -19,6 +19,11 @@ define([
 				"inputRoleEN":"#RoleEN",
 				"textAreaRoleRemark":"#RoleRemark",
 				"inputIsForSaleTrack":"#IsForSaleTrack",
+				"inputIsForApply":"#IsForApply",
+				"inputIsForEssay":"#IsForEssay",
+				"inputIsForAct":"#IsForAct",
+				"inputIsForExam":"#IsForExam",
+				"inputIsForManage":"#IsForManage",
 				"btnSubmit":"#btnSubmit"
 			},
 			events:{
@@ -72,11 +77,21 @@ define([
 				var roleEn = this.ui.inputRoleEN.val();
 				var roleRemark = this.ui.textAreaRoleRemark.val();
 				var isForSaleTrack = this.ui.inputIsForSaleTrack.is(":checked");
+				var isForApply = this.ui.inputIsForApply.is(":checked");
+				var isForEssay = this.ui.inputIsForEssay.is(":checked");
+				var isForAct = this.ui.inputIsForAct.is(":checked");
+				var isForExam = this.ui.inputIsForExam.is(":checked");
+				var isForManage = this.ui.inputIsForManage.is(":checked");
 
 				this.model.set("RoleName",roleName);
 				this.model.set("RoleEN",roleEn);
 				this.model.set("RoleRemark",roleRemark);
 				this.model.set("IsForSaleTrack",isForSaleTrack);
+				this.model.set("IsForApply",isForApply);
+				this.model.set("IsForEssay",isForEssay);
+				this.model.set("IsForAct",isForAct);
+				this.model.set("IsForExam",isForExam);
+				this.model.set("IsForManage",isForManage);
 			},
 			CreateSubmit:function(event){
 				//阻止默认的表单提交行为
