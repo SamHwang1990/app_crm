@@ -170,6 +170,8 @@
     <Content Include="Scripts\apps\SignIn\SignIn\signIn_view.js" />
     <Content Include="Scripts\apps\SignIn\SignIn_app.js" />
     <Content Include="Scripts\apps\SignIn\SignOut\signOut_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\AssignConsultant\assign_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\AssignConsultant\assign_view.js" />
     <Content Include="Scripts\apps\StudentMgr\Index\Create\create_controller.js" />
     <Content Include="Scripts\apps\StudentMgr\Index\Create\create_view.js" />
     <Content Include="Scripts\apps\StudentMgr\Index\Create\saleConsultant_view.js" />
@@ -205,6 +207,7 @@
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\SaleTrackParticipant.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentFromCollection.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentSourceCollection.js" />
+    <Content Include="Scripts\collections\UserMgr\UserBasicInfoList.js" />
     <Content Include="Scripts\collections\UserMgr\UserList.js" />
     <Content Include="Scripts\libs\backbone\backbone-relational.js" />
     <Content Include="Scripts\libs\backbone\backbone.js" />
@@ -259,6 +262,7 @@
     <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentTPInfoModel.js" />
     <Content Include="Scripts\models\StudentMgr\StudentInfo.js" />
     <Content Include="Scripts\models\StudentMgr\StudentInfoViewModel.js" />
+    <Content Include="Scripts\models\UserMgr\UserBasicInfo.js" />
     <Content Include="Scripts\models\UserMgr\UserInfo.js" />
     <Content Include="Scripts\require_main.js" />
     <Content Include="Scripts\templates\Common\adminMenu.html" />
@@ -273,6 +277,7 @@
     <Content Include="Scripts\templates\RoleMgr\Edit.html" />
     <Content Include="Scripts\templates\RoleMgr\List.html" />
     <Content Include="Scripts\templates\RoleMgr\ListItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\AssignConsultant\AssignConsultant.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\ContactContent.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\Create.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\EasyChatTime.html" />
