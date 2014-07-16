@@ -88,6 +88,8 @@
     <Compile Include="Areas\Admin\Models\RolesInfoViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserAndRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
+    <Compile Include="Areas\Setting\Controllers\ApplyStageVersionController.cs" />
+    <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\SaleTrackController.cs" />
     <Compile Include="Areas\StudentMgr\Models\AssignConsultantData.cs" />
@@ -315,6 +317,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Areas\Setting\Views\Web.config" />
     <None Include="Scripts\libs\backbone\backbone-min.map" />
     <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
     <None Include="Scripts\libs\underscore\underscore-min.map" />
@@ -348,6 +351,8 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
+    <Folder Include="Areas\Setting\Models\" />
+    <Folder Include="Areas\Setting\Views\Shared\" />
     <Folder Include="Areas\StudentMgr\Views\Shared\" />
     <Folder Include="Areas\ToolMgr\Controllers\" />
     <Folder Include="Areas\ToolMgr\Models\" />

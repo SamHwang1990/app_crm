@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IApplyStagesRepository.cs" />
     <Compile Include="Abstract\IApplyStateRepository.cs" />
     <Compile Include="Abstract\IAppRelationsRepository.cs" />
     <Compile Include="Abstract\IAssayMaterialRepository.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Abstract\ISaleTrackRepository.cs" />
     <Compile Include="Abstract\IStudentInfoRepository.cs" />
     <Compile Include="Abstract\IUserInfoRepository.cs" />
+    <Compile Include="Concrete\EFApplyStagesReposity.cs" />
     <Compile Include="Concrete\EFApplyStateReposity.cs" />
     <Compile Include="Concrete\EFAssayMaterialReposity.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Concrete\EFSaleTrackReposity.cs" />
     <Compile Include="Concrete\EFStudentInfoReposity.cs" />
     <Compile Include="Concrete\EFUserReposity.cs" />
+    <Compile Include="Entities\ApplyStagesEntity.cs" />
+    <Compile Include="Entities\ApplyStageVersionEntity.cs" />
     <Compile Include="Entities\ApplyStateEntity.cs" />
     <Compile Include="Entities\AppRelationsEntity.cs" />
     <Compile Include="Entities\AssayMaterialEntity.cs" />

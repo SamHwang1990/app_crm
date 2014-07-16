@@ -34,16 +34,39 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				/*UserMgr Router*/
 				"UserMgr/List":"UserMgrList",
 				"UserMgr/Edit-:id":"UserMgrEdit",
-				"UserMgr/Add":"UserMgrAdd"
+				"UserMgr/Add":"UserMgrAdd",
+
+
+				/*Setting Router*/
+				"Setting/Index":"SettingIndex",
+				"Setting/ApplyStageVersion/List":"SettingApplyStageVersionList",
+				"Setting/ApplyStageVersion/Edit/Version-:id":"SettingApplyStageVersionEditVersion",
+				"Setting/ApplyStageVersion/Delete/Version-:id":"SettingApplyStageVersionDeleteVersion"
 			}
 		});
 
 		var executeAction = function(action, arg){
 			action(ClientManage.bodyRegion.currentView.adminContentRegion,arg);
-			//ClientManage.execute("check:signIn");
 		};
 
 		var API = {
+			/*Setting Router Controller*/
+			SettingIndex:function(){
+				alert("SettingIndex");
+			},
+			SettingApplyStageVersionList:function(){
+				require([
+					'apps/Setting/ApplyStageVersion/VersionList/versionList_controller'],
+					function(ApplyStageVersionListController){
+						executeAction(ApplyStageVersionListController.ShowList);
+					})
+			},
+			SettingApplyStageVersionEditVersion:function(id){
+
+			},
+			SettingApplyStageVersionDeleteVersion:function(id){
+
+			},
 			/*Home Router Controller*/
 			HomeIndex:function(){
 				require(['apps/Home/Index/index_controller'],function(HomeIndexController){
@@ -163,6 +186,7 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 						executeAction(UserMgrCreateController.ShowEdit)
 					})
 			}
+
 		};
 
 		ClientManage.on("render:frame",function(options){

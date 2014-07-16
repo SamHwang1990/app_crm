@@ -1,0 +1,35 @@
+<div id="Setting-ApplyStageVersion-Edit-Content">
+    <h2>编辑申请阶段版本信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/Setting/ApplyStageVersion/VersionEdit" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="VersionName">版本名称：</label>
+            <div class="controls">
+                <input type="text" id="VersionName" name="VersionName" placeholder="请输入版本名称" value="<%= VersionName %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="SignDateBefore">有效签约时间：</label>
+            <div class="controls">
+                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                    <input type="text" id="SignDateBefore" class="span2" placeholder="毕业日期" value="<%= SignDateBefore %>" />
+                    <span class="add-on"><i class="icon-refresh"></i></span>
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Remark">备注：</label>
+            <div class="controls">
+                <textarea id="Remark" placeholder="请输入版本备注"><%= Remark %></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

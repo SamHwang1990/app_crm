@@ -50,6 +50,7 @@ namespace ClientManage.WebUI.Infrastructure
             kernel.Bind<IAssayMaterialRepository>().To<EFAssayMaterialReposity>();
             kernel.Bind<IApplyStateRepository>().To<EFApplyStateReposity>();
             kernel.Bind<ISaleTrackRepository>().To<EFSaleTrackReposity>();
+            kernel.Bind<IApplyStagesRepository>().To<EFApplyStagesReposity>();
         }
     }
 }
