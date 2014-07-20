@@ -22,6 +22,11 @@ namespace ClientManage.Domain.Concrete
             get { return context.ApplyStageVersion; }
         }
 
+        public IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail
+        {
+            get { return context.ApplyStageVersionDetail; }
+        }
+
         #region 操作ApplyStageVersio
 
         /// <summary>

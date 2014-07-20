@@ -11,6 +11,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			SignDate:"1970/01/01",
 			SignTrackItem:"00000000-0000-0000-0000-000000000000",
 			HasAssignConsultant:false,
+			HasScheduleApply:false,
 			SaleConsultant:"00000000-0000-0000-0000-000000000000",
 			SaleConsultantName:"",
 			ApplyConsultant:"00000000-0000-0000-0000-000000000000",

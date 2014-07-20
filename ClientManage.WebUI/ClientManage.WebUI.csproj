@@ -89,6 +89,7 @@
     <Compile Include="Areas\Admin\Models\UserAndRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
     <Compile Include="Areas\Setting\Controllers\ApplyStageVersionController.cs" />
+    <Compile Include="Areas\Setting\Models\ApplyStagesModel.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\SaleTrackController.cs" />
@@ -366,7 +367,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
     <Folder Include="Areas\Admin\Views\Shared\EditorTemplates\" />
-    <Folder Include="Areas\Setting\Models\" />
     <Folder Include="Areas\Setting\Views\Shared\" />
     <Folder Include="Areas\StudentMgr\Views\Shared\" />
     <Folder Include="Areas\ToolMgr\Controllers\" />

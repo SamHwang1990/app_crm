@@ -10,6 +10,7 @@ namespace ClientManage.Domain.Abstract
     {
         IQueryable<ApplyStagesEntity> ApplyStages { get; }
         IQueryable<ApplyStageVersionEntity> ApplyStageVersion { get; }
+        IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail { get; }
 
         void SaveApplyStageVersion(ApplyStageVersionEntity versionEntity);
     }

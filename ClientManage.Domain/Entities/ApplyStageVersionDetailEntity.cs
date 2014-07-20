@@ -8,11 +8,10 @@ using System.Web.Mvc;
 
 namespace ClientManage.Domain.Entities
 {
-    [Table("ApplyStages")] 
-    public class ApplyStagesEntity
+    [Table("ApplyStageVersionDetail")] 
+    public class ApplyStageVersionDetailEntity
     {        
-        
-        public ApplyStagesEntity()
+        public ApplyStageVersionDetailEntity()
         {
             SetDefaultValues();
         }
@@ -29,9 +28,25 @@ namespace ClientManage.Domain.Entities
         #region Base Members
         
         /// <summary>
-        /// 阶段编号
+        /// 阶段细节ID
         /// </summary>
         [Key]
+        public Guid DetailID
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 版本ID
+        /// </summary>
+        public Guid VersionID
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 阶段编号
+        /// </summary>
         public int StageNo
         {
             set;
@@ -46,7 +61,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 阶段层级，比如最高级为0
+        /// 阶段层级
         /// </summary>
         public byte StageClass
         {
@@ -54,7 +69,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 父级阶段
+        /// 父阶段
         /// </summary>
         public int ParentNo
         {
@@ -62,7 +77,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 是否已禁用
+        /// 是否禁用
         /// </summary>
         public bool IsForbid
         {
@@ -70,7 +85,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 
+        /// 状态选项
         /// </summary>
         public string StatusOption
         {
@@ -78,7 +93,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 
+        /// 开始状态的选项
         /// </summary>
         public string BeginOption
         {
@@ -86,7 +101,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 
+        /// 结束状态的选项
         /// </summary>
         public string EndOption
         {
@@ -94,7 +109,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 开始日期，使用字符串存储数据，如果需要计算，则内容为表达式
+        /// 开始日期，如果需要计算，则为表达式
         /// </summary>
         public byte? BeginDate
         {
@@ -102,7 +117,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 结束日期，使用字符串存储数据，如果需要计算，则内容为表达式
+        /// 结束日期，如果需要计算，则内容为表达式
         /// </summary>
         public byte? EndDate
         {
@@ -126,7 +141,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 子阶段
+        /// 子阶段编号
         /// </summary>
         public string ChildStage
         {
@@ -134,7 +149,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 负责本阶段的角色
+        /// 负责角色
         /// </summary>
         public string ResponseRole
         {
@@ -182,7 +197,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 阶段备注
+        /// 备注
         /// </summary>
         public string Remark
         {

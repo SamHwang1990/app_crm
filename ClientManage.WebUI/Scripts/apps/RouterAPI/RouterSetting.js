@@ -23,6 +23,13 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(ApplyStageVersionEditController.ShowEdit,id);
 				})
 		};
+		RouterAPI.SettingApplyStageVersionEditDetailVersion = function(id){
+			require([
+				'apps/Setting/ApplyStageVersion/VersionDetailEdit/versionDetailEdit_controller'],
+				function(ApplyStageVersionDetailEditController){
+					RouterAPI.executeAction(ApplyStageVersionDetailEditController.ShowEdit,id);
+				})
+		};
 		RouterAPI.SettingApplyStageVersionDeleteVersion = function(id){
 
 		}

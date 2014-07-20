@@ -67,6 +67,7 @@
     <Compile Include="Concrete\EFStudentInfoReposity.cs" />
     <Compile Include="Concrete\EFUserReposity.cs" />
     <Compile Include="Entities\ApplyStagesEntity.cs" />
+    <Compile Include="Entities\ApplyStageVersionDetailEntity.cs" />
     <Compile Include="Entities\ApplyStageVersionEntity.cs" />
     <Compile Include="Entities\ApplyStateEntity.cs" />
     <Compile Include="Entities\AppRelationsEntity.cs" />

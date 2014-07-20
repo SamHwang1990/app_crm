@@ -86,6 +86,12 @@ namespace ClientManage.Domain.Entities
             get;
             set;
         }
+
+        public bool HasScheduleApply
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 
         /// </summary>
