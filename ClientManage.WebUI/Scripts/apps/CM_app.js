@@ -36,7 +36,6 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"UserMgr/Edit-:id":"UserMgrEdit",
 				"UserMgr/Add":"UserMgrAdd",
 
-
 				/*Setting Router*/
 				"Setting/Index":"SettingIndex",
 				"Setting/ApplyStageVersion/List":"SettingApplyStageVersionList",
@@ -84,8 +83,8 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 					ClientManage.navigate(urlFragment);
 					//AppUISet.SetCurrentMenu(urlFragment);
 					urlFragment = urlFragment.replace(/\//g,'');
-					if(API.hasOwnProperty(urlFragment)){
-						API[urlFragment]();
+					if(RouterAPI.hasOwnProperty(urlFragment)){
+						RouterAPI[urlFragment]();
 					}else{
 						ClientManage.trigger("home:index");
 					}

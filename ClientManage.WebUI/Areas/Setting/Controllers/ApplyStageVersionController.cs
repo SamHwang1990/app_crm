@@ -41,12 +41,27 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
         public JsonResult VersionEdit(ApplyStageVersionEntity ajaxData)
         {
             if (ajaxData.SignDateBefore == null)
-                return Json(new { PostResult = false });
+                return Json(new { SaveResult = false });
             else
             {
                 repository.SaveApplyStageVersion(ajaxData);
-                return Json(new { });
+                return Json(new { SaveResult = true });
             }
+        }
+
+        /// <summary>
+        /// 根据版本ID 返回版本信息
+        /// </summary>
+        /// <param name="versionID"></param>
+        /// <returns></returns>
+        public JsonResult GetVersionById(string versionID)
+        {
+            if (versionID == null || versionID == string.Empty || versionID == Guid.Empty.ToString())
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            ApplyStageVersionEntity applyVersion = repository.ApplyStageVersion.Single(r => r.VersionID == new Guid(versionID));
+            return Json(applyVersion, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -167,6 +167,16 @@
     <Content Include="Scripts\apps\RoleMgr\Edit\edit_view.js" />
     <Content Include="Scripts\apps\RoleMgr\List\list_controller.js" />
     <Content Include="Scripts\apps\RoleMgr\List\list_view.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterAPI.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterHome.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterRoleMgr.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterSetting.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterStudentMgr.js" />
+    <Content Include="Scripts\apps\RouterAPI\RouterUserMgr.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionEdit\versionEdit_controller.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionEdit\versionEdit_view.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionList\versionList_controller.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionList\versionList_view.js" />
     <Content Include="Scripts\apps\SignIn\Check\check_controller.js" />
     <Content Include="Scripts\apps\SignIn\SignIn\signIn_controller.js" />
     <Content Include="Scripts\apps\SignIn\SignIn\signIn_view.js" />
@@ -202,6 +212,7 @@
     <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
     <Content Include="Scripts\clientManage\GetFromInterview.js" />
     <Content Include="Scripts\collections\RoleMgr\RoleList.js" />
+    <Content Include="Scripts\collections\Setting\ApplyStagesMgr\VersionCollection.js" />
     <Content Include="Scripts\collections\StudentMgr\Index\StudentList.js" />
     <Content Include="Scripts\collections\StudentMgr\Index\StudentSchoolList.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\FlashPointCollection.js" />
@@ -238,6 +249,7 @@
     <Content Include="Scripts\models\Home\Feedback.js" />
     <Content Include="Scripts\models\LoginUser.js" />
     <Content Include="Scripts\models\RoleMgr\RoleInfo.js" />
+    <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionModel.js" />
     <Content Include="Scripts\models\StudentMgr\AppRelation.js" />
     <Content Include="Scripts\models\StudentMgr\EasyChatTimeModel.js" />
     <Content Include="Scripts\models\StudentMgr\EnumModel\EducationIntention.js" />
@@ -279,6 +291,9 @@
     <Content Include="Scripts\templates\RoleMgr\Edit.html" />
     <Content Include="Scripts\templates\RoleMgr\List.html" />
     <Content Include="Scripts\templates\RoleMgr\ListItem.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionEdit.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionList.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionListItem.html" />
     <Content Include="Scripts\templates\StudentMgr\AssignConsultant\AssignConsultant.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\ContactContent.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\Create.html" />
@@ -359,6 +374,7 @@
     <Folder Include="Areas\ToolMgr\Views\Shared\" />
     <Folder Include="Infrastructure\Abstract\" />
     <Folder Include="Infrastructure\Concrete\" />
+    <Folder Include="Scripts\apps\Setting\Index\" />
     <Folder Include="UploadFiles\Students\" />
     <Folder Include="UploadFiles\Users\" />
     <Folder Include="Views\Common\" />
