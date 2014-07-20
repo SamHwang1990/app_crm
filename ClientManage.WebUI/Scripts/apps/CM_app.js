@@ -3,7 +3,7 @@
  * ClientManage Module
  ***************************************/
 
-define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
+define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(ClientManage,AppConfig,RouterAPI){
 	ClientManage.module('CM',function(CM,ClientManage,Backbone,Marionette,$,_){
 
 		CM.Router = Marionette.AppRouter.extend({
@@ -44,150 +44,6 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 				"Setting/ApplyStageVersion/Delete/Version-:id":"SettingApplyStageVersionDeleteVersion"
 			}
 		});
-
-		var executeAction = function(action, arg){
-			action(ClientManage.bodyRegion.currentView.adminContentRegion,arg);
-		};
-
-		var API = {
-			/*Setting Router Controller*/
-			SettingIndex:function(){
-				alert("SettingIndex");
-			},
-			SettingApplyStageVersionList:function(){
-				require([
-					'apps/Setting/ApplyStageVersion/VersionList/versionList_controller'],
-					function(ApplyStageVersionListController){
-						executeAction(ApplyStageVersionListController.ShowList);
-					})
-			},
-			SettingApplyStageVersionEditVersion:function(id){
-
-			},
-			SettingApplyStageVersionDeleteVersion:function(id){
-
-			},
-			/*Home Router Controller*/
-			HomeIndex:function(){
-				require(['apps/Home/Index/index_controller'],function(HomeIndexController){
-					executeAction(HomeIndexController.ShowIndex);
-				})
-			},
-			HomeFeedback:function(){
-				require(['apps/Home/Feedback/feedback_controller'],function(HomeFeedbackController){
-					executeAction(HomeFeedbackController.ShowFeedback);
-				})
-			},
-			SignOut:function(){
-				require(['apps/SignIn/SignIn_app'],function(SignIn){
-					ClientManage.trigger("signOut:signIn");
-				});
-			},
-
-			/*StudentMgr Index Router Controller*/
-			StudentMgrIndexList:function(){
-				require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexListController){
-					executeAction(StudentMgrIndexListController.ShowList);
-				})
-			},
-			StudentMgrIndexCreate:function(){
-				require(['apps/StudentMgr/Index/Create/create_controller'],function(StudentMgrIndexCreateController){
-					executeAction(StudentMgrIndexCreateController.ShowCreate);
-				})
-			},
-			StudentMgrIndexEditStudent:function(id){
-				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
-					executeAction(StudentMgrIndexEditController.EditStudent,id);
-				})
-			},
-			StudentMgrIndexEditContacts:function(id){
-				require(['apps/StudentMgr/Index/Edit/edit_controller'],function(StudentMgrIndexEditController){
-					executeAction(StudentMgrIndexEditController.EditContacts,id);
-				})
-			},
-			StudentMgrAssignConsultant:function(id){
-				require(['apps/StudentMgr/AssignConsultant/assign_controller'],function(StudentMgrAssignConsultantController){
-					executeAction(StudentMgrAssignConsultantController.AssignConsultant,id);
-				})
-			},
-
-			/*StudentMgr SaleTrack Router Controller*/
-			StudentMgrSaleTrackList:function(){
-				require([
-					'apps/StudentMgr/SaleTrack/List/list_controller'],
-					function(StudentMgrSaleTrackListController){
-						executeAction(StudentMgrSaleTrackListController.ShowList);
-					})
-			},
-			StudentMgrSaleTrackAppInterview:function(id){
-				require([
-					'apps/StudentMgr/SaleTrack/Interview/interview_controller'],
-					function(StudentMgrSaleTrackInterviewController){
-						executeAction(StudentMgrSaleTrackInterviewController.ShowInterview,id);
-					})
-			},
-			StudentMgrSaleTrackFirstInterviewReg:function(id){
-				require([
-					'apps/StudentMgr/SaleTrack/FirstInterviewReg/firstInterviewReg_controller'],
-				function(StudentMgrSaleTrackFirstInterviewRegController){
-					executeAction(StudentMgrSaleTrackFirstInterviewRegController.ShowFirstInterviewReg,id);
-				})
-			},
-			StudentMgrSaleTrackSaleTrackHistory:function(id){
-				require([
-					'apps/StudentMgr/SaleTrack/History/history_controller'],
-					function(StudentMgrSaleTrackHistoryController){
-						executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
-					})
-			},
-
-			/*RoleMgr Router Controller*/
-			RoleMgrList:function(){
-				require([
-					'apps/RoleMgr/List/list_controller'],
-					function(RoleMgrListController){
-						executeAction(RoleMgrListController.ShowList);
-					})
-			},
-			RoleMgrAdd:function(){
-				require([
-					'apps/RoleMgr/Create/create_controller'],
-					function(RoleMgrCreateController){
-						executeAction(RoleMgrCreateController.ShowCreate)
-					})
-			},
-			RoleMgrEdit:function(id){
-				require([
-					'apps/RoleMgr/Edit/edit_controller'
-				],function(RoleMgrEditController){
-					executeAction(RoleMgrEditController.ShowEdit,id)
-				})
-			},
-
-			/*UserMgr Router Controller*/
-			UserMgrList:function(){
-				require([
-					'apps/UserMgr/List/list_controller'],
-					function(UserMgrListController){
-						executeAction(UserMgrListController.ShowList);
-					})
-			},
-			UserMgrEdit:function(id){
-				require([
-					'apps/UserMgr/Edit/edit_controller'],
-					function(UserMgrEditController){
-						executeAction(UserMgrEditController.ShowEdit,id)
-					})
-			},
-			UserMgrAdd:function(){
-				require([
-					'apps/UserMgr/Create/create_controller'],
-					function(UserMgrCreateController){
-						executeAction(UserMgrCreateController.ShowEdit)
-					})
-			}
-
-		};
 
 		ClientManage.on("render:frame",function(options){
 			require(['apps/Common/index_view'],function(indexViewLayout){
@@ -239,12 +95,12 @@ define(['app','apps/Config/appConfig'],function(ClientManage,AppConfig){
 
 		ClientManage.on('home:index',function(){
 			ClientManage.navigate("Home/Index");
-			API.HomeIndex();
+			RouterAPI.HomeIndex();
 		});
 
 		ClientManage.addInitializer(function(){
 			new CM.Router({
-				controller:API
+				controller:RouterAPI
 			});
 		});
 	});
