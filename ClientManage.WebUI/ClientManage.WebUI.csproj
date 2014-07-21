@@ -139,6 +139,7 @@
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\chardinjs.css" />
+    <Content Include="Content\css\screen.css" />
     <Content Include="Content\images\App_logo.jpg" />
     <Content Include="Content\images\App_logo_brand.jpg" />
     <Content Include="Content\images\icon\role-white.png" />

@@ -1,6 +1,6 @@
 /***************************************
  * Created by samhwang1990@gmail.com on 14-7-20.
- * * Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel
+ * Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel
  ***************************************/
 
 define([

@@ -9,12 +9,13 @@ define(['app'],function(ClientManage){
 			ShowEdit:function(contentRegion,versionID){
 				ClientManage.startSubApp("Setting.ApplyStageVersion.VersionDetailEdit");
 				require([
-					'models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel']
-					,function(VersionDetailWrapModel){
-						var versionDetailInfo = new VersionDetailWrapModel({
+					'apps/Setting/ApplyStageVersion/VersionDetailEdit/versionDetailEdit_view',
+					'collections/Setting/ApplyStagesMgr/VersionDetailWrapCollection']
+					,function(VersionDetailEditView,VersionDetailWrapCollection){
+						var versionDetailColl = new VersionDetailWrapCollection({
 							url:"/Setting/ApplyStageVersion/GetVersionDetail"
 						});
-						versionDetailInfo.fetch({
+						versionDetailColl.fetch({
 							data:{
 								versionID:versionID
 							},
@@ -23,7 +24,10 @@ define(['app'],function(ClientManage){
 									return alert("传入的版本ID不能为空");
 								}
 								else{
-									console.log(JSON.stringify(versionDetailInfo));
+									var detailEditView = new VersionDetailEditView.VersionDetailEditView({
+										collection:versionDetailColl
+									})
+									contentRegion.show(detailEditView);
 								}
 							},
 							error:function(){

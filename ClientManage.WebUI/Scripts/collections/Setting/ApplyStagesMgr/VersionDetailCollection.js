@@ -11,7 +11,11 @@ define([
 	],function($,_,Backbone,ApplyStageVersionDetailModel){
 	var versionDetailCollection = Backbone.Collection.extend({
 		model:ApplyStageVersionDetailModel,
-		//url:'/Setting/ApplyStageVersion/VersionList'
+		initialize:function(options){
+			if(options != null){
+				this.url = options.url;
+			}
+		}
 	});
 	return versionDetailCollection;
 });
