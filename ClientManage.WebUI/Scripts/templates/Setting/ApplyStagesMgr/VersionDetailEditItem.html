@@ -1,61 +1,16 @@
 <h2 class="timelineMajorMarker"><span><%= ParentVersionDetail.StageName %></span></h2>
-<dl class="timelineMinor">
+<dl class="timelineMinor" data-StageNo="<%= ParentVersionDetail.StageNo %>" data-StageClass="ParentVersionDetail.StageClass">
     <dt id="StageNo_<%= ParentVersionDetail.StageNo %>"><a><%= ParentVersionDetail.StageName %>：展开进行修改</a></dt>
     <dd class="timelineEvent" id="StageNo_<%= ParentVersionDetail.StageNo %>EX" style="display: none;">
-        <fieldset>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_VersionName">阶段名称：</label>
-                <div class="controls">
-                    <input type="text"
-                           id="ParentVersionDetail_VersionName"
-                           name="ParentVersionDetail_VersionName"
-                           placeholder="请输入阶段名称"
-                           value="<%= ParentVersionDetail.StageName %>" />
-
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_IsForbid">是否可用：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_IsForbid"
-                           data-on-color="success" data-off-color="warning" checked />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_CanForbid">是否可禁用：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_CanForbid"
-                           name="my-checkbox" data-size="mini" checked />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_CanChangeName">是否可修改名称：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_CanChangeName"
-                           name="my-checkbox" data-size="mini" checked />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_CanChangeDate">是否可修改日期：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_CanChangeDate"
-                           name="my-checkbox" data-size="mini" checked />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_IsDateSameWithParent">是否有时间限制：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_IsDateSameWithParent"
-                           name="my-checkbox" data-size="mini" checked />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="ParentVersionDetail_IsDateSameWithParent">是否有时间限制：</label>
-                <div class="controls">
-                    <input type="checkbox" class="switch" id="ParentVersionDetail_IsDateSameWithParent"
-                           name="my-checkbox" data-size="mini" checked />
-                </div>
-            </div>
-        </fieldset>
+        <%= _.template(FieldsetTpl,ParentVersionDetail,{variable:"StageItem"}) %>
     </dd>
 </dl>
+<% _.each(ChildVersionDetails,function(childStageItem){ %>
+<dl class="timelineMinor" data-StageClass="<%= childStageItem.StageClass %>" data-StageNo="<%= childStageItem.StageNo %>">
+    <dt id="StageNo_<%= childStageItem.StageNo %>"><a><%= childStageItem.StageName %></a></dt>
+    <dd class="timelineEvent" id="StageNo_<%= childStageItem.StageNo %>EX" style="display: none;">
+        <%= _.template(FieldsetTpl,childStageItem,{variable:"StageItem"}) %>
+    </dd>
+</dl>
+
+<% }); %>

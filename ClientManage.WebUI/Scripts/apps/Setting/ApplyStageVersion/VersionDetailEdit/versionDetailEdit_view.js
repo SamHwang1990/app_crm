@@ -7,15 +7,19 @@ define([
 	'app',
 	'text!templates/Setting/ApplyStagesMgr/VersionDetailEdit.html',
 	'text!templates/Setting/ApplyStagesMgr/VersionDetailEditItem.html',
+	'text!templates/Setting/ApplyStagesMgr/VersionDetailEditFieldset.html',
 	'Timeline',
 	'libs/bootstrap/bootstrapswitch/bootstrap-switch.min'
-	],function(ClientManage,DetailEditTpl,DetailEditItemTpl,timeliner,BootstrapSwitch){
+	],function(ClientManage,DetailEditTpl,DetailEditItemTpl,VersionDetailEditFieldSetTpl,timeliner,BootstrapSwitch){
 	ClientManage.module('Setting.ApplyStageVersion.VersionDetailEdit.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.VersionDetailEditItemView = Marionette.ItemView.extend({
 			template:_.template(DetailEditItemTpl),
 			tagName:"div",
 			className:"timelineMajor",
 			templateHelpers:function(){
+				return{
+					FieldsetTpl:VersionDetailEditFieldSetTpl
+				}
 			},
 			onRender:function(){
 

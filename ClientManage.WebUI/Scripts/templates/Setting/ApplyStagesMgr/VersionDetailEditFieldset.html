@@ -1,0 +1,82 @@
+<fieldset>
+    <div class="control-group">
+        <label class="control-label" >阶段名称：</label>
+        <div class="controls">
+            <input type="text"
+                   class="VersionDetail_VersionName"
+                   name="VersionDetail_VersionName"
+                   placeholder="请输入阶段名称"
+                   value="<%= StageItem.StageName %>" />
+
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >是否可用：</label>
+        <div class="controls">
+            <input type="checkbox" class="switch" class="VersionDetail_IsForbid"
+                   data-on-color="success" data-off-color="warning" checked />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >是否可禁用：</label>
+        <div class="controls">
+            <input type="checkbox" class="switch" class="VersionDetail_CanForbid"
+                   name="my-checkbox" data-size="mini" checked />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >是否可修改名称：</label>
+        <div class="controls">
+            <input type="checkbox" class="switch" class="VersionDetail_CanChangeName"
+                   name="my-checkbox" data-size="mini" checked />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >是否可修改日期：</label>
+        <div class="controls">
+            <input type="checkbox" class="switch" class="VersionDetail_CanChangeDate"
+                   name="my-checkbox" data-size="mini" checked />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >是否有时间限制：</label>
+        <div class="controls">
+            <input type="checkbox" class="switch" class="VersionDetail_IsDateSameWithParent"
+                   name="my-checkbox" data-size="mini" checked />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >开始日期：</label>
+        <div class="input-prepend input-append">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    有确定开始日期
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" data-IsCalBeginDate="false" >有确定开始日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalBeginDate="true" >需计算开始日期</a></li>
+                </ul>
+            </div>
+            <input class="span2" class="VersionDetail_BeginDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.BeginDate %>" >
+            <span class="add-on">月</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" >结束日期：</label>
+        <div class="input-prepend input-append">
+            <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                    有确定结束日期
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:void(0)" data-IsCalEndDate="false" >有确定结束日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalEndDate="true" >需计算结束日期</a></li>
+                </ul>
+            </div>
+            <input class="span2" class="VersionDetail_EndDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.EndDate %>">
+            <span class="add-on">月</span>
+        </div>
+    </div>
+</fieldset>
