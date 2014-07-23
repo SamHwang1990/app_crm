@@ -12,7 +12,9 @@ define([
 	'assets/CheckSubmitRequire',
 	'./versionDetailEditItem_view',
 	'collections/Setting/ApplyStagesMgr/VersionDetailWrapCollection',
-	'models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel'
+	'collections/Setting/ApplyStagesMgr/VersionDetailCollection',
+	'models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel',
+	'models/Setting/ApplyStagesMgr/ApplyStageVersionDetailModel'
 	],function(
 		ClientManage,
 		DetailEditTpl,
@@ -22,7 +24,9 @@ define([
 		CheckSubmitRequire,
 		VersionDetailEditItemView,
 		VersionDetailWrapCollection,
-		VersionDetailWrapModel){
+		VersionDetailCollection,
+		VersionDetailWrapModel,
+		VersionDetailModel){
 	ClientManage.module('Setting.ApplyStageVersion.VersionDetailEdit.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.VersionDetailEditItemView = VersionDetailEditItemView;
 
@@ -32,6 +36,11 @@ define([
 			template:_.template(DetailEditTpl),
 			itemView:View.VersionDetailEditItemView,
 			itemViewContainer:"#timelineContainer",
+			initialize:function(options){
+				if(options != null){
+					this.VersionID = options.VersionID;
+				}
+			},
 			onShow:function(){
 				$.timeliner({timelineContainer: '#timelineContainer',fontOpen:'24px'});
 				this.$el.find("#timelineContainer").append("<br class=\"clear\">")
@@ -47,35 +56,65 @@ define([
 			events:{
 				'submit @ui.EditForm':'EditSubmit'
 			},
-			SetParentVersionDetails:function(SubmitCollection){
+			SetParentVersionDetails:function(){
+				var submitCollection = new VersionDetailWrapCollection()
+
 				var editView = this;
 				//console.log(SubmitCollection.models);
 				var parentDetails = this.$el.find(".timelineMajor");
-				var parentStageNo,versionDetailModel;
+				var parentStageNo,parentDetailModel,childVersionDetails,stageDl;
 				parentDetails.each(function(i){
 					parentStageNo = $(this).attr("date-Parent-StageNo");
-					editView.SetDetail(editView.$el.find("dl[data-StageNo="+parentStageNo+"]"))
+					stageDl = editView.$el.find("dl[data-StageNo="+parentStageNo+"]")
+
+					parentDetailModel =  editView.SetDetail(stageDl);
+					childVersionDetails = new VersionDetailCollection();
+					stageDl.siblings(".timelineMinor").each(function(i){
+						childVersionDetails.add(editView.SetDetail($(this)));
+					});
+
+					submitCollection.add(new VersionDetailWrapModel({
+						ParentVersionDetail:parentDetailModel,
+						ChildVersionDetails:childVersionDetails
+					}))
 				})
+				return submitCollection;
 			},
 			SetDetail:function(stageDl){
+				var stageNo = stageDl.attr("data-StageNo");
 				var stageName = stageDl.find(".VersionDetail_StageName").val();
-				var isForbid = stageDl.find(".VersionDetail_IsForbid").is(":checked");
+				var stageClass = stageDl.attr("data-StageClass");
+				var isForbid = !(stageDl.find(".VersionDetail_IsForbid").is(":checked"));
 				var canForbid = stageDl.find(".VersionDetail_CanForbid").is(":checked");
 				var canChangeName = stageDl.find(".VersionDetail_CanChangeName").is(":checked");
 				var canChangeDate = stageDl.find(".VersionDetail_CanChangeDate").is(":checked");
-				var isDateSameWithParent = stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked");
+				var isDateSameWithParent = !(stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked"));
 				var beginDate = stageDl.find(".VersionDetail_BeginDate").val();
-				var EndDate = stageDl.find(".VersionDetail_EndDate").val();
-				var isCalBeginDate = stageDl.find("[data-IsCalBeginDate]").attr("data-IsCalBeginDate");
-				var isCalEndDate = stageDl.find("[data-IsCalEndDate]").attr("data-IsCalEndDate");
+				var endDate = stageDl.find(".VersionDetail_EndDate").val();
+				var isCalBeginDate = stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate");
+				var isCalEndDate = stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate");
+
+				return new VersionDetailModel({
+					VersionID:this.VersionID,
+					StageNo:stageNo,
+					StageName:stageName,
+					StageClass:stageClass,
+					IsForbid:isForbid,
+					CanForbid:canForbid,
+					CanChangeName:canChangeName,
+					CanChangeDate:canChangeDate,
+					IsDateSameWithParent:isDateSameWithParent,
+					BeginDate:beginDate,
+					EndDate:endDate,
+					IsCalBeginDate:isCalBeginDate,
+					IsCalEndDate:isCalEndDate
+				})
 			},
 			EditSubmit:function(e){
 				//阻止默认的提交行为
 				e.preventDefault();
 
-				//复制一份新的collection，深拷贝来的哦
-				var submitCollection = new VersionDetailWrapCollection()
-				this.SetParentVersionDetails(submitCollection);
+				var submitCollection = this.SetParentVersionDetails(submitCollection);
 
 				return false;
 			}

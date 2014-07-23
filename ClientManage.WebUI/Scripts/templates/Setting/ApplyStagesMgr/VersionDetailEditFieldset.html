@@ -30,7 +30,7 @@
     <div class="control-group">
         <label class="control-label" >是否可修改名称：</label>
         <div class="controls">
-            <input type="checkbox" class="switch" class="VersionDetail_CanChangeName"
+            <input type="checkbox" class="switch VersionDetail_CanChangeName"
                    data-size="mini"
             <%= (StageItem.CanChangeName == true) ? 'checked' : "" %> />
         </div>
@@ -38,7 +38,7 @@
     <div class="control-group">
         <label class="control-label" >是否可修改日期：</label>
         <div class="controls">
-            <input type="checkbox" class="switch" class="VersionDetail_CanChangeDate"
+            <input type="checkbox" class="switch VersionDetail_CanChangeDate"
                    data-size="mini"
             <%= (StageItem.CanChangeDate == true) ? 'checked' : "" %> />
         </div>
@@ -46,7 +46,7 @@
     <div class="control-group">
         <label class="control-label" >是否有时间限制：</label>
         <div class="controls">
-            <input type="checkbox" class="timeLimitSwitch" class="VersionDetail_IsDateSameWithParent"
+            <input type="checkbox" class="timeLimitSwitch VersionDetail_IsDateSameWithParent"
                    data-size="mini"
             <%= (StageItem.IsDateSameWithParent == false) ? 'checked' : "" %> />
         </div>
@@ -57,17 +57,17 @@
         <div class="input-prepend input-append">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="dropdown-text" data-IsCalBeginDate=<%= StageItem.IsCalEndDate %>>
+                    <span class="dropdown-text dropdown-text-BeginDate" data-IsCalDate=<%= StageItem.IsCalEndDate %>>
                         <%= (StageItem.IsCalBeginDate == false) ? '有确定开始日期' : '需计算开始日期' %>
                     </span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu IsCalDateMenu">
-                    <li><a href="javascript:void(0)" data-IsCalDate="false" >有确定开始日期</a></li>
-                    <li><a href="javascript:void(0)" data-IsCalDate="true" >需计算开始日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate=false >有确定开始日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate=true >需计算开始日期</a></li>
                 </ul>
             </div>
-            <input class="span2" class="VersionDetail_BeginDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.BeginDate %>" >
+            <input class="span2 VersionDetail_BeginDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.BeginDate %>" >
             <span class="add-on"><%= (StageItem.IsCalBeginDate == false) ? '月' : '天' %></span>
         </div>
     </div>
@@ -77,17 +77,17 @@
         <div class="input-prepend input-append">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="dropdown-text" data-IsCalEndDate=<%= StageItem.IsCalEndDate %>>
+                    <span class="dropdown-text dropdown-text-EndDate" data-IsCalDate=<%= StageItem.IsCalEndDate %>>
                         <%= (StageItem.IsCalEndDate == false) ? '有确定结束日期' : '需计算结束日期' %>
                     </span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu IsCalDateMenu">
-                    <li><a href="javascript:void(0)" data-IsCalDate="false" >有确定结束日期</a></li>
-                    <li><a href="javascript:void(0)" data-IsCalDate="true" >需计算结束日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate=false >有确定结束日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate=true >需计算结束日期</a></li>
                 </ul>
             </div>
-            <input class="span2" class="VersionDetail_EndDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.EndDate %>">
+            <input class="span2 VersionDetail_EndDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.EndDate %>">
             <span class="add-on"><%= (StageItem.IsCalEndDate == false) ? '月' : '天' %></span>
         </div>
     </div>

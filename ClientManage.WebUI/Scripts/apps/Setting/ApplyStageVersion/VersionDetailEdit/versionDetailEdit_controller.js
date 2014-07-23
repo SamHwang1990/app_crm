@@ -25,7 +25,8 @@ define(['app'],function(ClientManage){
 								}
 								else{
 									var detailEditView = new VersionDetailEditView.VersionDetailEditView({
-										collection:versionDetailColl
+										collection:versionDetailColl,
+										VersionID:versionID
 									})
 									contentRegion.show(detailEditView);
 								}
