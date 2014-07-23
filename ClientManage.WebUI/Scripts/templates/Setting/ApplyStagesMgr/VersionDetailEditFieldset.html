@@ -2,8 +2,8 @@
     <label class="control-label" >阶段名称：</label>
     <div class="controls">
         <input type="text"
-               class="VersionDetail_VersionName"
-               name="VersionDetail_VersionName"
+               class="VersionDetail_StageName"
+               name="VersionDetail_StageName"
                placeholder="请输入阶段名称"
                value="<%= StageItem.StageName %>" />
 
@@ -17,6 +17,7 @@
                 <%= (StageItem.IsForbid == false) ? 'checked' : "" %> />
     </div>
 </div>
+<!-- Wrap Some Fields, which is active when stage is not forbidden -->
 <fieldset class="unForbidFields">
     <div class="control-group">
         <label class="control-label" >是否可禁用：</label>
@@ -50,38 +51,40 @@
             <%= (StageItem.IsDateSameWithParent == false) ? 'checked' : "" %> />
         </div>
     </div>
+    <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
     <div class="control-group timeRelated">
         <label class="control-label" >开始日期：</label>
         <div class="input-prepend input-append">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="dropdown-text">
+                    <span class="dropdown-text" data-IsCalBeginDate=<%= StageItem.IsCalEndDate %>>
                         <%= (StageItem.IsCalBeginDate == false) ? '有确定开始日期' : '需计算开始日期' %>
                     </span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu IsCalDateMenu">
-                    <li><a href="javascript:void(0)" data-IsCalBeginDate="false" >有确定开始日期</a></li>
-                    <li><a href="javascript:void(0)" data-IsCalBeginDate="true" >需计算开始日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate="false" >有确定开始日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate="true" >需计算开始日期</a></li>
                 </ul>
             </div>
             <input class="span2" class="VersionDetail_BeginDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.BeginDate %>" >
             <span class="add-on"><%= (StageItem.IsCalBeginDate == false) ? '月' : '天' %></span>
         </div>
     </div>
+    <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
     <div class="control-group timeRelated">
         <label class="control-label" >结束日期：</label>
         <div class="input-prepend input-append">
             <div class="btn-group">
                 <button class="btn dropdown-toggle" data-toggle="dropdown">
-                    <span class="dropdown-text">
+                    <span class="dropdown-text" data-IsCalEndDate=<%= StageItem.IsCalEndDate %>>
                         <%= (StageItem.IsCalEndDate == false) ? '有确定结束日期' : '需计算结束日期' %>
                     </span>
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu IsCalDateMenu">
-                    <li><a href="javascript:void(0)" data-IsCalEndDate="false" >有确定结束日期</a></li>
-                    <li><a href="javascript:void(0)" data-IsCalEndDate="true" >需计算结束日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate="false" >有确定结束日期</a></li>
+                    <li><a href="javascript:void(0)" data-IsCalDate="true" >需计算结束日期</a></li>
                 </ul>
             </div>
             <input class="span2" class="VersionDetail_EndDate" type="text" placeholder="只允许填写整数" value="<%= StageItem.EndDate %>">

@@ -6,99 +6,26 @@
 define([
 	'app',
 	'text!templates/Setting/ApplyStagesMgr/VersionDetailEdit.html',
-	'text!templates/Setting/ApplyStagesMgr/VersionDetailEditItem.html',
-	'text!templates/Setting/ApplyStagesMgr/VersionDetailEditFieldset.html',
 	'Timeline',
-	'libs/bootstrap/bootstrapswitch/bootstrap-switch.min'
-	],function(ClientManage,DetailEditTpl,DetailEditItemTpl,VersionDetailEditFieldSetTpl,timeliner,BootstrapSwitch){
+	'libs/bootstrap/bootstrapswitch/bootstrap-switch.min',
+	'assets/SetFeedbackMsg',
+	'assets/CheckSubmitRequire',
+	'./versionDetailEditItem_view',
+	'collections/Setting/ApplyStagesMgr/VersionDetailWrapCollection',
+	'models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel'
+	],function(
+		ClientManage,
+		DetailEditTpl,
+		timeliner,
+		BootstrapSwitch,
+		SetFeedbackMsg,
+		CheckSubmitRequire,
+		VersionDetailEditItemView,
+		VersionDetailWrapCollection,
+		VersionDetailWrapModel){
 	ClientManage.module('Setting.ApplyStageVersion.VersionDetailEdit.View',function(View,ClientManage,Backbone,Marionette,$,_){
-		View.VersionDetailEditItemView = Marionette.ItemView.extend({
-			template:_.template(DetailEditItemTpl),
-			//封装视图的元素，后用“根元素”代称
-			tagName:"div",
-			//根元素的类
-			className:"timelineMajor",
-			ui:{
-				"btnForbidSwitch":".forbidSwitch",          //“是否可用”切换按钮
-				"btnTimeLimitSwitch":".timeLimitSwitch",    //“是否有时间限制”切换按钮
-				"btnSwitch":".switch",                      //通用切换按钮
-				"btnSubmit":"#btnSubmit",                   //提交按钮
-				"ulIsCalDateMenu":".IsCalDateMenu"          //“日期是否要计算”的下拉菜单
-			},
-			events:{
-				"switchChange.bootstrapSwitch @ui.btnForbidSwitch":"ForbidSwitchChange",
-				"switchChange.bootstrapSwitch @ui.btnTimeLimitSwitch":"TimeSwitchChange",
-				"switchChange.bootstrapSwitch @ui.btnSwitch":"SwitchChange",
-				//用以相应阶段开始结束日期类型的下拉菜单点击事件
-				"click @ui.ulIsCalDateMenu li a":"IsCalDateChange"
-			},
-			templateHelpers:function(){
-				return{
-					//另传一个通用模板给视图模板
-					FieldsetTpl:VersionDetailEditFieldSetTpl
-				}
-			},
-			onRender:function(){
-				//渲染视图后手动触发“btnForbidSwitch”的切换事件
-				this.ui.btnForbidSwitch.trigger("switchChange.bootstrapSwitch");
-				//渲染视图后手动触发“btnTimeLimitSwitch”的切换事件
-				this.ui.btnTimeLimitSwitch.trigger("switchChange.bootstrapSwitch");
-			},
-			ForbidSwitchChange:function(event){
-				//获取checkbox 是否选中
-				var data = $(event.currentTarget).is(":checked");
-				//获取祖先元素“dl.timelineMinor”
-				var parentTimelineMinor = $(event.currentTarget).parents(".timelineMinor");
-				//获取祖先元素的阶段级别
-				var stageClass = parentTimelineMinor.attr("data-StageClass");
-				//获取同个“dd”元素中的可配置fields，这些表单元素仅在当前阶段可用的时候才显示
-				var unForbidFields = $(event.currentTarget).parents(".control-group").siblings(".unForbidFields");
+		View.VersionDetailEditItemView = VersionDetailEditItemView;
 
-				if(data){
-					//如果阶段可用，则可配置fields 显示出来
-					unForbidFields.show();
-				}else{
-					//否则，可配置fields 元素要隐藏
-					unForbidFields.hide();
-				}
-				if(stageClass == "1"){
-					if(data){
-						//如果当前阶段可用，同时这个阶段是个父级阶段，则显示其子阶段
-						parentTimelineMinor.siblings(".timelineMinor").show();
-					}else{
-						//否则，如果当前阶段不可用，同时这个阶段是个父级阶段，则隐藏其子阶段
-						parentTimelineMinor.siblings(".timelineMinor").hide();
-					}
-				}
-			},
-			TimeSwitchChange:function(event){
-				//获取checkbox 是否选中，选中表示该阶段有时间限制
-				var data = $(event.currentTarget).is(":checked");
-				//获得与阶段开始结束时间配置相关的字段，比如：BeginDate、EndDate
-				var timeRelatedFields = $(event.currentTarget).parents(".control-group").siblings(".timeRelated");
-				if(data){
-					//如果该阶段有时间限制，则显示相关的配置字段
-					timeRelatedFields.show();
-				}else{
-					//否则，隐藏相关配置字段
-					timeRelatedFields.hide();
-				}
-			},
-			SwitchChange:function(event,data){
-
-			},
-			IsCalDateChange:function(event){
-				var isCalDate = $(event.currentTarget).attr("data-IsCalEndDate");
-				var calDateUnit = isCalDate?'天':'月';
-				//获取所选下拉菜单的文本
-				var calDateText = $(event.currentTarget).text();
-				var controlGroup = $(event.currentTarget).parents(".control-group")
-				//将文本复制给“.dropdown-text” span元素中
-				controlGroup.find(".dropdown-text").html(calDateText);
-				//修改日期的单位
-				controlGroup.find(".add-on").html(calDateUnit);
-			}
-		});
 		View.VersionDetailEditView = Marionette.CompositeView.extend({
 			tagName:"div",
 			className:"wrap",
@@ -112,6 +39,45 @@ define([
 				this.$el.find(".forbidSwitch").bootstrapSwitch();
 				this.$el.find(".timeLimitSwitch").bootstrapSwitch();
 				this.$el.find(".switch").bootstrapSwitch();
+			},
+			ui:{
+				"EditForm":"#editForm",
+				"btnSubmit":"#btnSubmit"                   //提交按钮
+			},
+			events:{
+				'submit @ui.EditForm':'EditSubmit'
+			},
+			SetParentVersionDetails:function(SubmitCollection){
+				var editView = this;
+				//console.log(SubmitCollection.models);
+				var parentDetails = this.$el.find(".timelineMajor");
+				var parentStageNo,versionDetailModel;
+				parentDetails.each(function(i){
+					parentStageNo = $(this).attr("date-Parent-StageNo");
+					editView.SetDetail(editView.$el.find("dl[data-StageNo="+parentStageNo+"]"))
+				})
+			},
+			SetDetail:function(stageDl){
+				var stageName = stageDl.find(".VersionDetail_StageName").val();
+				var isForbid = stageDl.find(".VersionDetail_IsForbid").is(":checked");
+				var canForbid = stageDl.find(".VersionDetail_CanForbid").is(":checked");
+				var canChangeName = stageDl.find(".VersionDetail_CanChangeName").is(":checked");
+				var canChangeDate = stageDl.find(".VersionDetail_CanChangeDate").is(":checked");
+				var isDateSameWithParent = stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked");
+				var beginDate = stageDl.find(".VersionDetail_BeginDate").val();
+				var EndDate = stageDl.find(".VersionDetail_EndDate").val();
+				var isCalBeginDate = stageDl.find("[data-IsCalBeginDate]").attr("data-IsCalBeginDate");
+				var isCalEndDate = stageDl.find("[data-IsCalEndDate]").attr("data-IsCalEndDate");
+			},
+			EditSubmit:function(e){
+				//阻止默认的提交行为
+				e.preventDefault();
+
+				//复制一份新的collection，深拷贝来的哦
+				var submitCollection = new VersionDetailWrapCollection()
+				this.SetParentVersionDetails(submitCollection);
+
+				return false;
 			}
 		})
 	});

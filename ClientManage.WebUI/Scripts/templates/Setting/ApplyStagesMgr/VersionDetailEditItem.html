@@ -1,10 +1,12 @@
 <h2 class="timelineMajorMarker"><span><%= ParentVersionDetail.StageName %></span></h2>
-<dl class="timelineMinor" data-StageNo="<%= ParentVersionDetail.StageNo %>" data-StageClass="<%= ParentVersionDetail.StageClass %>">
+<!-- /h2.timelineMajorMarker 父级标题 -->
+<dl class="timelineMinor" data-StageClass="<%= ParentVersionDetail.StageClass %>" data-StageNo="<%= ParentVersionDetail.StageNo %>" >
     <dt id="StageNo_<%= ParentVersionDetail.StageNo %>"><a><%= ParentVersionDetail.StageName %>：展开进行修改</a></dt>
     <dd class="timelineEvent" id="StageNo_<%= ParentVersionDetail.StageNo %>EX" style="display: none;">
         <%= _.template(FieldsetTpl,ParentVersionDetail,{variable:"StageItem"}) %>
     </dd>
 </dl>
+<!-- /dl.timelineMinor ParentVersionDetail -->
 <% _.each(ChildVersionDetails,function(childStageItem){ %>
 <dl class="timelineMinor" data-StageClass="<%= childStageItem.StageClass %>" data-StageNo="<%= childStageItem.StageNo %>">
     <dt id="StageNo_<%= childStageItem.StageNo %>"><a><%= childStageItem.StageName %></a></dt>
@@ -12,5 +14,5 @@
         <%= _.template(FieldsetTpl,childStageItem,{variable:"StageItem"}) %>
     </dd>
 </dl>
-
+<!-- /dl.timelineMinor ChildVersionDetail -->
 <% }); %>
