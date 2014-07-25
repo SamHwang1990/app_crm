@@ -107,7 +107,7 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
                 {
                     parentDetail = parent;
                     childDetails = repository.ApplyStageVersionDetail
-                        .Where(a=>a.VersionID == VersionID && a.ParentNo == parent.ParentNo)
+                        .Where(a => a.VersionID == VersionID && a.ParentNo == parent.StageNo)
                         .OrderBy(a=>a.StageNo)
                         .ToList<ApplyStageVersionDetailEntity>();
 
@@ -141,7 +141,6 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
                 EndOption = stageEntity.EndOption,
                 BeginDate = stageEntity.BeginDate,
                 EndDate = stageEntity.EndDate,
-                CompareDateWith = stageEntity.CompareDateWith,
                 IsDateSameWithParent = stageEntity.IsDateSameWithParent,
                 ChildStage = stageEntity.ChildStage,
                 ResponseRole = stageEntity.ResponseRole,
@@ -152,6 +151,53 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
                 CanChangeName = stageEntity.CanChangeName,
                 Remark = stageEntity.Remark
             };
+        }
+
+        [HttpPost]
+        public JsonResult VersionDetailEdit(IEnumerable<ApplyStageVersionDetailWrap> ajaxData)
+        {
+            if (ajaxData == null)
+            {
+                return Json(new { SaveResult = false });
+            }
+
+            //从数据库中把Stages 全部读取出来
+            IEnumerable<ApplyStagesEntity> applyStages = repository.ApplyStages;
+            //将要存储到数据库中的List
+            List<ApplyStageVersionDetailEntity> versionDetails = new List<ApplyStageVersionDetailEntity>();
+            ApplyStagesEntity currentStage = null;
+
+            //将列表按父阶段的StageNo进行排序
+            ajaxData = ajaxData.OrderBy(w => w.ParentVersionDetail.StageNo);
+            foreach (ApplyStageVersionDetailWrap versionDetailWrap in ajaxData)
+            {
+                currentStage = applyStages.Single(a=>a.StageNo == versionDetailWrap.ParentVersionDetail.StageNo);
+                versionDetailWrap.ParentVersionDetail.DetailID = Guid.NewGuid();
+                versionDetailWrap.ParentVersionDetail.ChildStage = currentStage.ChildStage;
+                versionDetailWrap.ParentVersionDetail.ParentNo = currentStage.ParentNo;
+                versionDetailWrap.ParentVersionDetail.StatusOption = currentStage.StatusOption;
+                versionDetailWrap.ParentVersionDetail.BeginOption = currentStage.BeginOption;
+                versionDetailWrap.ParentVersionDetail.EndOption = currentStage.EndOption;
+
+                foreach (ApplyStageVersionDetailEntity childDetail in versionDetailWrap.ChildVersionDetails)
+                {
+                    currentStage = applyStages.Single(a=>a.StageNo == childDetail.StageNo);
+
+                    childDetail.DetailID = Guid.NewGuid();
+                    childDetail.ChildStage = currentStage.ChildStage;
+                    childDetail.ParentNo = currentStage.ParentNo;
+                    childDetail.StatusOption = currentStage.StatusOption;
+                    childDetail.BeginOption = currentStage.BeginOption;
+                    childDetail.EndOption = currentStage.EndOption;
+                }
+
+                versionDetails.Add(versionDetailWrap.ParentVersionDetail);
+                versionDetails.AddRange(versionDetailWrap.ChildVersionDetails);
+            }
+
+            repository.SaveApplyStageVersionDetails(versionDetails);
+
+            return Json(new { SaveResult = true });
         }
     }
 }

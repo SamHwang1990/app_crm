@@ -110,14 +110,6 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 计算日期的对比对象：0-Parent,1-Sibling
-        /// </summary>
-        public byte? CompareDateWith
-        {
-            set;
-            get;
-        }
-        /// <summary>
         /// 日期是否与父相同
         /// </summary>
         public bool IsDateSameWithParent

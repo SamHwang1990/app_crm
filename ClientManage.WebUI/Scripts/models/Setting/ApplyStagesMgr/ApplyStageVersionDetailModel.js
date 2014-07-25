@@ -18,7 +18,6 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 				EndOption:'',
 				BeginDate:0,
 				EndDate:0,
-				CompareDateWith:'0',
 				IsDateSameWithParent:false,
 				ChildStage:'',
 				ResponseRole:'',

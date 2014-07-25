@@ -56,6 +56,19 @@ define([
 			events:{
 				'submit @ui.EditForm':'EditSubmit'
 			},
+			SetFeedbackMsg:SetFeedbackMsg,
+			CheckRequire:CheckSubmitRequire,
+			//检查表单元素的值是否合法
+			validateForm:function(){
+				//检查基础必备信息是否已填写
+				var requiredMsg = '请填写必填字段:';
+				if(!this.CheckRequire(this.$el,'class','VersionDetail_StageName')){
+					this.SetFeedbackMsg(this.$el,requiredMsg+"阶段名",'inputInvalid','add')
+					return false;
+				}
+
+				return true;
+			},
 			SetParentVersionDetails:function(){
 				var submitCollection = new VersionDetailWrapCollection()
 
@@ -83,6 +96,7 @@ define([
 			SetDetail:function(stageDl){
 				var stageNo = stageDl.attr("data-StageNo");
 				var stageName = stageDl.find(".VersionDetail_StageName").val();
+
 				var stageClass = stageDl.attr("data-StageClass");
 				var isForbid = !(stageDl.find(".VersionDetail_IsForbid").is(":checked"));
 				var canForbid = stageDl.find(".VersionDetail_CanForbid").is(":checked");
@@ -91,8 +105,8 @@ define([
 				var isDateSameWithParent = !(stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked"));
 				var beginDate = stageDl.find(".VersionDetail_BeginDate").val();
 				var endDate = stageDl.find(".VersionDetail_EndDate").val();
-				var isCalBeginDate = stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate");
-				var isCalEndDate = stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate");
+				var isCalBeginDate = stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate") === "true";
+				var isCalEndDate = stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate") === "true";
 
 				return new VersionDetailModel({
 					VersionID:this.VersionID,
@@ -113,9 +127,31 @@ define([
 			EditSubmit:function(e){
 				//阻止默认的提交行为
 				e.preventDefault();
+				if(this.validateForm()){
+					var submitCollection = this.SetParentVersionDetails(submitCollection);
 
-				var submitCollection = this.SetParentVersionDetails(submitCollection);
+					var postUrl = this.ui.EditForm.attr('action');
+					var ajaxData = JSON.stringify(submitCollection);
 
+					$.ajax({
+						type:'POST',
+						url:postUrl,
+						data:ajaxData,
+						dataType:'json',
+						contentType: 'application/json; charset=utf-8',
+						success:function(data){
+							if(data.SaveResult == true){
+								ClientManage.navigate("Setting/ApplyStageVersion/List",{trigger:true});
+
+							}else{
+								alert('Post Failed');
+							}
+						},
+						error:function(data){
+							alert('提交数据失败');
+						}
+					})
+				}
 				return false;
 			}
 		})

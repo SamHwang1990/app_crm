@@ -45,11 +45,11 @@ define([
 			validateForm:function(){
 				//检查基础必备信息是否已填写
 				var requiredMsg = '请填写必填字段:';
-				if(!this.CheckRequire(this.$el,'name','SignDateBefore','有效签约时间')){
+				if(!this.CheckRequire(this.$el,'name','SignDateBefore')){
 					this.SetFeedbackMsg(this.$el,requiredMsg+"有效签约时间",'inputInvalid','add')
 					return false;
 				}
-				if(!this.CheckRequire(this.$el,'id','VersionName','版本名称')){
+				if(!this.CheckRequire(this.$el,'id','VersionName')){
 					this.SetFeedbackMsg(this.$el,requiredMsg+"版本名称",'inputInvalid','add')
 					return false;
 				}

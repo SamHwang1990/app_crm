@@ -47,6 +47,27 @@ namespace ClientManage.Domain.Concrete
             context.SaveChanges();
         }
 
+        public void SaveApplyStageVersionDetails(IList<ApplyStageVersionDetailEntity> versionDetails)
+        {
+            Guid versionID = versionDetails.FirstOrDefault().VersionID;
+            if (context.ApplyStageVersionDetail.Count(a => a.VersionID == versionID) > 0)
+            {
+                ClearApplyStageVersionDetail(versionID);
+            }
+            context.ApplyStageVersionDetail.AddRange(versionDetails);
+            context.SaveChanges();
+
+        }
+
+        /// <summary>
+        /// 根据阶段版本ID，清空VersionDetail中的数据
+        /// </summary>
+        /// <param name="versionID"></param>
+        public void ClearApplyStageVersionDetail(Guid versionID)
+        {
+            context.ApplyStageVersionDetail.RemoveRange(context.ApplyStageVersionDetail.Where(a => a.VersionID == versionID));
+        }
+
         #endregion
     }
 }
