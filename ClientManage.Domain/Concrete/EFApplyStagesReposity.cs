@@ -38,7 +38,8 @@ namespace ClientManage.Domain.Concrete
             if (versionEntity.VersionID == Guid.Empty)  //如果传入的Guid全为0，则为添加一新Guid
                 versionEntity.VersionID = Guid.NewGuid();
 
-            ApplyStageVersionEntity originVersionEntity = context.ApplyStageVersion.Single(a => a.VersionID == versionEntity.VersionID);
+            ApplyStageVersionEntity originVersionEntity = context.ApplyStageVersion
+                .SingleOrDefault(a => a.VersionID == versionEntity.VersionID || a.VersionName == versionEntity.VersionName);
             if (originVersionEntity == null)
                 context.ApplyStageVersion.Add(versionEntity);
             else

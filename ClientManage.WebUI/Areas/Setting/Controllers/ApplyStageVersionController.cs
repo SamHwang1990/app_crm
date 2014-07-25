@@ -58,7 +58,7 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
         {
             if (versionID == null || versionID == string.Empty || versionID == Guid.Empty.ToString())
             {
-                return Json(false, JsonRequestBehavior.AllowGet);
+                return Json(new ApplyStageVersionEntity { VersionID = Guid.NewGuid(),SignDateBefore = DateTime.Now }, JsonRequestBehavior.AllowGet);
             }
             ApplyStageVersionEntity applyVersion = repository.ApplyStageVersion.Single(r => r.VersionID == new Guid(versionID));
             return Json(applyVersion, JsonRequestBehavior.AllowGet);

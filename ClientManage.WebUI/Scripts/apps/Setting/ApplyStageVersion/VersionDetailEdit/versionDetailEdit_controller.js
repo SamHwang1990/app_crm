@@ -29,6 +29,10 @@ define(['app'],function(ClientManage){
 										VersionID:versionID
 									})
 									contentRegion.show(detailEditView);
+									ClientManage.vent.off("VersionDetailEditSuccess");
+									ClientManage.vent.on("VersionDetailEditSuccess",function(){
+										ClientManage.navigate("Setting/ApplyStageVersion/List",{trigger:true});
+									})
 								}
 							},
 							error:function(){

@@ -28,6 +28,10 @@ define(['app'],function(ClientManage){
 										model:versionInfo
 									});
 									contentRegion.show(editView);
+									ClientManage.vent.off("VersionEditSuccess");
+									ClientManage.vent.on("VersionEditSuccess",function(){
+										ClientManage.navigate("Setting/ApplyStageVersion/List",{trigger:true});
+									})
 								}
 							},
 							error:function(){

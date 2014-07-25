@@ -141,8 +141,7 @@ define([
 						contentType: 'application/json; charset=utf-8',
 						success:function(data){
 							if(data.SaveResult == true){
-								ClientManage.navigate("Setting/ApplyStageVersion/List",{trigger:true});
-
+								ClientManage.vent.trigger("VersionDetailEditSuccess");
 							}else{
 								alert('Post Failed');
 							}
