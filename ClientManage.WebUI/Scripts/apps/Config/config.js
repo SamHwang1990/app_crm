@@ -14,7 +14,7 @@ define([],function(){
 		collectionPath:'collections',   //前端集合JS的路径
 		libPath:'libs', //前端库JS的路径
 		siteName:'App-ClientManage',    //网站名字
-		version:'0.1.0.0'   //网站版本
+		version:'0.1.1.0'   //网站版本
 	};
 	return appConfig;
 })
