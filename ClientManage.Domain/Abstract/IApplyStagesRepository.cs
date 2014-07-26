@@ -13,6 +13,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail { get; }
 
         void SaveApplyStageVersion(ApplyStageVersionEntity versionEntity);
+        void DeleteApplyStageVersion(Guid versionID);
 
         void SaveApplyStageVersionDetails(IList<ApplyStageVersionDetailEntity> versionDetails);
         void ClearApplyStageVersionDetail(Guid versionID);

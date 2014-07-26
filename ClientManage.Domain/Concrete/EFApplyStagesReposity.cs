@@ -48,6 +48,20 @@ namespace ClientManage.Domain.Concrete
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// 删除版本及其阶段信息
+        /// </summary>
+        /// <param name="versionID">要删除的阶段ID</param>
+        public void DeleteApplyStageVersion(Guid versionID)
+        {
+            //清空版本的VersionDetail
+            ClearApplyStageVersionDetail(versionID);
+
+            context.ApplyStageVersion.Remove(context.ApplyStageVersion.SingleOrDefault(a => a.VersionID == versionID));
+
+            context.SaveChanges();
+        }
+
         public void SaveApplyStageVersionDetails(IList<ApplyStageVersionDetailEntity> versionDetails)
         {
             Guid versionID = versionDetails.FirstOrDefault().VersionID;

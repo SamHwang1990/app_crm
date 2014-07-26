@@ -16,7 +16,8 @@ requirejs.config({
 		text: 'libs/require/text',
 		underscore: "libs/underscore/underscore",
 		'bootstrap':'../Content/bootstrap/js/bootstrap.min',
-		'Timeline':'libs/timeline/timeliner'
+		'Timeline':'libs/timeline/timeliner',
+		Bootbox:"libs/bootstrap/bootbox/bootbox.min"
 	},
 	shim: {
 		underscore: {
@@ -43,6 +44,9 @@ requirejs.config({
 		Timeline:{
 			deps:['jquery'],
 			exports:"Timeline"
+		},
+		Bootbox:{
+			deps:["bootstrap"]
 		}
 	}
 });

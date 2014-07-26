@@ -199,5 +199,21 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
 
             return Json(new { SaveResult = true });
         }
+
+        /// <summary>
+        /// HttpPost 删除Version 数据
+        /// </summary>
+        /// <param name="versionID">版本ID 字符串</param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult VersionDelete(string versionID)
+        {
+            if (versionID == null || versionID == string.Empty || versionID == Guid.NewGuid().ToString())
+            {
+                return Json(new { DeleteResult = false });
+            }
+            repository.DeleteApplyStageVersion(new Guid(versionID));
+            return Json(new { DeleteResult = true });
+        }
     }
 }
