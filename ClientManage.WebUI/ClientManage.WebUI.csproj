@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
@@ -175,6 +176,11 @@
     <Content Include="Scripts\apps\RouterAPI\RouterSetting.js" />
     <Content Include="Scripts\apps\RouterAPI\RouterStudentMgr.js" />
     <Content Include="Scripts\apps\RouterAPI\RouterUserMgr.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionCreate\versionCreate_controller.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionCreate\versionCreate_view.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionDetailEdit\versionDetailEditItem_view.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionDetailEdit\versionDetailEdit_controller.js" />
+    <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionDetailEdit\versionDetailEdit_view.js" />
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionEdit\versionEdit_controller.js" />
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionEdit\versionEdit_view.js" />
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionList\versionList_controller.js" />
@@ -208,13 +214,15 @@
     <Content Include="Scripts\apps\UserMgr\List\list_view.js" />
     <Content Include="Scripts\assets\AppUISet.js" />
     <Content Include="Scripts\assets\CheckLogin.js" />
-    <Content Include="Scripts\clientManage\CreateStudent.js" />
-    <Content Include="Scripts\clientManage\FirstRegFormFrom.js" />
-    <Content Include="Scripts\clientManage\FirstRegFormInfo.js" />
-    <Content Include="Scripts\clientManage\FirstRegTPInfo.js" />
-    <Content Include="Scripts\clientManage\GetFromInterview.js" />
+    <Content Include="Scripts\assets\CheckSubmitRequire.js" />
+    <Content Include="Scripts\assets\RenderDateTimePicker.js" />
+    <Content Include="Scripts\assets\SetFeedbackMsg.js" />
+    <Content Include="Scripts\assets\TransformDateString.js" />
     <Content Include="Scripts\collections\RoleMgr\RoleList.js" />
+    <Content Include="Scripts\collections\Setting\ApplyStagesMgr\StagesCollection.js" />
     <Content Include="Scripts\collections\Setting\ApplyStagesMgr\VersionCollection.js" />
+    <Content Include="Scripts\collections\Setting\ApplyStagesMgr\VersionDetailCollection.js" />
+    <Content Include="Scripts\collections\Setting\ApplyStagesMgr\VersionDetailWrapCollection.js" />
     <Content Include="Scripts\collections\StudentMgr\Index\StudentList.js" />
     <Content Include="Scripts\collections\StudentMgr\Index\StudentSchoolList.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\FlashPointCollection.js" />
@@ -233,6 +241,10 @@
     <Content Include="Scripts\libs\backbone\backbone.syphon.js" />
     <Content Include="Scripts\libs\backbone\backbone.syphon.min.js" />
     <Content Include="Scripts\libs\backbone\BackboneConfig.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.css" />
+    <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.min.css" />
+    <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.min.js" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.min.css" />
@@ -245,13 +257,17 @@
     <Content Include="Scripts\libs\require\domReady.js" />
     <Content Include="Scripts\libs\require\require.js" />
     <Content Include="Scripts\libs\require\text.js" />
+    <Content Include="Scripts\libs\timeline\timeliner.js" />
+    <Content Include="Scripts\libs\timeline\timeliner.min.js" />
     <Content Include="Scripts\libs\underscore\underscore.js" />
-    <Content Include="Scripts\mainApp.js" />
-    <Content Include="Scripts\mainLogin.js" />
     <Content Include="Scripts\models\Home\Feedback.js" />
     <Content Include="Scripts\models\LoginUser.js" />
     <Content Include="Scripts\models\RoleMgr\RoleInfo.js" />
+    <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStagesModel.js" />
+    <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionDetailModel.js" />
+    <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionDetailWrapModel.js" />
     <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionModel.js" />
+    <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageWrapModel.js" />
     <Content Include="Scripts\models\StudentMgr\AppRelation.js" />
     <Content Include="Scripts\models\StudentMgr\EasyChatTimeModel.js" />
     <Content Include="Scripts\models\StudentMgr\EnumModel\EducationIntention.js" />
@@ -293,6 +309,10 @@
     <Content Include="Scripts\templates\RoleMgr\Edit.html" />
     <Content Include="Scripts\templates\RoleMgr\List.html" />
     <Content Include="Scripts\templates\RoleMgr\ListItem.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionCreate.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionDetailEdit.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionDetailEditFieldset.html" />
+    <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionDetailEditItem.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionEdit.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionList.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionListItem.html" />
@@ -319,17 +339,6 @@
     <Content Include="Scripts\templates\UserMgr\Edit.html" />
     <Content Include="Scripts\templates\UserMgr\List.html" />
     <Content Include="Scripts\templates\UserMgr\ListItem.html" />
-    <Content Include="Scripts\views\AppFrame.js" />
-    <Content Include="Scripts\views\AppShowView.js" />
-    <Content Include="Scripts\views\Home\Feedback.js" />
-    <Content Include="Scripts\views\Home\Index.js" />
-    <Content Include="Scripts\views\Home\login.js" />
-    <Content Include="Scripts\views\Home\Temp.js" />
-    <Content Include="Scripts\views\RoleMgr\list.html" />
-    <Content Include="Scripts\views\StudentMgr\Index\Create.js" />
-    <Content Include="Scripts\views\StudentMgr\Index\List.js" />
-    <Content Include="Scripts\views\StudentMgr\Index\RoleList.js" />
-    <Content Include="Scripts\views\StudentMgr\Index\UserList.js" />
     <Content Include="Views\Home\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
