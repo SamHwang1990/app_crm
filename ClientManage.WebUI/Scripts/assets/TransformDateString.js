@@ -16,6 +16,9 @@ define([],function(){
 		return msDate;
 	}
 
+	/*
+	* 将日期字符串转换为 时间格式的字符串：yyyy-MM-dd
+	* */
 	TransFormDate.prototype.TransMsStringToDate = function(msString){
 		var msDate = this.TransMsStringToDateType(msString);
 		var month = (msDate.getMonth() < 9)?('0' + (msDate.getMonth()+1)):msDate.getMonth()+1;
@@ -23,6 +26,9 @@ define([],function(){
 		return msDate.getFullYear() + "-" + month + "-" + day;
 	}
 
+	/*
+	* 将日期字符串转换为 时间格式的字符串：hh:mm:ss
+	* */
 	TransFormDate.prototype.TransMsStringToTime = function(msString){
 		var msDate = this.TransMsStringToDateType(msString);
 		var hour = (msDate.getHours() < 10)?('0' + msDate.getHours()):msDate.getHours();
