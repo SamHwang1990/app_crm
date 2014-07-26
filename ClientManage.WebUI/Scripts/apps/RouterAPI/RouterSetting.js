@@ -37,9 +37,6 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(ApplyStageVersionDetailEditController.ShowEdit,id);
 				})
 		};
-		RouterAPI.SettingApplyStageVersionDeleteVersion = function(id){
-
-		}
 	};
 	return routerHandler;
 })

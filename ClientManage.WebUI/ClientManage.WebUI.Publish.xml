@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="localhost" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="ClientManage" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="True" profileName="配置文件1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="Administrator" savePWD="False" userPWD="" SelectedForPublish="True">
+  <publishProfile publishUrl="localhost" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="ClientManage" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="True" profileName="配置文件1" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="Administrator" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/List/list_controller.js" publishTime="06/07/2014 19:23:05" />
+    <file relUrl="Scripts/libs/underscore/underscore.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/backbone/BackboneConfig.js" publishTime="04/25/2014 17:03:47" />
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Scripts/libs/backbone/backbone.syphon.min.js" publishTime="05/05/2014 15:36:47" />
@@ -9,10 +10,12 @@
     <file relUrl="Content/images/icon/student-white.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/Common/AdminMenu_view.js" publishTime="05/10/2014 17:02:46" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/StudentTPInfoModel.js" publishTime="05/30/2014 17:58:26" />
+    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleParticipantItem.html" publishTime="05/27/2014 10:55:28" />
     <file relUrl="Areas/Students/Views/SaleTrack/GetContactList.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/RoleMgr/List/list_view.js" publishTime="06/16/2014 12:34:20" />
     <file relUrl="Scripts/clientManage/FirstRegFormFrom.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/StudentMgr/Index/StudentItem.html" publishTime="07/03/2014 15:35:34" />
+    <file relUrl="Scripts/app.js" publishTime="05/17/2014 17:56:03" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/StudentSourceItem.js" publishTime="05/30/2014 11:50:41" />
     <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Scripts/libs/require/domReady.js" publishTime="04/12/2014 15:45:28" />
@@ -22,10 +25,8 @@
     <file relUrl="Views/Web.config" publishTime="06/06/2014 10:36:27" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/GetFromInterview.html" publishTime="06/07/2014 16:53:26" />
     <file relUrl="bin/ClientManage.Domain.dll" publishTime="07/03/2014 15:14:25" />
-    <file relUrl="Scripts/assets/CheckLogin.js" publishTime="04/16/2014 10:51:38" />
     <file relUrl="Scripts/apps/SignIn/SignIn/signIn_controller.js" publishTime="05/09/2014 18:03:05" />
     <file relUrl="Scripts/views/AppShowView.js" publishTime="04/26/2014 16:26:59" />
-    <file relUrl="Scripts/apps/RoleMgr/List/list_controller.js" publishTime="06/16/2014 12:34:23" />
     <file relUrl="Areas/Students/Views/ApplyInfo/ApplyMiddle.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/Common/appBody-content.html" publishTime="04/12/2014 16:23:17" />
     <file relUrl="Content/bootstrap/css/bootstrap.css" publishTime="04/12/2014 15:45:28" />
@@ -41,14 +42,13 @@
     <file relUrl="Scripts/apps/SignIn/SignOut/signOut_controller.js" publishTime="05/10/2014 15:35:46" />
     <file relUrl="Scripts/assets/AppUISet.js" publishTime="05/13/2014 20:31:30" />
     <file relUrl="Scripts/apps/SignIn/SignIn/signIn_view.js" publishTime="05/13/2014 11:40:53" />
-    <file relUrl="Areas/Admin/Views/Users/UserNameList.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/FirstInterviewReg.html" publishTime="07/03/2014 15:06:23" />
     <file relUrl="Areas/Admin/Views/Roles/List.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" publishTime="04/23/2014 12:02:03" />
-    <file relUrl="Scripts/templates/UserMgr/ListItem.html" publishTime="06/17/2014 13:12:35" />
+    <file relUrl="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll" publishTime="01/10/2011 11:11:20" />
     <file relUrl="Scripts/models/RoleMgr/RoleInfo.js" publishTime="06/16/2014 18:07:58" />
     <file relUrl="Scripts/templates/Home/Temp.html" publishTime="04/16/2014 16:50:55" />
-    <file relUrl="bin/EntityFramework.dll" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Scripts/templates/UserMgr/Edit.html" publishTime="06/17/2014 15:17:58" />
     <file relUrl="Scripts/views/StudentMgr/Index/List.js" publishTime="04/25/2014 20:47:06" />
     <file relUrl="Scripts/templates/StudentMgr/Index/ContactContent.html" publishTime="05/23/2014 18:24:05" />
@@ -64,34 +64,38 @@
     <file relUrl="Scripts/apps/Home/Feedback/feedback_view.js" publishTime="05/13/2014 15:13:30" />
     <file relUrl="Scripts/templates/UserMgr/List.html" publishTime="06/17/2014 12:07:51" />
     <file relUrl="Scripts/templates/StudentMgr/Index/RoleItem.html" publishTime="05/14/2014 17:16:11" />
+    <file relUrl="Scripts/models/StudentMgr/EnumModel/TrackPattern.js" publishTime="06/07/2014 19:39:48" />
     <file relUrl="bin/ClientManage.WebUI.pdb" publishTime="07/03/2014 17:16:00" />
     <file relUrl="Areas/Students/Views/StudentInfo/Create.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/clientManage/GetFromInterview.js" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/libs/backbone/backbone.picky.min.js" publishTime="05/05/2014 15:18:01" />
     <file relUrl="Scripts/apps/Home/Index/index_controller.js" publishTime="05/13/2014 15:17:02" />
     <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.css" publishTime="03/31/2014 21:35:18" />
     <file relUrl="Scripts/models/StudentMgr/StudentInfo.js" publishTime="07/03/2014 15:02:20" />
     <file relUrl="Scripts/templates/Home/Feedback.html" publishTime="04/17/2014 15:49:35" />
+    <file relUrl="Scripts/apps/Config/appConfig.js" publishTime="05/07/2014 12:01:31" />
     <file relUrl="Scripts/collections/UserMgr/UserList.js" publishTime="04/22/2014 16:20:41" />
     <file relUrl="Scripts/models/StudentMgr/EnumModel/Grade.js" publishTime="06/07/2014 11:14:16" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/05/2011 15:45:38" />
-    <file relUrl="Scripts/apps/RoleMgr/Create/create_controller.js" publishTime="06/17/2014 18:32:35" />
     <file relUrl="Areas/Admin/Views/Users/List.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/RoleMgr/Edit.html" publishTime="06/16/2014 17:39:53" />
     <file relUrl="Areas/Students/Views/SaleTrack/CommonInterview.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="bin/zh-Hans/Microsoft.Web.Infrastructure.resources.dll" publishTime="01/10/2011 11:11:10" />
     <file relUrl="Scripts/models/StudentMgr/StudentInfoViewModel.js" publishTime="05/21/2014 18:19:06" />
     <file relUrl="Scripts/templates/RoleMgr/List.html" publishTime="06/17/2014 11:48:33" />
-    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/List.html" publishTime="06/05/2014 15:36:43" />
+    <file relUrl="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll" publishTime="01/10/2011 11:11:26" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/CommonInterview.html" publishTime="05/28/2014 12:07:28" />
     <file relUrl="Areas/Students/Views/Web.config" publishTime="06/06/2014 10:36:27" />
     <file relUrl="Scripts/views/Home/Index.js" publishTime="04/26/2014 11:47:12" />
     <file relUrl="Content/images/icon/student.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackEntity.js" publishTime="06/07/2014 11:02:03" />
     <file relUrl="Scripts/templates/Home/Index.html" publishTime="05/13/2014 10:06:48" />
+    <file relUrl="bin/Ninject.dll" publishTime="02/25/2014 15:43:03" />
     <file relUrl="Content/images/icon/role.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/mainLogin.js" publishTime="04/16/2014 10:47:30" />
     <file relUrl="Scripts/models/StudentMgr/EnumModel/ExamType.js" publishTime="06/04/2014 11:36:39" />
     <file relUrl="Scripts/apps/Home/Index/index_view.js" publishTime="05/13/2014 16:49:03" />
+    <file relUrl="Scripts/apps/UserMgr/Create/create_controller.js" publishTime="06/17/2014 18:35:16" />
     <file relUrl="Scripts/apps/Home/Feedback/feedback_controller.js" publishTime="05/13/2014 15:17:45" />
     <file relUrl="Scripts/views/Home/Temp.js" publishTime="04/16/2014 16:52:09" />
     <file relUrl="Global.asax" publishTime="04/12/2014 15:45:28" />
@@ -108,9 +112,9 @@
     <file relUrl="Scripts/views/StudentMgr/Index/UserList.js" publishTime="04/23/2014 18:34:50" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/SaleTrackList.js" publishTime="06/05/2014 16:20:51" />
     <file relUrl="Scripts/apps/SignIn/Check/check_controller.js" publishTime="05/13/2014 12:04:46" />
-    <file relUrl="Scripts/apps/StudentMgr/Index/Create/create_controller.js" publishTime="06/08/2014 15:52:42" />
+    <file relUrl="Scripts/templates/Common/appAdminBar.html" publishTime="06/17/2014 14:52:07" />
     <file relUrl="Scripts/libs/html5shiv.min.js" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/apps/Home/Home_app.js" publishTime="05/10/2014 14:29:55" />
+    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/List.html" publishTime="06/05/2014 15:36:43" />
     <file relUrl="Scripts/libs/backbone/backbone.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/RoleMgr/ListItem.html" publishTime="06/16/2014 18:30:53" />
     <file relUrl="Scripts/models/StudentMgr/ExamResult/ExamResultModels.js" publishTime="06/03/2014 14:54:30" />
@@ -119,14 +123,11 @@
     <file relUrl="Views/Home/Login.cshtml" publishTime="05/08/2014 18:43:18" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/StudentFromCollection.js" publishTime="05/30/2014 16:49:02" />
     <file relUrl="Scripts/libs/backbone/backbone.picky.js" publishTime="05/05/2014 15:17:32" />
-    <file relUrl="Scripts/models/Home/Feedback.js" publishTime="04/17/2014 15:30:59" />
-    <file relUrl="Scripts/require_main.js" publishTime="05/27/2014 16:26:02" />
-    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="01/05/2011 15:45:38" />
+    <file relUrl="Scripts/models/StudentMgr/Index/StudentSchool.js" publishTime="06/11/2014 10:28:45" />
     <file relUrl="bin/EntityFramework.xml" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Areas/Students/Views/ApplyInfo/Familiar.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Areas/Students/Views/ApplyInfo/ApplyLast.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/StudentMgr/Index/List/list_controller.js" publishTime="05/14/2014 15:58:11" />
-    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_view.js" publishTime="06/08/2014 10:56:16" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/backbone/backbone.syphon.js" publishTime="05/05/2014 15:25:18" />
     <file relUrl="Scripts/apps/StudentMgr/Index/Create/saleConsultant_view.js" publishTime="07/02/2014 18:32:55" />
@@ -135,7 +136,6 @@
     <file relUrl="Scripts/apps/Common/AdminFooter_view.js" publishTime="05/10/2014 11:34:07" />
     <file relUrl="bin/EntityFramework.SqlServer.xml" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Scripts/templates/Common/index.html" publishTime="05/10/2014 16:16:18" />
-    <file relUrl="bin/zh-Hans/System.Web.WebPages.Razor.resources.dll" publishTime="01/10/2011 11:11:26" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity.js" publishTime="05/26/2014 18:09:20" />
     <file relUrl="Scripts/clientManage/FirstRegFormInfo.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Content/bootstrap/img/glyphicons-halflings-white.png" publishTime="04/12/2014 15:45:28" />
@@ -147,6 +147,7 @@
     <file relUrl="Scripts/libs/backbone/backbone.js" publishTime="05/05/2014 15:15:18" />
     <file relUrl="Scripts/apps/UserMgr/Edit/edit_controller.js" publishTime="07/03/2014 10:40:42" />
     <file relUrl="Scripts/models/UserMgr/UserInfo.js" publishTime="06/17/2014 14:38:54" />
+    <file relUrl="bin/zh-Hans/System.Web.Mvc.resources.dll" publishTime="01/12/2011 18:24:24" />
     <file relUrl="Areas/Students/Views/StudentInfo/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Areas/Admin/Views/Users/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/mainApp.js" publishTime="05/05/2014 17:54:14" />
@@ -155,28 +156,28 @@
     <file relUrl="bin/ClientManage.Domain.pdb" publishTime="07/03/2014 15:14:25" />
     <file relUrl="Scripts/templates/StudentMgr/Index/StudentSchoolItem.html" publishTime="06/11/2014 11:05:38" />
     <file relUrl="Scripts/templates/StudentMgr/Index/Create.html" publishTime="07/03/2014 15:47:22" />
-    <file relUrl="Scripts/apps/UserMgr/List/list_controller.js" publishTime="06/17/2014 12:40:01" />
     <file relUrl="Scripts/clientManage/CreateStudent.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/StudentMgr/Index/EasyChatTime.html" publishTime="06/11/2014 17:56:32" />
     <file relUrl="Scripts/apps/RoleMgr/Create/create_view.js" publishTime="06/17/2014 18:31:46" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/History/history_view.js" publishTime="06/08/2014 12:24:15" />
-    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_controller.js" publishTime="06/05/2014 10:12:38" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/FirstInterviewReg/firstInterviewReg_controller.js" publishTime="06/10/2014 12:29:29" />
     <file relUrl="Content/xml/EmailConfig.xml" publishTime="05/27/2014 18:07:11" />
-    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/FirstInterviewReg.html" publishTime="07/03/2014 15:06:23" />
+    <file relUrl="Scripts/templates/StudentMgr/Index/UserItem.html" publishTime="05/14/2014 17:20:14" />
+    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_controller.js" publishTime="06/05/2014 10:12:38" />
     <file relUrl="Areas/ToolMgr/Views/Web.config" publishTime="06/06/2014 10:36:27" />
     <file relUrl="Views/Shared/libsjs.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Areas/StudentMgr/Views/Web.config" publishTime="06/06/2014 10:36:27" />
-    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleParticipantItem.html" publishTime="05/27/2014 10:55:28" />
-    <file relUrl="bin/Ninject.dll" publishTime="02/25/2014 15:43:03" />
-    <file relUrl="Scripts/templates/StudentMgr/Index/UserItem.html" publishTime="05/14/2014 17:20:14" />
+    <file relUrl="Scripts/require_main.js" publishTime="05/27/2014 16:26:02" />
+    <file relUrl="Scripts/assets/CheckLogin.js" publishTime="04/16/2014 10:51:38" />
+    <file relUrl="Scripts/apps/UserMgr/List/list_controller.js" publishTime="06/17/2014 12:40:01" />
     <file relUrl="Scripts/collections/StudentMgr/Index/StudentSchoolList.js" publishTime="06/11/2014 10:36:15" />
     <file relUrl="Areas/Admin/Views/Roles/RoleList.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/jquery/jquery-1.11.0.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/StudentMgr/Index/Create/create_view.js" publishTime="07/03/2014 15:56:14" />
     <file relUrl="Scripts/apps/SignIn/SignIn_app.js" publishTime="05/12/2014 17:22:47" />
     <file relUrl="Content/bootstrap/css/bootstrap.min.css" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="bin/zh-Hans/System.Web.WebPages.Deployment.resources.dll" publishTime="01/10/2011 11:11:20" />
+    <file relUrl="Scripts/apps/StudentMgr/Index/Create/create_controller.js" publishTime="06/08/2014 15:52:42" />
+    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleTrackHistory.html" publishTime="06/08/2014 09:59:19" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleTrackItem.html" publishTime="06/07/2014 17:17:25" />
     <file relUrl="Scripts/collections/StudentMgr/Index/StudentList.js" publishTime="05/19/2014 14:47:54" />
     <file relUrl="Scripts/views/RoleMgr/list.html" publishTime="06/14/2014 15:22:10" />
@@ -189,7 +190,7 @@
     <file relUrl="Scripts/apps/Common/AdminBar_view.js" publishTime="05/10/2014 11:45:55" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/StudentSourceCollection.js" publishTime="06/08/2014 15:54:20" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/FlashPointCollection.js" publishTime="06/10/2014 12:28:43" />
-    <file relUrl="Scripts/apps/UserMgr/Create/create_controller.js" publishTime="06/17/2014 18:35:16" />
+    <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Scripts/templates/StudentMgr/Index/Edit.html" publishTime="05/19/2014 16:17:56" />
     <file relUrl="Views/Shared/EditorTemplates/Enum.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackAjaxViewModel.js" publishTime="06/08/2014 11:57:46" />
@@ -198,17 +199,16 @@
     <file relUrl="Scripts/models/StudentMgr/AppRelation.js" publishTime="06/07/2014 11:45:12" />
     <file relUrl="Scripts/apps/Config/config.js" publishTime="05/07/2014 10:20:20" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/FlashPointItem.html" publishTime="06/10/2014 12:45:05" />
-    <file relUrl="Scripts/libs/underscore/underscore.js" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Content/bootstrap/js/bootstrap.min.js" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/app.js" publishTime="05/17/2014 17:56:03" />
-    <file relUrl="bin/zh-Hans/System.Web.Mvc.resources.dll" publishTime="01/12/2011 18:24:24" />
-    <file relUrl="Scripts/models/StudentMgr/EnumModel/TrackPattern.js" publishTime="06/07/2014 19:39:48" />
-    <file relUrl="Scripts/models/StudentMgr/Index/StudentSchool.js" publishTime="06/11/2014 10:28:45" />
+    <file relUrl="Scripts/apps/RoleMgr/List/list_controller.js" publishTime="06/16/2014 12:34:23" />
+    <file relUrl="bin/EntityFramework.dll" publishTime="02/25/2014 18:09:14" />
+    <file relUrl="Scripts/apps/RoleMgr/Create/create_controller.js" publishTime="06/17/2014 18:32:35" />
+    <file relUrl="Scripts/templates/UserMgr/ListItem.html" publishTime="06/17/2014 13:12:35" />
+    <file relUrl="Scripts/apps/Home/Home_app.js" publishTime="05/10/2014 14:29:55" />
     <file relUrl="Scripts/models/StudentMgr/EnumModel/FlashPointType.js" publishTime="06/10/2014 10:43:54" />
     <file relUrl="bin/zh-Hans/System.Web.WebPages.resources.dll" publishTime="01/10/2011 11:11:30" />
     <file relUrl="Content/images/App_logo_brand.jpg" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Web.config" publishTime="07/03/2014 17:18:30" />
-    <file relUrl="Scripts/templates/Common/appAdminBar.html" publishTime="06/17/2014 14:52:07" />
+    <file relUrl="Areas/Admin/Views/Users/UserNameList.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/FlashPointModel.js" publishTime="06/10/2014 12:27:39" />
     <file relUrl="Scripts/clientManage/FirstRegTPInfo.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Areas/Students/Views/SaleTrack/GetFromInterview.cshtml" publishTime="04/12/2014 15:45:28" />
@@ -220,7 +220,7 @@
     <file relUrl="Scripts/libs/jquery/jquery-1.11.0.js" publishTime="04/16/2014 11:50:58" />
     <file relUrl="Areas/Admin/Views/Roles/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="bin/System.Web.Helpers.dll" publishTime="01/05/2011 15:45:38" />
-    <file relUrl="Scripts/libs/backbone/backbone.picky.min.js" publishTime="05/05/2014 15:18:01" />
+    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_view.js" publishTime="06/08/2014 10:56:16" />
     <file relUrl="Scripts/libs/backbone/backbone.marionette.js" publishTime="03/26/2014 02:54:20" />
     <file relUrl="bin/ClientManage.WebUI.dll" publishTime="07/03/2014 17:16:00" />
     <file relUrl="Scripts/libs/require/require.js" publishTime="04/12/2014 15:45:28" />
@@ -238,11 +238,11 @@
     <file relUrl="Content/images/icon/role-white.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/views/StudentMgr/Index/Create.js" publishTime="04/26/2014 16:37:04" />
     <file relUrl="bin/zh-Hans/System.Web.Razor.resources.dll" publishTime="01/10/2011 11:11:10" />
-    <file relUrl="Scripts/apps/Config/appConfig.js" publishTime="05/07/2014 12:01:31" />
+    <file relUrl="Content/bootstrap/js/bootstrap.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/collections/RoleMgr/RoleList.js" publishTime="04/22/2014 12:23:28" />
     <file relUrl="Areas/Students/Views/SaleTrack/FirstInterview.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Content/css/app.css" publishTime="06/10/2014 11:37:11" />
-    <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleTrackHistory.html" publishTime="06/08/2014 09:59:19" />
+    <file relUrl="Scripts/models/Home/Feedback.js" publishTime="04/17/2014 15:30:59" />
     <file relUrl="Scripts/templates/Common/adminMenu.html" publishTime="06/17/2014 14:48:47" />
     <file relUrl="Scripts/views/Home/Feedback.js" publishTime="04/26/2014 11:47:58" />
   </publishProfile>

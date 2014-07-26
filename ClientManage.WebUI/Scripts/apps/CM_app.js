@@ -41,7 +41,6 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"Setting/ApplyStageVersion/List":"SettingApplyStageVersionList",
 				"Setting/ApplyStageVersion/Create":"SettingApplyStageVersionCreate",
 				"Setting/ApplyStageVersion/Edit/Version-:id":"SettingApplyStageVersionEditVersion",
-				"Setting/ApplyStageVersion/Delete/Version-:id":"SettingApplyStageVersionDeleteVersion",
 				"Setting/ApplyStageVersion/EditDetail/Version-:id":"SettingApplyStageVersionEditDetailVersion"
 			}
 		});
