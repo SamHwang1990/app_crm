@@ -19,6 +19,7 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"StudentMgr/Index/Edit/Student-:id":"StudentMgrIndexEditStudent",
 				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts",
 				"StudentMgr/AssignConsultant-:id":"StudentMgrAssignConsultant",
+				"StudentMgr/ScheduleApply-:id":"StudentMgrScheduleApply",
 
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",

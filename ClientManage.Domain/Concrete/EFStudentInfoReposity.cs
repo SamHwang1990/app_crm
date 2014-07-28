@@ -58,6 +58,21 @@ namespace ClientManage.Domain.Concrete
             get { return context.StudentSchool; }
         }
 
+        public IQueryable<ApplyStagesEntity> ApplyStages
+        {
+            get { return context.ApplyStages; }
+        }
+
+        public IQueryable<ApplyStageVersionEntity> ApplyStageVersion
+        {
+            get { return context.ApplyStageVersion; }
+        }
+
+        public IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail
+        {
+            get { return context.ApplyStageVersionDetail; }
+        }
+
         #endregion
 
         #region 保存操作

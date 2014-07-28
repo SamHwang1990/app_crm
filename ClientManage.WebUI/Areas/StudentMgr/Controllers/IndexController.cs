@@ -8,6 +8,7 @@ using ClientManage.Domain.Abstract;
 using ClientManage.Domain.Entities;
 using ClientManage.Domain.Enum;
 using ClientManage.WebUI.Areas.StudentMgr.Models;
+using ClientManage.WebUI.Areas.Setting.Models;
 using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
@@ -536,5 +537,278 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             return Json(returnResult,JsonRequestBehavior.AllowGet);
         }
+
+        #region Apply Stage Schedule Module
+
+        /// <summary>
+        /// 根据学生ID 返回申请阶段（全新的哦）
+        /// </summary>
+        /// <param name="versionID"></param>
+        /// <returns></returns>
+        public JsonResult GetScheduleApply(string studentID)
+        {
+            if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
+            {
+                return Json(new {GetResult = false, Msg = "不能传入空的学生ID" }, JsonRequestBehavior.AllowGet);
+            }
+
+            Guid StudentID = new Guid(studentID);
+            StudentInfoEntity studentInfo = repository.StudentsInfo.SingleOrDefault(s => s.StudentID == StudentID);
+            AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == StudentID);
+            DateTime studentSignDate = Convert.ToDateTime(appRelation.SignDate);
+
+            //根据月、日进行筛选，并选出符合条件的第一个Entity，通过比较Month与Day两值相加的值来排序比较
+            ApplyStageVersionEntity suitableVersion = repository.ApplyStageVersion
+                .Where(a => a.SignDateBefore.Month >= studentSignDate.Month && a.SignDateBefore.Day >= studentSignDate.Day)
+                .OrderBy(a => (a.SignDateBefore.Month * 100 + a.SignDateBefore.Day))
+                .FirstOrDefault();
+
+            if (suitableVersion == null)
+            {
+                return Json(new { GetResult = false, Msg = "找不到符合条件的申请阶段版本，请先创建符合签约日期范围的版本" }, JsonRequestBehavior.AllowGet);
+            }
+            if (repository.ApplyStageVersionDetail.Count(a => a.VersionID == suitableVersion.VersionID) <= 0)
+            {
+                return Json(new { GetResult = false, Msg = "找不到符合条件的申请版本的阶段细节，请先编辑相关版本的阶段细节" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<ApplyStageVersionDetailWrap> versionDetailList = GetVersionDetailList(suitableVersion.VersionID);
+            }
+
+            return Json(new { }, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 根据版本ID 返回VersionDetailList
+        /// </summary>
+        /// <param name="versionID">版本ID</param>
+        /// <returns></returns>
+        List<ApplyStageVersionDetailWrap> GetVersionDetailList(Guid versionID)
+        {
+            List<ApplyStageVersionDetailWrap> versionDetailList = new List<ApplyStageVersionDetailWrap>();
+            ApplyStageVersionDetailEntity parentDetail = null;
+            List<ApplyStageVersionDetailEntity> childDetails = null;
+
+            foreach (ApplyStageVersionDetailEntity parent in repository.ApplyStageVersionDetail.Where(a => a.VersionID == versionID && a.StageClass == 1))
+            {
+                parentDetail = parent;
+                childDetails = repository.ApplyStageVersionDetail
+                    .Where(a => a.VersionID == versionID && a.ParentNo == parent.StageNo)
+                    .OrderBy(a => a.StageNo)
+                    .ToList<ApplyStageVersionDetailEntity>();
+
+                //添加到ApplyStageVersionDetailWrap List 中
+                versionDetailList.Add(new ApplyStageVersionDetailWrap { ParentVersionDetail = parentDetail, ChildVersionDetails = childDetails });
+            }
+
+            return versionDetailList.OrderBy(a => a.ParentVersionDetail.StageNo).ToList();
+        }
+
+        /// <summary>
+        /// 根据VersionDetailList 计算出ApplySchedule，新的哦！
+        /// </summary>
+        /// <param name="VersionDetailList"></param>
+        /// <returns></returns>
+        List<StudentApplyStageWrap> CalApplyStage(Guid studentID,DateTime signDate, Guid versionID)
+        {
+            List<StudentApplyStageWrap> applyStageWrapList = new List<StudentApplyStageWrap>();
+            StudentApplyStageEntity parentStage = null;
+            StudentApplyStageEntity childStage = null;
+            List<StudentApplyStageEntity> childStages = null;
+
+             List<StudentApplyStageEntity> resultStageList = new List<StudentApplyStageEntity>();
+            List<ApplyStageVersionDetailEntity> versionDetailList = repository.ApplyStageVersionDetail.Where(a=>a.VersionID == versionID).ToList();
+
+            //获取StageClass = 1 的StageNo
+            string[] firstClassStage = repository.ApplyStages.SingleOrDefault(a => a.StageClass == 0).ChildStage.Split(',') ;
+            for (int i = 0; i < firstClassStage.Length; i++)
+            {
+                DateTime refBeginDate = DateTime.Now;
+                DateTime refEndDate = DateTime.Now;
+                int parentNo = 1;
+                int stageNo = Convert.ToInt16(firstClassStage[i]);
+                ApplyStageVersionDetailEntity currentParentDetail = versionDetailList.SingleOrDefault(v => v.StageNo == stageNo);
+
+                parentStage = new StudentApplyStageEntity {
+                    ID = Guid.NewGuid(), 
+                    StudentID = studentID, 
+                    StageNo = stageNo, 
+                    StageName = currentParentDetail.StageName,
+                    ParentNo = parentNo,
+                    StatusOption = currentParentDetail.StatusOption,
+                    BeginOption = currentParentDetail.BeginOption,
+                    EndOption = currentParentDetail.EndOption,
+                    CurrentOption = currentParentDetail.BeginOption,
+                };
+
+                if (currentParentDetail.IsDateSameWithParent)
+                {
+                    parentStage.BeginDate = signDate;
+                    parentStage.EndDate = signDate.AddYears(1);
+                    parentStage.BeginDateLimit = parentStage.BeginDate; ;
+                    parentStage.EndDateLimit = parentStage.EndDate;
+                }
+                else
+                {
+                    if (i == 0)
+                    {
+                        if (Convert.ToBoolean(currentParentDetail.IsCalBeginDate))
+                        {
+                            parentStage.BeginDate = signDate.AddDays(Convert.ToInt16(currentParentDetail.BeginDate));
+                        }
+                        else
+                        {
+                            int year = (signDate.Month > currentParentDetail.BeginDate) ? signDate.Year + 1 : signDate.Year;
+                            int month = Convert.ToInt16(currentParentDetail.BeginDate) + 1;
+                            int day = 1;
+                            parentStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
+                        }
+
+                        if (Convert.ToBoolean(currentParentDetail.IsCalEndDate))
+                        {
+                            parentStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
+                        }
+                        else
+                        {
+                            int year = (parentStage.BeginDate.Month > currentParentDetail.EndDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
+                            int month = Convert.ToInt16(currentParentDetail.EndDate) + 1;
+                            int day = 1;
+                            parentStage.EndDate = new DateTime(year, month, day).AddDays(-1);
+                        }
+                    }
+                    else
+                    {
+                        refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(firstClassStage[i - 1])).EndDate;
+                        if (Convert.ToBoolean(currentParentDetail.IsCalBeginDate))
+                        {
+                            parentStage.BeginDate = refBeginDate.AddDays(Convert.ToInt16(currentParentDetail.BeginDate));
+                        }
+                        else
+                        {
+                            int year = (refBeginDate.Month > currentParentDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
+                            int month = Convert.ToInt16(currentParentDetail.BeginDate) + 1;
+                            int day = 1;
+                            parentStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
+                        }
+
+                        if (Convert.ToBoolean(currentParentDetail.IsCalEndDate))
+                        {
+                            parentStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
+                        }
+                        else
+                        {
+                            int year = (parentStage.BeginDate.Month > currentParentDetail.EndDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
+                            int month = Convert.ToInt16(currentParentDetail.EndDate) + 1;
+                            int day = 1;
+                            parentStage.EndDate = new DateTime(year, month, day).AddDays(-1);
+                        }
+                    }
+                }
+
+                resultStageList.Add(parentStage);
+
+                string[] childClass = currentParentDetail.ChildStage.Split(',');
+                for (int j = 0; j < childClass.Length; j++)
+                {
+                    int childStageNo = Convert.ToInt16(childClass[j]);
+                    ApplyStageVersionDetailEntity currentChildDetail = versionDetailList.SingleOrDefault(v => v.StageNo == childStageNo);
+                    childStage = new StudentApplyStageEntity
+                    {
+                        ID = Guid.NewGuid(),
+                        StudentID = studentID,
+                        StageNo = stageNo,
+                        StageName = currentChildDetail.StageName,
+                        ParentNo = parentStage.StageNo,
+                        StatusOption = currentChildDetail.StatusOption,
+                        BeginOption = currentChildDetail.BeginOption,
+                        EndOption = currentChildDetail.EndOption,
+                        CurrentOption = currentChildDetail.BeginOption,
+                    };
+                    if (currentChildDetail.IsDateSameWithParent)
+                    {
+                        childStage.BeginDate = parentStage.BeginDate;
+                        childStage.EndDate = parentStage.EndDate;
+                        childStage.BeginDateLimit = parentStage.BeginDate; ;
+                        childStage.EndDateLimit = parentStage.EndDate;
+                    }
+                    else
+                    {
+                        if (i == 0)
+                        {
+                            if (Convert.ToBoolean(currentChildDetail.IsCalBeginDate))
+                            {
+                                childStage.BeginDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentChildDetail.BeginDate));
+                            }
+                            else
+                            {
+                                int year = (parentStage.BeginDate.Month > currentChildDetail.BeginDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
+                                int month = Convert.ToInt16(currentChildDetail.BeginDate) + 1;
+                                int day = 1;
+                                childStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
+                            }
+
+                            if (Convert.ToBoolean(currentChildDetail.IsCalEndDate))
+                            {
+                                childStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
+                            }
+                            else
+                            {
+                                int year = (childStage.BeginDate.Month > currentChildDetail.EndDate) ? childStage.BeginDate.Year + 1 : childStage.BeginDate.Year;
+                                int month = Convert.ToInt16(currentChildDetail.EndDate) + 1;
+                                int day = 1;
+                                childStage.EndDate = new DateTime(year, month, day).AddDays(-1);
+                            }
+                        }
+                        else
+                        {
+                            refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(childClass[j - 1])).EndDate;
+                            if (Convert.ToBoolean(currentChildDetail.IsCalBeginDate))
+                            {
+                                childStage.BeginDate = refBeginDate.AddDays(Convert.ToInt16(currentChildDetail.BeginDate));
+                            }
+                            else
+                            {
+                                int year = (refBeginDate.Month > currentChildDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
+                                int month = Convert.ToInt16(currentChildDetail.BeginDate) + 1;
+                                int day = 1;
+                                childStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
+                            }
+
+                            if (Convert.ToBoolean(currentChildDetail.IsCalEndDate))
+                            {
+                                childStage.EndDate = childStage.BeginDate.AddDays(Convert.ToInt16(currentChildDetail.EndDate));
+                            }
+                            else
+                            {
+                                int year = (childStage.BeginDate.Month > currentChildDetail.EndDate) ? childStage.BeginDate.Year + 1 : childStage.BeginDate.Year;
+                                int month = Convert.ToInt16(currentChildDetail.EndDate) + 1;
+                                int day = 1;
+                                childStage.EndDate = new DateTime(year, month, day).AddDays(-1);
+                            }
+                        }
+                    }
+
+                    resultStageList.Add(childStage);
+                }
+
+                
+            }
+
+            foreach (StudentApplyStageEntity parentStageItem in resultStageList.Where(s=>s.ParentNo == 1))
+            {
+                applyStageWrapList.Add(new StudentApplyStageWrap { 
+                    ParentStage = parentStageItem, 
+                    ChildStages = resultStageList
+                    .Where(s => s.ParentNo == parentStageItem.StageNo)
+                    .OrderBy(r => r.StageNo) 
+                    .ToList()
+                    });
+            }
+
+            return applyStageWrapList;
+        }
+
+        #endregion
     }
 }

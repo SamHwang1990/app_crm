@@ -31,6 +31,9 @@ define(['app'],function(ClientManage){
 				RouterAPI.executeAction(StudentMgrAssignConsultantController.AssignConsultant,id);
 			})
 		}
+		RouterAPI.StudentMgrScheduleApply = function(id){
+
+		}
 
 		/*StudentMgr SaleTrack Router Controller*/
 		RouterAPI.StudentMgrSaleTrackList = function(){
