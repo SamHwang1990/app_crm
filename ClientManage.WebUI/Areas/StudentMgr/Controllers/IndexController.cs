@@ -547,7 +547,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <returns></returns>
         public JsonResult GetScheduleApply(string studentID)
         {
-            if (studentID != null && studentID != string.Empty && studentID != Guid.Empty.ToString())
+            if (studentID == null && studentID == string.Empty && studentID == Guid.Empty.ToString())
             {
                 return Json(new {GetResult = false, Msg = "不能传入空的学生ID" }, JsonRequestBehavior.AllowGet);
             }
@@ -573,10 +573,10 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             else
             {
-                List<ApplyStageVersionDetailWrap> versionDetailList = GetVersionDetailList(suitableVersion.VersionID);
+                List<StudentApplyStageWrap> applyStageWrapList = CalApplyStageWrapList(StudentID, studentSignDate, suitableVersion.VersionID);
+                return Json(applyStageWrapList.OrderBy(a=>a.ParentStage.StageNo), JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -610,191 +610,92 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// </summary>
         /// <param name="VersionDetailList"></param>
         /// <returns></returns>
-        List<StudentApplyStageWrap> CalApplyStage(Guid studentID,DateTime signDate, Guid versionID)
+        List<StudentApplyStageWrap> CalApplyStageWrapList(Guid studentID,DateTime signDate, Guid versionID)
         {
+            //函数的返回值
             List<StudentApplyStageWrap> applyStageWrapList = new List<StudentApplyStageWrap>();
+
+            //定义函数中会用到的两个局部变量
             StudentApplyStageEntity parentStage = null;
             StudentApplyStageEntity childStage = null;
-            List<StudentApplyStageEntity> childStages = null;
 
-             List<StudentApplyStageEntity> resultStageList = new List<StudentApplyStageEntity>();
+            //用于暂时性的存储已经完成初始化的ApplyStage的List
+            List<StudentApplyStageEntity> resultStageList = new List<StudentApplyStageEntity>();
+            //根据版本ID 从数据库中获取VersionDetailList
             List<ApplyStageVersionDetailEntity> versionDetailList = repository.ApplyStageVersionDetail.Where(a=>a.VersionID == versionID).ToList();
 
-            //获取StageClass = 1 的StageNo
-            string[] firstClassStage = repository.ApplyStages.SingleOrDefault(a => a.StageClass == 0).ChildStage.Split(',') ;
-            for (int i = 0; i < firstClassStage.Length; i++)
+            //获取StageClass = 1 的StageNo数组
+            string[] parentStageArray = repository.ApplyStages.SingleOrDefault(a => a.StageClass == 0).ChildStage.Split(',') ;
+            //遍历父阶段
+            for (int i = 0; i < parentStageArray.Length; i++)
             {
+                //下面初始化两个局部变量
                 DateTime refBeginDate = DateTime.Now;
                 DateTime refEndDate = DateTime.Now;
-                int parentNo = 1;
-                int stageNo = Convert.ToInt16(firstClassStage[i]);
-                ApplyStageVersionDetailEntity currentParentDetail = versionDetailList.SingleOrDefault(v => v.StageNo == stageNo);
 
-                parentStage = new StudentApplyStageEntity {
-                    ID = Guid.NewGuid(), 
-                    StudentID = studentID, 
-                    StageNo = stageNo, 
-                    StageName = currentParentDetail.StageName,
-                    ParentNo = parentNo,
-                    StatusOption = currentParentDetail.StatusOption,
-                    BeginOption = currentParentDetail.BeginOption,
-                    EndOption = currentParentDetail.EndOption,
-                    CurrentOption = currentParentDetail.BeginOption,
-                };
+                //将父阶段的StageNo 由字符串转换为数字
+                int parentStageNo = Convert.ToInt16(parentStageArray[i]);
+                //根据StageNo 取出VersionDetail
+                ApplyStageVersionDetailEntity currentParentDetail = versionDetailList.SingleOrDefault(v => v.StageNo == parentStageNo);
 
+                //如果父阶段的开始结束日期与父阶段（其实已经没父阶段了）一样的话，直接把签约日期和签约日期加一年当作虚拟父阶段的开始结束日期
                 if (currentParentDetail.IsDateSameWithParent)
                 {
-                    parentStage.BeginDate = signDate;
-                    parentStage.EndDate = signDate.AddYears(1);
-                    parentStage.BeginDateLimit = parentStage.BeginDate; ;
-                    parentStage.EndDateLimit = parentStage.EndDate;
+                    parentStage = CalApplyStage(parentStageNo, signDate, signDate.AddYears(1), currentParentDetail, studentID, true);
                 }
                 else
                 {
+                    //如果当前父阶段为同辈阶段的第一个，则基准开始时间设为签约日期
                     if (i == 0)
                     {
-                        if (Convert.ToBoolean(currentParentDetail.IsCalBeginDate))
-                        {
-                            parentStage.BeginDate = signDate.AddDays(Convert.ToInt16(currentParentDetail.BeginDate));
-                        }
-                        else
-                        {
-                            int year = (signDate.Month > currentParentDetail.BeginDate) ? signDate.Year + 1 : signDate.Year;
-                            int month = Convert.ToInt16(currentParentDetail.BeginDate) + 1;
-                            int day = 1;
-                            parentStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
-                        }
-
-                        if (Convert.ToBoolean(currentParentDetail.IsCalEndDate))
-                        {
-                            parentStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
-                        }
-                        else
-                        {
-                            int year = (parentStage.BeginDate.Month > currentParentDetail.EndDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
-                            int month = Convert.ToInt16(currentParentDetail.EndDate) + 1;
-                            int day = 1;
-                            parentStage.EndDate = new DateTime(year, month, day).AddDays(-1);
-                        }
+                        refBeginDate = signDate;
+                        parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
                     }
-                    else
+                    else    //否则，基准开始日期为兄长阶段的结束日期
                     {
-                        refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(firstClassStage[i - 1])).EndDate;
-                        if (Convert.ToBoolean(currentParentDetail.IsCalBeginDate))
-                        {
-                            parentStage.BeginDate = refBeginDate.AddDays(Convert.ToInt16(currentParentDetail.BeginDate));
-                        }
-                        else
-                        {
-                            int year = (refBeginDate.Month > currentParentDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
-                            int month = Convert.ToInt16(currentParentDetail.BeginDate) + 1;
-                            int day = 1;
-                            parentStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
-                        }
-
-                        if (Convert.ToBoolean(currentParentDetail.IsCalEndDate))
-                        {
-                            parentStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
-                        }
-                        else
-                        {
-                            int year = (parentStage.BeginDate.Month > currentParentDetail.EndDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
-                            int month = Convert.ToInt16(currentParentDetail.EndDate) + 1;
-                            int day = 1;
-                            parentStage.EndDate = new DateTime(year, month, day).AddDays(-1);
-                        }
+                        refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(parentStageArray[i - 1])).EndDate;
+                        parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
                     }
                 }
-
+                //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
+                //这句的位置很重要哦  @SamHwang, 2014.07.28
                 resultStageList.Add(parentStage);
 
+                ////获取当前阶段的子阶段的StageNo 数组
                 string[] childClass = currentParentDetail.ChildStage.Split(',');
                 for (int j = 0; j < childClass.Length; j++)
                 {
+                    //将子阶段的StageNo 由字符串转换为数字
                     int childStageNo = Convert.ToInt16(childClass[j]);
+                    //根据StageNo 取出VersionDetail
                     ApplyStageVersionDetailEntity currentChildDetail = versionDetailList.SingleOrDefault(v => v.StageNo == childStageNo);
-                    childStage = new StudentApplyStageEntity
-                    {
-                        ID = Guid.NewGuid(),
-                        StudentID = studentID,
-                        StageNo = stageNo,
-                        StageName = currentChildDetail.StageName,
-                        ParentNo = parentStage.StageNo,
-                        StatusOption = currentChildDetail.StatusOption,
-                        BeginOption = currentChildDetail.BeginOption,
-                        EndOption = currentChildDetail.EndOption,
-                        CurrentOption = currentChildDetail.BeginOption,
-                    };
+
+                    //如果子阶段的开始结束日期与父阶段一样的话，基准开始结束日期均与父阶段一致
                     if (currentChildDetail.IsDateSameWithParent)
                     {
-                        childStage.BeginDate = parentStage.BeginDate;
-                        childStage.EndDate = parentStage.EndDate;
-                        childStage.BeginDateLimit = parentStage.BeginDate; ;
-                        childStage.EndDateLimit = parentStage.EndDate;
+                        childStage = CalApplyStage(childStageNo, parentStage.BeginDate, parentStage.EndDate, currentChildDetail, studentID, true);
                     }
                     else
                     {
-                        if (i == 0)
+                        //如果当前子阶段为同辈阶段的第一个，则基准开始时间设为父阶段的开始日期
+                        if (j == 0)
                         {
-                            if (Convert.ToBoolean(currentChildDetail.IsCalBeginDate))
-                            {
-                                childStage.BeginDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentChildDetail.BeginDate));
-                            }
-                            else
-                            {
-                                int year = (parentStage.BeginDate.Month > currentChildDetail.BeginDate) ? parentStage.BeginDate.Year + 1 : parentStage.BeginDate.Year;
-                                int month = Convert.ToInt16(currentChildDetail.BeginDate) + 1;
-                                int day = 1;
-                                childStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
-                            }
-
-                            if (Convert.ToBoolean(currentChildDetail.IsCalEndDate))
-                            {
-                                childStage.EndDate = parentStage.BeginDate.AddDays(Convert.ToInt16(currentParentDetail.EndDate));
-                            }
-                            else
-                            {
-                                int year = (childStage.BeginDate.Month > currentChildDetail.EndDate) ? childStage.BeginDate.Year + 1 : childStage.BeginDate.Year;
-                                int month = Convert.ToInt16(currentChildDetail.EndDate) + 1;
-                                int day = 1;
-                                childStage.EndDate = new DateTime(year, month, day).AddDays(-1);
-                            }
+                            childStage = CalApplyStage(childStageNo, parentStage.BeginDate, null, currentChildDetail, studentID, false);
                         }
-                        else
+                        else     //否则，基准开始日期为兄长阶段的结束日期
                         {
                             refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(childClass[j - 1])).EndDate;
-                            if (Convert.ToBoolean(currentChildDetail.IsCalBeginDate))
-                            {
-                                childStage.BeginDate = refBeginDate.AddDays(Convert.ToInt16(currentChildDetail.BeginDate));
-                            }
-                            else
-                            {
-                                int year = (refBeginDate.Month > currentChildDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
-                                int month = Convert.ToInt16(currentChildDetail.BeginDate) + 1;
-                                int day = 1;
-                                childStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
-                            }
-
-                            if (Convert.ToBoolean(currentChildDetail.IsCalEndDate))
-                            {
-                                childStage.EndDate = childStage.BeginDate.AddDays(Convert.ToInt16(currentChildDetail.EndDate));
-                            }
-                            else
-                            {
-                                int year = (childStage.BeginDate.Month > currentChildDetail.EndDate) ? childStage.BeginDate.Year + 1 : childStage.BeginDate.Year;
-                                int month = Convert.ToInt16(currentChildDetail.EndDate) + 1;
-                                int day = 1;
-                                childStage.EndDate = new DateTime(year, month, day).AddDays(-1);
-                            }
+                            childStage = CalApplyStage(childStageNo, refBeginDate, null, currentChildDetail, studentID, false);
                         }
                     }
 
+                    //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
+                    //这句的位置很重要哦  @SamHwang, 2014.07.28
                     resultStageList.Add(childStage);
                 }
-
-                
             }
 
+            //最后，将resultStageList 按封装成StudentApplyStageWrap 对象列表
             foreach (StudentApplyStageEntity parentStageItem in resultStageList.Where(s=>s.ParentNo == 1))
             {
                 applyStageWrapList.Add(new StudentApplyStageWrap { 
@@ -807,6 +708,77 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
 
             return applyStageWrapList;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stageNo">当前阶段ID</param>
+        /// <param name="refBeginDate">基准开始日期</param>
+        /// <param name="refEndDate">基准结束日期</param>
+        /// <param name="currentDetail">当前阶段Detail</param>
+        /// <param name="studentID">学生ID</param>
+        /// <param name="isDateSameWithParent">是否和父阶段日期一样</param>
+        /// <returns></returns>
+        StudentApplyStageEntity CalApplyStage(int stageNo, DateTime refBeginDate, DateTime? refEndDate, ApplyStageVersionDetailEntity currentDetail, Guid studentID, bool isDateSameWithParent)
+        {
+            StudentApplyStageEntity applyStage = new StudentApplyStageEntity
+            {
+                ID = Guid.NewGuid(),
+                StudentID = studentID,
+                StageNo = stageNo,
+                StageName = currentDetail.StageName,
+                ParentNo = currentDetail.ParentNo,
+                StatusOption = currentDetail.StatusOption,
+                BeginOption = currentDetail.BeginOption,
+                EndOption = currentDetail.EndOption,
+                CurrentOption = currentDetail.BeginOption,
+            };
+            //如果当前阶段的日期与父阶段一样，则直接赋值即可
+            if (isDateSameWithParent)
+            {
+                applyStage.BeginDate = refBeginDate;
+                applyStage.EndDate = Convert.ToDateTime(refEndDate);
+            }
+            else
+            {
+                //如果当前阶段的开始日期需要计算，则在基准开始日期上加上给定天数
+                if (Convert.ToBoolean(currentDetail.IsCalBeginDate))
+                {
+                    applyStage.BeginDate = refBeginDate.AddDays(Convert.ToInt16(currentDetail.BeginDate));
+                }
+                else    //否则，则拼接年、月、日 来计算日期。下面算法的结果是，计算出给定月份的最后一天的日期值
+                {
+                    int year = (refBeginDate.Month > currentDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
+                    int month = Convert.ToInt16(currentDetail.BeginDate) + 1;
+                    if (month > 12)
+                    {
+                        year += 1;
+                        month = 1;
+                    }
+                    int day = 1;
+                    applyStage.BeginDate = new DateTime(year, month, day).AddDays(-1);
+                }
+
+                //如果当前阶段的结束日期需要计算，则在基准结束日期上加上给定天数
+                if (Convert.ToBoolean(currentDetail.IsCalEndDate))
+                {
+                    applyStage.EndDate = applyStage.BeginDate.AddDays(Convert.ToInt16(currentDetail.EndDate));
+                }
+                else    //否则，则拼接年、月、日 来计算日期。下面算法的结果是，计算出给定月份的最后一天的日期值
+                {
+                    int year = (applyStage.BeginDate.Month > currentDetail.EndDate) ? applyStage.BeginDate.Year + 1 : applyStage.BeginDate.Year;
+                    int month = Convert.ToInt16(currentDetail.EndDate) + 1;
+                    if (month > 12)
+                    {
+                        year += 1;
+                        month = 1;
+                    }
+                    int day = 1;
+                    applyStage.EndDate = new DateTime(year, month, day).AddDays(-1);
+                }
+            }
+            return applyStage;
         }
 
         #endregion

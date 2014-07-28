@@ -32,7 +32,9 @@ define(['app'],function(ClientManage){
 			})
 		}
 		RouterAPI.StudentMgrScheduleApply = function(id){
-
+			require(['apps/StudentMgr/ScheduleApply/schedule_controller'],function(StudentMgrScheduleApplyController){
+				RouterAPI.executeAction(StudentMgrScheduleApplyController.ShowSchedule,id);
+			})
 		}
 
 		/*StudentMgr SaleTrack Router Controller*/

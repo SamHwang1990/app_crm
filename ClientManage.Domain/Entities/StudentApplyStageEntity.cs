@@ -76,25 +76,9 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 开始日期边界值，一般为父阶段的开始日期
-        /// </summary>
-        public DateTime? BeginDateLimit
-        {
-            set;
-            get;
-        }
-        /// <summary>
         /// 结束日期
         /// </summary>
         public DateTime EndDate
-        {
-            set;
-            get;
-        }
-        /// <summary>
-        /// 结束日期的边界值，一般为父阶段的结束日期
-        /// </summary>
-        public DateTime? EndDateLimit
         {
             set;
             get;

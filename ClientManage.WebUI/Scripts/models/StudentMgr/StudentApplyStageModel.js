@@ -13,9 +13,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			ParentNo:0,
 			Gender:"0",
 			BeginDate:new Date(),
-			BeginDateLimit:new Date(),
 			EndDate:new Date(),
-			EndDateLimit:new Date(),
 			StatusOption:"",
 			CurrentOption:"",
 			BeginOption:"",
@@ -26,5 +24,6 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 		}
 	});
 	return studentApplyStage;
+
 });
 
