@@ -33,5 +33,6 @@ namespace ClientManage.Domain.Concrete
         public DbSet<ApplyStagesEntity> ApplyStages { get; set; }
         public DbSet<ApplyStageVersionEntity> ApplyStageVersion { get; set; }
         public DbSet<ApplyStageVersionDetailEntity> ApplyStageVersionDetail { get; set; }
+        public DbSet<StudentApplyStageEntity> StudentApplyStage { get; set; }
     }
 }

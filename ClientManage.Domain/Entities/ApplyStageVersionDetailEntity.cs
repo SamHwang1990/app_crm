@@ -165,7 +165,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 是否能禁用
+        /// 是否可更改可用状态
         /// </summary>
         public bool CanForbid
         {

@@ -53,5 +53,11 @@ namespace ClientManage.Domain.Abstract
         void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms,Guid studentID);
 
         #endregion
+
+        #region 对StudentApplyStage 进行操作
+        void SaveStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void ClearStudentApplyStage(Guid studentID);
+
+        #endregion
     }
 }

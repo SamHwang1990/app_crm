@@ -128,7 +128,7 @@ define([
 				//阻止默认的提交行为
 				e.preventDefault();
 				if(this.validateForm()){
-					var submitCollection = this.SetParentVersionDetails(submitCollection);
+					var submitCollection = this.SetParentVersionDetails();
 
 					var postUrl = this.ui.EditForm.attr('action');
 					var ajaxData = JSON.stringify(submitCollection);

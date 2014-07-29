@@ -24,12 +24,15 @@ define(['app'],function(ClientManage){
 									return alert(data.Msg);
 								}
 								else{
-									return alert(JSON.Stringify(scheduleColl));
-									/*var detailEditView = new VersionDetailEditView.VersionDetailEditView({
-										collection:versionDetailColl,
-										VersionID:versionID
+									var scheduleApplyView = new ScheduleApplyView.ScheduleView({
+										collection:scheduleColl,
+										StudentID:studentID
 									})
-									contentRegion.show(detailEditView);*/
+									contentRegion.show(scheduleApplyView);
+									ClientManage.vent.off("ScheduleApplySuccess");
+									ClientManage.vent.on("ScheduleApplySuccess",function(){
+										ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+									})
 								}
 							},
 							error:function(){

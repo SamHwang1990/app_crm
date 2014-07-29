@@ -11,6 +11,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			StageNo:0,
 			StageName:"",
 			ParentNo:0,
+			IsForbid:false,
 			Gender:"0",
 			BeginDate:new Date(),
 			EndDate:new Date(),
@@ -20,6 +21,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			EndOption:"",
 			ResponseConsultant:"00000000-0000-0000-0000-000000000000",
 			ResponseConsultantName:"",
+			CanForbid:false,
+			CanChangeDate:false,
+			CanChangeName:false,
 			Remark:""
 		}
 	});

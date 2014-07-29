@@ -68,6 +68,14 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
+        /// 是否禁用
+        /// </summary>
+        public bool IsForbid
+        {
+            set;
+            get;
+        }
+        /// <summary>
         /// 开始日期
         /// </summary>
         public DateTime BeginDate
@@ -127,6 +135,30 @@ namespace ClientManage.Domain.Entities
         /// 负责的顾问名
         /// </summary>
         public string ResponseConsultantName
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 是否可更改可用状态
+        /// </summary>
+        public bool CanForbid
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 是否能修改日期
+        /// </summary>
+        public bool CanChangeDate
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 是否能修改阶段名
+        /// </summary>
+        public bool CanChangeName
         {
             set;
             get;

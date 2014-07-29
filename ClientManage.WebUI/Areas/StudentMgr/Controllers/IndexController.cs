@@ -553,15 +553,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
 
             Guid StudentID = new Guid(studentID);
-            StudentInfoEntity studentInfo = repository.StudentsInfo.SingleOrDefault(s => s.StudentID == StudentID);
             AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == StudentID);
             DateTime studentSignDate = Convert.ToDateTime(appRelation.SignDate);
 
             //根据月、日进行筛选，并选出符合条件的第一个Entity，通过比较Month与Day两值相加的值来排序比较
-            ApplyStageVersionEntity suitableVersion = repository.ApplyStageVersion
-                .Where(a => a.SignDateBefore.Month >= studentSignDate.Month && a.SignDateBefore.Day >= studentSignDate.Day)
-                .OrderBy(a => (a.SignDateBefore.Month * 100 + a.SignDateBefore.Day))
-                .FirstOrDefault();
+            ApplyStageVersionEntity suitableVersion = GetApplyVersionByStudentID(StudentID);
 
             if (suitableVersion == null)
             {
@@ -577,6 +573,26 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(applyStageWrapList.OrderBy(a=>a.ParentStage.StageNo), JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+        /// <summary>
+        /// 根据学生ID返回合适的申请版本
+        /// </summary>
+        /// <param name="StudentID"></param>
+        /// <returns></returns>
+        ApplyStageVersionEntity GetApplyVersionByStudentID(Guid StudentID)
+        {
+            StudentInfoEntity studentInfo = repository.StudentsInfo.SingleOrDefault(s => s.StudentID == StudentID);
+            AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == StudentID);
+            DateTime studentSignDate = Convert.ToDateTime(appRelation.SignDate);
+
+            //根据月、日进行筛选，并选出符合条件的第一个Entity，通过比较Month与Day两值相加的值来排序比较
+            ApplyStageVersionEntity suitableVersion = repository.ApplyStageVersion
+                .Where(a => a.SignDateBefore.Month >= studentSignDate.Month && a.SignDateBefore.Day >= studentSignDate.Day)
+                .OrderBy(a => (a.SignDateBefore.Month * 100 + a.SignDateBefore.Day))
+                .FirstOrDefault();
+
+            return suitableVersion;
         }
 
         /// <summary>
@@ -729,10 +745,14 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 StageNo = stageNo,
                 StageName = currentDetail.StageName,
                 ParentNo = currentDetail.ParentNo,
+                IsForbid = currentDetail.IsForbid,
                 StatusOption = currentDetail.StatusOption,
                 BeginOption = currentDetail.BeginOption,
                 EndOption = currentDetail.EndOption,
-                CurrentOption = currentDetail.BeginOption,
+                CurrentOption = currentDetail.BeginOption,                
+                CanForbid = currentDetail.CanForbid,
+                CanChangeDate = currentDetail.CanChangeDate,
+                CanChangeName = currentDetail.CanChangeName
             };
             //如果当前阶段的日期与父阶段一样，则直接赋值即可
             if (isDateSameWithParent)
@@ -779,6 +799,68 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 }
             }
             return applyStage;
+        }
+
+        /// <summary>
+        /// 相应ajax 请求，把学生的
+        /// </summary>
+        /// <param name="ajaxData"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public JsonResult ScheduleApply(IEnumerable<StudentApplyStageWrap> ajaxData)
+        {
+            if (ajaxData == null)
+            {
+                return Json(new { SaveResult = false });
+            }
+
+            Guid studentID = ajaxData.FirstOrDefault().ParentStage.StudentID;
+            //根据月、日进行筛选，并选出符合条件的第一个Entity，通过比较Month与Day两值相加的值来排序比较
+            ApplyStageVersionEntity suitableVersion = GetApplyVersionByStudentID(studentID);
+
+            List<ApplyStageVersionDetailEntity> versionDetailList = repository.ApplyStageVersionDetail.Where(a => a.VersionID == suitableVersion.VersionID).ToList();
+            List<StudentApplyStageEntity> applyStageList = new List<StudentApplyStageEntity>();
+            ApplyStageVersionDetailEntity currentStage = null;
+
+            //将列表按父阶段的StageNo进行排序
+            ajaxData = ajaxData.OrderBy(w => w.ParentStage.StageNo);
+            foreach (StudentApplyStageWrap applyStageWrap in ajaxData)
+            {
+                currentStage = versionDetailList.Single(a => a.StageNo == applyStageWrap.ParentStage.StageNo);
+                applyStageWrap.ParentStage.ID = Guid.NewGuid();
+                applyStageWrap.ParentStage.ParentNo = currentStage.ParentNo;
+                applyStageWrap.ParentStage.StatusOption = currentStage.StatusOption;
+                applyStageWrap.ParentStage.CurrentOption = currentStage.BeginOption;
+                applyStageWrap.ParentStage.BeginOption = currentStage.BeginOption;
+                applyStageWrap.ParentStage.EndOption = currentStage.EndOption;
+                applyStageWrap.ParentStage.CanForbid = currentStage.CanForbid;
+                applyStageWrap.ParentStage.CanChangeDate = currentStage.CanChangeDate;
+                applyStageWrap.ParentStage.CanChangeName = currentStage.CanChangeName;
+
+                foreach (StudentApplyStageEntity childStage in applyStageWrap.ChildStages)
+                {
+                    currentStage = versionDetailList.Single(a => a.StageNo == childStage.StageNo);
+
+                    childStage.ID = Guid.NewGuid();
+                    childStage.ParentNo = currentStage.ParentNo;
+                    childStage.StatusOption = currentStage.StatusOption;
+                    childStage.CurrentOption = currentStage.BeginOption;
+                    childStage.BeginOption = currentStage.BeginOption;
+                    childStage.EndOption = currentStage.EndOption;
+                    childStage.CanForbid = currentStage.CanForbid;
+                    childStage.CanChangeDate = currentStage.CanChangeDate;
+                    childStage.CanChangeName = currentStage.CanChangeName;
+                }
+
+                applyStageList.Add(applyStageWrap.ParentStage);
+                applyStageList.AddRange(applyStageWrap.ChildStages);
+            }
+            repository.SaveStudentApplyStages(applyStageList);
+            AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == studentID);
+            appRelation.HasScheduleApply = true;
+            repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);
+
+            return Json(new { SaveResult = true });
         }
 
         #endregion

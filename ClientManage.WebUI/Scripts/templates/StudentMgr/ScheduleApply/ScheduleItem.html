@@ -3,8 +3,11 @@
 <dl class="timelineMinor"
     data-StageClass="<%= ParentStage.StageClass %>"
     data-StageNo="<%= ParentStage.StageNo %>"
-    data-BeginDateLimit="<%= ParentStage.BeginDateLimit %>"
-    data-EndDateLimit="<%= ParentStage.EndDateLimit %>">
+    data-CanForbid="<%= ParentStage.CanForbid %>"
+    data-CanChangeDate="<%= ParentStage.CanChangeDate %>"
+    data-CanChangeName="<%= ParentStage.CanChangeName %>"
+    data-BeginDateLimit="<%= ParentStage.BeginDate %>"
+    data-EndDateLimit="<%= ParentStage.EndDate %>">
     <dt id="StageNo_<%= ParentStage.StageNo %>"><a><%= ParentStage.StageName %>：展开进行修改</a></dt>
     <dd class="timelineEvent" id="StageNo_<%= ParentStage.StageNo %>EX" style="display: none;">
         <%= _.template(FieldsetTpl,ParentStage,{variable:"StageItem"}) %>
@@ -15,8 +18,11 @@
 <dl class="timelineMinor"
     data-StageClass="<%= childStageItem.StageClass %>"
     data-StageNo="<%= childStageItem.StageNo %>"
-    data-BeginDateLimit="<%= childStageItem.BeginDateLimit %>"
-    data-EndDateLimit="<%= childStageItem.EndDateLimit %>">
+    data-CanForbid="<%= childStageItem.CanForbid %>"
+    data-CanChangeDate="<%= childStageItem.CanChangeDate %>"
+    data-CanChangeName="<%= childStageItem.CanChangeName %>"
+    data-BeginDateLimit="<%= ParentStage.BeginDate %>"
+    data-EndDateLimit="<%= ParentStage.EndDate %>">
     <dt id="StageNo_<%= childStageItem.StageNo %>"><a><%= childStageItem.StageName %></a></dt>
     <dd class="timelineEvent" id="StageNo_<%= childStageItem.StageNo %>EX" style="display: none;">
         <%= _.template(FieldsetTpl,childStageItem,{variable:"StageItem"}) %>

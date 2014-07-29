@@ -17,16 +17,16 @@
                 <%= (StageItem.IsForbid == false) ? 'checked' : "" %> />
     </div>
 </div>
+<div class="control-group">
+    <label class="control-label" >是否可更改可用状态：</label>
+    <div class="controls">
+        <input type="checkbox" class="switch VersionDetail_CanForbid"
+               data-size="mini"
+        <%= (StageItem.CanForbid == true) ? 'checked' : "" %> />
+    </div>
+</div>
 <!-- Wrap Some Fields, which is active when stage is not forbidden -->
 <fieldset class="unForbidFields">
-    <div class="control-group">
-        <label class="control-label" >是否可禁用：</label>
-        <div class="controls">
-            <input type="checkbox" class="switch VersionDetail_CanForbid"
-                   data-size="mini"
-            <%= (StageItem.CanForbid == true) ? 'checked' : "" %> />
-        </div>
-    </div>
     <div class="control-group">
         <label class="control-label" >是否可修改名称：</label>
         <div class="controls">

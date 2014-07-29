@@ -62,7 +62,7 @@ namespace ClientManage.Domain.Concrete
             context.SaveChanges();
         }
 
-        public void SaveApplyStageVersionDetails(IList<ApplyStageVersionDetailEntity> versionDetails)
+        public void SaveApplyStageVersionDetails(List<ApplyStageVersionDetailEntity> versionDetails)
         {
             Guid versionID = versionDetails.FirstOrDefault().VersionID;
             if (context.ApplyStageVersionDetail.Count(a => a.VersionID == versionID) > 0)

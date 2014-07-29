@@ -322,5 +322,23 @@ namespace ClientManage.Domain.Concrete
         }
 
         #endregion
+
+        #region 对StudentApplyStage 进行操作
+        public void SaveStudentApplyStages(List<StudentApplyStageEntity> applyStages)
+        {
+            Guid studentID = applyStages.FirstOrDefault().StudentID;
+            if (context.StudentApplyStage.Count(a => a.StudentID == studentID) > 0)
+            {
+                ClearStudentApplyStage(studentID);
+            }
+            context.StudentApplyStage.AddRange(applyStages);
+            context.SaveChanges();
+        }
+        public void ClearStudentApplyStage(Guid studentID)
+        {
+            context.StudentApplyStage.RemoveRange(context.StudentApplyStage.Where(a => a.StudentID == studentID));
+        }
+
+        #endregion
     }
 }

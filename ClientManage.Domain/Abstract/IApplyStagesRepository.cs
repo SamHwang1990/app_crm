@@ -15,7 +15,7 @@ namespace ClientManage.Domain.Abstract
         void SaveApplyStageVersion(ApplyStageVersionEntity versionEntity);
         void DeleteApplyStageVersion(Guid versionID);
 
-        void SaveApplyStageVersionDetails(IList<ApplyStageVersionDetailEntity> versionDetails);
+        void SaveApplyStageVersionDetails(List<ApplyStageVersionDetailEntity> versionDetails);
         void ClearApplyStageVersionDetail(Guid versionID);
     }
 }
