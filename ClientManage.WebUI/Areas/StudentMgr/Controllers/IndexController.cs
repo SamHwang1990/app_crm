@@ -637,11 +637,14 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             //用于暂时性的存储已经完成初始化的ApplyStage的List
             List<StudentApplyStageEntity> resultStageList = new List<StudentApplyStageEntity>();
-            //根据版本ID 从数据库中获取VersionDetailList
-            List<ApplyStageVersionDetailEntity> versionDetailList = repository.ApplyStageVersionDetail.Where(a=>a.VersionID == versionID).ToList();
+            //根据版本ID 从数据库中获取IsForbid 为false 的 VersionDetailList
+            List<ApplyStageVersionDetailEntity> versionDetailList = 
+                repository.ApplyStageVersionDetail
+                .Where(a=>a.VersionID == versionID && a.IsForbid == false)
+                .ToList();
 
             //获取StageClass = 1 的StageNo数组
-            string[] parentStageArray = repository.ApplyStages.SingleOrDefault(a => a.StageClass == 0).ChildStage.Split(',') ;
+            int[] parentStageArray = versionDetailList.Where(a => a.StageClass == 1).OrderBy(a=>a.StageNo).Select(a=>a.StageNo).ToArray();
             //遍历父阶段
             for (int i = 0; i < parentStageArray.Length; i++)
             {
@@ -649,40 +652,28 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 DateTime refBeginDate = DateTime.Now;
                 DateTime refEndDate = DateTime.Now;
 
-                //将父阶段的StageNo 由字符串转换为数字
-                int parentStageNo = Convert.ToInt16(parentStageArray[i]);
+                int parentStageNo = parentStageArray[i];
                 //根据StageNo 取出VersionDetail
                 ApplyStageVersionDetailEntity currentParentDetail = versionDetailList.SingleOrDefault(v => v.StageNo == parentStageNo);
 
-                //如果父阶段的开始结束日期与父阶段（其实已经没父阶段了）一样的话，直接把签约日期和签约日期加一年当作虚拟父阶段的开始结束日期
-                if (currentParentDetail.IsDateSameWithParent)
+                //如果当前父阶段为同辈阶段的第一个，则基准开始时间设为签约日期
+                if (i == 0)
                 {
-                    parentStage = CalApplyStage(parentStageNo, signDate, signDate.AddYears(1), currentParentDetail, studentID, true);
+                    refBeginDate = signDate;
                 }
-                else
+                else    //否则，基准开始日期为兄长阶段的结束日期
                 {
-                    //如果当前父阶段为同辈阶段的第一个，则基准开始时间设为签约日期
-                    if (i == 0)
-                    {
-                        refBeginDate = signDate;
-                        parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
-                    }
-                    else    //否则，基准开始日期为兄长阶段的结束日期
-                    {
-                        refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(parentStageArray[i - 1])).EndDate;
-                        parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
-                    }
+                    refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(parentStageArray[i - 1])).EndDate;
                 }
-                //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
-                //这句的位置很重要哦  @SamHwang, 2014.07.28
-                resultStageList.Add(parentStage);
+                //父阶段调用该方法时，最后一个参数全为false
+                parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
 
-                ////获取当前阶段的子阶段的StageNo 数组
-                string[] childClass = currentParentDetail.ChildStage.Split(',');
+                //获取当前阶段的子阶段的StageNo 数组
+                int[] childClass = versionDetailList.Where(a => a.ParentNo == parentStageNo && a.IsForbid == false).OrderBy(a => a.StageNo).Select(a => a.StageNo).ToArray();
                 for (int j = 0; j < childClass.Length; j++)
                 {
                     //将子阶段的StageNo 由字符串转换为数字
-                    int childStageNo = Convert.ToInt16(childClass[j]);
+                    int childStageNo = childClass[j];
                     //根据StageNo 取出VersionDetail
                     ApplyStageVersionDetailEntity currentChildDetail = versionDetailList.SingleOrDefault(v => v.StageNo == childStageNo);
 
@@ -700,15 +691,23 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                         }
                         else     //否则，基准开始日期为兄长阶段的结束日期
                         {
-                            refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(childClass[j - 1])).EndDate;
+                            refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == childClass[j-1]).EndDate;
                             childStage = CalApplyStage(childStageNo, refBeginDate, null, currentChildDetail, studentID, false);
                         }
                     }
 
                     //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
-                    //这句的位置很重要哦  @SamHwang, 2014.07.28
                     resultStageList.Add(childStage);
                 }
+
+                //如果当前父阶段的子阶段有时间限制，则把最后一个子阶段的EndDate值赋给父阶段的EndDate
+                if (!currentParentDetail.IsDateSameWithParent)
+                {
+                    parentStage.EndDate = resultStageList.SingleOrDefault(s => s.StageNo == childClass.Last()).EndDate;
+                }
+
+                //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
+                resultStageList.Add(parentStage);
             }
 
             //最后，将resultStageList 按封装成StudentApplyStageWrap 对象列表
