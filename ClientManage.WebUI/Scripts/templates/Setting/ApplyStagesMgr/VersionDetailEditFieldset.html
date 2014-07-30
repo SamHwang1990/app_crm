@@ -43,16 +43,20 @@
             <%= (StageItem.CanChangeDate == true) ? 'checked' : "" %> />
         </div>
     </div>
-    <div class="control-group">
-        <label class="control-label" >是否有时间限制：</label>
-        <div class="controls">
-            <input type="checkbox" class="timeLimitSwitch VersionDetail_IsDateSameWithParent"
-                   data-size="mini"
-            <%= (StageItem.IsDateSameWithParent == false) ? 'checked' : "" %> />
+    <% if(StageItem.StageClass == 1){ %>
+        <!-- 如果当前阶段是父阶段，则有以下的表单，用以表示子阶段是否有时间限制 -->
+        <div class="control-group">
+            <label class="control-label" >子阶段是否有时间限制：</label>
+            <div class="controls">
+                <input type="checkbox" class="timeLimitSwitch VersionDetail_IsDateSameWithParent"
+                       data-size="mini"
+                <%= (StageItem.IsDateSameWithParent == false) ? 'checked' : "" %> />
+            </div>
         </div>
-    </div>
-    <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
-    <div class="control-group timeRelated">
+    <% }  %>
+
+    <div class="control-group timeRelated timeRelated_BeginDate">
+        <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
         <label class="control-label" >开始日期：</label>
         <div class="input-prepend input-append">
             <div class="btn-group">
@@ -71,8 +75,8 @@
             <span class="add-on"><%= (StageItem.IsCalBeginDate == false) ? '月' : '天' %></span>
         </div>
     </div>
-    <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
-    <div class="control-group timeRelated">
+    <div class="control-group timeRelated timeRelated_EndDate">
+        <!-- Wrap the field by the class 'timeRelated' which is active when the stage do not have time limitation -->
         <label class="control-label" >结束日期：</label>
         <div class="input-prepend input-append">
             <div class="btn-group">

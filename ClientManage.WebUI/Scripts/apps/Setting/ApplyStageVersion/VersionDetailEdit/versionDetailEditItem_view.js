@@ -64,11 +64,19 @@ define([
 			}
 			if(stageClass == "1"){
 				if(data){
+					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
+						$(this).find(".forbidSwitch").bootstrapSwitch('state', true, false);
+						$(this).show();
+					})
 					//如果当前阶段可用，同时这个阶段是个父级阶段，则显示其子阶段
-					parentTimelineMinor.siblings(".timelineMinor").show();
+					//parentTimelineMinor.siblings(".timelineMinor").show();
 				}else{
+					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
+						$(this).find(".forbidSwitch").bootstrapSwitch('state', false, false);
+						$(this).hide();
+					})
 					//否则，如果当前阶段不可用，同时这个阶段是个父级阶段，则隐藏其子阶段
-					parentTimelineMinor.siblings(".timelineMinor").hide();
+					//parentTimelineMinor.siblings(".timelineMinor").hide();
 				}
 			}
 		},

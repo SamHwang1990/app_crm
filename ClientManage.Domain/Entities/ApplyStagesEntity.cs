@@ -111,6 +111,7 @@ namespace ClientManage.Domain.Entities
         }
         /// <summary>
         /// 日期是否与父相同
+        /// 父阶段的该字段用来指示子阶段是否与自身日期相同，子阶段的该字段用来指示自身的日期是否与父阶段相同
         /// </summary>
         public bool IsDateSameWithParent
         {
