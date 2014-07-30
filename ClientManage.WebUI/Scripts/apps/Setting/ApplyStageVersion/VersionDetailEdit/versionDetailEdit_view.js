@@ -83,7 +83,7 @@ define([
 					parentDetailModel =  editView.SetDetail(stageDl);
 					childVersionDetails = new VersionDetailCollection();
 					stageDl.siblings(".timelineMinor").each(function(i){
-						childVersionDetails.add(editView.SetDetail($(this)));
+						childVersionDetails.add(editView.SetDetail($(this),parentDetailModel.get("IsDateSameWithParent")));
 					});
 
 					submitCollection.add(new VersionDetailWrapModel({
@@ -93,7 +93,9 @@ define([
 				})
 				return submitCollection;
 			},
-			SetDetail:function(stageDl){
+			SetDetail:function(stageDl,_isDateSameWithParent){
+				var isDateSameWithParent, beginDate, endDate, isCalBeginDate, isCalEndDate;
+
 				var stageNo = stageDl.attr("data-StageNo");
 				var stageName = stageDl.find(".VersionDetail_StageName").val();
 
@@ -102,11 +104,36 @@ define([
 				var canForbid = stageDl.find(".VersionDetail_CanForbid").is(":checked");
 				var canChangeName = stageDl.find(".VersionDetail_CanChangeName").is(":checked");
 				var canChangeDate = stageDl.find(".VersionDetail_CanChangeDate").is(":checked");
-				var isDateSameWithParent = !(stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked"));
-				var beginDate = stageDl.find(".VersionDetail_BeginDate").val();
-				var endDate = stageDl.find(".VersionDetail_EndDate").val();
-				var isCalBeginDate = stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate") === "true";
-				var isCalEndDate = stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate") === "true";
+
+				if(stageClass == 1){    //父阶段
+					isDateSameWithParent = (!(stageDl.find(".VersionDetail_IsDateSameWithParent").is(":checked")));
+
+					beginDate = stageDl.find(".VersionDetail_BeginDate").val();
+					isCalBeginDate = stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate") === "true";
+
+					endDate = isDateSameWithParent ? stageDl.find(".VersionDetail_EndDate").val() : 1;
+					isCalEndDate =
+						isDateSameWithParent
+							?(stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate") === "true")
+							: false;
+				}
+				else{
+					// 父阶段的IsDateSameWithParent 值 赋予当前子阶段
+					isDateSameWithParent = _isDateSameWithParent;
+
+					//当子阶段有时间限制，开始结束时间均从表单获取，否则默认为当前时间
+					beginDate = !isDateSameWithParent ? stageDl.find(".VersionDetail_BeginDate").val() : 0;
+					isCalBeginDate =
+						!isDateSameWithParent
+							? stageDl.find(".dropdown-text-BeginDate").attr("data-IsCalDate") === "true"
+							: false;
+
+					endDate = !isDateSameWithParent ? stageDl.find(".VersionDetail_EndDate").val() : 1;
+					isCalEndDate =
+						!isDateSameWithParent
+							?(stageDl.find(".dropdown-text-EndDate").attr("data-IsCalDate") === "true")
+							: false;
+				}
 
 				return new VersionDetailModel({
 					VersionID:this.VersionID,
