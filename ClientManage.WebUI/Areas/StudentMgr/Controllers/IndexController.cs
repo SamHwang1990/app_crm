@@ -657,7 +657,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 ApplyStageVersionDetailEntity currentParentDetail = versionDetailList.SingleOrDefault(v => v.StageNo == parentStageNo);
 
                 //如果当前父阶段为同辈阶段的第一个，则基准开始时间设为签约日期
-                if (i == 0)
+                if (i == 0 || currentParentDetail.IsCalBeginDate == false)
                 {
                     refBeginDate = signDate;
                 }
@@ -666,7 +666,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == Convert.ToInt16(parentStageArray[i - 1])).EndDate;
                 }
                 //父阶段调用该方法时，最后一个参数全为false
-                parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false);
+                parentStage = CalApplyStage(parentStageNo, refBeginDate, null, currentParentDetail, studentID, false,signDate);
+                if (parentStage.BeginDate > parentStage.EndDate)
+                {
+                    parentStage.EndDate = parentStage.BeginDate.AddMonths(1);
+                }
 
                 //获取当前阶段的子阶段的StageNo 数组
                 int[] childClass = versionDetailList.Where(a => a.ParentNo == parentStageNo && a.IsForbid == false).OrderBy(a => a.StageNo).Select(a => a.StageNo).ToArray();
@@ -680,20 +684,21 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     //如果子阶段的开始结束日期与父阶段一样的话，基准开始结束日期均与父阶段一致
                     if (currentChildDetail.IsDateSameWithParent)
                     {
-                        childStage = CalApplyStage(childStageNo, parentStage.BeginDate, parentStage.EndDate, currentChildDetail, studentID, true);
+                        childStage = CalApplyStage(childStageNo, parentStage.BeginDate, parentStage.EndDate, currentChildDetail, studentID, true, signDate);
                     }
                     else
                     {
                         //如果当前子阶段为同辈阶段的第一个，则基准开始时间设为父阶段的开始日期
                         if (j == 0)
                         {
-                            childStage = CalApplyStage(childStageNo, parentStage.BeginDate, null, currentChildDetail, studentID, false);
+                            refBeginDate = parentStage.BeginDate;
                         }
                         else     //否则，基准开始日期为兄长阶段的结束日期
                         {
                             refBeginDate = resultStageList.SingleOrDefault(s => s.StageNo == childClass[j-1]).EndDate;
-                            childStage = CalApplyStage(childStageNo, refBeginDate, null, currentChildDetail, studentID, false);
+                            
                         }
+                        childStage = CalApplyStage(childStageNo, refBeginDate, null, currentChildDetail, studentID, false, signDate);
                     }
 
                     //把当前阶段的信息存储到resultStageList中，同辈间遍历的时候会用到
@@ -701,7 +706,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 }
 
                 //如果当前父阶段的子阶段有时间限制，则把最后一个子阶段的EndDate值赋给父阶段的EndDate
-                if (!currentParentDetail.IsDateSameWithParent)
+                if (!currentParentDetail.IsDateSameWithParent && childClass.Length > 0)
                 {
                     parentStage.EndDate = resultStageList.SingleOrDefault(s => s.StageNo == childClass.Last()).EndDate;
                 }
@@ -735,7 +740,14 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <param name="studentID">学生ID</param>
         /// <param name="isDateSameWithParent">是否和父阶段日期一样</param>
         /// <returns></returns>
-        StudentApplyStageEntity CalApplyStage(int stageNo, DateTime refBeginDate, DateTime? refEndDate, ApplyStageVersionDetailEntity currentDetail, Guid studentID, bool isDateSameWithParent)
+        StudentApplyStageEntity CalApplyStage(
+            int stageNo, 
+            DateTime refBeginDate, 
+            DateTime? refEndDate, 
+            ApplyStageVersionDetailEntity currentDetail, 
+            Guid studentID, 
+            bool isDateSameWithParent, 
+            DateTime signDate)
         {
             StudentApplyStageEntity applyStage = new StudentApplyStageEntity
             {
@@ -768,7 +780,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 }
                 else    //否则，则拼接年、月、日 来计算日期。下面算法的结果是，计算出给定月份的最后一天的日期值
                 {
-                    int year = (refBeginDate.Month > currentDetail.BeginDate) ? refBeginDate.Year + 1 : refBeginDate.Year;
+                    int year = (signDate.Month > currentDetail.BeginDate) ? signDate.Year + 1 : signDate.Year;
                     int month = Convert.ToInt16(currentDetail.BeginDate) + 1;
                     if (month > 12)
                     {
@@ -786,7 +798,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 }
                 else    //否则，则拼接年、月、日 来计算日期。下面算法的结果是，计算出给定月份的最后一天的日期值
                 {
-                    int year = (applyStage.BeginDate.Month > currentDetail.EndDate) ? applyStage.BeginDate.Year + 1 : applyStage.BeginDate.Year;
+
+                    int year = (signDate.Month > currentDetail.EndDate) ? signDate.Year + 1 : signDate.Year;
                     int month = Convert.ToInt16(currentDetail.EndDate) + 1;
                     if (month > 12)
                     {
@@ -801,7 +814,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         }
 
         /// <summary>
-        /// 相应ajax 请求，把学生的
+        /// 相应ajax 请求
         /// </summary>
         /// <param name="ajaxData"></param>
         /// <returns></returns>
@@ -854,10 +867,10 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 applyStageList.Add(applyStageWrap.ParentStage);
                 applyStageList.AddRange(applyStageWrap.ChildStages);
             }
-            repository.SaveStudentApplyStages(applyStageList);
+            //repository.SaveStudentApplyStages(applyStageList);
             AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == studentID);
             appRelation.HasScheduleApply = true;
-            repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);
+            //repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);
 
             return Json(new { SaveResult = true });
         }

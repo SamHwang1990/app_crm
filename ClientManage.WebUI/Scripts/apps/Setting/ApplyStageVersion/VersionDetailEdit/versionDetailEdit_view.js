@@ -83,7 +83,13 @@ define([
 					parentDetailModel =  editView.SetDetail(stageDl);
 					childVersionDetails = new VersionDetailCollection();
 					stageDl.siblings(".timelineMinor").each(function(i){
-						childVersionDetails.add(editView.SetDetail($(this),parentDetailModel.get("IsDateSameWithParent")));
+						childVersionDetails.add(
+							editView.SetDetail(
+								$(this),
+								parentDetailModel.get("IsDateSameWithParent"),
+								parentDetailModel.get("IsForbid")
+							)
+						);
 					});
 
 					submitCollection.add(new VersionDetailWrapModel({
@@ -99,9 +105,9 @@ define([
 				var stageNo = stageDl.attr("data-StageNo");
 				var stageName = stageDl.find(".VersionDetail_StageName").val();
 
-				var stageClass = stageDl.attr("data-StageClass");
 				var isForbid = !(stageDl.find(".VersionDetail_IsForbid").is(":checked"));
 				var canForbid = stageDl.find(".VersionDetail_CanForbid").is(":checked");
+				var stageClass = stageDl.attr("data-StageClass");
 				var canChangeName = stageDl.find(".VersionDetail_CanChangeName").is(":checked");
 				var canChangeDate = stageDl.find(".VersionDetail_CanChangeDate").is(":checked");
 

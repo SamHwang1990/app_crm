@@ -65,12 +65,12 @@ define([
 			if(stageClass == "1"){
 				if(data){
 					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
-						$(this).find(".forbidSwitch").bootstrapSwitch('state', true, false);
+						//$(this).find(".forbidSwitch").bootstrapSwitch('state', true, false);
 						$(this).show();
 					})
 				}else{
 					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
-						$(this).find(".forbidSwitch").bootstrapSwitch('state', false, false);
+						//$(this).find(".forbidSwitch").bootstrapSwitch('state', false, false);
 						$(this).hide();
 					})
 				}
