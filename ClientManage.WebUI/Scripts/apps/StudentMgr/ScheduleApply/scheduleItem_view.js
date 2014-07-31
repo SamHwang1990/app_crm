@@ -8,17 +8,22 @@ define([
 	'text!templates/StudentMgr/ScheduleApply/ScheduleItem.html',
 	'text!templates/StudentMgr/ScheduleApply/ScheduleFieldSet.html',
 	'assets/RenderDateTimePicker',
-	'assets/TransformDateString'
-	],function(ClientManage,ScheduleItemTpl,ScheduleFieldSetTpl,RenderDateTimePicker,TransformDateString){
+	'assets/TransformDateString',
+	'Bootbox'
+	],function(ClientManage,ScheduleItemTpl,ScheduleFieldSetTpl,RenderDateTimePicker,TransformDateString,Bootbox){
 	var scheduleItemView = Marionette.ItemView.extend({
 		template:_.template(ScheduleItemTpl),
 		tagName:"div",
 		className:"timelineMajor",
 		ui:{
-			"btnForbidSwitch":".forbidSwitch"          //“是否可用”切换按钮
+			"btnForbidSwitch":".forbidSwitch",          //“是否可用”切换按钮
+			"timePickerBeginDate":".timeRelated_BeginDate .timePicker .ApplyStage_BeginDate",
+			"timePickerEndDate":".timeRelated_EndDate .timePicker .ApplyStage_EndDate"
 		},
 		events:{
-			"switchChange.bootstrapSwitch @ui.btnForbidSwitch":"ForbidSwitchChange"
+			"switchChange.bootstrapSwitch @ui.btnForbidSwitch":"ForbidSwitchChange",
+			"change @ui.timePickerBeginDate":"BeginDateChange",
+			"change @ui.timePickerEndDate":"EndDateChange"
 		},
 		templateHelpers:function(){
 			var transformDateString = new TransformDateString();
@@ -43,7 +48,7 @@ define([
 			this.$el.attr("date-Parent-StageNo", this.model.get("ParentStage").StageNo);
 
 			var renderDateTimePicker = new RenderDateTimePicker();
-			renderDateTimePicker.RenderDate(this.$el.find('.timePicker'));
+			renderDateTimePicker.RenderDate(this.$el.find('.timeRelated:not(.display) .timePicker'));
 		},
 		ForbidSwitchChange:function(event){
 			//获取checkbox 是否选中
@@ -74,6 +79,66 @@ define([
 					parentTimelineMinor.siblings(".timelineMinor").hide();
 				}
 			}
+		},
+		BeginDateChange:function(event){
+			var currentMinor = $(event.currentTarget).parents(".timelineMinor");
+			var stageClass = currentMinor.attr("data-StageClass");
+			var stageNo = currentMinor.attr("data-StageNo");
+			var newBeginDateString = $(event.currentTarget).val();
+			var currentEndString = currentMinor.find(".ApplyStage_EndDate").val();
+			var prevMajor = this.$el.prev();
+			var validResult,oldBeginDateString,prevEndString, parentBeginString, currentStage;
+
+			if(stageClass == "1")
+				currentStage = this.model.get("ParentStage");
+			else
+				currentStage = _.find(this.model.get("ChildStages"), function(ChildStage){ return ChildStage.StageNo == stageNo; })
+
+			oldBeginDateString = currentStage.BeginDate;
+
+			if(stageClass == "1"){
+				prevEndString = prevMajor.find(".timelineMinor").eq(0).find(".ApplyStage_EndDate").val();
+
+				if(this.ValidateDateChange(newBeginDateString,prevEndString,'新设置的开始日期不能早于上一阶段的结束日期') &&
+					this.ValidateDateChange(currentEndString,newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期')){
+					validResult = true;
+				}else
+					validResult = false;
+
+			}else{
+				parentBeginString = currentMinor.prevAll().eq(0).find(".ApplyStage_BeginDate").val();
+				prevEndString = currentMinor.prev().find(".ApplyStage_EndDate").val();
+
+				if(this.ValidateDateChange(newBeginDateString,((prevEndString == parentBeginString)?parentBeginString:prevEndString)),
+					'新设置的开始日期不能早于父阶段开始日期 或 上一阶段的结束日期' &&
+					this.ValidateDateChange(currentEndString, newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期')){
+					validResult = true;
+				}else{
+					validResult = false;
+				}
+			}
+
+			if(validResult)
+				currentStage.BeginDate = newBeginDateString;
+			else
+				$(event.currentTarget).val(oldBeginDateString);
+
+		},
+		EndDateChange:function(event){
+			//alert("EndDateChange");
+		},
+		ValidateDateChange:function(bigDateString, smallDateString, errMsg){
+			if(new Date(bigDateString) < new Date(smallDateString)){
+				bootbox.dialog(errMsg, {
+					"label" : "好吧！",
+					"class" : "danger",   // or primary, or danger, or nothing at all
+					"callback": function() {
+						//this.modal('hide');
+					}
+				});
+				return false;
+			}else
+				return true;
 		}
 	})
 
