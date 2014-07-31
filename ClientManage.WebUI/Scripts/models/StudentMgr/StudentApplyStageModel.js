@@ -10,6 +10,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			StudentID:"00000000-0000-0000-0000-000000000000",
 			StageNo:0,
 			StageName:"",
+			StageClass:0,
 			ParentNo:0,
 			IsForbid:false,
 			Gender:"0",
@@ -24,6 +25,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			CanForbid:false,
 			CanChangeDate:false,
 			CanChangeName:false,
+			IsDateSameWithParent:false,
 			Remark:""
 		}
 	});

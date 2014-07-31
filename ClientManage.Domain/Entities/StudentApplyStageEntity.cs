@@ -60,6 +60,14 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
+        /// 阶段层级，比如最高级为0
+        /// </summary>
+        public byte StageClass
+        {
+            set;
+            get;
+        }
+        /// <summary>
         /// 父阶段编号，从本表中寻找
         /// </summary>
         public int ParentNo
@@ -159,6 +167,15 @@ namespace ClientManage.Domain.Entities
         /// 是否能修改阶段名
         /// </summary>
         public bool CanChangeName
+        {
+            set;
+            get;
+        }
+        /// <summary>
+        /// 日期是否与父相同
+        /// 父阶段的该字段用来指示子阶段是否与自身日期相同，子阶段的该字段用来指示自身的日期是否与父阶段相同
+        /// </summary>
+        public bool IsDateSameWithParent
         {
             set;
             get;

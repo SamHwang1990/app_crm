@@ -755,6 +755,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 StudentID = studentID,
                 StageNo = stageNo,
                 StageName = currentDetail.StageName,
+                StageClass = currentDetail.StageClass,
                 ParentNo = currentDetail.ParentNo,
                 IsForbid = currentDetail.IsForbid,
                 StatusOption = currentDetail.StatusOption,
@@ -763,7 +764,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 CurrentOption = currentDetail.BeginOption,                
                 CanForbid = currentDetail.CanForbid,
                 CanChangeDate = currentDetail.CanChangeDate,
-                CanChangeName = currentDetail.CanChangeName
+                CanChangeName = currentDetail.CanChangeName,
+                IsDateSameWithParent = currentDetail.IsDateSameWithParent
             };
             //如果当前阶段的日期与父阶段一样，则直接赋值即可
             if (isDateSameWithParent)
