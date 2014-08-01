@@ -6,7 +6,7 @@
 define(['app','text!templates/Common/index.html'],function(ClientManage,indexTpl){
 	var indexView = Marionette.Layout.extend({
 		template: _.template(indexTpl),
-		tagName:'body',
+		tagName:'div',
 		regions:{
 			adminBarRegion: "#appAdminBar",
 			adminMenuRegion:"#adminMenuWrap",

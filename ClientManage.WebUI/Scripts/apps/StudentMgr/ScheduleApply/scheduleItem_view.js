@@ -18,12 +18,16 @@ define([
 		ui:{
 			"btnForbidSwitch":".forbidSwitch",          //“是否可用”切换按钮
 			"timePickerBeginDate":".timeRelated_BeginDate .timePicker .ApplyStage_BeginDate",
-			"timePickerEndDate":".timeRelated_EndDate .timePicker .ApplyStage_EndDate"
+			"timePickerEndDate":".timeRelated_EndDate .timePicker .ApplyStage_EndDate",
+			"timePickerWrap":".timePicker"
 		},
 		events:{
 			"switchChange.bootstrapSwitch @ui.btnForbidSwitch":"ForbidSwitchChange",
 			"change @ui.timePickerBeginDate":"BeginDateChange",
-			"change @ui.timePickerEndDate":"EndDateChange"
+			"change @ui.timePickerEndDate":"EndDateChange",
+			"focus .timePicker input":"focusTimePickInput",
+			"click .timePicker .icon-th":"clickTimePickerIconTh",
+			"click .timePicker .icon-refresh":"clickTimePickerIconRefresh"
 		},
 		templateHelpers:function(){
 			var transformDateString = new TransformDateString();
@@ -40,6 +44,10 @@ define([
 				FieldsetTpl:ScheduleFieldSetTpl
 			}
 		},
+		initialize:function(){
+			var renderDateTimePicker = new RenderDateTimePicker();
+			this.renderDateTimePicker = renderDateTimePicker;
+		},
 		onRender:function(){
 			//渲染视图后手动触发“btnForbidSwitch”的切换事件
 			this.ui.btnForbidSwitch.trigger("switchChange.bootstrapSwitch");
@@ -47,8 +55,7 @@ define([
 			//给根元素el 添加“date-StageNo”特性
 			this.$el.attr("date-Parent-StageNo", this.model.get("ParentStage").StageNo);
 
-			var renderDateTimePicker = new RenderDateTimePicker();
-			renderDateTimePicker.RenderDate(this.$el.find('.timeRelated:not(.display) .timePicker'));
+			//renderDateTimePicker.RenderDate(this.$el.find('.timeRelated:not(.display) .timePicker'));
 		},
 		ForbidSwitchChange:function(event){
 			//获取checkbox 是否选中
@@ -80,7 +87,20 @@ define([
 				}
 			}
 		},
+		focusTimePickInput:function(event){
+			event.preventDefault();
+			this.ResetPicker($(event.currentTarget).parents(".timePicker"));
+		},
+		clickTimePickerIconTh:function(event){
+			event.preventDefault();
+			this.ResetPicker($(event.currentTarget).parents(".timePicker"));
+		},
+		clickTimePickerIconRefresh:function(event){
+			event.preventDefault();
+			$(event.currentTarget).prev("input").val('');
+		},
 		BeginDateChange:function(event){
+			event.preventDefault();
 			var currentMinor = $(event.currentTarget).parents(".timelineMinor");
 			var stageClass = currentMinor.attr("data-StageClass");
 			var stageNo = currentMinor.attr("data-StageNo");
@@ -99,46 +119,58 @@ define([
 			if(stageClass == "1"){
 				prevEndString = prevMajor.find(".timelineMinor").eq(0).find(".ApplyStage_EndDate").val();
 
-				if(this.ValidateDateChange(newBeginDateString,prevEndString,'新设置的开始日期不能早于上一阶段的结束日期') &&
-					this.ValidateDateChange(currentEndString,newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期')){
-					validResult = true;
-				}else
+				if(!this.ValidateDateChange(newBeginDateString,prevEndString,'新设置的开始日期不能早于上一阶段的结束日期',
+					$(event.currentTarget), oldBeginDateString) ||
+					!this.ValidateDateChange(currentEndString,newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期',
+						$(event.currentTarget), oldBeginDateString)){
 					validResult = false;
+				}else
+					validResult = true;
 
 			}else{
 				parentBeginString = currentMinor.prevAll().eq(0).find(".ApplyStage_BeginDate").val();
 				prevEndString = currentMinor.prev().find(".ApplyStage_EndDate").val();
 
-				if(this.ValidateDateChange(newBeginDateString,((prevEndString == parentBeginString)?parentBeginString:prevEndString)),
-					'新设置的开始日期不能早于父阶段开始日期 或 上一阶段的结束日期' &&
-					this.ValidateDateChange(currentEndString, newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期')){
-					validResult = true;
-				}else{
+				if(!this.ValidateDateChange(newBeginDateString,((prevEndString >= currentEndString)?parentBeginString:prevEndString),
+					'新设置的开始日期不能早于父阶段开始日期 或 上一阶段的结束日期',$(event.currentTarget), oldBeginDateString) ||
+					!this.ValidateDateChange(currentEndString, newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期',
+						$(event.currentTarget), oldBeginDateString)){
 					validResult = false;
+				}else{
+					validResult = true;
 				}
 			}
 
 			if(validResult)
 				currentStage.BeginDate = newBeginDateString;
-			else
+			else{
 				$(event.currentTarget).val(oldBeginDateString);
+			}
 
+			return false;
 		},
 		EndDateChange:function(event){
 			//alert("EndDateChange");
 		},
-		ValidateDateChange:function(bigDateString, smallDateString, errMsg){
-			if(new Date(bigDateString) < new Date(smallDateString)){
+		ValidateDateChange:function(bigDateString, smallDateString, errMsg, timePickerInput, oldDate){
+			var that = this;
+			var bigDate = new Date(bigDateString);
+			var smallDate = new Date(smallDateString);
+			if( bigDate < smallDate ){
 				bootbox.dialog(errMsg, {
 					"label" : "好吧！",
 					"class" : "danger",   // or primary, or danger, or nothing at all
 					"callback": function() {
-						//this.modal('hide');
+						timePickerInput.val(oldDate);
 					}
 				});
 				return false;
 			}else
 				return true;
+		},
+		ResetPicker:function(timePickerWrap){
+			delete $(".datetimepicker");
+			this.renderDateTimePicker.RenderDate(timePickerWrap);
 		}
 	})
 
