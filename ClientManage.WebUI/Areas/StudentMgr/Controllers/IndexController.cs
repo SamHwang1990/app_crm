@@ -840,6 +840,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             ajaxData = ajaxData.OrderBy(w => w.ParentStage.StageNo);
             foreach (StudentApplyStageWrap applyStageWrap in ajaxData)
             {
+                if (applyStageWrap.ParentStage.IsForbid)
+                    continue;
+
                 currentStage = versionDetailList.Single(a => a.StageNo == applyStageWrap.ParentStage.StageNo);
                 applyStageWrap.ParentStage.ID = Guid.NewGuid();
                 applyStageWrap.ParentStage.ParentNo = currentStage.ParentNo;
@@ -850,9 +853,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 applyStageWrap.ParentStage.CanForbid = currentStage.CanForbid;
                 applyStageWrap.ParentStage.CanChangeDate = currentStage.CanChangeDate;
                 applyStageWrap.ParentStage.CanChangeName = currentStage.CanChangeName;
+                applyStageWrap.ParentStage.IsDateSameWithParent = currentStage.IsDateSameWithParent;
 
                 foreach (StudentApplyStageEntity childStage in applyStageWrap.ChildStages)
                 {
+                    if (childStage.IsForbid)
+                        continue;
+
                     currentStage = versionDetailList.Single(a => a.StageNo == childStage.StageNo);
 
                     childStage.ID = Guid.NewGuid();
@@ -864,15 +871,16 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     childStage.CanForbid = currentStage.CanForbid;
                     childStage.CanChangeDate = currentStage.CanChangeDate;
                     childStage.CanChangeName = currentStage.CanChangeName;
+                    childStage.IsDateSameWithParent = currentStage.IsDateSameWithParent;
                 }
 
                 applyStageList.Add(applyStageWrap.ParentStage);
                 applyStageList.AddRange(applyStageWrap.ChildStages);
             }
-            //repository.SaveStudentApplyStages(applyStageList);
+            repository.SaveStudentApplyStages(applyStageList);
             AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == studentID);
             appRelation.HasScheduleApply = true;
-            //repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);
+            repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);
 
             return Json(new { SaveResult = true });
         }

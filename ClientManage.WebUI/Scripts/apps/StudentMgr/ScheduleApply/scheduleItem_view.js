@@ -24,10 +24,7 @@ define([
 		events:{
 			"switchChange.bootstrapSwitch @ui.btnForbidSwitch":"ForbidSwitchChange",
 			"change @ui.timePickerBeginDate":"BeginDateChange",
-			"change @ui.timePickerEndDate":"EndDateChange",
-			"focus .timePicker input":"focusTimePickInput",
-			"click .timePicker .icon-th":"clickTimePickerIconTh",
-			"click .timePicker .icon-refresh":"clickTimePickerIconRefresh"
+			"change @ui.timePickerEndDate":"EndDateChange"
 		},
 		templateHelpers:function(){
 			var transformDateString = new TransformDateString();
@@ -54,8 +51,6 @@ define([
 
 			//给根元素el 添加“date-StageNo”特性
 			this.$el.attr("date-Parent-StageNo", this.model.get("ParentStage").StageNo);
-
-			//renderDateTimePicker.RenderDate(this.$el.find('.timeRelated:not(.display) .timePicker'));
 		},
 		ForbidSwitchChange:function(event){
 			//获取checkbox 是否选中
@@ -87,28 +82,27 @@ define([
 				}
 			}
 		},
-		focusTimePickInput:function(event){
-			event.preventDefault();
-			this.ResetPicker($(event.currentTarget).parents(".timePicker"));
-		},
-		clickTimePickerIconTh:function(event){
-			event.preventDefault();
-			this.ResetPicker($(event.currentTarget).parents(".timePicker"));
-		},
-		clickTimePickerIconRefresh:function(event){
-			event.preventDefault();
-			$(event.currentTarget).prev("input").val('');
-		},
 		BeginDateChange:function(event){
 			event.preventDefault();
+			//事件Target 的div.timelineMinor 祖先元素
 			var currentMinor = $(event.currentTarget).parents(".timelineMinor");
+			//当前阶段的Class
 			var stageClass = currentMinor.attr("data-StageClass");
+			//当前阶段的编号
 			var stageNo = currentMinor.attr("data-StageNo");
+			//新的开始日期
 			var newBeginDateString = $(event.currentTarget).val();
+			//当前阶段的结束日期
 			var currentEndString = currentMinor.find(".ApplyStage_EndDate").val();
+			//前一个阶段或父阶段的div.timelineMinor 元素
 			var prevMajor = this.$el.prev();
+			//验证结果、旧的开始日期、prevMajor 的结束日期、父阶段的开始日期、model中当前阶段实体
 			var validResult,oldBeginDateString,prevEndString, parentBeginString, currentStage;
 
+			/*
+			* 如果阶段层级为1，则当前阶段的model等于view.model的ParentStage
+			* 否则，从view.model中ChildStages中找与StageNo一样的阶段model
+			* */
 			if(stageClass == "1")
 				currentStage = this.model.get("ParentStage");
 			else
@@ -116,9 +110,14 @@ define([
 
 			oldBeginDateString = currentStage.BeginDate;
 
+			/* 验证新设置的开始日期是否合法 */
 			if(stageClass == "1"){
 				prevEndString = prevMajor.find(".timelineMinor").eq(0).find(".ApplyStage_EndDate").val();
 
+				/*
+				* 如果新设置的日期 小于 前一阶段的结束日期，验证结果为false
+				* 如果新设置的日期 大于 同阶段的结束日期，验证结果为false
+				* */
 				if(!this.ValidateDateChange(newBeginDateString,prevEndString,'新设置的开始日期不能早于上一阶段的结束日期',
 					$(event.currentTarget), oldBeginDateString) ||
 					!this.ValidateDateChange(currentEndString,newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期',
@@ -131,6 +130,10 @@ define([
 				parentBeginString = currentMinor.prevAll().eq(0).find(".ApplyStage_BeginDate").val();
 				prevEndString = currentMinor.prev().find(".ApplyStage_EndDate").val();
 
+				/*
+				* 如果新设置的日期 小于 前一阶段的结束日期，验证结果为false
+				* 如果新设置的日期 大于 同阶段的结束日期，验证结果为false
+				* */
 				if(!this.ValidateDateChange(newBeginDateString,((prevEndString >= currentEndString)?parentBeginString:prevEndString),
 					'新设置的开始日期不能早于父阶段开始日期 或 上一阶段的结束日期',$(event.currentTarget), oldBeginDateString) ||
 					!this.ValidateDateChange(currentEndString, newBeginDateString, '新设置的开始日期不能晚于同阶段的结束日期',
@@ -150,10 +153,114 @@ define([
 			return false;
 		},
 		EndDateChange:function(event){
-			//alert("EndDateChange");
+			event.preventDefault();
+
+			var currentInput = $(event.currentTarget);
+
+			//事件Target 的div.timelineMinor 祖先元素
+			var currentMinor = currentInput.parents(".timelineMinor").eq(0);
+
+			//当前阶段的Class
+			var stageClass = currentMinor.attr("data-StageClass");
+
+			//当前阶段的编号
+			var stageNo = currentMinor.attr("data-StageNo");
+
+			//前一个阶段或父阶段的div.timelineMinor 元素
+			var nextMajor = this.$el.next();
+
+			var newEndDateString = currentInput.val();
+
+			var currentBeginString = currentMinor.find(".ApplyStage_BeginDate").val()
+
+			//验证结果、旧的结束日期、nextMajor 的结束日期、父阶段的结束日期、model中当前阶段实体
+			var validResult,oldEndDateString,nextBeginString, parentEndString, currentStage, isLastChild;
+
+			if(stageClass == '1')
+				currentStage = this.model.get('ParentStage');
+			else
+				currentStage = _.find(this.model.get("ChildStages"), function(ChildStage){ return ChildStage.StageNo == stageNo; });
+
+			oldEndDateString = currentStage.EndDate;
+
+			if(stageClass == '1'){
+				if(nextMajor == undefined)
+					isLastChild = true;
+				else
+					isLastChild = false;
+
+				if(isLastChild){
+					if(!this.ValidateDateChange(newEndDateString,currentBeginString,
+						'新设置的结束日期不能早于同阶段的开始日期',currentInput,oldEndDateString))
+						validResult = false;
+					else
+						validResult = true;
+				}else{
+					nextBeginString = nextMajor.find(".timelineMinor").eq(0).find(".ApplyStage_BeginDate").val();
+					if(!this.ValidateDateChange(newEndDateString,currentBeginString,
+						'新设置的结束日期不能早于同阶段的开始日期',currentInput,oldEndDateString) ||
+						!this.ValidateDateChange(nextBeginString,newEndDateString,'新设置的结束日期不能晚于下一阶段的开始日期',
+						currentInput,oldEndDateString))
+						validResult = false;
+					else
+						validResult = true;
+				}
+			}else{
+				if(currentMinor.next().length == 0)
+					isLastChild = true;
+				else
+					isLastChild = false;
+
+				var parentStageMinor = this.$el.find(".timelineMinor").eq(0);
+
+				if(isLastChild){
+					if(nextMajor == undefined){
+						if(!this.ValidateDateChange(newEndDateString,currentBeginString,'新设置的结束日期不能早于同阶段的开始日期',
+						currentInput,oldEndDateString))
+							validResult = false;
+						else{
+							validResult = true;
+							parentStageMinor.find(".ApplyStage_EndDate").val(newEndDateString);
+						}
+					}else{
+						nextBeginString = nextMajor.find(".timelineMinor").eq(0).find(".ApplyStage_BeginDate").val();
+						if(!this.ValidateDateChange(nextBeginString,newEndDateString,
+							'新设置的结束日期不能晚于下一阶段的开始日期',currentInput,oldEndDateString) ||
+							!this.ValidateDateChange(newEndDateString,currentBeginString,'新设置的结束日期不能早于同阶段的开始日期',
+								currentInput,oldEndDateString))
+							validResult = false;
+						else{
+							validResult = true;
+							parentStageMinor.find(".ApplyStage_EndDate").val(newEndDateString);
+						}
+					}
+				}else{
+					nextBeginString = currentMinor.next().find(".ApplyStage_BeginDate").val();
+					if(!this.ValidateDateChange(nextBeginString,newEndDateString,
+						'新设置的结束日期不能晚于下一阶段的开始日期',currentInput,oldEndDateString) ||
+						!this.ValidateDateChange(newEndDateString,currentBeginString,'新设置的结束日期不能早于同阶段的开始日期',
+							currentInput,oldEndDateString))
+						validResult = false;
+					else
+						validResult = true;
+				}
+
+			}
+
+			if(validResult)
+				currentStage.EndDate = newEndDateString;
+			else{
+				$(event.currentTarget).val(oldEndDateString);
+			}
 		},
+		/*
+		* @param bigDateString:默认为更大日期的字符串
+		* @param smallDateString:默认为更小日期的字符串
+		* @param errMsg:验证结果为不合法时使用的错误信息
+		* @param timePickerInput:日期输入框的jQuery对象
+		* @param oldDate:旧的日期
+		* */
 		ValidateDateChange:function(bigDateString, smallDateString, errMsg, timePickerInput, oldDate){
-			var that = this;
 			var bigDate = new Date(bigDateString);
 			var smallDate = new Date(smallDateString);
 			if( bigDate < smallDate ){
@@ -167,10 +274,6 @@ define([
 				return false;
 			}else
 				return true;
-		},
-		ResetPicker:function(timePickerWrap){
-			delete $(".datetimepicker");
-			this.renderDateTimePicker.RenderDate(timePickerWrap);
 		}
 	})
 

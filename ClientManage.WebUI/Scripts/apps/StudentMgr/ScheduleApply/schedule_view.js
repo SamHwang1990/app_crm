@@ -14,7 +14,8 @@ define([
 	'collections/StudentMgr/StudentApplyStageWrapCollection',
 	'models/StudentMgr/StudentApplyStageWrapModel',
 	'collections/StudentMgr/StudentApplyStageCollection',
-	'models/StudentMgr/StudentApplyStageModel'
+	'models/StudentMgr/StudentApplyStageModel',
+	'assets/RenderDateTimePicker'
 	],function(
 		ClientManage,
 		timeliner,
@@ -26,7 +27,8 @@ define([
 		StudentApplyStageWrapCollection,
 		StudentApplyStageWrapModel,
 		StudentApplyStageCollection,
-		StudentApplyStageModel){
+		StudentApplyStageModel,
+		RenderDateTimePicker){
 	ClientManage.module('StudentMgr.ScheduleApply.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.ScheduleItemView = ScheduleItemView;
 
@@ -47,6 +49,9 @@ define([
 
 				this.$el.find(".forbidSwitch").bootstrapSwitch();
 				this.$el.find(".switch").bootstrapSwitch();
+
+				var renderDateTimePicker = new RenderDateTimePicker();
+				renderDateTimePicker.RenderDate(this.$el.find('.timeRelated:not(.display) .timePicker'));
 			},
 			ui:{
 				"EditForm":"#editForm",
@@ -78,10 +83,10 @@ define([
 					parentStageNo = $(this).attr("date-Parent-StageNo");
 					stageDl = scheduleView.$el.find("dl[data-StageNo="+parentStageNo+"]")
 
-					parentStageModel =  scheduleView.SetDetail(stageDl);
+					parentStageModel =  scheduleView.SetDetail(stageDl,null);
 					childStages = new StudentApplyStageCollection();
 					stageDl.siblings(".timelineMinor").each(function(i){
-						childStages.add(scheduleView.SetDetail($(this)));
+						childStages.add(scheduleView.SetDetail($(this),parentStageModel));
 					});
 
 					submitCollection.add(new StudentApplyStageWrapModel({
@@ -91,31 +96,26 @@ define([
 				})
 				return submitCollection;
 			},
-			SetDetail:function(stageDl){
+			SetDetail:function(stageDl,parentStageModel){
 				var stageNo = stageDl.attr("data-StageNo");
-				var stageName = stageDl.find("input.ApplyStage_StageName").length
-					?
-					stageDl.find("input.ApplyStage_StageName").val()
-					:
-					stageDl.find("span.ApplyStage_StageName").text();
+				var stageName = stageDl.find("input.ApplyStage_StageName").val();
 
 				var stageClass = stageDl.attr("data-StageClass");
 				var isForbid = !(stageDl.find(".ApplyStage_IsForbid").is(":checked"));
-				//var canForbid = !(stageDl.find(".ApplyStage_IsForbid").is(":disabled"));
-				//var canChangeName = stageDl.attr("data-CanChangeName") === "true";
-				//var canChangeDate = stageDl.attr("data-CanChangeDate") === "true";
-				var beginDate = stageDl.find("input.ApplyStage_BeginDate").length
-					?
-					stageDl.find("input.ApplyStage_BeginDate").val()
-					:
-					stageDl.find("span.ApplyStage_BeginDate").text();
+				/*var canForbid = !(stageDl.find(".data-CanForbid") === "true");
+				var canChangeName = stageDl.attr("data-CanChangeName") === "true";
+				var canChangeDate = stageDl.attr("data-CanChangeDate") === "true";*/
+				var isDateSameWithParent = stageDl.attr("data-IsDateSameWithParent") === "true";
 
-				var endDate = stageDl.find("input.ApplyStage_EndDate").length
-					?
-					stageDl.find("input.ApplyStage_EndDate").val()
-					:
-					stageDl.find("span.ApplyStage_EndDate").text();
+				var beginDate,endDate;
 
+				if(isDateSameWithParent && stageClass =='2'){
+					beginDate = parentStageModel.get("BeginDate");
+					endDate = parentStageModel.get("EndDate");
+				}else{
+					beginDate = stageDl.find("input.ApplyStage_BeginDate").val();
+					endDate = stageDl.find("input.ApplyStage_EndDate").val();
+				}
 
 				return new StudentApplyStageModel({
 					StudentID:this.StudentID,
