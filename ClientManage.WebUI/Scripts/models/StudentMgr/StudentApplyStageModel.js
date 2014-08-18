@@ -10,6 +10,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			StudentID:"00000000-0000-0000-0000-000000000000",
 			StageNo:0,
 			StageName:"",
+			StageNameEn:'',
 			StageClass:0,
 			ParentNo:0,
 			IsForbid:false,

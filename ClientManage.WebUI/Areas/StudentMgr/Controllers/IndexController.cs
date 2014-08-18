@@ -719,7 +719,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             foreach (StudentApplyStageEntity parentStageItem in resultStageList.Where(s=>s.ParentNo == 1))
             {
                 applyStageWrapList.Add(new StudentApplyStageWrap { 
-                    ParentStage = parentStageItem, 
+                    ParentStage = parentStageItem,
                     ChildStages = resultStageList
                     .Where(s => s.ParentNo == parentStageItem.StageNo)
                     .OrderBy(r => r.StageNo) 
@@ -755,6 +755,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 StudentID = studentID,
                 StageNo = stageNo,
                 StageName = currentDetail.StageName,
+                StageNameEn = currentDetail.StageNameEn,
                 StageClass = currentDetail.StageClass,
                 ParentNo = currentDetail.ParentNo,
                 IsForbid = currentDetail.IsForbid,
@@ -845,11 +846,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
                 currentStage = versionDetailList.Single(a => a.StageNo == applyStageWrap.ParentStage.StageNo);
                 applyStageWrap.ParentStage.ID = Guid.NewGuid();
+                applyStageWrap.ParentStage.StageNameEn = currentStage.StageNameEn;
                 applyStageWrap.ParentStage.ParentNo = currentStage.ParentNo;
                 applyStageWrap.ParentStage.StatusOption = currentStage.StatusOption;
                 applyStageWrap.ParentStage.CurrentOption = currentStage.BeginOption;
                 applyStageWrap.ParentStage.BeginOption = currentStage.BeginOption;
                 applyStageWrap.ParentStage.EndOption = currentStage.EndOption;
+                applyStageWrap.ParentStage.Percentage = 0;
                 applyStageWrap.ParentStage.CanForbid = currentStage.CanForbid;
                 applyStageWrap.ParentStage.CanChangeDate = currentStage.CanChangeDate;
                 applyStageWrap.ParentStage.CanChangeName = currentStage.CanChangeName;
@@ -863,11 +866,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     currentStage = versionDetailList.Single(a => a.StageNo == childStage.StageNo);
 
                     childStage.ID = Guid.NewGuid();
+                    childStage.StageNameEn = currentStage.StageNameEn;
                     childStage.ParentNo = currentStage.ParentNo;
                     childStage.StatusOption = currentStage.StatusOption;
                     childStage.CurrentOption = currentStage.BeginOption;
                     childStage.BeginOption = currentStage.BeginOption;
                     childStage.EndOption = currentStage.EndOption;
+                    childStage.Percentage = 0;
                     childStage.CanForbid = currentStage.CanForbid;
                     childStage.CanChangeDate = currentStage.CanChangeDate;
                     childStage.CanChangeName = currentStage.CanChangeName;

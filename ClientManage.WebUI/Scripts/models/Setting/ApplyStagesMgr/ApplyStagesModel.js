@@ -8,6 +8,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			defaults:{
 				StageNo:0,
 				StageName:'',
+				StageNameEn:'',
 				StageClass:0,
 				ParentNo:0,
 				IsForbid:false,

@@ -60,6 +60,14 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
+        /// 阶段英文名
+        /// </summary>
+        public string StageNameEn
+        {
+            set;
+            get;
+        }
+        /// <summary>
         /// 阶段层级，比如最高级为0
         /// </summary>
         public byte StageClass
@@ -130,6 +138,14 @@ namespace ClientManage.Domain.Entities
         {
             set;
             get;
+        }
+        /// <summary>
+        /// 阶段百分比
+        /// </summary>
+        public int Percentage
+        {
+            get;
+            set;
         }
         /// <summary>
         /// 负责的顾问ID

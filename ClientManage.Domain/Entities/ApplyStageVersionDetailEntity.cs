@@ -61,6 +61,14 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
+        /// 阶段英文名
+        /// </summary>
+        public string StageNameEn
+        {
+            set;
+            get;
+        }
+        /// <summary>
         /// 阶段层级
         /// </summary>
         public byte StageClass
