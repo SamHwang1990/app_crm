@@ -5,7 +5,7 @@
 
 define(['app'],function(ClientManage){
 	var routerHandler = function(RouterAPI){
-		/*StudentMgr Index Router Controller*/
+		/* region StudentMgr Index Router Controller*/
 		RouterAPI.StudentMgrIndexList = function(){
 			require(['apps/StudentMgr/Index/List/list_controller'],function(StudentMgrIndexListController){
 				RouterAPI.executeAction(StudentMgrIndexListController.ShowList);
@@ -37,7 +37,9 @@ define(['app'],function(ClientManage){
 			})
 		}
 
-		/*StudentMgr SaleTrack Router Controller*/
+		/*endregion*/
+
+		/* region StudentMgr SaleTrack Router Controller*/
 		RouterAPI.StudentMgrSaleTrackList = function(){
 			require([
 				'apps/StudentMgr/SaleTrack/List/list_controller'],
@@ -66,6 +68,26 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
 				})
 		}
+		/* endregion*/
+
+		/* region StudentMgr Apply Router Controller */
+		RouterAPI.StudentMgrApplyIndex = function(id){
+			require([
+				'apps/StudentMgr/Apply/Index/index_controller'],
+				function(StudentMgrApplyIndexController){
+					RouterAPI.executeAction(StudentMgrApplyIndexController.ShowIndex,id);
+				})
+		}
+		RouterAPI.StudentMgrStagesSyllabus = function(parentStageNameEn,id){
+
+		}
+		RouterAPI.StudentMgrStagesResume = function(parentStageNameEn,id){
+
+		}
+		RouterAPI.StudentMgrStagesDetail = function(parentStageNameEn,id){
+
+		}
+		/* endregion*/
 	}
 	return routerHandler;
 })

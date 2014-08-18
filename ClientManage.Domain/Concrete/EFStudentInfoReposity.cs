@@ -73,6 +73,11 @@ namespace ClientManage.Domain.Concrete
             get { return context.ApplyStageVersionDetail; }
         }
 
+        public IQueryable<StudentApplyStageEntity> StudentApplyStage
+        {
+            get { return context.StudentApplyStage; }
+        }
+
         #endregion
 
         #region 保存操作

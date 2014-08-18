@@ -22,6 +22,7 @@ namespace ClientManage.Domain.Abstract
         IQueryable<ApplyStagesEntity> ApplyStages { get; }
         IQueryable<ApplyStageVersionEntity> ApplyStageVersion { get; }
         IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail { get; }
+        IQueryable<StudentApplyStageEntity> StudentApplyStage { get; }
 
         void SaveStudentInfo(StudentInfoEntity studentInfo,AppRelationsEntity appRelation);
 

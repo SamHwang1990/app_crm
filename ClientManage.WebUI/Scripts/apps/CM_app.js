@@ -21,6 +21,15 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"StudentMgr/AssignConsultant-:id":"StudentMgrAssignConsultant",
 				"StudentMgr/ScheduleApply-:id":"StudentMgrScheduleApply",
 
+				/* Student Apply Index */
+				"StudentMgr/Apply/:id":"StudentMgrApplyIndex",
+				/* Student Apply ParentStage Index */
+				"StudentMgr/Stages/:parentStageNameEn/:id":"StudentMgrStagesSyllabus",
+				/* Student Apply ParentStage Resume */
+				"StudentMgr/Stages/:parentStageNameEn/resume/:id":"StudentMgrStagesResume",
+				/* Student Apply Detail Stage */
+				"StudentMgr/Stages/:parentStageNameEn/detail/:stageEn/:id":"StudentMgrStagesDetail",
+
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
 				"StudentMgr/SaleTrack/AppInterview-:id":"StudentMgrSaleTrackAppInterview",

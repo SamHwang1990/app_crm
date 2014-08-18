@@ -91,6 +91,7 @@
     <Compile Include="Areas\Setting\Controllers\ApplyStageVersionController.cs" />
     <Compile Include="Areas\Setting\Models\ApplyStagesModel.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
+    <Compile Include="Areas\StudentMgr\Controllers\ApplyController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\SaleTrackController.cs" />
     <Compile Include="Areas\StudentMgr\Models\AssignConsultantData.cs" />
