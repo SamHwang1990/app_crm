@@ -22,10 +22,30 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             this.repository = studentInfoRepository;
         }
 
+        #region Ajax Get Request
 
+        public JsonResult Index_StageWrapList(string studentID)
+        {
+            List<StudentApplyStageWrap> stageWrapList = GetStudentApplyStageWrapList(studentID);
+            if (stageWrapList == null)
+                return Json(new { GetResult = false, Msg = "不能传入空的学生ID" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(stageWrapList, JsonRequestBehavior.AllowGet);
+        }
 
-        #region Get Student Stage From DB
+        #endregion
 
+        #region Ajax Put Request
+
+        #endregion
+
+        #region Get Student Apply Stages From DB
+
+        /// <summary>
+        /// 根据学生ID，从数据库中返回StudentApplyStage集合
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
         public IEnumerable<StudentApplyStageEntity> GetStudentApplyStageList(string studentID)
         {
             if (!IsGuidStringValid(studentID))
@@ -34,6 +54,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return repository.StudentApplyStage.Where(s => s.StudentID == new Guid(studentID));
         }
 
+        /// <summary>
+        /// 根据学生ID，从数据库返回StudentApplyStage，并封装成StudentApplyStageWrap集合
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <returns></returns>
         public List<StudentApplyStageWrap> GetStudentApplyStageWrapList(string studentID)
         {
             if (!IsGuidStringValid(studentID))
@@ -50,15 +75,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     .OrderBy(s=>s.StageNo)
                     .ToList()});
             }
-
-            //这段排序代码尚需检测，如果不通过，就order by 后再 toList() 
-            resultList.Sort(
-                delegate(StudentApplyStageWrap wrap1, StudentApplyStageWrap wrap2){
-                    Type t = typeof(StudentApplyStageWrap);
-                    PropertyInfo pro = t.GetProperty("ParentStage.StageNo");
-                    return pro.GetValue(wrap1, null).ToString().CompareTo(pro.GetValue(wrap2, null).ToString());
-                });
-            return resultList;
+            return resultList.OrderBy(s=>s.ParentStage.StageNo).ToList();
         }
 
         #endregion

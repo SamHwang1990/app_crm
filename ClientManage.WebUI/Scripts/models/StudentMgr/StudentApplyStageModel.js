@@ -21,6 +21,7 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			CurrentOption:"",
 			BeginOption:"",
 			EndOption:"",
+			Percentage:0,
 			ResponseConsultant:"00000000-0000-0000-0000-000000000000",
 			ResponseConsultantName:"",
 			CanForbid:false,

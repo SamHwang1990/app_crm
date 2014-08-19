@@ -588,7 +588,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             //根据月、日进行筛选，并选出符合条件的第一个Entity，通过比较Month与Day两值相加的值来排序比较
             ApplyStageVersionEntity suitableVersion = repository.ApplyStageVersion
-                .Where(a => a.SignDateBefore.Month >= studentSignDate.Month && a.SignDateBefore.Day >= studentSignDate.Day)
+                .Where(a => a.SignDateBefore.Month * 100 + a.SignDateBefore.Day >= studentSignDate.Month*100+studentSignDate.Day)
                 .OrderBy(a => (a.SignDateBefore.Month * 100 + a.SignDateBefore.Day))
                 .FirstOrDefault();
 
@@ -839,11 +839,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             //将列表按父阶段的StageNo进行排序
             ajaxData = ajaxData.OrderBy(w => w.ParentStage.StageNo);
-            foreach (StudentApplyStageWrap applyStageWrap in ajaxData)
+            int i=0, j=0;
+            foreach (StudentApplyStageWrap applyStageWrap in ajaxData.OrderBy(s=>s.ParentStage.StageNo))
             {
                 if (applyStageWrap.ParentStage.IsForbid)
                     continue;
-
+                
                 currentStage = versionDetailList.Single(a => a.StageNo == applyStageWrap.ParentStage.StageNo);
                 applyStageWrap.ParentStage.ID = Guid.NewGuid();
                 applyStageWrap.ParentStage.StageNameEn = currentStage.StageNameEn;
@@ -852,7 +853,6 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 applyStageWrap.ParentStage.CurrentOption = currentStage.BeginOption;
                 applyStageWrap.ParentStage.BeginOption = currentStage.BeginOption;
                 applyStageWrap.ParentStage.EndOption = currentStage.EndOption;
-                applyStageWrap.ParentStage.Percentage = 0;
                 applyStageWrap.ParentStage.CanForbid = currentStage.CanForbid;
                 applyStageWrap.ParentStage.CanChangeDate = currentStage.CanChangeDate;
                 applyStageWrap.ParentStage.CanChangeName = currentStage.CanChangeName;
@@ -877,6 +877,17 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     childStage.CanChangeDate = currentStage.CanChangeDate;
                     childStage.CanChangeName = currentStage.CanChangeName;
                     childStage.IsDateSameWithParent = currentStage.IsDateSameWithParent;
+                }
+
+                //如果是第一个ParentStage，则设其Percentage为1
+                //同时，如果子阶段无时间限制，则设所有子阶段的Percentage为1，否则仅设第一个子阶段的Percentage为1
+                if (i++ == 0)
+                {
+                    applyStageWrap.ParentStage.Percentage = 1;
+                    if (applyStageWrap.ParentStage.IsDateSameWithParent)
+                        applyStageWrap.ChildStages.ForEach(s => s.Percentage = 1);
+                    else
+                        applyStageWrap.ChildStages[0].Percentage = 1;
                 }
 
                 applyStageList.Add(applyStageWrap.ParentStage);

@@ -1,0 +1,20 @@
+<h2><%= ParentStage.StageName %></h2>
+<% _.each(ChildStages,function(childStage){ %>
+<section class="app-apply-syllabus-stage color-scheme-white cell-row" <%= childStage.Percentage > 0 ? 'data-state-stage="active"' : '' %> >
+    <section class="app-apply-syllabus-stage-process">
+        <span class="app-apply-syllabus-process app-apply-syllabus-process-circle color-scheme-grey" value="<%= childStage.Percentage %>%"></span>
+    </section>
+    <section class="app-apply-syllabus-stage-description">
+        <h3><%= childStage.StageName %></h3>
+        <div>
+            <p><%= childStage.Remark %></p>
+            <p><%= childStage.BeginDate %>——<%= childStage.EndDate %></p>
+            <p>进度：<%= childStage.CurrentOption %></p>
+        </div>
+    </section>
+    <div class="cell-row-right-arrow">
+        <i class="icon-chevron-right"></i>
+    </div>
+    <a href='<%= childStage.Percentage > 0 ? "javascript:void(0)" : "" %>' class="link-target"></a>
+</section>
+<% }); %>
