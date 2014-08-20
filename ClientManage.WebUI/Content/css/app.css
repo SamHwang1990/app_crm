@@ -355,6 +355,11 @@ main{
 	margin-left: .5rem;
 	font-size: 100%;
 }
+.app-apply-action-progress[value='100%']:after{
+	content: "\2713";
+	margin-left: .5rem;
+	font-size: 100%;
+}
 img.stage-icon{
 	height:8rem;
 }
@@ -764,6 +769,11 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 .app-btn-success[state="disabled"]{
 	background-color: rgba(57, 209, 180,.3);
 	color: rgba(255,255,255,.3) !important;
+}
+.app-btn-success-completed{
+	color: #39d1b4 !important;
+	background-color: #fff;
+	border: 1px solid #39d1b4;
 }
 
 .app-btn-transparent{
