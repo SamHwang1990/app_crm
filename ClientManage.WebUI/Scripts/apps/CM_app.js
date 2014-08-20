@@ -24,11 +24,11 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				/* Student Apply Index */
 				"StudentMgr/Apply/:id":"StudentMgrApplyIndex",
 				/* Student Apply ParentStage Index */
-				"StudentMgr/Stages/:parentStageNameEn/:id":"StudentMgrStagesSyllabus",
+				"StudentMgr/Apply/Stages/:parentStageNameEn/:id":"StudentMgrApplyStagesSyllabus",
 				/* Student Apply ParentStage Resume */
-				"StudentMgr/Stages/:parentStageNameEn/resume/:id":"StudentMgrStagesResume",
+				"StudentMgr/Apply/Stages/:parentStageNameEn/resume/:id":"StudentMgrApplyStagesResume",
 				/* Student Apply Detail Stage */
-				"StudentMgr/Stages/:parentStageNameEn/detail/:stageEn/:id":"StudentMgrStagesDetail",
+				"StudentMgr/Apply/Stages/:parentStageNameEn/detail/:stageEn/:id":"StudentMgrApplyStagesDetail",
 
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",

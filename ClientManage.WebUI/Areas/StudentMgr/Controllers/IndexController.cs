@@ -547,7 +547,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <returns></returns>
         public JsonResult GetScheduleApply(string studentID)
         {
-            if (studentID == null && studentID == string.Empty && studentID == Guid.Empty.ToString())
+            if (studentID == null || studentID == string.Empty || studentID == Guid.Empty.ToString())
             {
                 return Json(new {GetResult = false, Msg = "不能传入空的学生ID" }, JsonRequestBehavior.AllowGet);
             }

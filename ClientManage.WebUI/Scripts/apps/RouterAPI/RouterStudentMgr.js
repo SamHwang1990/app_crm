@@ -61,9 +61,9 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(StudentMgrSaleTrackFirstInterviewRegController.ShowFirstInterviewReg,id);
 				})
 		}
-		RouterAPI.StudentMgrSaleTrackSaleTrackHistory = function(id){
+		RouterAPI.StudentMgrSaleTrackSaleTrackHistory = function(id){'apps/StudentMgr/SaleTrack/History/history_controller'
 			require([
-				'apps/StudentMgr/SaleTrack/History/history_controller'],
+				],
 				function(StudentMgrSaleTrackHistoryController){
 					RouterAPI.executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
 				})
@@ -78,13 +78,17 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(StudentMgrApplyIndexController.ShowIndex,id);
 				})
 		}
-		RouterAPI.StudentMgrStagesSyllabus = function(parentStageNameEn,id){
+		RouterAPI.StudentMgrApplyStagesSyllabus = function(parentStageNameEn,id){
+			require([
+				'apps/StudentMgr/Apply/Syllabus/syllabus_controller'],
+				function(StudentMgrStageSyllabusController){
+					RouterAPI.executeAction(StudentMgrStageSyllabusController.ShowSyllabus,[parentStageNameEn,id]);
+				})
+		}
+		RouterAPI.StudentMgrApplyStagesResume = function(parentStageNameEn,id){
 
 		}
-		RouterAPI.StudentMgrStagesResume = function(parentStageNameEn,id){
-
-		}
-		RouterAPI.StudentMgrStagesDetail = function(parentStageNameEn,id){
+		RouterAPI.StudentMgrApplyStagesDetail = function(parentStageNameEn,id){
 
 		}
 		/* endregion*/

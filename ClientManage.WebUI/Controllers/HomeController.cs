@@ -59,8 +59,7 @@ namespace ClientManage.WebUI.Controllers
                 loginResult = true;
             }
 
-
-            return Json(new { result = loginResult, loginMsg = loginMsg });
+            return Json(new { result = loginResult, loginMsg = loginMsg, UserID = user.UserID });
         }
 
         [HttpPost]
@@ -73,7 +72,8 @@ namespace ClientManage.WebUI.Controllers
                 userName = HttpContext.User.Identity.Name;
                 hasCurrentUser = true;
             }
-            return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName });
+            Guid userID = repository.UsersInfo.SingleOrDefault(u => u.UserNameCn == userName).UserID;
+            return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName, UserID = userID });
         }
 
         //[CustomAuth]

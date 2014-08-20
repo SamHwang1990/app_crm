@@ -44,6 +44,7 @@ define([
 			},
 			templateHelpers:function(){
 				return {
+					StudentID:this.StudentID,
 					InProgressParents:this.InProgressParent,
 					CompletedParents:this.CompletedParent,
 					CurrentParent:this.CurrentParent.get("ParentStage")

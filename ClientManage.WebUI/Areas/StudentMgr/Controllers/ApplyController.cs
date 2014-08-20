@@ -33,6 +33,15 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(stageWrapList, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Syllabus_StageWrap(string studentID, string parentNameEn)
+        {
+            StudentApplyStageWrap stageWrap = GetStudentApplyStageWrapItem(studentID, parentNameEn);
+            if (stageWrap == null)
+                return Json(new { GetResult = false, Msg = "学生ID 为空，或不存在指定的阶段" }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(stageWrap, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Ajax Put Request
@@ -78,6 +87,29 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return resultList.OrderBy(s=>s.ParentStage.StageNo).ToList();
         }
 
+        /// <summary>
+        /// 根据学生ID、父阶段英文名，从数据库返回StudentApplyStageWrap
+        /// </summary>
+        /// <param name="studentID"></param>
+        /// <param name="parentNameEn"></param>
+        /// <returns></returns>
+        public StudentApplyStageWrap GetStudentApplyStageWrapItem(string studentID, string parentNameEn)
+        {
+            if (!IsGuidStringValid(studentID))
+                return null;
+
+            Guid _StudentID = new Guid(studentID);
+            StudentApplyStageEntity parentStage = repository.StudentApplyStage.FirstOrDefault(s => s.StudentID == _StudentID && s.StageNameEn == parentNameEn);
+            return new StudentApplyStageWrap
+            {
+                ParentStage = parentStage,
+                ChildStages = repository.StudentApplyStage
+                    .Where(s => s.StudentID == _StudentID && s.ParentNo == parentStage.StageNo)
+                    .OrderBy(s => s.StageNo)
+                    .ToList()
+            };
+        }
+
         #endregion
 
         /// <summary>
@@ -87,7 +119,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <returns></returns>
         private bool IsGuidStringValid(string _id)
         {
-            if (_id == null && _id == string.Empty && _id == Guid.Empty.ToString())
+            if (_id == null || _id == string.Empty || _id == Guid.Empty.ToString())
                 return false;
             else
                 return true;
