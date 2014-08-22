@@ -86,10 +86,18 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.StudentMgrApplyStagesResume = function(parentStageNameEn,id){
-
+			require([
+				'apps/StudentMgr/Apply/Resume/resume_controller'],
+				function(StudentMgrStageResumeController){
+					RouterAPI.executeAction(StudentMgrStageResumeController.ResumeRedirect,[parentStageNameEn,id]);
+				})
 		}
-		RouterAPI.StudentMgrApplyStagesDetail = function(parentStageNameEn,id){
-
+		RouterAPI.StudentMgrApplyStagesDetail = function(parentStageNameEn,stageEn,id){
+			require([
+				'apps/StudentMgr/Apply/Detail/detail_controller'],
+				function(StudentMgrStageDetailController){
+					RouterAPI.executeAction(StudentMgrStageDetailController.ShowDetail,[parentStageNameEn,stageEn,id]);
+				})
 		}
 		/* endregion*/
 	}
