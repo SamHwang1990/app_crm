@@ -49,7 +49,7 @@ define([
 				$("body").addClass("app-apply-Body");
 
 				this.initRegions();
-				this.renderChildView(this.CurrentChildNameEn,true);
+				this.renderChildView(this.CurrentChildNameEn,false);
 			},
 			onClose:function(){
 				//恢复#appContent的float为left，恢复.wrap的margin
@@ -61,64 +61,105 @@ define([
 			* */
 			initRegions:function(){
 				var detailView = this;
-				this.ui.StageContentCard.each(function(index){
-					var slug = $(this).attr("slug");
+				_.each(this.model.get("ChildStages"),function(childItem){
+					var slug = childItem.StageNameEn;
 					detailView.addRegion(slug,".js-card[slug=" + slug + "]");
 				})
 			},
-			renderChildView:function(childNameEn,IsInitRender,checkModel){
+			/*
+			* 根据子阶段名称、是否需要检查阶段数据来渲染子阶段视图
+			* @param childNameEn
+			* @param checkModel
+			* */
+			renderChildView:function(childNameEn,checkModel){
+				//另存为this
 				var detailView = this;
+
+				//指定的Region
+				var targetRegion = detailView[childNameEn];
+
+				//View 代码文件的路径
 				var viewPath = 'apps/StudentMgr/Apply/Detail/' + this.ParentNameEn + '/' + childNameEn + '_view';
-				var viewModel, currentChildModel, newChildModel;
+
+				var currentChildModel, newChildModel;
+
+				/*
+				* 通过下面的方法find 到的子阶段数据的类型是Object
+				* 需要转为Backbone.Model 类型
+				* */
 				var currentChildObject = _.find(this.model.get("ChildStages"),function(childItem){
 					return childItem.StageNameEn == childNameEn;
 				});
 				currentChildModel = new StudentApplyStageModel(currentChildObject);
 
+				/*
+				* 加载视图代码，并渲染到指定Region 中
+				* */
 				var doRender = function(childModel){
 					require([viewPath],function(childView){
-						var targetRegion = detailView[childNameEn];
-						var targetChildView = new childView({
-							model:childModel
-						})
-						targetRegion.show(targetChildView)
+						targetRegion.close();
+						targetRegion.show(
+							new childView({
+								model:childModel
+							})
+						)
 					})
 				}
-				if(IsInitRender){
-					doRender(currentChildModel);
-				}else{
-					if(checkModel){
-						newChildModel = new StudentApplyStageModel({
-							url:"/StudentMgr/Apply/Detail_StageItem"
-						});
-						newChildModel.fetch({
-							data:{
-								studentID:detailView.StudentID,
-								stageNameEn:childNameEn
-							},
-							success:function(data){
-								if(data.GetResult !== undefined && data.GetResult === false){
-									return alert(data.Msg);
-								}
-								else{
-									if(_.isEqual(currentChildModel, newChildModel)){
-										if(detailView[childNameEn].hasView())
-											return;
-										else{
-											for(var prop in newChildModel.attributes){
-												currentChildModel.set(prop,newChildModel.get(prop));
-											}
-											doRender(currentChildModel);
-										}
-									}
-								}
-							},
-							error:function(){
-								alert("获取数据失败");
-							}
-						})
-					}
+
+				/*
+				* 检查指定Region 是否有View，有，则DoNothing；无，则根据阶段数据执行渲染函数
+				* */
+				var renderOrDoNothing = function(stageModel){
+					if(targetRegion.currentView == undefined || targetRegion.currentView == undefined)
+						return doRender(stageModel);
+					else
+						return;
 				}
+
+				/*
+				* 如果需要检查阶段数据是否有更新
+				* 如果不需要检查，则判断当前Region 是否有View，有则跳过，没有，则按照现有的阶段数据渲染View
+				* 如果需要检查，就做下面的事哈！
+				* */
+				if(checkModel){
+					/*
+					* 从数据库中获取最新的阶段数据
+					* */
+					newChildModel = new StudentApplyStageModel({
+						url:"/StudentMgr/Apply/Detail_StageItem"
+					});
+					newChildModel.fetch({
+						data:{
+							studentID:detailView.StudentID,
+							stageNameEn:childNameEn
+						},
+						success:function(data){
+							if(data.GetResult !== undefined && data.GetResult === false){
+								return alert(data.Msg);
+							}
+							else{
+								/*
+								* 如果新的阶段数据没有变化，则判断当前Region 是否有View，有则跳过，没有，则渲染View
+								* 如果阶段数据有变化，则将新的数据同步到旧数据中，并重新渲染View
+								* */
+								if(_.isEqual(currentChildModel, newChildModel)){
+									return renderOrDoNothing(currentChildModel);
+								}else{
+									for(var prop in newChildModel.attributes){
+										currentChildModel.set(prop,newChildModel.get(prop));
+									}
+									return doRender(currentChildModel);
+								}
+							}
+						},
+						error:function(){
+							alert("获取数据失败");
+						}
+					})
+				}else{
+					return renderOrDoNothing(currentChildModel);
+				}
+
 			}
 		});
 	});
