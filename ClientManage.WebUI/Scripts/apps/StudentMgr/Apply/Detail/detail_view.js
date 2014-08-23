@@ -71,7 +71,7 @@ define([
 			* @param childNameEn
 			* @param checkModel
 			* */
-			renderChildView:function(childNameEn,checkModel){
+			renderChildView:function(childNameEn,IsCheckModel){
 				//另存为this
 				var detailView = this;
 
@@ -102,7 +102,7 @@ define([
 							new childView({
 								model:childModel
 							})
-						)
+						);
 					})
 				}
 
@@ -121,7 +121,7 @@ define([
 				* 如果不需要检查，则判断当前Region 是否有View，有则跳过，没有，则按照现有的阶段数据渲染View
 				* 如果需要检查，就做下面的事哈！
 				* */
-				if(checkModel){
+				if(IsCheckModel){
 					/*
 					* 从数据库中获取最新的阶段数据
 					* */

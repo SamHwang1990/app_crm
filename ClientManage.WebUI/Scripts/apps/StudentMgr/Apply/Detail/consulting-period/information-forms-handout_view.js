@@ -12,7 +12,7 @@ define([
 		tagName:"section",
 		className:"card-stage-content",
 		initialize:function(){
-			alert("child detail view init!");
+			alert("child detail view: information-forms-handout init!");
 		}
 	});
 	return detailView;

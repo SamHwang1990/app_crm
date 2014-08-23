@@ -974,6 +974,9 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 .content-cards .card:not([state~='current']){
 	display: none;
 }
+.card-stage-content{
+	padding: 10px 20px 0 20px;
+}
 /* endregion*/
 
 /* region color scheme */
