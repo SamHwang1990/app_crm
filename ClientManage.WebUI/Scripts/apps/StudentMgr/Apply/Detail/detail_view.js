@@ -35,7 +35,8 @@ define([
 				"StageActionBar":".stage-action-bar"
 			},
 			events:{
-				"click @ui.StageDot":"ClickJSDot"
+				"click @ui.StageDot":"ClickJSDot",
+				"click @ui.StageSubmit":"ClickStageSubmit"
 			},
 			initialize:function(options){
 				if(options != null){
@@ -199,14 +200,21 @@ define([
 				var isDotCurrent = currentDot.is('[data-state~="current"]');
 				if(isDotActive && !isDotCurrent){
 					var childNameEn = currentDot.attr("data-slug");
+					this.CurrentChildNameEn = childNameEn;
 					this.switchCurrentDot(childNameEn);
 					this.switchViewDisplay(childNameEn);
 					this.renderChildView(childNameEn,true);
 				}
 				else
 					return false;
-
-
+			},
+			ClickStageSubmit:function(e){
+				/*
+				* 根据当前子阶段英文名，查找对应的Region，并返回Region 的View
+				* 并调用View 的formSubmit 方法
+				* */
+				var submitView = this[this.CurrentChildNameEn].currentView;
+				submitView.formSubmit();
 			}
 			/* endregion */
 

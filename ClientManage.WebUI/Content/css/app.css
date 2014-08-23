@@ -546,6 +546,7 @@ img.stage-icon{
 	padding: 0;
 	line-height: 50px;
 	display: none;
+	margin-right: 1em;
 }
 .control-section .stage-action-bar.isShown{
 	display: block;
@@ -558,7 +559,8 @@ img.stage-icon{
 	border-color: transparent transparent transparent #d9edf7 ;
 	border-style: solid;
 	border-width: 1em;
-	right: -.8rem;
+	border-right-width: 0;
+	right: .1rem;
 	top: .8rem;
 }
 .control-section .stage-action-bar.stage-action-bar_ing.isShown:after{
@@ -644,7 +646,7 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 }
 .row-fluid [class*="span"].row-right{
 	margin-left: auto;
-	margin-right: 1em;
+	/*margin-right: 1em;*/
 	min-height: 0;
 	float: right;
 }
@@ -976,7 +978,14 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 	display: none;
 }
 .card-stage-content{
-	padding: 10px 20px 0 20px;
+	padding: 10px 0px 10px 0px;
+}
+.card-stage-content h2{
+	text-align: center;
+	font-size: 2rem;
+	color: #39d1b4;
+	font-weight: normal;
+	margin-bottom: 20px;
 }
 /* endregion*/
 

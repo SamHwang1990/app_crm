@@ -14,7 +14,7 @@ using ClientManage.WebUI.Models;
 
 namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 {
-    public class ApplyController : Controller
+    public partial class ApplyController : Controller
     {
         private IStudentInfoRepository repository;
         public ApplyController(IStudentInfoRepository studentInfoRepository)
@@ -70,7 +70,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
         #endregion
 
-        #region Ajax Put Request
+        #region Ajax Post Request
 
         #endregion
 
