@@ -903,7 +903,8 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 	border-color: transparent transparent #204056 transparent;
 	border-style: solid;
 	border-width: 1em;
-	top: -2em;
+	border-top-width: 0;
+	top: -1em;
 	left: 6.5em;
 }
 

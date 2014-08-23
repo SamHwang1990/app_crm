@@ -7,8 +7,8 @@ define([
 	'app',
 	'text!templates/StudentMgr/Apply/StageDetail.html',
 	'models/StudentMgr/StudentApplyStageModel',
-	'assets/TransformDateString',
-],function(ClientManage,StageDetailTpl,StudentApplyStageModel,TransformDateString){
+	'assets/TransformDateString'
+	],function(ClientManage,StageDetailTpl,StudentApplyStageModel,TransformDateString){
 	ClientManage.module('StudentMgr.Apply.Stages.Detail.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.StageDetailView = Marionette.Layout.extend({
 			tagName:"div",
@@ -34,7 +34,8 @@ define([
 				"StagePrev":".card-nav-prev",
 				"StageActionBar":".stage-action-bar"
 			},
-			regions:{
+			events:{
+				"click @ui.StageDot":"ClickJSDot"
 			},
 			initialize:function(options){
 				if(options != null){
@@ -49,6 +50,15 @@ define([
 				$("body").addClass("app-apply-Body");
 
 				this.initRegions();
+
+				/*
+				* 视图初始化完后，执行以下三个函数，达成以下目的：
+				* 1. 更改当前js-dot 的样式
+				* 2. 更改当前的Stage-Content display属性
+				* 3. 渲染当前的Stage-Detail View
+				* */
+				this.switchCurrentDot(this.CurrentChildNameEn);
+				this.switchViewDisplay(this.CurrentChildNameEn);
 				this.renderChildView(this.CurrentChildNameEn,false);
 			},
 			onClose:function(){
@@ -65,6 +75,26 @@ define([
 					var slug = childItem.StageNameEn;
 					detailView.addRegion(slug,".js-card[slug=" + slug + "]");
 				})
+			},
+			/*
+			* 根据传入的子阶段英文名，显示对应的Stage Content View
+			* @param childNameEn
+			* */
+			switchViewDisplay:function(childNameEn){
+				this.ui.StageContentCard.attr("state",'');
+				this.ui.StageContentCard.filter("[slug=" + childNameEn + "]").attr("state",'current');
+			},
+			switchCurrentDot:function(childNameEn){
+				this.ui.StageDot
+					.filter('[data-state~="current"]')
+					.attr("data-state",function(){
+						return $(this).attr("data-state").replace('current','').trim();
+					});
+				this.ui.StageDot
+					.filter("[data-slug=" + childNameEn + "]")
+					.attr("data-state",function(){
+						return $(this).attr("data-state") + " " + 'current';
+					});
 			},
 			/*
 			* 根据子阶段名称、是否需要检查阶段数据来渲染子阶段视图
@@ -160,7 +190,26 @@ define([
 					return renderOrDoNothing(currentChildModel);
 				}
 
+			},
+
+			/* region Events Handler */
+			ClickJSDot:function(event){
+				var currentDot = $(event.currentTarget);
+				var isDotActive = currentDot.is('[data-state~="active"]');
+				var isDotCurrent = currentDot.is('[data-state~="current"]');
+				if(isDotActive && !isDotCurrent){
+					var childNameEn = currentDot.attr("data-slug");
+					this.switchCurrentDot(childNameEn);
+					this.switchViewDisplay(childNameEn);
+					this.renderChildView(childNameEn,true);
+				}
+				else
+					return false;
+
+
 			}
+			/* endregion */
+
 		});
 	});
 	return ClientManage.StudentMgr.Apply.Stages.Detail.View;

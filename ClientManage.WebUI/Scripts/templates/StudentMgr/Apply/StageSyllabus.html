@@ -11,7 +11,7 @@
                 </section>
             </div>
             <section class="app-apply-action span3 row-center">
-                <a href="#" value="<%= ParentStage.Percentage %>%" class="app-btn app-btn-success app-btn-large btn-fillspace">
+                <a href="#StudentMgr/Apply/Stages/<%= ParentStage.StageNameEn %>/resume/<%= StudentID %>" value="<%= ParentStage.Percentage %>%" class="app-btn app-btn-success app-btn-large btn-fillspace">
                     <%= ParentStage.Percentage == 100 ? 'FINISHED' : 'Continue' %>
                     <span value="<%= ParentStage.Percentage %>%" class="app-apply-action-progress"></span>
                 </a>
@@ -50,7 +50,12 @@
                         <div class="cell-row-right-arrow">
                             <i class="icon-chevron-right"></i>
                         </div>
-                        <a href='<%= childStage.Percentage > 0 ? "javascript:void(0)" : "" %>' class="link-target"></a>
+                        <% if(childStage.Percentage > 0){ %>
+                        <a href="#StudentMgr/Apply/Stages/<%= ParentStage.StageNameEn %>/detail/<%= childStage.StageNameEn %>/<%= StudentID %>" class="link-target"></a>
+                        <% }else{ %>
+                        <a class="link-target"></a>
+                        <% } %>
+
                     </section>
                     <% }); %>
                 </article>

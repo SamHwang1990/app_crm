@@ -29,6 +29,11 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			CanChangeName:false,
 			IsDateSameWithParent:false,
 			Remark:""
+		},
+		initialize:function(options){
+			if(options){
+				this.url = options.url;
+			}
 		}
 	});
 	return studentApplyStage;
