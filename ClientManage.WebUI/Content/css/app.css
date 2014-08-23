@@ -478,7 +478,7 @@ img.stage-icon{
 	margin-bottom: -2px;
 	top: 0;
 	left: 0;
-	z-index: 1000000;
+	/*z-index: 1000000;*/
 }
 #stages-header-nav-container{
 	position: relative;
