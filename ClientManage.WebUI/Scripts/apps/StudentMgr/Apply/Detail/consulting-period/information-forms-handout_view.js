@@ -5,18 +5,36 @@
 
 define([
 	'app',
-	'text!templates/StudentMgr/Apply/Detail/consulting-period/informationFormsHandout.html'],
-	function(ClientManage,InformationFormsHandoutTpl){
+	'text!templates/StudentMgr/Apply/Detail/consulting-period/informationFormsHandout.html',
+	'assets/RenderDateTimePicker',
+	'assets/TransformDateString'],
+	function(ClientManage,InformationFormsHandoutTpl,RenderDateTimePicker,TransformDateString){
 	var detailView = Marionette.ItemView.extend({
 		template: _.template(InformationFormsHandoutTpl),
 		tagName:"section",
 		className:"card-stage-content",
+		templateHelpers:function(){
+		},
 		ui:{
 			"EditForm":"#editForm",
 			"CurrentOptionSel":"#CurrentOption",
-			"RemarkText":"#Remark"
+			"RemarkText":"#Remark",
+			"EndDateInput":".timeRelated_EndDate .ApplyStage_EndDate",
+			"EndDateRefresh":".timeRelated_EndDate .icon-refresh"
+		},
+		events:{
+			"click @ui.EndDateRefresh":"ClickEndDateRefresh"
 		},
 		initialize:function(){
+		},
+		onRender:function(){
+			var renderDateTimePicker = new RenderDateTimePicker();
+			renderDateTimePicker.RenderDate(this.$el.find('.timeRelated .timePicker'));
+		},
+		ClickEndDateRefresh:function(e){
+			e.preventDefault();
+			this.ui.EndDateInput.val(this.model.get("EndDate"));
+			return false;
 		},
 		/*
 		* 该函数由外部Region 的Layout 来触发
@@ -24,9 +42,11 @@ define([
 		formSubmit:function(){
 			var postUrl = this.ui.EditForm.attr("action");
 			var currentOption = this.ui.CurrentOptionSel.val();
+			var endDate = this.ui.EndDateInput.val();
 			var remark = this.ui.RemarkText.val();
 			this.model.set("CurrentOption",currentOption);
 			this.model.set("Remark",remark);
+			this.model.set("EndDate",endDate);
 			var ajaxData = JSON.stringify(this.model);
 
 			$.ajax({

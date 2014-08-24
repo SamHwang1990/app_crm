@@ -881,19 +881,31 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
                 //如果是第一个ParentStage，则设其Percentage为1
                 //同时，如果子阶段无时间限制，则设所有子阶段的Percentage为1，否则仅设第一个子阶段的Percentage为1
+                //并同时设置阶段的CurrentOption
                 if (i++ == 0)
                 {
+                    applyStageWrap.ParentStage.CurrentOption = applyStageWrap.ParentStage.StatusOption.Split(',').ElementAt(1);
                     applyStageWrap.ParentStage.Percentage = 1;
                     if (applyStageWrap.ParentStage.IsDateSameWithParent)
-                        applyStageWrap.ChildStages.ForEach(s => s.Percentage = 1);
+                    {
+                        foreach (StudentApplyStageEntity childItem in applyStageWrap.ChildStages)
+                        {
+                            childItem.CurrentOption = childItem.StatusOption.Split(',').ElementAt(1);
+                            childItem.Percentage = 1;
+                        }
+                    }
+                        //applyStageWrap.ChildStages.ForEach(s => s.Percentage = 1);
                     else
+                    {
+                        applyStageWrap.ChildStages[0].CurrentOption = applyStageWrap.ChildStages[0].StatusOption.Split(',').ElementAt(1);
                         applyStageWrap.ChildStages[0].Percentage = 1;
+                    }
                 }
 
                 applyStageList.Add(applyStageWrap.ParentStage);
                 applyStageList.AddRange(applyStageWrap.ChildStages);
             }
-            repository.SaveStudentApplyStages(applyStageList);
+            repository.NewStudentApplyStages(applyStageList);
             AppRelationsEntity appRelation = repository.AppRelations.SingleOrDefault(s => s.StudentID == studentID);
             appRelation.HasScheduleApply = true;
             repository.SaveStudentInfo(repository.StudentsInfo.SingleOrDefault(s => s.StudentID == studentID), appRelation);

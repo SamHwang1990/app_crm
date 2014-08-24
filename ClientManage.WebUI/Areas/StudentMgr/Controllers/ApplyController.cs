@@ -70,10 +70,6 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
         #endregion
 
-        #region Ajax Post Request
-
-        #endregion
-
         #region Get Student Apply Stages From DB
 
         /// <summary>
@@ -184,5 +180,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             else
                 return true;
         }
+
+
     }
 }

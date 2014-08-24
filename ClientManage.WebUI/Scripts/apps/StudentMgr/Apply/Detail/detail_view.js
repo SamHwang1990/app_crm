@@ -22,6 +22,7 @@ define([
 					ChildStageItem.BeginDate = transformDateString.TransMsStringToDate(ChildStageItem.BeginDate);
 					ChildStageItem.EndDate = transformDateString.TransMsStringToDate(ChildStageItem.EndDate);
 				})
+				this.transformDateString = transformDateString;
 				return {
 					StudentID:this.StudentID
 				}
@@ -179,6 +180,8 @@ define([
 									for(var prop in newChildModel.attributes){
 										currentChildModel.set(prop,newChildModel.get(prop));
 									}
+									currentChildModel.set("BeginDate", this.transformDateString.TransMsStringToDate(this.model.get("BeginDate")));
+									currentChildModel.set("EndDate", this.transformDateString.TransMsStringToDate(this.model.get("EndDate")));
 									return doRender(currentChildModel);
 								}
 							}

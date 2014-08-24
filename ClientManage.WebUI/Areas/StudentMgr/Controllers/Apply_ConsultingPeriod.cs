@@ -19,6 +19,16 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         [HttpPost]
         public JsonResult Post_InformationFormsHandout(StudentApplyStageEntity ajaxData)
         {
+            StudentApplyStageEntity newEntity = repository.StudentApplyStage.SingleOrDefault(s => s.StudentID == ajaxData.StudentID && s.StageNo == ajaxData.StageNo);
+            if (newEntity == null)
+                return Json(new { SaveResult = false, Msg = "学生ID 为空，或不存在指定的阶段" }, JsonRequestBehavior.AllowGet);
+            else
+            {
+                newEntity.EndDate = ajaxData.EndDate;
+                newEntity.Remark = ajaxData.Remark;
+                newEntity.CurrentOption = ajaxData.CurrentOption;
+                repository.SaveStudentApplyStage(newEntity);
+            }
             return Json(new { SaveResult = true });
         }
 

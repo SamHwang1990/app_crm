@@ -56,7 +56,9 @@ namespace ClientManage.Domain.Abstract
         #endregion
 
         #region 对StudentApplyStage 进行操作
-        void SaveStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void NewStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void UpdateStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void SaveStudentApplyStage(StudentApplyStageEntity applyStage);
         void ClearStudentApplyStage(Guid studentID);
 
         #endregion
