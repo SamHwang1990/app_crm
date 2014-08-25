@@ -839,7 +839,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             //将列表按父阶段的StageNo进行排序
             ajaxData = ajaxData.OrderBy(w => w.ParentStage.StageNo);
-            int i=0, j=0;
+            int i=0;
             foreach (StudentApplyStageWrap applyStageWrap in ajaxData.OrderBy(s=>s.ParentStage.StageNo))
             {
                 if (applyStageWrap.ParentStage.IsForbid)

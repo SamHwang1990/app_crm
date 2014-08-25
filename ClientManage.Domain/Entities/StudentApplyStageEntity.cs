@@ -142,7 +142,7 @@ namespace ClientManage.Domain.Entities
         /// <summary>
         /// 阶段百分比
         /// </summary>
-        public byte Percentage
+        public int Percentage
         {
             get;
             set;

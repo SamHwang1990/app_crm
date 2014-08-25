@@ -8,7 +8,7 @@
         <div class="CurrentOptionWrap controls">
             <select name="CurrentOption" id="CurrentOption">
                 <!-- 删除了“BeginOption” -->
-                <% _.each(StatusOption.split(',').slice(1),function(optionItem){ %>
+                <% _.each(StatusOption.split(','),function(optionItem){ %>
                 <option value="<%= optionItem %>"><%= optionItem %></option>
                 <% }) %>
             </select>
