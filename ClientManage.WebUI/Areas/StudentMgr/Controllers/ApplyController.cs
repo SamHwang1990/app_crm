@@ -195,7 +195,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             int childLength = childStages.Count();
             int completeChildLength = childStages.Count(c => c.Percentage == 100);
 
-            newParentPercentage = (completeChildLength / childLength) * 100;
+            newParentPercentage = completeChildLength * 100 / childLength;
 
             return newParentPercentage;
         }
@@ -264,13 +264,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             parentStage.Percentage = UpdateParentPercentage(parentStage.StageNo, parentStage.StudentID);
             if (parentStage.Percentage == 100)
             {
-                resultDict.Add("IsParentComplete", true);
+                resultDict.Add("IsParentComplete", new { IsParentComplete = true });
                 resultDict.Add("NextParentNameEn", ChildStageFinishHandler_GetNextParent(parentStage));
             }
             else
             {
-                resultDict.Add("IsParentComplete", false);
-                resultDict.Add("NextSiblingNameEn", ChildStageFinishHandler_GetNextSibling(parentStage));
+                resultDict.Add("IsParentComplete", new { IsParentComplete = false });
+                resultDict.Add("NextSiblingNameEn", ChildStageFinishHandler_GetNextSibling(childStage));
             }
             repository.SaveStudentApplyStage(parentStage);
 
@@ -288,10 +288,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             IEnumerable<StudentApplyStageEntity> siblingParentStages = repository.StudentApplyStage.Where(s => s.StudentID == studentID && s.StageClass == 1 && s.StageNo != currentParentStage.StageNo);
             StudentApplyStageEntity nextParent;
 
-            //如果所有申请期都完成了，则IsApplyComplete 为 true
             if (siblingParentStages.Count(s => s.Percentage < 100) <= 0)
             {
-                return new { IsApplyComplete = true };
+                return new { NextParentNameEn = "ApplyCompleted" };
             }
             else
             {
@@ -326,11 +325,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             //否则，选取第一个未开始的阶段，Percent 为0
             if (siblingChild.Count(s => s.Percentage == 0) <= 0)
             {
-                nextChild = siblingChild.FirstOrDefault(s => s.Percentage > 0 && s.Percentage < 100);
+                nextChild = siblingChild.Where(s => s.Percentage > 0 && s.Percentage < 100).OrderBy(s => s.StageNo).First();
             }
             else
             {
-                nextChild = siblingChild.FirstOrDefault(s => s.Percentage == 0);
+                nextChild = siblingChild.Where(s => s.Percentage == 0).OrderBy(s=>s.StageNo).First();
                 nextChild.Percentage = 1;
                 nextChild.CurrentOption = nextChild.BeginOption;
                 repository.SaveStudentApplyStage(nextChild);
@@ -338,11 +337,11 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             return new { NextSiblingNameEn = nextChild.StageNameEn };
         }
 
-        public string ConvertDictToString(Dictionary<string, object> dict)
+        public object ConvertDictToString(Dictionary<string, object> dict)
         {
-            var entries = dict.Select(d => string.Format("\"{0}\":{1}", d.Key, d.Value));
-
-            return "{" + string.Join(",", entries) + "}";
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var entries = dict.Select(d => d.Value);
+            return serializer.Deserialize<object>(serializer.Serialize(entries));
         }
     }
 }

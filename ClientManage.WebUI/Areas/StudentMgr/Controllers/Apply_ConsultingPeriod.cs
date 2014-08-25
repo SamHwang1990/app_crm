@@ -33,8 +33,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(new { SaveResult = true, Percentage = newEntity.Percentage });
 
             Dictionary<string, object> returnDict = ChildStageFinishHandler(newEntity);
-            returnDict.Add("SaveResult", true);
-
+            returnDict.Add("SaveResult",new {SaveResult = true });
+            object tempStr = ConvertDictToString(returnDict);
             return Json(ConvertDictToString(returnDict));
         }
 

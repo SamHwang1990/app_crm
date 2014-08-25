@@ -7,8 +7,9 @@ define([
 	'app',
 	'text!templates/StudentMgr/Apply/Detail/consulting-period/informationFormsHandout.html',
 	'assets/RenderDateTimePicker',
-	'assets/TransformDateString'],
-	function(ClientManage,InformationFormsHandoutTpl,RenderDateTimePicker,TransformDateString){
+	'assets/TransformDateString',
+	'assets/ApplyStageSubmitHandler'],
+	function(ClientManage,InformationFormsHandoutTpl,RenderDateTimePicker,TransformDateString,ApplyStageSubmitHandler){
 	var detailView = Marionette.ItemView.extend({
 		template: _.template(InformationFormsHandoutTpl),
 		tagName:"section",
@@ -30,6 +31,8 @@ define([
 		onRender:function(){
 			var renderDateTimePicker = new RenderDateTimePicker();
 			renderDateTimePicker.RenderDate(this.$el.find('.timeRelated .timePicker'));
+
+			this.ui.CurrentOptionSel.find("option[value='" + this.model.get("CurrentOption") + "']").attr("selected","selected");
 		},
 		ClickEndDateRefresh:function(e){
 			e.preventDefault();
@@ -57,7 +60,9 @@ define([
 				contentType: 'application/json; charset=utf-8',
 				success:function(data){
 					if(data.SaveResult == true){
-						alert("informationFormsHandout submit successfully")
+						var submitHandler = new ApplyStageSubmitHandler(ClientManage);
+						submitHandler.DoHandler(data);
+						//alert("informationFormsHandout submit successfully")
 						//ClientManage.navigate("UserMgr/List",{trigger:true});
 					}else{
 						alert('Post Failed');

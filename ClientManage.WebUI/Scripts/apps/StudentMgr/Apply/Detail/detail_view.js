@@ -62,7 +62,16 @@ define([
 				this.switchCurrentDot(this.CurrentChildNameEn);
 				this.switchViewDisplay(this.CurrentChildNameEn);
 				this.renderChildView(this.CurrentChildNameEn,false);
-			},
+
+				/*
+				* 绑定几个事件，detail submit后会触发
+				* */
+				ClientManage.vent.on("StageNoComplete",this.StageNoComplete,this);
+				ClientManage.vent.on("ApplyCompleted",this.ApplyCompleted,this);
+				ClientManage.vent.on("NextParentStage",this.NextParentStage,this);
+				ClientManage.vent.on("NextChildStage",this.NextChildStage,this);
+
+ 			},
 			onClose:function(){
 				//恢复#appContent的float为left，恢复.wrap的margin
 				$("#appContent").removeClass("app-apply-Wrap");
@@ -180,8 +189,8 @@ define([
 									for(var prop in newChildModel.attributes){
 										currentChildModel.set(prop,newChildModel.get(prop));
 									}
-									currentChildModel.set("BeginDate", this.transformDateString.TransMsStringToDate(this.model.get("BeginDate")));
-									currentChildModel.set("EndDate", this.transformDateString.TransMsStringToDate(this.model.get("EndDate")));
+									currentChildModel.set("BeginDate", detailView.transformDateString.TransMsStringToDate(detailView.model.get("BeginDate")));
+									currentChildModel.set("EndDate", detailView.transformDateString.TransMsStringToDate(detailView.model.get("EndDate")));
 									return doRender(currentChildModel);
 								}
 							}
@@ -216,8 +225,25 @@ define([
 				* 根据当前子阶段英文名，查找对应的Region，并返回Region 的View
 				* 并调用View 的formSubmit 方法
 				* */
+
+				this.ui.StageActionBar.removeClass("isShown");
 				var submitView = this[this.CurrentChildNameEn].currentView;
 				submitView.formSubmit();
+			},
+
+			StageNoComplete:function(){
+				this.ui.StageActionBar.filter(".stage-action-bar_ing").addClass("isShown");
+			},
+			ApplyCompleted:function(){
+				ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
+			},
+			NextParentStage:function(options){
+				ClientManage.navigate("StudentMgr/Apply/Stages/" +
+					options.ParentNameEn +
+					"/resume/" + this.StudentID,{trigger:true});
+			},
+			NextChildStage:function(options){
+				this.ui.StageDot.find('[data-slug="' + options.StageNameEn + '"]').trigger("click");
 			}
 			/* endregion */
 
