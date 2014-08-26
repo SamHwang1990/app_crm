@@ -6,7 +6,7 @@
 define(['app'],function(ClientManage){
 	ClientManage.module('StudentMgr.SaleTrack.SaleTrackHistory',function(List,ClientManage,Backbone, Marionette, $, _){
 		List.Controller = {
-			ShowList :function(contentRegion,studentID){
+			ShowList:function(contentRegion,studentID){
 				ClientManage.startSubApp("StudentMgr.SaleTrack.SaleTrackHistory");
 				require(['apps/StudentMgr/SaleTrack/History/history_view','models/StudentMgr/SaleTrack/SaleTrackHistoryModel'
 				],function(ListView,SaleTrackHistoryModel){

@@ -61,8 +61,9 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(StudentMgrSaleTrackFirstInterviewRegController.ShowFirstInterviewReg,id);
 				})
 		}
-		RouterAPI.StudentMgrSaleTrackSaleTrackHistory = function(id){'apps/StudentMgr/SaleTrack/History/history_controller'
+		RouterAPI.StudentMgrSaleTrackSaleTrackHistory = function(id){
 			require([
+				'apps/StudentMgr/SaleTrack/History/history_controller'
 				],
 				function(StudentMgrSaleTrackHistoryController){
 					RouterAPI.executeAction(StudentMgrSaleTrackHistoryController.ShowList,id);
