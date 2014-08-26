@@ -107,6 +107,9 @@ define([
 						return $(this).attr("data-state") + " " + 'current';
 					});
 			},
+			switchDotActive:function($nextDot){
+				$nextDot.attr("data-state","active");
+			},
 			/*
 			* 根据子阶段名称、是否需要检查阶段数据来渲染子阶段视图
 			* @param childNameEn
@@ -230,7 +233,10 @@ define([
 				var submitView = this[this.CurrentChildNameEn].currentView;
 				submitView.formSubmit();
 			},
-
+			SwitchToNextChildStage:function($nextDot){
+				this.switchDotActive($nextDot);
+				$nextDot.trigger("click");
+			},
 			StageNoComplete:function(){
 				this.ui.StageActionBar.filter(".stage-action-bar_ing").addClass("isShown");
 			},
@@ -243,7 +249,9 @@ define([
 					"/resume/" + this.StudentID,{trigger:true});
 			},
 			NextChildStage:function(options){
-				this.ui.StageDot.find('[data-slug="' + options.StageNameEn + '"]').trigger("click");
+				this.SwitchToNextChildStage(
+					this.ui.StageDot.filter('[data-slug="' + options.StageNameEn + '"]')
+				);
 			}
 			/* endregion */
 

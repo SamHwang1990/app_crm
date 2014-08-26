@@ -100,6 +100,7 @@
     <Compile Include="Areas\StudentMgr\Models\FirstInterviewRegModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\SaleTrackAjaxViewModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\SaleTrackListModel.cs" />
+    <Compile Include="Areas\StudentMgr\Models\StageSubmitCBModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentApplyStagesModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentCreateModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentInfoViewModel.cs" />

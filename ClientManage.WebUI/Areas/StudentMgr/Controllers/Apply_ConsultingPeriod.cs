@@ -21,7 +21,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         {
             StudentApplyStageEntity newEntity = repository.StudentApplyStage.SingleOrDefault(s => s.StudentID == ajaxData.StudentID && s.StageNo == ajaxData.StageNo);
             if (newEntity == null)
-                return Json(new { SaveResult = false, Msg = "学生ID 为空，或不存在指定的阶段" }, JsonRequestBehavior.AllowGet);
+                return Json(new { SaveResult = false, Msg = "学生ID 为空，或不存在指定的阶段" });
 
             newEntity.EndDate = ajaxData.EndDate;
             newEntity.Remark = ajaxData.Remark;
@@ -32,10 +32,10 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             if(newEntity.Percentage < 100)
                 return Json(new { SaveResult = true, Percentage = newEntity.Percentage });
 
-            Dictionary<string, object> returnDict = ChildStageFinishHandler(newEntity);
-            returnDict.Add("SaveResult",new {SaveResult = true });
-            object tempStr = ConvertDictToString(returnDict);
-            return Json(ConvertDictToString(returnDict));
+            StageSubmitCBModel returnData = ChildStageFinishHandler(newEntity);
+            returnData.SaveResult = true;
+            returnData.Percentage = newEntity.Percentage;
+            return Json(returnData);
         }
 
     }

@@ -256,25 +256,27 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             repository.UpdateStudentApplyStages(resultList);
         }
 
-        public Dictionary<string, object> ChildStageFinishHandler(StudentApplyStageEntity childStage)
+        public StageSubmitCBModel ChildStageFinishHandler(StudentApplyStageEntity childStage)
         {
-            Dictionary<string, object> resultDict = new Dictionary<string, object>();
+            //dynamic resultObject = new ExpandoObject();
+            StageSubmitCBModel resultData = new StageSubmitCBModel();
+
 
             StudentApplyStageEntity parentStage = repository.StudentApplyStage.SingleOrDefault(s => s.StudentID == childStage.StudentID && s.StageNo == childStage.ParentNo);
             parentStage.Percentage = UpdateParentPercentage(parentStage.StageNo, parentStage.StudentID);
             if (parentStage.Percentage == 100)
             {
-                resultDict.Add("IsParentComplete", new { IsParentComplete = true });
-                resultDict.Add("NextParentNameEn", ChildStageFinishHandler_GetNextParent(parentStage));
+                resultData.IsParentComplete = true;
+                resultData.NextParentNameEn = ChildStageFinishHandler_GetNextParent(parentStage);
             }
             else
             {
-                resultDict.Add("IsParentComplete", new { IsParentComplete = false });
-                resultDict.Add("NextSiblingNameEn", ChildStageFinishHandler_GetNextSibling(childStage));
+                resultData.IsParentComplete = false;
+                resultData.NextSiblingNameEn = ChildStageFinishHandler_GetNextSibling(childStage);
             }
             repository.SaveStudentApplyStage(parentStage);
 
-            return resultDict;
+            return resultData;
         }
 
         /// <summary>
@@ -282,7 +284,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// </summary>
         /// <param name="currentParentStage"></param>
         /// <returns></returns>
-        public object ChildStageFinishHandler_GetNextParent(StudentApplyStageEntity currentParentStage)
+        public string ChildStageFinishHandler_GetNextParent(StudentApplyStageEntity currentParentStage)
         {
             Guid studentID = currentParentStage.StudentID;
             IEnumerable<StudentApplyStageEntity> siblingParentStages = repository.StudentApplyStage.Where(s => s.StudentID == studentID && s.StageClass == 1 && s.StageNo != currentParentStage.StageNo);
@@ -290,7 +292,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             if (siblingParentStages.Count(s => s.Percentage < 100) <= 0)
             {
-                return new { NextParentNameEn = "ApplyCompleted" };
+                return "ApplyCompleted";
             }
             else
             {
@@ -305,7 +307,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     nextParent = siblingParentStages.FirstOrDefault(s => s.Percentage == 0);
                     StartParentStage(nextParent.StageNo, studentID);
                 }
-                return new { NextParentNameEn = nextParent.StageNameEn };
+                return nextParent.StageNameEn;
             }
         }
 
@@ -314,7 +316,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// </summary>
         /// <param name="currentChildStage"></param>
         /// <returns></returns>
-        public object ChildStageFinishHandler_GetNextSibling(StudentApplyStageEntity currentChildStage)
+        public string ChildStageFinishHandler_GetNextSibling(StudentApplyStageEntity currentChildStage)
         {
             Guid studentID = currentChildStage.StudentID;
             IEnumerable<StudentApplyStageEntity> siblingChild = repository.StudentApplyStage
@@ -334,14 +336,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 nextChild.CurrentOption = nextChild.BeginOption;
                 repository.SaveStudentApplyStage(nextChild);
             }
-            return new { NextSiblingNameEn = nextChild.StageNameEn };
-        }
-
-        public object ConvertDictToString(Dictionary<string, object> dict)
-        {
-            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var entries = dict.Select(d => d.Value);
-            return serializer.Deserialize<object>(serializer.Serialize(entries));
+            return nextChild.StageNameEn;
         }
     }
 }
