@@ -8,11 +8,19 @@ define([],function(){
 	* 将字符串/ Date / ******* / 转为JS的Date类型
 	* */
 	TransFormDate.prototype.TransMsStringToDateType = function(msString){
-		if(msString == null || msString === ''){
+		//匹配 /Date([0-9]+)/
+		var dateTypePattern = /[/]Date\(\d+\)[/]/;
+
+		//匹配字符串中的所有数字
+		var dateNumPattern = /\d+/;
+		
+		if(!dateTypePattern.test(msString))
 			return new Date();
+		else{
+			var ms = dateNumPattern.exec(msString);
+			var msDate = new Date(parseInt(ms));
 		}
-		var ms = msString.slice(6,-2);
-		var msDate = new Date(parseInt(ms));
+
 		return msDate;
 	}
 

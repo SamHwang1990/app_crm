@@ -8,7 +8,8 @@ define([
 	'text!templates/StudentMgr/SaleTrack/SaleTrackItem.html',
 	'text!templates/StudentMgr/SaleTrack/List.html',
 	'models/StudentMgr/EnumModel/TrackIsComplete',
-	'models/StudentMgr/EnumModel/IsSign'
+	'models/StudentMgr/EnumModel/IsSign',
+	'assets/TransformDateString'
 	],function(ClientManage,SaleTrackItemTpl,SaleTrackListTpl,EnumTrackIsComplete,EnumIsSign){
 	ClientManage.module('StudentMgr.SaleTrack.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.SaleTrackItemView = Marionette.ItemView.extend({
