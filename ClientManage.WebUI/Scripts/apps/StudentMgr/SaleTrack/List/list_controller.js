@@ -12,7 +12,7 @@ define(['app'],function(ClientManage){
 					var saleTrackList = new SaleTrackCol();
 					saleTrackList.fetch({
 						success:function(){
-							var listView = new ListView.StudentsView({
+							var listView = new ListView.StudentTrackListView({
 								collection:saleTrackList
 							});
 							contentRegion.show(listView);

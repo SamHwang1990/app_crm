@@ -17,7 +17,8 @@ requirejs.config({
 		underscore: "libs/underscore/underscore",
 		'bootstrap':'../Content/bootstrap/js/bootstrap.min',
 		'Timeline':'libs/timeline/timeliner',
-		Bootbox:"libs/bootstrap/bootbox/bootbox.min"
+		Bootbox:"libs/bootstrap/bootbox/bootbox.min",
+		BootstrapTable:"libs/bootstrap/bootstraptable/bootstrap-table"
 	},
 	shim: {
 		underscore: {
