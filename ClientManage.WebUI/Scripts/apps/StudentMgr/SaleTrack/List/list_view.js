@@ -11,7 +11,7 @@ define([
 	'models/StudentMgr/EnumModel/IsSign',
 	'assets/TransformDateString',
 	"BootstrapTable"
-	],function(ClientManage,SaleTrackItemTpl,SaleTrackListTpl,EnumTrackIsComplete,EnumIsSign,BootstrapTable){
+	],function(ClientManage,SaleTrackItemTpl,SaleTrackListTpl,EnumTrackIsComplete,EnumIsSign,TransformDateString,BootstrapTable){
 	ClientManage.module('StudentMgr.SaleTrack.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.SaleTrackItemView = Marionette.ItemView.extend({
 			template:_.template(SaleTrackItemTpl),
@@ -113,9 +113,12 @@ define([
 				}
 			},
 			CollectionHelpers:function(){
+				var transDate = new TransformDateString();
+
 				_.each(this.collection.models,function(trackItem){
 					var saleTrackEntity = trackItem.get("CurrentSaleTrack");
 					saleTrackEntity.IsComplete = EnumTrackIsComplete.TrackIsCompleteInverse[saleTrackEntity.IsComplete];
+					saleTrackEntity.TrackDate = transDate.TransMsStringToDate(saleTrackEntity.TrackDate);
 
 					var appRelation = trackItem.get("AppRelation");
 					appRelation.IsSign = EnumIsSign.IsSignInverse[appRelation.IsSign];
@@ -204,10 +207,9 @@ define([
 			},
 			RenderBootstrapTable:function(){
 				var listView = this;
-				this.$el.find("table.SaleTrackTable").bootstrapTable({
+				this.$el.find("table#SaleTrackTable").bootstrapTable({
 					data:listView.SetTableData(),
 					columns:listView.SetTableColumns(),
-					height: 600,
 					striped: true,
 					pagination: true,
 					sidePagination:"client",
@@ -215,10 +217,18 @@ define([
 					pageList: [10, 25, 50, 100, 200],
 					search: true,
 					showColumns: true,
-					showRefresh: true,
-					showToggle:true,
-					minimumCountColumns: 2
-				})
+					minimumCountColumns: 2,
+					formatLoadingMessage:function(){
+						return '数据加载中，请稍后！'
+					},
+					formatRecordsPerPage:function(pageNumber){
+						return pageNumber + '条每页';
+					},
+					formatShowingRows:function(pageFrom, pageTo, totalRows){
+						//Showing %s to %s of %s rows
+						return '第&nbsp;' + pageFrom + '&nbsp;条到第&nbsp;' + pageTo + '&nbsp;条共&nbsp;' + totalRows + '&nbsp;条&emsp;';
+					}
+				});
 			}
 		});
 	});

@@ -1099,3 +1099,13 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 	letter-spacing: 0.1rem;
 }
 /* endregion */
+
+/* region plugin css fix */
+
+/* region bootstrap table plugin */
+.fixed-table-toolbar .bars, .fixed-table-toolbar .search, .fixed-table-toolbar .columns{
+	line-height:inherit;
+}
+/*  endregion */
+
+/*  endregion */

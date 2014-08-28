@@ -879,7 +879,7 @@
 	    * 2014.08.27
 	    * no need to resetView again
 	    * */
-        //this.resetView();
+        this.resetView();
     };
 
     BootstrapTable.prototype.initServer = function () {
@@ -894,6 +894,12 @@
             };
 
         if (!this.options.url) {
+	        /*
+	        * samhwang1990@gmail.com
+	        * 2014.08.28
+	        * when there are no url option, hide the loading msg
+	        * */
+	        this.hideLoading();
             return;
         }
         this.$loading.show();
@@ -1129,6 +1135,9 @@
     };
 
     BootstrapTable.prototype.refresh = function () {
+	    if(!this.options.url)
+	        return this.load(this.options.data)
+
         this.initServer();
     };
 
