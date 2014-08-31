@@ -1062,6 +1062,9 @@ article.fix-fixed,div.fix-fixed,section.fix-fixed{
 	margin-bottom: 2rem !important;
 	margin-top: 2rem !important;
 }
+.margin-top-0{
+	margin-top:0 !important;
+}
 .margin-top-1{
 	margin-top:1rem !important;
 }

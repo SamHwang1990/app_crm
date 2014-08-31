@@ -58,8 +58,10 @@ namespace ClientManage.WebUI.Controllers
                 repository.SaveUserInfo(user);
                 loginResult = true;
             }
-
-            return Json(new { result = loginResult, loginMsg = loginMsg, UserID = user.UserID });
+            if(loginResult)
+                return Json(new { result = loginResult, loginMsg = loginMsg, UserID = user.UserID });
+            else
+                return Json(new { result = loginResult, loginMsg = loginMsg });
         }
 
         [HttpPost]
