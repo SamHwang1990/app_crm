@@ -70,10 +70,12 @@ namespace ClientManage.WebUI.Controllers
             if (HttpContext.User.Identity.Name != string.Empty)
             {
                 userName = HttpContext.User.Identity.Name;
+                Guid userID = repository.UsersInfo.SingleOrDefault(u => u.UserNameCn == userName).UserID;
                 hasCurrentUser = true;
+                return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName, UserID = userID });
             }
-            Guid userID = repository.UsersInfo.SingleOrDefault(u => u.UserNameCn == userName).UserID;
-            return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName, UserID = userID });
+            else
+                return Json(new { HasCurrentUser = false });
         }
 
         //[CustomAuth]
