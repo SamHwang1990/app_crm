@@ -5,46 +5,14 @@
 
 define([
 	'app',
-	'text!templates/StudentMgr/Index/StudentItem.html',
 	'text!templates/StudentMgr/Index/List.html',
 	'models/StudentMgr/EnumModel/EducationIntention',
 	'models/StudentMgr/EnumModel/Grade',
 	'models/StudentMgr/EnumModel/Gender',
 	'models/StudentMgr/EnumModel/IsSign',
 	"BootstrapTable"
-	],function(ClientManage,StudentItemTpl,StudentsTpl,EnumEducationIntention,EnumGrade,EnumGender,EnumIsSign,BootstrapTable){
+	],function(ClientManage,StudentsTpl,EnumEducationIntention,EnumGrade,EnumGender,EnumIsSign,BootstrapTable){
 	ClientManage.module('StudentMgr.Index.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
-		View.StudentItemView = Marionette.ItemView.extend({
-			template:_.template(StudentItemTpl),
-			tagName:"tr",
-			templateHelpers:function(){
-				var studentInfo = this.model.get("StudentInfo");
-
-				var originEduIntention = studentInfo.EducationIntention;
-				studentInfo.EducationIntention = EnumEducationIntention.EducationIntentionInverse[originEduIntention];
-
-				var originGrade = studentInfo.Grade;
-				studentInfo.Grade = EnumGrade.GradeInverse[originGrade];
-
-				var originGender = studentInfo.Gender;
-				studentInfo.Gender = EnumGender.GenderInverse[originGender];
-
-				var schoolCn = studentInfo.SchoolCn;
-				var otherSchool = studentInfo.OtherSchool;
-				var SchoolCn;
-				if(schoolCn == null){
-					SchoolCn = "";
-				}else if(schoolCn.indexOf('其他') >= 0)
-					SchoolCn = otherSchool;
-
-				return {
-					StudentInfo:studentInfo,
-					AppRelation:this.model.get("AppRelation"),
-					SchoolCn:SchoolCn
-				}
-			}
-		});
-
 		View.StudentsView = Marionette.ItemView.extend({
 			tagName:"div",
 			className:"wrap",
@@ -142,12 +110,14 @@ define([
 					}},
 					{field: 'educationIntention', title: '年级', sortable:true},
 					{field: 'saleConsultantName', title: '销售负责人', sortable:true},
-					{field: 'studentIsSign', title: '签约状态',sortable: true,formatter:function(value){
-						if (!value) {
-							return '-';
+					{field: 'studentIsSign', title: '签约状态',
+						formatter:function(value){
+							if (!value) {
+								return '-';
+							}
+							return EnumIsSign.IsSignInverse[value.IsSign];
 						}
-						return EnumIsSign.IsSignInverse[value.IsSign];
-					}},
+					},
 					{field: 'exec', title: '操作', formatter: function (value) {
 						if (!value) {
 							return '-';
@@ -247,10 +217,12 @@ define([
 					formatShowingRows:function(pageFrom, pageTo, totalRows){
 						//Showing %s to %s of %s rows
 						return '第&nbsp;' + pageFrom + '&nbsp;条到第&nbsp;' + pageTo + '&nbsp;条共&nbsp;' + totalRows + '&nbsp;条&emsp;';
+					},
+					formatNoMatches:function(){
+						return '没有找到符合条件的记录！'
 					}
 				});
 			}
-
 		});
 	});
 	return ClientManage.StudentMgr.Index.List.View;

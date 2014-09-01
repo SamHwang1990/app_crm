@@ -18,7 +18,8 @@ requirejs.config({
 		'bootstrap':'../Content/bootstrap_v3/js/bootstrap.min',
 		'Timeline':'libs/timeline/timeliner',
 		Bootbox:"libs/bootstrap/bootbox/bootbox.min",
-		BootstrapTable:"libs/bootstrap/bootstraptable/bootstrap-table"
+		BootstrapTable:"libs/bootstrap/bootstraptable/bootstrap-table",
+		iCheck:"libs/bootstrap/icheck/icheck"
 	},
 	shim: {
 		underscore: {

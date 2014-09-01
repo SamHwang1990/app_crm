@@ -5,31 +5,13 @@
 
 define([
 	'app',
-	'text!templates/StudentMgr/SaleTrack/SaleTrackItem.html',
 	'text!templates/StudentMgr/SaleTrack/List.html',
 	'models/StudentMgr/EnumModel/TrackIsComplete',
 	'models/StudentMgr/EnumModel/IsSign',
 	'assets/TransformDateString',
 	"BootstrapTable"
-	],function(ClientManage,SaleTrackItemTpl,SaleTrackListTpl,EnumTrackIsComplete,EnumIsSign,TransformDateString,BootstrapTable){
+	],function(ClientManage,SaleTrackListTpl,EnumTrackIsComplete,EnumIsSign,TransformDateString,BootstrapTable){
 	ClientManage.module('StudentMgr.SaleTrack.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
-		View.SaleTrackItemView = Marionette.ItemView.extend({
-			template:_.template(SaleTrackItemTpl),
-			tagName:"tr",
-			templateHelpers:function(){
-				var saleTrackEntity = this.model.get("CurrentSaleTrack");
-				saleTrackEntity.IsComplete = EnumTrackIsComplete.TrackIsCompleteInverse[saleTrackEntity.IsComplete];
-
-				var appRelation = this.model.get("AppRelation");
-				appRelation.IsSign = EnumIsSign.IsSignInverse[appRelation.IsSign];
-				return {
-					StudentInfo:this.model.get("StudentInfo"),
-					AppRelation:appRelation,
-					SaleTrackEntity:saleTrackEntity
-				}
-			}
-		});
-
 		View.StudentTrackListView = Marionette.ItemView.extend({
 			tagName:"div",
 			className:"wrap",
@@ -227,6 +209,9 @@ define([
 					formatShowingRows:function(pageFrom, pageTo, totalRows){
 						//Showing %s to %s of %s rows
 						return '第&nbsp;' + pageFrom + '&nbsp;条到第&nbsp;' + pageTo + '&nbsp;条共&nbsp;' + totalRows + '&nbsp;条&emsp;';
+					},
+					formatNoMatches:function(){
+						return '没有找到符合条件的记录！'
 					}
 				});
 			}
