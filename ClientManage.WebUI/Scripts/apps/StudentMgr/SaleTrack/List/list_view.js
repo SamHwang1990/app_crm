@@ -16,22 +16,8 @@ define([
 			tagName:"div",
 			className:"wrap",
 			template: _.template(SaleTrackListTpl),
-			/*itemView:View.SaleTrackItemView,
-			itemViewContainer: "tbody",*/
-			/*initialize:function(){
-			 _.bindAll(this,'SortCommit');
-			 },*/
 			ui:{
-				"formSearch":".form-search",                //form 元素
-				"conditionCurrent":".condition-current",    //当前分类元素
-				"conditionList":".condition-list",          //分类列表
-				"searchContent":".search-content",          //筛选内容元素
-				"btnSubmit":"button[type=submit]",          //submit 按钮
 				"tableSaleTrack":"table.SaleTrackTable"
-			},
-			events:{
-				'click @ui.conditionList a':'ConditionSortChange',      //搜索框交互
-				'submit':'SortCommit'
 			},
 			onRender:function(){
 				this.CollectionHelpers();
@@ -39,60 +25,6 @@ define([
 			},
 			onShow:function(){
 				this.RenderBootstrapTable();
-			},
-			ConditionSortChange:function(event){
-				event.preventDefault();
-				var sortName = event.target.text;                       //获取分类名字
-				this.ui.conditionCurrent.html(sortName);                //修改当前分类显示
-				if($(event.target).hasClass('condition-all')){          //修改“全部分类”
-					this.ui.searchContent.attr('disabled','disabled');           //禁用输入框
-					this.ui.searchContent.val("");
-					this.ui.searchContent.attr('placeholder','全部无需筛选');     //修改placeholder
-					this.ui.formSearch.trigger("submit");
-				}
-				else if($(event.target).hasClass('condition-HasSign') || $(event.target).hasClass('condition-NoSign')){
-					this.ui.searchContent.attr('disabled','disabled');           //禁用输入框
-					this.ui.searchContent.attr('placeholder','全部无需筛选');     //修改placeholder
-					this.ui.searchContent.val("");
-					this.ui.formSearch.trigger("submit");
-				}
-				else{
-					this.ui.searchContent.removeAttr('disabled');
-					this.ui.searchContent.attr('placeholder','请输入筛选的'+sortName);
-				}
-			},
-			SortCommit:function(event){
-				event.preventDefault();
-				var listView = this;
-				var condition = this.ui.conditionCurrent.text();
-				var searchContent = this.ui.searchContent.val();
-				if(condition==='全部'){       //如果筛选类型为“全部”
-					this.collection.fetch({
-						success:function(){
-							console.log("fetche data from server successfully");
-						},
-						error:function(){
-							console.log("fetch data from server failed");
-							return alert("获取数据失败");
-						}
-					})
-				}
-				else{
-					this.collection.fetch({
-						data:{
-							sort:condition,
-							keyword:searchContent
-						},
-						success:function(){
-							console.log("fetche data from server successfully");
-
-						},
-						error:function(){
-							console.log("fetch data from server failed");
-							return alert("获取数据失败");
-						}
-					})
-				}
 			},
 			CollectionHelpers:function(){
 				var transDate = new TransformDateString();

@@ -118,8 +118,12 @@
     display: inline-block;
 }
 
+/*
+* samhwang1990@gmail.com 2014.09.01
+* change the .columns margin
+ */
 .fixed-table-toolbar .columns {
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .fixed-table-toolbar .columns label {

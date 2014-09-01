@@ -414,8 +414,13 @@
                 .append($(this.options.toolbar));
         }
 
+	    /*
+	    * samhwang1990@gmail.com
+	    * 2014.09.01
+	    * change to pull left
+	    * */
         // showColumns, showToggle, showRefresh
-        html = ['<div class="columns btn-group pull-right">'];
+        html = ['<div class="columns btn-group pull-left">'];
 
         if (this.options.showRefresh) {
             html.push('<button class="btn btn-default" type="button" name="refresh">',
@@ -494,8 +499,13 @@
 
         if (this.options.search) {
             html = [];
+	        /*
+	         * samhwang1990@gmail.com
+	         * 2014.09.01
+	         * change to pull left
+	         * */
             html.push(
-                '<div class="pull-right search">',
+                '<div class="pull-left search">',
                     sprintf('<input class="form-control" type="text" placeholder="%s">',
                         this.options.formatSearch()),
                 '</div>');
