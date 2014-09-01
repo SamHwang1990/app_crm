@@ -17,10 +17,11 @@ define([
 		View.EditStudentView = Marionette.Layout.extend({
 			template:_.template(EditStudentTpl),
 			templateHelpers:function(){
+				this.model.get("AppRelation").SignDate = this.transToDate(this.model.get("AppRelation").SignDate);
 				return {
 					StudentInfo:this.model.get("StudentInfo"),
 					AppRelation:this.model.get("AppRelation"),
-					SignDate:this.transToDate(this.model.get("AppRelation").SignDate)
+					SignDate:this.model.get("AppRelation").SignDate
 				}
 			},
 			tagName:"div",
@@ -119,7 +120,8 @@ define([
 				var selectSign = $(e.target).val();
 				if(selectSign == EnumIsSign.IsSign.Done){
 					this.ui.wrapSignDate.removeClass("display");
-					this.RenderDateTimePicker("yyyy-mm-dd",2,2,2,this.ui.wrapSignDate);
+					this.ui.wrapSignDate.find("#SignDate").val(this.model.get("AppRelation").SignDate);
+					this.RenderDateTimePicker("yyyy-mm-dd",2,2,2,this.ui.wrapSignDate,this.model.get("AppRelation").SignDate);
 				}
 				else{
 					this.ui.wrapSignDate.addClass("display");
@@ -127,7 +129,7 @@ define([
 				}
 			},
 			//初始化所有日期选择器
-			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker){
+			RenderDateTimePicker:function(dateFormatString,startView,minView,maxView,targetPicker,initialDate){
 				var dateNow = new Date();
 				var today = dateNow.getFullYear() + "-" + dateNow.getMonth() + "-" + dateNow.getDate() + " "
 				targetPicker.datetimepicker({     //调用bootstrap的datetimepicker插件
@@ -136,7 +138,7 @@ define([
 					startView:startView,            //设置起始选择框形式，2代表显示month
 					minView:minView,
 					maxView:maxView,
-					startDate: new Date(today)
+					initialDate:initialDate?initialDate:new Date(today)
 				});
 			},
 			/*
