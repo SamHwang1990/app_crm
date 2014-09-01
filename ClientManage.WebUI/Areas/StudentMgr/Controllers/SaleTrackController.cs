@@ -587,8 +587,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(false);
 
             StudentInfoEntity studentInfo = ajaxData.StudentInfo;
-            AppRelationsEntity appRelation = ajaxData.AppRelation;
-            studentInfoRepository.SaveStudentInfo(studentInfo, appRelation);
+            studentInfoRepository.SaveStudentInfo(studentInfo, repository.AppRelation.SingleOrDefault(a=>a.StudentID == studentInfo.StudentID));
 
             return Json(true);
         }
