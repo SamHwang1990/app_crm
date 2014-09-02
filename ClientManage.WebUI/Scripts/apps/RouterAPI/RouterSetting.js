@@ -37,9 +37,22 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(ApplyStageVersionDetailEditController.ShowEdit,id);
 				})
 		};
-		RouterAPI.SettingApplyStageVersionDeleteVersion = function(id){
 
-		}
+		RouterAPI.SettingStudentSourceList = function(){
+			require([
+				'apps/Setting/StudentSource/List/list_controller'],
+				function(StudentSourceListController){
+					RouterAPI.executeAction(StudentSourceListController.ShowList);
+				})
+		};
+
+		RouterAPI.SettingStudentSourceAdd = function(){
+
+		};
+
+		RouterAPI.SettingStudentSourceEdit = function(sourceName){
+
+		};
 	};
 	return routerHandler;
 })

@@ -6,7 +6,9 @@ using Ninject.Parameters;
 using Ninject.Syntax;
 using ClientManage.Domain.Entities;
 using ClientManage.Domain.Abstract;
+using ClientManage.Domain.Abstract.ISetting;
 using ClientManage.Domain.Concrete;
+using ClientManage.Domain.Concrete.EFSetting;
 using System.Configuration;
 
 namespace ClientManage.WebUI.Infrastructure
@@ -51,6 +53,9 @@ namespace ClientManage.WebUI.Infrastructure
             kernel.Bind<IApplyStateRepository>().To<EFApplyStateReposity>();
             kernel.Bind<ISaleTrackRepository>().To<EFSaleTrackReposity>();
             kernel.Bind<IApplyStagesRepository>().To<EFApplyStagesReposity>();
+
+            //Setting Kernel Bind
+            kernel.Bind<IStudentSourceRepository>().To<EFStudentSourceReposity>();
         }
     }
 }

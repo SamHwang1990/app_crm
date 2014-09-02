@@ -182,6 +182,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return true;
         }
 
+        #region ChildStageFinishHandler
+
         /// <summary>
         /// 返回新的父阶段Percentage
         /// </summary>
@@ -338,5 +340,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             return nextChild.StageNameEn;
         }
+
+        #endregion
     }
 }

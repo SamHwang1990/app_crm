@@ -89,6 +89,7 @@
     <Compile Include="Areas\Admin\Models\UserAndRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
     <Compile Include="Areas\Setting\Controllers\ApplyStageVersionController.cs" />
+    <Compile Include="Areas\Setting\Controllers\StudentSourceController.cs" />
     <Compile Include="Areas\Setting\Models\ApplyStagesModel.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\ApplyController.cs" />

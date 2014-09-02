@@ -51,8 +51,11 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"Setting/ApplyStageVersion/List":"SettingApplyStageVersionList",
 				"Setting/ApplyStageVersion/Create":"SettingApplyStageVersionCreate",
 				"Setting/ApplyStageVersion/Edit/Version-:id":"SettingApplyStageVersionEditVersion",
-				"Setting/ApplyStageVersion/Delete/Version-:id":"SettingApplyStageVersionDeleteVersion",
-				"Setting/ApplyStageVersion/EditDetail/Version-:id":"SettingApplyStageVersionEditDetailVersion"
+				"Setting/ApplyStageVersion/EditDetail/Version-:id":"SettingApplyStageVersionEditDetailVersion",
+
+				"Setting/StudentSource/List":"SettingStudentSourceList",
+				"Setting/StudentSource/Add":"SettingStudentSourceAdd",
+				"Setting/StudentSource/Edit/:sourceName":"SettingStudentSourceEdit"
 			}
 		});
 
