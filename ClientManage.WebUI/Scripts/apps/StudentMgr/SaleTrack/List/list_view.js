@@ -46,6 +46,7 @@ define([
 					{field: 'stateIsComplete', title: '阶段进度'},
 					{field: 'lastTrackDate', title: '最近跟踪日期', sortable:true},
 					{field: 'saleConsultantName', title: '销售负责人', sortable:true},
+					{field: 'studentFrom', title: '客户来源', sortable:true},
 					{field: 'studentIsSign', title: '签约状态'},
 					{field: 'exec', title: '操作', formatter: function (value) {
 						if (!value) {
@@ -100,6 +101,17 @@ define([
 			},
 			SetTableData:function(){
 				var tableData = [];
+				var reBuildFromData = function(fromDataList){
+					if(!fromDataList){
+						return '-';
+					}
+
+					var fromArray = [];
+					_.each(fromDataList,function(fromItem){
+						fromArray.push([fromItem.SourceName,fromItem.SourceDetailKeyword,fromItem.SourceDetailContent].join('-'));
+					})
+					return fromArray.join('、');
+				}
 				_.each(this.collection.models,function(trackItem){
 					var dataItem = {};
 					var studentInfo = trackItem.get("StudentInfo");
@@ -111,6 +123,7 @@ define([
 					dataItem["stateIsComplete"] = currentTrackEntity.IsComplete;
 					dataItem["lastTrackDate"] = currentTrackEntity.TrackDate;
 					dataItem["saleConsultantName"] = appRelation.SaleConsultantName;
+					dataItem["studentFrom"] = reBuildFromData(trackItem.get("FromCollection"));
 					dataItem["studentIsSign"] = appRelation.IsSign;
 					dataItem["exec"] = {
 						StudentInfo:studentInfo,
