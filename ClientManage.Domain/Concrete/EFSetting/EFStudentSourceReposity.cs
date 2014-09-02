@@ -29,9 +29,9 @@ namespace ClientManage.Domain.Concrete.EFSetting
             context.SaveChanges();
         }
 
-        public void Delete(StudentSourceItemEntity sourceItem)
+        public void Delete(string sourceNameEn)
         {
-            context.StudentSourceItem.Remove(context.StudentSourceItem.SingleOrDefault(s => s.SourceName == sourceItem.SourceName));
+            context.StudentSourceItem.Remove(context.StudentSourceItem.SingleOrDefault(s => s.SourceNameEn == sourceNameEn));
             context.SaveChanges();
         }
     }

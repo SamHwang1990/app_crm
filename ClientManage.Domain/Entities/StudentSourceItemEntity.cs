@@ -23,6 +23,7 @@ namespace ClientManage.Domain.Entities
 		private void SetDefaultValues()
 		{
             _SourceName = string.Empty;
+            _SourceNameEn = string.Empty;
             _DetailKeyword = string.Empty;
             _DetailContent = string.Empty;
             _Remark = string.Empty;
@@ -32,6 +33,7 @@ namespace ClientManage.Domain.Entities
         #region Base Members
 
         private string _SourceName;
+        private string _SourceNameEn;
         private string _DetailKeyword;
         private string _DetailContent;
         private string _Remark;
@@ -45,6 +47,13 @@ namespace ClientManage.Domain.Entities
             set{_SourceName = value;}
             get{return _SourceName;}
         }
+
+        public string SourceNameEn
+        {
+            set { _SourceNameEn = value; }
+            get { return _SourceNameEn; }
+        }
+
         /// <summary>
         /// 
         /// </summary>

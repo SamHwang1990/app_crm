@@ -47,11 +47,19 @@ define(['app'],function(ClientManage){
 		};
 
 		RouterAPI.SettingStudentSourceAdd = function(){
-
+			require([
+				'apps/Setting/StudentSource/Edit/edit_controller'],
+				function(StudentSourceEditController){
+					RouterAPI.executeAction(StudentSourceEditController.ShowEdit,['Add']);
+				})
 		};
 
-		RouterAPI.SettingStudentSourceEdit = function(sourceName){
-
+		RouterAPI.SettingStudentSourceEdit = function(sourceNameEn){
+			require([
+				'apps/Setting/StudentSource/Edit/edit_controller'],
+				function(StudentSourceEditController){
+					RouterAPI.executeAction(StudentSourceEditController.ShowEdit,['Edit',sourceNameEn]);
+				})
 		};
 	};
 	return routerHandler;

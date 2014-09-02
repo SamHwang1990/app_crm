@@ -55,7 +55,7 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 
 				"Setting/StudentSource/List":"SettingStudentSourceList",
 				"Setting/StudentSource/Add":"SettingStudentSourceAdd",
-				"Setting/StudentSource/Edit/:sourceName":"SettingStudentSourceEdit"
+				"Setting/StudentSource/Edit/:sourceNameEn":"SettingStudentSourceEdit"
 			}
 		});
 

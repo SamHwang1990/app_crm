@@ -7,9 +7,13 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 	var StudentSourceItem = Backbone.Model.extend({
 		defaults:{
 			SourceName:"",
+			SourceNameEn:"",
 			DetailKeyword:"",
 			DetailContent:"",
 			Remark:""
+		},
+		initialize:function(options){
+			this.url = options.url;
 		}
 	});
 	return StudentSourceItem;

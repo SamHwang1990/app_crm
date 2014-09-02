@@ -10,6 +10,6 @@ namespace ClientManage.Domain.Abstract.ISetting
     {
         IQueryable<StudentSourceItemEntity> StudentSource { get; }
         void Save(StudentSourceItemEntity sourceItem);
-        void Delete(StudentSourceItemEntity sourceItem);
+        void Delete(string sourceNameEn);
     }
 }

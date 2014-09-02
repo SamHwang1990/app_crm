@@ -69,24 +69,30 @@ define([
 			SetTableColumns:function(){
 				var columnColumns = [
 					{field: 'SourceName', title: '来源名称', sortable: true},
-					{field: 'DetailKeyword', title: '附加信息', sortable: true},
+					{field: 'SourceNameEn', title: '来源英文名称', sortable: true},
+					{field: 'DetailKeyword', title: '附加信息', sortable: true,align:'center', formatter:function(value){
+						if(!value){
+							return '-';
+						}
+						return value;
+					}},
 					{field: 'Remark', title: '备注'},
-					{field: 'exec', title: '操作', formatter: function (value) {
+					{field: 'exec', title: '操作',align:"center", formatter: function (value) {
 						if (!value) {
 							return '-';
 						}
 						var execArray = [];
 						execArray.push('<a href="#Setting/StudentSource/Edit/' +
-							value.SourceName +
+							value.SourceNameEn +
 							'" title="' +
-							value.SourceName +
+							value.SourceNameEn +
 							'">修改来源信息</a>');
 
 						//ToDo:Hide the delete temporary
 						/*execArray.push('<a href="/Setting/StudentSource/Delete"' +
 							'class="deleteSource"' +
-							'title="' + value.SourceName +
-							'" data-SourceName="' + value.SourceName +
+							'title="' + value.SourceNameEn +
+							'" data-SourceNameEn="' + value.SourceNameEn +
 							'">删除版本信息</a>');*/
 
 						return execArray.join('&emsp;');
@@ -100,11 +106,12 @@ define([
 					var dataItem = {};
 
 					dataItem["SourceName"] = sourceItem.get("SourceName");
+					dataItem["SourceNameEn"] = sourceItem.get("SourceNameEn");
 					dataItem["DetailKeyword"] = sourceItem.get("DetailKeyword");
 					dataItem["Remark"] = sourceItem.get("Remark");
 
 					dataItem["exec"] = {
-						SourceName:sourceItem.get("SourceName")
+						SourceNameEn:sourceItem.get("SourceNameEn")
 					}
 					tableData.push(dataItem);
 				})
