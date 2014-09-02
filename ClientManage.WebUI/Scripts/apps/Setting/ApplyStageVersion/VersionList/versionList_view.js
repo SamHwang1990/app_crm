@@ -8,8 +8,8 @@ define([
 	'assets/TransformDateString',
 	'text!templates/Setting/ApplyStagesMgr/VersionList.html',
 	'Bootbox',
-	"BootstrapTable"
-],function(ClientManage,TransformDateString,VersionListTpl,Bootbox,BootstrapTable){
+	"assets/RenderBootstrapTable"
+],function(ClientManage,TransformDateString,VersionListTpl,Bootbox,RenderBootstrapTable){
 	ClientManage.module('Setting.ApplyStageVersion.VersionList.View',function(View,ClientManage,Backbone,Marionette,$,_){
 		View.VersionListView = Marionette.ItemView.extend({
 			tagName:"div",
@@ -64,7 +64,8 @@ define([
 				this.CollectionHandler();
 			},
 			onShow:function(){
-				this.RenderBootstrapTable();
+				this.renderBootstrapTable = new RenderBootstrapTable();
+				this.renderBootstrapTable.RenderFromData(this.ui.tableApplyStageVersionList,this.SetTableData(),this.SetTableColumns())
 			},
 			CollectionHandler:function(){
 				var listView = this;
@@ -122,34 +123,6 @@ define([
 					tableData.push(dataItem);
 				})
 				return tableData;
-			},
-			RenderBootstrapTable:function(){
-				var listView = this;
-				this.ui.tableApplyStageVersionList.bootstrapTable({
-					data:listView.SetTableData(),
-					columns:listView.SetTableColumns(),
-					striped: true,
-					pagination: true,
-					sidePagination:"client",
-					pageSize: 10,
-					pageList: [10, 25, 50, 100, 200],
-					search: true,
-					showColumns: true,
-					minimumCountColumns: 2,
-					formatLoadingMessage:function(){
-						return '数据加载中，请稍后！'
-					},
-					formatRecordsPerPage:function(pageNumber){
-						return pageNumber + '条每页';
-					},
-					formatShowingRows:function(pageFrom, pageTo, totalRows){
-						//Showing %s to %s of %s rows
-						return '第&nbsp;' + pageFrom + '&nbsp;条到第&nbsp;' + pageTo + '&nbsp;条共&nbsp;' + totalRows + '&nbsp;条&emsp;';
-					},
-					formatNoMatches:function(){
-						return '没有找到符合条件的记录！'
-					}
-				});
 			}
 		})
 	});

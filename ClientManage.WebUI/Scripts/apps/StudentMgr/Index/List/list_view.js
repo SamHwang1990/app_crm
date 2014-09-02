@@ -10,8 +10,8 @@ define([
 	'models/StudentMgr/EnumModel/Grade',
 	'models/StudentMgr/EnumModel/Gender',
 	'models/StudentMgr/EnumModel/IsSign',
-	"BootstrapTable"
-	],function(ClientManage,StudentsTpl,EnumEducationIntention,EnumGrade,EnumGender,EnumIsSign,BootstrapTable){
+	"assets/RenderBootstrapTable"
+	],function(ClientManage,StudentsTpl,EnumEducationIntention,EnumGrade,EnumGender,EnumIsSign,RenderBootstrapTable){
 	ClientManage.module('StudentMgr.Index.List.View',function(View,ClientManage,Backbone, Marionette, $, _){
 		View.StudentsView = Marionette.ItemView.extend({
 			tagName:"div",
@@ -24,7 +24,8 @@ define([
 				this.CollectionHelpers();
 			},
 			onShow:function(){
-				this.RenderBootstrapTable();
+				this.renderBootstrapTable = new RenderBootstrapTable();
+				this.renderBootstrapTable.RenderFromData(this.ui.tableStudentList,this.SetTableData(),this.SetTableColumns())
 			},
 			CollectionHelpers:function(){
 				_.each(this.collection.models,function(studentItem){
