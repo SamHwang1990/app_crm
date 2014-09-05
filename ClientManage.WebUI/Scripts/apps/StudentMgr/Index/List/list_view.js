@@ -25,7 +25,7 @@ define([
 			},
 			onShow:function(){
 				this.renderBootstrapTable = new RenderBootstrapTable();
-				this.renderBootstrapTable.RenderFromData(this.ui.tableStudentList,this.SetTableData(),this.SetTableColumns())
+				this.renderBootstrapTable.RenderFromData(this.ui.tableStudentList,this.SetTableData(),this.SetTableColumns(),this.TableRenderCallback)
 			},
 			CollectionHelpers:function(){
 				_.each(this.collection.models,function(studentItem){
@@ -92,11 +92,7 @@ define([
 									+ value.StudentInfo.NameCn
 									+ '" class="btn btn-info btn-mini">安排申请时间表</a>')
 							} else {
-								execArray.push('<a href="#StudentMgr/Apply/'
-									+ value.StudentInfo.StudentID
-									+ '" title="'
-									+ value.StudentInfo.NameCn
-									+ '" class="btn btn-success btn-mini">进入申请</a>')
+								execArray.push('<a data-toggle="tooltip" title="销售版本无申请功能" class="btn btn-success btn-mini disabled">进入申请</a>')
 							}
 
 						} else {
@@ -137,6 +133,14 @@ define([
 					tableData.push(dataItem);
 				})
 				return tableData;
+			},
+			TableRenderCallback:function($table){
+				var toolTipOption = {
+					animation:true,
+					html:false,
+					placement:'right'
+				};
+				$table.find('[data-toggle="tooltip"]').tooltip(toolTipOption);
 			}
 		});
 	});

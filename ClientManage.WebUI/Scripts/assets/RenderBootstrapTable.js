@@ -2,7 +2,7 @@
  * Created by samhwang1990@gmail.com on 14-9-2.
  ***************************************/
 
-define(["BootstrapTable"],function(BootstrapTable){
+define(["BootstrapTable",'underscore'],function(BootstrapTable,_){
 	function RenderBootstrapTable(options){
 		var tableDefault = {
 			striped:true,
@@ -33,7 +33,7 @@ define(["BootstrapTable"],function(BootstrapTable){
 		this.options = $.extend({},tableDefault,options,typeof options === 'object' && options);
 	}
 
-	RenderBootstrapTable.prototype.RenderFromData = function($el, data, columns){
+	RenderBootstrapTable.prototype.RenderFromData = function($el, data, columns, callback){
 		var tableOptions = this.options;
 		$el.bootstrapTable({
 			data:data,
@@ -50,7 +50,11 @@ define(["BootstrapTable"],function(BootstrapTable){
 			formatRecordsPerPage:tableOptions.formatRecordsPerPage,
 			formatShowingRows:tableOptions.formatShowingRows,
 			formatNoMatches:tableOptions.formatNoMatches
-		})
+		});
+		if(callback !== undefined && _.isFunction(callback)){
+			callback($el);
+		}
+
 	}
 
 	return RenderBootstrapTable;
