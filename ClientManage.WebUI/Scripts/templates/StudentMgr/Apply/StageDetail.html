@@ -1,0 +1,92 @@
+<div class="stage-detail-container">
+    <!-- stage nav -->
+    <header id="stages-header" exclude="phone">
+        <article id="stages-header-nav-container" class="fix-fixed row-fluid">
+            <div id="stages-header-nav-content" class="span12 row-fluid">
+                <ul class="nav nav-dots">
+                    <li class="dot dot-home">
+                        <a href="#StudentMgr/Apply/Stages/<%= ParentStage.StageNameEn %>/<%= StudentID %>" >
+                            &#171;
+                        </a>
+                        <div style="position:relative;">
+                            <aside><i class="icon-home icon-white"></i> Back To Stage Syllabus</aside>
+                        </div>
+                    </li>
+
+                    <% _.each(ChildStages,function(childItem){ %>
+                    <li class="js-dot dot" <%= childItem.Percentage > 0 ? 'data-state="active"' : '' %>
+                    data-slug="<%= childItem.StageNameEn %>">
+                        <a></a>
+                        <div style="position:relative;">
+                            <aside>
+                                <% if(childItem.Percentage == 0){ %>
+                                <i class="icon-lock icon-white"></i>&nbsp;
+                                <% } %>
+
+                                <%= childItem.Remark %>
+                            </aside>
+                        </div>
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </article>
+    </header>
+    <main id="stage-detail-container">
+        <article class="stage-detail-content content-cards fit-full padding-top-3 margin-bottom-1">
+            <div class="fix-fixed row-fluid">
+                <% _.each(ChildStages,function(childItem){ %>
+                <article slug="<%= childItem.StageNameEn %>" class="js-card card card-stage">
+                    <!--<section class="card-stage-content">
+                        dfdfdf
+                    </section>-->
+                </article>
+                <% }) %>
+            </div>
+        </article>
+        <section class="stage-detail-controls fit-full">
+            <div class="fix-fixed row-fluid">
+                <section class="control-section span2">
+                    <button
+                            class="stage-detail-control-prev
+                                app-btn app-btn-transparent
+                                app-btn-large
+                                btn-round
+                                btn-fillspace
+                                card-nav card-nav-prev">
+                        <span exclude="phone">GO BACK</span>
+                        <span exclude="desktop tablet"><i class="icon-chevron-left icon-white"></i> </span>
+                    </button>
+                </section>
+                <section class="control-section span2 row-right">
+                    <button
+                            class="stage-detail-control-next
+                                app-btn
+                                app-btn-success
+                                app-btn-large
+                                btn-round
+                                btn-fillspace
+                                card-nav card-nav-next">
+                        <ul>
+                            <li><span exclude="phone">&#10003;</span></li>
+                            <li><span exclude="phone">SAVE IT</span></li>
+                        </ul>
+                        <span exclude="desktop tablet">&#10003;</span>
+                        <aside class="cta" exclude="phone"><span>Please complete current card first</span></aside>
+                    </button>
+                </section>
+                <section class="control-section span8 row-right row-fluid ">
+                    <div class="span6 row-right row-align-center alert alert-info stage-action-bar stage-action-bar_ing">
+                        阶段进度已保存，但尚未完成！
+                    </div>
+                    <div class="span6 row-right row-align-center alert alert-success stage-action-bar stage-action-bar_completed">
+                        阶段已完成，要开始下一阶段啦！
+                    </div>
+                    <div class="span6 row-right row-align-center alert alert-error stage-action-bar stage-action-bar_error">
+                        保存出错了：
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+</div>

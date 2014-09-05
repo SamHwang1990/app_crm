@@ -56,6 +56,7 @@
     <Compile Include="Abstract\IAssayMaterialRepository.cs" />
     <Compile Include="Abstract\IRoleInfoRepository.cs" />
     <Compile Include="Abstract\ISaleTrackRepository.cs" />
+    <Compile Include="Abstract\ISetting\IStudentSourceRepository.cs" />
     <Compile Include="Abstract\IStudentInfoRepository.cs" />
     <Compile Include="Abstract\IUserInfoRepository.cs" />
     <Compile Include="Concrete\EFApplyStagesReposity.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRoleReposity.cs" />
     <Compile Include="Concrete\EFSaleTrackReposity.cs" />
+    <Compile Include="Concrete\EFSetting\EFStudentSourceReposity.cs" />
     <Compile Include="Concrete\EFStudentInfoReposity.cs" />
     <Compile Include="Concrete\EFUserReposity.cs" />
     <Compile Include="Entities\ApplyStagesEntity.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Entities\RolesInfo.cs" />
     <Compile Include="Entities\SaleTrackEntity.cs" />
     <Compile Include="Entities\SaleTrackParticipantsEntity.cs" />
+    <Compile Include="Entities\StudentApplyStageEntity.cs" />
     <Compile Include="Entities\StudentFlashPointEntity.cs" />
     <Compile Include="Entities\StudentFromEntity.cs" />
     <Compile Include="Entities\StudentInfoEntity.cs" />

@@ -64,26 +64,36 @@ define([
 			}
 			if(stageClass == "1"){
 				if(data){
-					//如果当前阶段可用，同时这个阶段是个父级阶段，则显示其子阶段
-					parentTimelineMinor.siblings(".timelineMinor").show();
+					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
+						//$(this).find(".forbidSwitch").bootstrapSwitch('state', true, false);
+						$(this).show();
+					})
 				}else{
-					//否则，如果当前阶段不可用，同时这个阶段是个父级阶段，则隐藏其子阶段
-					parentTimelineMinor.siblings(".timelineMinor").hide();
+					parentTimelineMinor.siblings(".timelineMinor").each(function(i){
+						//$(this).find(".forbidSwitch").bootstrapSwitch('state', false, false);
+						$(this).hide();
+					})
 				}
 			}
 		},
 		TimeSwitchChange:function(event){
 			//获取checkbox 是否选中，选中表示该阶段有时间限制
 			var data = $(event.currentTarget).is(":checked");
-			//获得与阶段开始结束时间配置相关的字段，比如：BeginDate、EndDate
-			var timeRelatedFields = $(event.currentTarget).parents(".control-group").siblings(".timeRelated");
-			if(data){
-				//如果该阶段有时间限制，则显示相关的配置字段
-				timeRelatedFields.show();
-			}else{
-				//否则，隐藏相关配置字段
-				timeRelatedFields.hide();
-			}
+
+			$(event.currentTarget).parents(".control-group").siblings(".timeRelated_EndDate").toggle(!data);
+
+			$(event.currentTarget).parents(".timelineMinor").siblings(".timelineMinor").each(function(i){
+				if(data){
+					//如果子阶段有时间限制，则先配置子阶段的CanChangeDate为可读，然后再设置state 为 true，并隐藏BeginDate、EndDate两字段
+					$(this).find(".VersionDetail_CanChangeDate").bootstrapSwitch('readonly', false, false).bootstrapSwitch('state', true, false);
+					$(this).find(".timeRelated").show();
+				}else{
+					//如果子阶段无时间限制，则先配置子阶段的state 为 false，然后再设置CanChangeDate 为不可读，并隐藏BeginDate、EndDate两字段
+					$(this).find(".VersionDetail_CanChangeDate").bootstrapSwitch('state', false, false).bootstrapSwitch('readonly', true, false);
+					$(this).find(".timeRelated").hide();
+				}
+			});
+
 		},
 		SwitchChange:function(event,data){
 

@@ -1,0 +1,33 @@
+<h2><%= StageName %></h2>
+<div class="feedbackMsg alert">
+
+</div>
+<form id="editForm" action="/StudentMgr/Apply/Post_InformationFormsHandout" method="post" class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label" for="CurrentOption">阶段进度：</label>
+        <div class="CurrentOptionWrap controls">
+            <select name="CurrentOption" id="CurrentOption">
+                <!-- 删除了“BeginOption” -->
+                <% _.each(StatusOption.split(','),function(optionItem){ %>
+                <option value="<%= optionItem %>"><%= optionItem %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+    <div class="control-group timeRelated timeRelated_EndDate">
+        <label class="control-label">截止时间：</label>
+        <div class="controls">
+            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                <input type="text" class="ApplyStage_EndDate" class="span2" placeholder="截止时间" value="<%= EndDate %>" />
+                <span class="add-on"><i class="icon-refresh"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="Remark">备注：</label>
+        <div class="controls">
+            <textarea id="Remark" placeholder="请输入阶段备注"><%= Remark %></textarea>
+        </div>
+    </div>
+</form>

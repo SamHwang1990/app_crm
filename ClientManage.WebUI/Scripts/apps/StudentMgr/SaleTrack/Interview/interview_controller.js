@@ -24,7 +24,7 @@ define(['app'],function(ClientManage){
 								studentID:studentID
 							},
 							success:function(data){
-								if(data.HasSign){
+								if(data.get("HasSign")){
 									return ClientManage.navigate("StudentMgr/Index/List",{trigger:true});
 								}
 								var trackNo = saleTrackAjaxViewModel.get("SaleTrackItem").TrackNo;

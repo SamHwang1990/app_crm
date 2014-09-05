@@ -1,0 +1,54 @@
+<div class="control-group">
+    <label class="control-label" >是否需要执行本阶段：</label>
+    <div class="controls">
+        <input type="checkbox" class="forbidSwitch ApplyStage_IsForbid"
+               data-on-color="success" data-off-color="warning"
+        <%= (StageItem.IsForbid == false) ? 'checked' : "" %>
+        <%= (StageItem.CanForbid == false) ? 'disabled' : '' %> />
+    </div>
+</div>
+<!-- Wrap Some Fields, which is active when stage is not forbidden -->
+<fieldset class="unForbidFields">
+    <div class="control-group">
+        <label class="control-label" >阶段名称：</label>
+        <div class="controls">
+            <% if (StageItem.CanChangeName) { %>
+            <input type="text"
+                   class="ApplyStage_StageName"
+                   name="ApplyStage_StageName"
+                   placeholder="请输入阶段名称"
+                   value="<%= StageItem.StageName %>" />
+            <% } else { %>
+            <input type="text" class="ApplyStage_StageName" placeholder="阶段名称" value="<%= StageItem.StageName %>" disabled />
+            <% } %>
+
+        </div>
+    </div>
+    <div class="control-group timeRelated timeRelated_BeginDate <%= (StageItem.StageClass == 2 && StageItem.IsDateSameWithParent) ? 'display' : '' %>">
+        <label class="control-label">开始时间：</label>
+        <div class="controls">
+            <% if (StageItem.CanChangeDate) { %>
+            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                <input type="text" class="ApplyStage_BeginDate" class="span2" placeholder="开始时间" value="<%= StageItem.BeginDate %>" />
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <% } else { %>
+            <input type="text" class="ApplyStage_BeginDate" class="span2" placeholder="开始时间" value="<%= StageItem.BeginDate %>" disabled />
+            <% } %>
+        </div>
+    </div>
+    <div class="control-group timeRelated timeRelated_EndDate <%= (StageItem.StageClass == 2 && StageItem.IsDateSameWithParent == true) ? 'display' : '' %>">
+        <label class="control-label">结束时间：</label>
+        <div class="controls">
+            <% if((StageItem.StageClass==1 && StageItem.IsDateSameWithParent && StageItem.CanChangeDate)
+            || (StageItem.StageClass==2 && StageItem.CanChangeDate) ){ %>
+                <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                    <input type="text" class="ApplyStage_EndDate" class="span2" placeholder="结束时间" value="<%= StageItem.EndDate %>" />
+                    <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+            <% } else { %>
+            <input type="text" class="ApplyStage_EndDate" class="span2" placeholder="结束时间" value="<%= StageItem.EndDate %>" disabled />
+            <% } %>
+        </div>
+    </div>
+</fieldset>

@@ -103,7 +103,8 @@ define(['app','text!templates/Home/SignIn.html'],function(ClientManage,SignInTpl
 
 								require(["models/LoginUser"],function(LoginUserModel){
 									var currentUser = new LoginUserModel({
-										UserName:that.model.get("UserName")
+										UserName:that.model.get("UserName"),
+										UserID:data.UserID
 									});
 									ClientManage.CurrentUser = currentUser;
 								});

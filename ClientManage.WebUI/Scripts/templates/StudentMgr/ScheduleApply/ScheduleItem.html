@@ -1,0 +1,30 @@
+<h2 class="timelineMajorMarker"><span><%= ParentStage.StageName %></span></h2>
+<!-- /h2.timelineMajorMarker 父级标题 -->
+<dl class="timelineMinor"
+    data-StageClass="<%= ParentStage.StageClass %>"
+    data-StageNo="<%= ParentStage.StageNo %>"
+    data-CanForbid="<%= ParentStage.CanForbid %>"
+    data-CanChangeDate="<%= ParentStage.CanChangeDate %>"
+    data-CanChangeName="<%= ParentStage.CanChangeName %>"
+    data-IsDateSameWithParent="<%= ParentStage.IsDateSameWithParent %>">
+    <dt id="StageNo_<%= ParentStage.StageNo %>"><a><%= ParentStage.StageName %>：展开进行修改</a></dt>
+    <dd class="timelineEvent" id="StageNo_<%= ParentStage.StageNo %>EX" style="display: none;">
+        <%= _.template(FieldsetTpl,ParentStage,{variable:"StageItem"}) %>
+    </dd>
+</dl>
+<!-- /dl.timelineMinor ParentVersionDetail -->
+<% _.each(ChildStages,function(childStageItem){ %>
+<dl class="timelineMinor"
+    data-StageClass="<%= childStageItem.StageClass %>"
+    data-StageNo="<%= childStageItem.StageNo %>"
+    data-CanForbid="<%= childStageItem.CanForbid %>"
+    data-CanChangeDate="<%= childStageItem.CanChangeDate %>"
+    data-CanChangeName="<%= childStageItem.CanChangeName %>"
+    data-IsDateSameWithParent="<%= childStageItem.IsDateSameWithParent %>">
+    <dt id="StageNo_<%= childStageItem.StageNo %>"><a><%= childStageItem.StageName %></a></dt>
+    <dd class="timelineEvent" id="StageNo_<%= childStageItem.StageNo %>EX" style="display: none;">
+        <%= _.template(FieldsetTpl,childStageItem,{variable:"StageItem"}) %>
+    </dd>
+</dl>
+<!-- /dl.timelineMinor ChildVersionDetail -->
+<% }); %>

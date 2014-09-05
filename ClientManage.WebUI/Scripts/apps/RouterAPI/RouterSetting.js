@@ -37,6 +37,30 @@ define(['app'],function(ClientManage){
 					RouterAPI.executeAction(ApplyStageVersionDetailEditController.ShowEdit,id);
 				})
 		};
+
+		RouterAPI.SettingStudentSourceList = function(){
+			require([
+				'apps/Setting/StudentSource/List/list_controller'],
+				function(StudentSourceListController){
+					RouterAPI.executeAction(StudentSourceListController.ShowList);
+				})
+		};
+
+		RouterAPI.SettingStudentSourceAdd = function(){
+			require([
+				'apps/Setting/StudentSource/Edit/edit_controller'],
+				function(StudentSourceEditController){
+					RouterAPI.executeAction(StudentSourceEditController.ShowEdit,['Add']);
+				})
+		};
+
+		RouterAPI.SettingStudentSourceEdit = function(sourceNameEn){
+			require([
+				'apps/Setting/StudentSource/Edit/edit_controller'],
+				function(StudentSourceEditController){
+					RouterAPI.executeAction(StudentSourceEditController.ShowEdit,['Edit',sourceNameEn]);
+				})
+		};
 	};
 	return routerHandler;
 })

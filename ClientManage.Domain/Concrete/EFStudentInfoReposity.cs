@@ -58,6 +58,26 @@ namespace ClientManage.Domain.Concrete
             get { return context.StudentSchool; }
         }
 
+        public IQueryable<ApplyStagesEntity> ApplyStages
+        {
+            get { return context.ApplyStages; }
+        }
+
+        public IQueryable<ApplyStageVersionEntity> ApplyStageVersion
+        {
+            get { return context.ApplyStageVersion; }
+        }
+
+        public IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail
+        {
+            get { return context.ApplyStageVersionDetail; }
+        }
+
+        public IQueryable<StudentApplyStageEntity> StudentApplyStage
+        {
+            get { return context.StudentApplyStage; }
+        }
+
         #endregion
 
         #region 保存操作
@@ -304,6 +324,56 @@ namespace ClientManage.Domain.Concrete
             }
 
             context.SaveChanges();
+        }
+
+        #endregion
+
+        #region 对StudentApplyStage 进行操作
+
+        /// <summary>
+        /// 清空数据库中与指定学生有关的申请阶段，并添加新的申请阶段数据
+        /// </summary>
+        /// <param name="applyStages"></param>
+        public void NewStudentApplyStages(List<StudentApplyStageEntity> applyStages)
+        {
+            Guid studentID = applyStages.FirstOrDefault().StudentID;
+            if (context.StudentApplyStage.Count(a => a.StudentID == studentID) > 0)
+            {
+                ClearStudentApplyStage(studentID);
+            }
+            context.StudentApplyStage.AddRange(applyStages);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// 用于部分数据更新
+        /// </summary>
+        /// <param name="applyStages"></param>
+        public void UpdateStudentApplyStages(List<StudentApplyStageEntity> applyStages)
+        {
+            foreach (StudentApplyStageEntity stageItem in applyStages)
+            {
+                context.Entry(context.StudentApplyStage.SingleOrDefault(s => s.StudentID == stageItem.StudentID && s.StageNo == stageItem.StageNo))
+                    .CurrentValues
+                    .SetValues(stageItem);
+            }
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// 更新一条数据
+        /// </summary>
+        /// <param name="applyStage"></param>
+        public void SaveStudentApplyStage(StudentApplyStageEntity applyStage)
+        {
+            StudentApplyStageEntity originEntity = context.StudentApplyStage.SingleOrDefault(s => s.StudentID == applyStage.StudentID && s.StageNo == applyStage.StageNo);
+            context.Entry(originEntity).CurrentValues.SetValues(applyStage);
+            context.SaveChanges();
+        }
+
+        public void ClearStudentApplyStage(Guid studentID)
+        {
+            context.StudentApplyStage.RemoveRange(context.StudentApplyStage.Where(a => a.StudentID == studentID));
         }
 
         #endregion

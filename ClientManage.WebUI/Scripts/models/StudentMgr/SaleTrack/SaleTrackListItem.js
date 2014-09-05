@@ -8,13 +8,15 @@ define(['jquery',
 	'backbone',
 	'models/StudentMgr/StudentInfo',
 	'models/StudentMgr/AppRelation',
-	'models/StudentMgr/SaleTrack/SaleTrackEntity'
-	],function($,_,Backbone,StudentInfoModel,AppRelationModel,SaleTrackEntityModel){
+	'models/StudentMgr/SaleTrack/SaleTrackEntity',
+	'collections/StudentMgr/SaleTrack/StudentFromCollection'
+	],function($,_,Backbone,StudentInfoModel,AppRelationModel,SaleTrackEntityModel,StudentFromCollection){
 	var saleTrackListItem = Backbone.Model.extend({
 		defaults:{
 			StudentInfo:new StudentInfoModel,
 			AppRelation:new AppRelationModel,
-			CurrentSaleTrack:new SaleTrackEntityModel
+			CurrentSaleTrack:new SaleTrackEntityModel,
+			FromCollection:new StudentFromCollection
 		}
 	});
 	return saleTrackListItem;

@@ -64,7 +64,7 @@ namespace ClientManage.Domain.Entities
             get { return (IsSign)_IsSign; }
         }
         /// <summary>
-        /// 简约时间
+        /// 签约时间
         /// </summary>
         [DataType(DataType.Date)]
         [Range(typeof(DateTime), "1970/01/01", "2100/12/12", ErrorMessage = "时间超出范围")]

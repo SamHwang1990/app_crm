@@ -61,6 +61,14 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
+        /// 阶段英文名
+        /// </summary>
+        public string StageNameEn
+        {
+            set;
+            get;
+        }
+        /// <summary>
         /// 阶段层级
         /// </summary>
         public byte StageClass
@@ -125,7 +133,8 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 日期是否与父相同
+        /// 日期是否与父相同；
+        /// 父阶段的该字段用来指示子阶段是否与自身日期相同，子阶段的该字段用来指示自身的日期是否与父阶段相同
         /// </summary>
         public bool IsDateSameWithParent
         {
@@ -165,7 +174,7 @@ namespace ClientManage.Domain.Entities
             get;
         }
         /// <summary>
-        /// 是否能禁用
+        /// 是否可更改可用状态
         /// </summary>
         public bool CanForbid
         {

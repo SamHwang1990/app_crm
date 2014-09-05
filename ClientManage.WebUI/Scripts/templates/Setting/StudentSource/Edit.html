@@ -1,0 +1,37 @@
+<div id="Setting-StudentSource-Edit-Content">
+    <h2>编辑学生来源信息</h2>
+    <div class="feedbackMsg alert">
+
+    </div>
+    <form id="editForm" action="/Setting/StudentSource/Edit" method="post" class="form-horizontal">
+        <div class="control-group">
+            <label class="control-label" for="SourceName">来源名称：</label>
+            <div class="controls">
+                <input type="text" id="SourceName" name="SourceName" placeholder="请输入来源名称" value="<%= SourceName %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="SourceNameEn">来源英文名称：</label>
+            <div class="controls">
+                <input type="text" id="SourceNameEn" name="SourceNameEn" placeholder="请输入来源英文名称" value="<%= SourceNameEn %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="DetailKeyword">来源附注信息：</label>
+            <div class="controls">
+                <input type="text" id="DetailKeyword" name="DetailKeyword" placeholder="请输入来源附注信息" value="<%= DetailKeyword %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="Remark">备注：</label>
+            <div class="controls">
+                <textarea id="Remark" placeholder="请输入版本备注"><%= Remark %></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">提交</button>
+            </div>
+        </div>
+    </form>
+</div>

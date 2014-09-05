@@ -173,6 +173,7 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
             {
                 currentStage = applyStages.Single(a=>a.StageNo == versionDetailWrap.ParentVersionDetail.StageNo);
                 versionDetailWrap.ParentVersionDetail.DetailID = Guid.NewGuid();
+                versionDetailWrap.ParentVersionDetail.StageNameEn = currentStage.StageNameEn;
                 versionDetailWrap.ParentVersionDetail.ChildStage = currentStage.ChildStage;
                 versionDetailWrap.ParentVersionDetail.ParentNo = currentStage.ParentNo;
                 versionDetailWrap.ParentVersionDetail.StatusOption = currentStage.StatusOption;
@@ -183,7 +184,9 @@ namespace ClientManage.WebUI.Areas.Setting.Controllers
                 {
                     currentStage = applyStages.Single(a=>a.StageNo == childDetail.StageNo);
 
+
                     childDetail.DetailID = Guid.NewGuid();
+                    childDetail.StageNameEn = currentStage.StageNameEn;
                     childDetail.ChildStage = currentStage.ChildStage;
                     childDetail.ParentNo = currentStage.ParentNo;
                     childDetail.StatusOption = currentStage.StatusOption;

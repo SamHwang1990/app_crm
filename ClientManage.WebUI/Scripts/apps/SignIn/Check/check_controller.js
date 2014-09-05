@@ -17,11 +17,11 @@ define(['app'],function(ClientManage){
 						success:function(data){
 							if(data.HasCurrentUser){
 								currentUser.set("UserName",data.UserName);      //设置UserName
+								currentUser.set("UserID",data.UserID);          //设置UserID
 								ClientManage.CurrentUser = currentUser;         //把当前User信息存储到App中
 								require(["apps/CM_app"],function(CM){
 									ClientManage.trigger("render:frame");       //渲染界面框架
 								})
-
 							}
 							else{                                               //如果没有登录信息，则重定向，渲染登录页面
 								if(ClientManage.CurrentUser){

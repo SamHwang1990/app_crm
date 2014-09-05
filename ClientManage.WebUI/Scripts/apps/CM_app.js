@@ -19,6 +19,16 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"StudentMgr/Index/Edit/Student-:id":"StudentMgrIndexEditStudent",
 				"StudentMgr/Index/Edit/Contacts-:id":"StudentMgrIndexEditContacts",
 				"StudentMgr/AssignConsultant-:id":"StudentMgrAssignConsultant",
+				"StudentMgr/ScheduleApply-:id":"StudentMgrScheduleApply",
+
+				/* Student Apply Index */
+				"StudentMgr/Apply/:id":"StudentMgrApplyIndex",
+				/* Student Apply ParentStage Index */
+				"StudentMgr/Apply/Stages/:parentStageNameEn/:id":"StudentMgrApplyStagesSyllabus",
+				/* Student Apply ParentStage Resume */
+				"StudentMgr/Apply/Stages/:parentStageNameEn/resume/:id":"StudentMgrApplyStagesResume",
+				/* Student Apply Detail Stage */
+				"StudentMgr/Apply/Stages/:parentStageNameEn/detail/:stageEn/:id":"StudentMgrApplyStagesDetail",
 
 				/*StudentMgr SaleTrack Router*/
 				"StudentMgr/SaleTrack/List":"StudentMgrSaleTrackList",
@@ -41,7 +51,12 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"Setting/ApplyStageVersion/List":"SettingApplyStageVersionList",
 				"Setting/ApplyStageVersion/Create":"SettingApplyStageVersionCreate",
 				"Setting/ApplyStageVersion/Edit/Version-:id":"SettingApplyStageVersionEditVersion",
-				"Setting/ApplyStageVersion/EditDetail/Version-:id":"SettingApplyStageVersionEditDetailVersion"
+
+				"Setting/ApplyStageVersion/EditDetail/Version-:id":"SettingApplyStageVersionEditDetailVersion",
+
+				"Setting/StudentSource/List":"SettingStudentSourceList",
+				"Setting/StudentSource/Add":"SettingStudentSourceAdd",
+				"Setting/StudentSource/Edit/:sourceNameEn":"SettingStudentSourceEdit"
 			}
 		});
 

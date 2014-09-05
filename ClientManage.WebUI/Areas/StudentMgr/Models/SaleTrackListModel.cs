@@ -19,5 +19,6 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Models
         public StudentInfoEntity StudentInfo { get; set; }
         public AppRelationsEntity AppRelation { get; set; }
         public SaleTrackEntity CurrentSaleTrack { get; set; }
+        public IEnumerable<StudentFromEntity> FromCollection { get; set; }
     }
 }

@@ -105,6 +105,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     saleTrackEntity = repository.SaleTrack.SingleOrDefault(s => s.StudentID == id && s.TrackNo == maxTrackNo);
                 }
                 saleTrackListItem.CurrentSaleTrack = saleTrackEntity;
+                saleTrackListItem.FromCollection = repository.StudentFrom.Where(s => s.StudentID == id);
 
                 SaleTrackList.Add(saleTrackListItem);
             }
@@ -587,8 +588,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 return Json(false);
 
             StudentInfoEntity studentInfo = ajaxData.StudentInfo;
-            AppRelationsEntity appRelation = ajaxData.AppRelation;
-            studentInfoRepository.SaveStudentInfo(studentInfo, appRelation);
+            studentInfoRepository.SaveStudentInfo(studentInfo, repository.AppRelation.SingleOrDefault(a=>a.StudentID == studentInfo.StudentID));
 
             return Json(true);
         }

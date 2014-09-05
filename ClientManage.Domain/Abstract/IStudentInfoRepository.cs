@@ -19,6 +19,10 @@ namespace ClientManage.Domain.Abstract
         IQueryable<StudentFromEntity> StudentFrom { get; }
         IQueryable<SaleTrackEntity> SaleTrack { get; }
         IQueryable<StudentSchoolEntity> StudentSchool { get; }
+        IQueryable<ApplyStagesEntity> ApplyStages { get; }
+        IQueryable<ApplyStageVersionEntity> ApplyStageVersion { get; }
+        IQueryable<ApplyStageVersionDetailEntity> ApplyStageVersionDetail { get; }
+        IQueryable<StudentApplyStageEntity> StudentApplyStage { get; }
 
         void SaveStudentInfo(StudentInfoEntity studentInfo,AppRelationsEntity appRelation);
 
@@ -48,6 +52,14 @@ namespace ClientManage.Domain.Abstract
 
         #region 对StudentFrom 进行操作
         void SaveStudentFrom(IEnumerable<StudentFromEntity> studentFroms,Guid studentID);
+
+        #endregion
+
+        #region 对StudentApplyStage 进行操作
+        void NewStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void UpdateStudentApplyStages(List<StudentApplyStageEntity> applyStages);
+        void SaveStudentApplyStage(StudentApplyStageEntity applyStage);
+        void ClearStudentApplyStage(Guid studentID);
 
         #endregion
     }

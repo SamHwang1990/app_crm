@@ -1,0 +1,119 @@
+<main>
+<!-- /article.app-apply-status 申请进度 -->
+<article class="app-apply app-apply-status color-scheme-white fit-full">
+    <div class="fix-fixed row-fluid">
+        <div class="link-area row-fluid">
+            <section class="span12 row-no-padding row-center row-align-center">
+                <h3>Welcome Back!</h3>
+            </section>
+            <section class="app-apply-copy span6 row-center row-align-center">
+                <h1><%= CurrentParent.StageName %></h1>
+                <section class="app-apply-remark">
+                    <%= CurrentParent.Remark %>
+                </section>
+            </section>
+            <div class="span8 row-no-padding row-no-margin row-center">
+                <div class="app-progress margin-top-1">
+                    <div class="progress-indicator"><%= CurrentParent.Percentage %>%</div>
+                    <div class="progress-bar">
+                        <div class="progress-bar-complete" style="width:<%= CurrentParent.Percentage %>%"></div>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="link-target"></a>
+        </div>
+        <section class="app-apply-action span3 row-center">
+            <a href="#StudentMgr/Apply/Stages/<%= CurrentParent.StageNameEn %>/resume/<%= StudentID %>" value="<%= CurrentParent.Percentage %>%" class="app-btn app-btn-success app-btn-large btn-fillspace">
+                Continue
+            </a>
+        </section>
+    </div>
+</article>
+<!-- stages process -->
+<div id="tab-body" class="color-scheme-white">
+    <div class="full-tabs">
+        <div class="row-fluid tabs tabs-color-scheme-darkgrey">
+            <div class="span12 row-align-center row-no-padding row-no-margin">
+                <a href="#"
+                   class="tab padding-1 margin-left-quarter margin-right-quarter active"
+                   data-data="null"
+                   data-state="active" data-type="in-progress" id="in-progress">In-Progress Stages (<%= InProgressParents.length %>)</a>
+                <a href="#"
+                   class="tab padding-1 margin-left-quarter margin-right-quarter"
+                   data-data="null"
+                   data-state="inactive" data-type="completed" id="completed">Completed Stages (<%= CompletedParents.length %>)</a>
+            </div>
+        </div>
+        <div class="row-fluid color-scheme-darkgrey">
+            <div class="in-progress-body tab-body" data-state-body="active">
+                <div class="fit-full">
+                    <div class="fix-fixed row-fluid">
+                        <div class="span12 row-no-spacing margin-top-bottom-2 row-fluid ">
+                            <% if (InProgressParents.length <= 0){ %>
+                            <div class="span12 row-align-center">
+                                You have 0 stage in progress!
+                            </div>
+                            <% }else{ %>
+                                <% _.each(InProgressParents,function(inProgressItem){ %>
+                                <div class="span12 row-no-margin color-scheme-white table-row row-fluid">
+                                    <div class="span4 row-no-margin padding-1">
+                                        <h5 class="text-ellipsis letter-spacing-point-1 margin-top-bottom-0"><%= inProgressItem.get("ParentStage").StageName %></h5>
+                                    </div>
+                                    <div class="span6 table-row-progress padding-1">
+                                        <div class="app-progress">
+                                            <div class="progress-indicator"><%= inProgressItem.get("ParentStage").Percentage %>%</div>
+                                            <div class="progress-bar">
+                                                <div class="progress-bar-complete" style="width:<%= inProgressItem.get("ParentStage").Percentage %>%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-row-right-arrow">
+                                        <i class="icon-chevron-right"></i>
+                                    </div>
+                                    <a href="#StudentMgr/Apply/Stages/<%= inProgressItem.get("ParentStage").StageNameEn %>/resume/<%= StudentID %>" class="link-target"></a>
+                                </div>
+                                <% }); %>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="completed-body tab-body" data-state-body="inactive">
+                <div class="fit-full">
+                    <div class="fix-fixed row-fluid">
+                        <div class="span12 row-no-spacing margin-top-bottom-2 row-fluid ">
+                            <% if (CompletedParents.length <= 0){ %>
+                            <div class="span12 row-align-center">
+                                You have 0 stage completed!
+                            </div>
+                            <% }else{ %>
+                            <% _.each(CompletedParents,function(completedItem){ %>
+                            <div class="span12 row-no-margin color-scheme-white table-row row-fluid completed">
+                                <div class="span4 row-no-margin padding-1">
+                                    <h5 class="text-ellipsis letter-spacing-point-1 margin-top-bottom-0"><%= completedItem.get("ParentStage").StageName %></h5>
+                                </div>
+                                <div class="span2 table-row-last-active padding-1">
+                                </div>
+                                <div class="table-row-right-arrow">
+                                    <i class="icon-chevron-right"></i>
+                                </div>
+                                <a href="javascript:void(0)" class="link-target"></a>
+                            </div>
+                            <% }); %>
+
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<article class="app-apply-syllabus fit-full">
+    <div class="fix-fixed row-fluid">
+        <section class="app-apply-syllabus-topics span8 row-no-margin row-center padding-1">
+        </section>
+    </div>
+</article>
+</main>

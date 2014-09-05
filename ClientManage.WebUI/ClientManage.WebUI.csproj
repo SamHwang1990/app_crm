@@ -89,8 +89,11 @@
     <Compile Include="Areas\Admin\Models\UserAndRoleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UsersInfoViewModel.cs" />
     <Compile Include="Areas\Setting\Controllers\ApplyStageVersionController.cs" />
+    <Compile Include="Areas\Setting\Controllers\StudentSourceController.cs" />
     <Compile Include="Areas\Setting\Models\ApplyStagesModel.cs" />
     <Compile Include="Areas\Setting\SettingAreaRegistration.cs" />
+    <Compile Include="Areas\StudentMgr\Controllers\ApplyController.cs" />
+    <Compile Include="Areas\StudentMgr\Controllers\Apply_ConsultingPeriod.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\IndexController.cs" />
     <Compile Include="Areas\StudentMgr\Controllers\SaleTrackController.cs" />
     <Compile Include="Areas\StudentMgr\Models\AssignConsultantData.cs" />
@@ -98,6 +101,8 @@
     <Compile Include="Areas\StudentMgr\Models\FirstInterviewRegModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\SaleTrackAjaxViewModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\SaleTrackListModel.cs" />
+    <Compile Include="Areas\StudentMgr\Models\StageSubmitCBModel.cs" />
+    <Compile Include="Areas\StudentMgr\Models\StudentApplyStagesModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentCreateModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\StudentInfoViewModel.cs" />
     <Compile Include="Areas\StudentMgr\Models\GetFromInterviewModel.cs" />
@@ -147,6 +152,9 @@
     <Content Include="Content\images\icon\role.png" />
     <Content Include="Content\images\icon\student-white.png" />
     <Content Include="Content\images\icon\student.png" />
+    <Content Include="Content\images\make-a-website.svg" />
+    <Content Include="Content\images\timeline_century_tick.gif" />
+    <Content Include="Content\images\timeline_decade_tick.gif" />
     <Content Include="Content\xml\EmailConfig.xml" />
     <Content Include="Global.asax" />
     <Content Include="README.jQuery.vsdoc.txt" />

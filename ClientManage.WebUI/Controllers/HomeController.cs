@@ -58,9 +58,10 @@ namespace ClientManage.WebUI.Controllers
                 repository.SaveUserInfo(user);
                 loginResult = true;
             }
-
-
-            return Json(new { result = loginResult, loginMsg = loginMsg });
+            if(loginResult)
+                return Json(new { result = loginResult, loginMsg = loginMsg, UserID = user.UserID });
+            else
+                return Json(new { result = loginResult, loginMsg = loginMsg });
         }
 
         [HttpPost]
@@ -71,9 +72,12 @@ namespace ClientManage.WebUI.Controllers
             if (HttpContext.User.Identity.Name != string.Empty)
             {
                 userName = HttpContext.User.Identity.Name;
+                Guid userID = repository.UsersInfo.SingleOrDefault(u => u.UserNameCn == userName).UserID;
                 hasCurrentUser = true;
+                return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName, UserID = userID });
             }
-            return Json(new { HasCurrentUser = hasCurrentUser, UserName = userName });
+            else
+                return Json(new { HasCurrentUser = false });
         }
 
         //[CustomAuth]
