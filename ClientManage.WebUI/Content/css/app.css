@@ -275,7 +275,9 @@ body#body-signin {
 fieldset{
 	margin-bottom: 20px;
 }
-
+.KeepAddParticipant{
+	margin-top: 15px;
+}
 /**
 * @section component style
 */

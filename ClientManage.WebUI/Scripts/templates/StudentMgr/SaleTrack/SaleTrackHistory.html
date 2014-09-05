@@ -1,13 +1,22 @@
 <div id="StudentMgr-SaleTrack-SaleTrackHistory">
     <h2>学生：<%= StudentInfo.NameCn %>的销售列表</h2>
     <div class="accordion" id="saleHistory">
-        <% _.each(SaleTrackHistory,function(HistoryItem){ %>
+        <% if(SaleTrackHistory.length <= 0){ %>
+        <div class="hero-unit">
+            <p>呦亲，这位学生暂时还没有销售记录哦！</p>
+            <p>记得继续跟进哦～～～</p>
+            <p>
+                <a href="#StudentMgr/SaleTrack/AppInterview-<%= StudentInfo.StudentID %>" class="btn btn-info btn-large">进入销售</a>
+            </p>
+        </div>
+        <% } else { %>
+            <% _.each(SaleTrackHistory,function(HistoryItem){ %>
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#saleHistory" href="#collapse<%= HistoryItem.SaleTrackItem.TrackNo %>">
-                        <span class="badge badge-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
-                            <%= HistoryItem.SaleTrackItem.TrackNo %>
-                        </span>
+                            <span class="badge badge-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
+                                <%= HistoryItem.SaleTrackItem.TrackNo %>
+                            </span>
                         <%= HistoryItem.SaleTrackItem.StateName %>
                     </a>
                 </div>
@@ -22,9 +31,9 @@
                             <dd><%= HistoryItem.SaleTrackItem.ToDo %></dd>
                             <dt>进度</dt>
                             <dd>
-                                <span class="label label-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
-                                    <%= HistoryItem.SaleTrackItem.IsComplete %>
-                                </span>
+                                    <span class="label label-<%= (HistoryItem.SaleTrackItem.IsComplete == '已完成') ? 'success' : 'warning' %>">
+                                        <%= HistoryItem.SaleTrackItem.IsComplete %>
+                                    </span>
                             </dd>
                             <dt>访谈成果</dt>
                             <dd><%= HistoryItem.SaleTrackItem.GetFromTrack %></dd>
@@ -38,7 +47,7 @@
                     </div>
                 </div>
             </div>
-        <% }); %>
+            <% }); %>
+        <% } %>
     </div>
-
 </div>

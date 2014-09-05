@@ -9,21 +9,22 @@
             <% }  %>
         </b>
     </div>
-    <form role="form" class="form-signin" id="form-signin" method="post" action="/Home/Login">
+    <form class="form-signin" id="form-signin" method="post" action="/Home/Login">
         <h2 class="form-signin-heading">登录系统</h2>
-        <div class="form-group">
-            <label class="sr-only" for="userName">中文名</label>
-            <input type="text" name="UserName" class="form-control" id="userName" placeholder="请输入中文名" value="<%= UserName %>">
-        </div>
-        <div class="form-group">
-            <label class="sr-only" for="password">密码</label>
-            <input type="password" name="UserPassword" class="form-control" id="password" placeholder="请输入密码" value="<%= UserPassword %>">
-        </div>
-        <div class="checkbox margin-top-0">
-            <label>
-                <input type="checkbox" name="RememberMe" <%= RememberMe == true ? 'checked="checked"' : '' %>> 记住我
-            </label>
-        </div>
+        <label for="userName">
+            <input type="text" name="UserName" id="userName" class="input-block-level" placeholder="请输入中文名" value="<%= UserName %>"/>
+        </label>
+        <label for="password">
+            <input type="password" name="UserPassword" id="password" class="input-block-level" placeholder="请输入密码" value="<%= UserPassword %>"/>
+        </label>
+        <label class="checkbox">
+            <% if( RememberMe ) { %>
+                <input name="RememberMe" type="checkbox" checked="checked"/>
+            <% } else { %>
+            <input name="RememberMe" type="checkbox"/>
+            <% } %>
+            记住我
+        </label>
         <button id="btnSubmit" class="btn btn-large btn-primary" type="submit">提交</button>
     </form>
 </div>

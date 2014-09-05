@@ -15,6 +15,10 @@
     <div class="cell-row-right-arrow">
         <i class="icon-chevron-right"></i>
     </div>
-    <a href='<%= childStage.Percentage > 0 ? "javascript:void(0)" : "" %>' class="link-target"></a>
+    <% if(childStage.Percentage > 0){ %>
+    <a href="#StudentMgr/Apply/Stages/<%= ParentStage.StageNameEn %>/detail/<%= childStage.StageNameEn %>/<%= ParentStage.StudentID %>" class="link-target"></a>
+    <% }else{ %>
+    <a class="link-target"></a>
+    <% } %>
 </section>
 <% }); %>
