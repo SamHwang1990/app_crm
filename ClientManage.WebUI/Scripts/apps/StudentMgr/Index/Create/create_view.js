@@ -321,12 +321,14 @@ define([
 			},
 			setAppRelation:function(){
 				var isSign = this.$el.find('select#IsSign').val();
+				var signDate = this.$el.find('#SignDate').val();
 				var saleConsultant = this.$el.find('select#saleConsultant').eq(0).val();
 				var saleConsultantName = this.$el.find('select#saleConsultant option:selected').text();
 				this.model.get('AppRelation').set({
 					IsSign:isSign,
 					SaleConsultant:saleConsultant,
-					SaleConsultantName:saleConsultantName
+					SaleConsultantName:saleConsultantName,
+					SignDate:signDate
 				});
 			},
 			findContactItem:function(contactItemName,contactIdentity){
