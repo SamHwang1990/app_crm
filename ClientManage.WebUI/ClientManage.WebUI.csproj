@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,7 +58,7 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net40\Ninject.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.CSharp" />
@@ -143,6 +144,13 @@
     <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap_v3\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap_v3\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap_v3\css\bootstrap.css" />
+    <Content Include="Content\bootstrap_v3\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap_v3\js\bootstrap.js" />
+    <Content Include="Content\bootstrap_v3\js\bootstrap.min.js" />
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\chardinjs.css" />
     <Content Include="Content\css\screen.css" />
@@ -193,11 +201,26 @@
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionEdit\versionEdit_view.js" />
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionList\versionList_controller.js" />
     <Content Include="Scripts\apps\Setting\ApplyStageVersion\VersionList\versionList_view.js" />
+    <Content Include="Scripts\apps\Setting\StudentSource\Edit\edit_controller.js" />
+    <Content Include="Scripts\apps\Setting\StudentSource\Edit\edit_view.js" />
+    <Content Include="Scripts\apps\Setting\StudentSource\List\list_controller.js" />
+    <Content Include="Scripts\apps\Setting\StudentSource\List\list_view.js" />
     <Content Include="Scripts\apps\SignIn\Check\check_controller.js" />
     <Content Include="Scripts\apps\SignIn\SignIn\signIn_controller.js" />
     <Content Include="Scripts\apps\SignIn\SignIn\signIn_view.js" />
     <Content Include="Scripts\apps\SignIn\SignIn_app.js" />
     <Content Include="Scripts\apps\SignIn\SignOut\signOut_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\consulting-period\information-forms-collection_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\consulting-period\information-forms-handout_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\consulting-period\information-forms-review_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\consulting-period\personal-features-conclusion_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\detail_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Detail\detail_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Index\index_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Index\index_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Resume\resume_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Syllabus\syllabus_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\Apply\Syllabus\syllabus_view.js" />
     <Content Include="Scripts\apps\StudentMgr\AssignConsultant\assign_controller.js" />
     <Content Include="Scripts\apps\StudentMgr\AssignConsultant\assign_view.js" />
     <Content Include="Scripts\apps\StudentMgr\Index\Create\create_controller.js" />
@@ -215,17 +238,23 @@
     <Content Include="Scripts\apps\StudentMgr\SaleTrack\Interview\interview_view.js" />
     <Content Include="Scripts\apps\StudentMgr\SaleTrack\List\list_controller.js" />
     <Content Include="Scripts\apps\StudentMgr\SaleTrack\List\list_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\ScheduleApply\scheduleItem_view.js" />
+    <Content Include="Scripts\apps\StudentMgr\ScheduleApply\schedule_controller.js" />
+    <Content Include="Scripts\apps\StudentMgr\ScheduleApply\schedule_view.js" />
     <Content Include="Scripts\apps\UserMgr\Create\create_controller.js" />
     <Content Include="Scripts\apps\UserMgr\Edit\edit_controller.js" />
     <Content Include="Scripts\apps\UserMgr\Edit\edit_view.js" />
     <Content Include="Scripts\apps\UserMgr\List\list_controller.js" />
     <Content Include="Scripts\apps\UserMgr\List\list_view.js" />
+    <Content Include="Scripts\assets\ApplyStageSubmitHandler.js" />
     <Content Include="Scripts\assets\AppUISet.js" />
     <Content Include="Scripts\assets\CheckLogin.js" />
     <Content Include="Scripts\assets\CheckSubmitRequire.js" />
+    <Content Include="Scripts\assets\RenderBootstrapTable.js" />
     <Content Include="Scripts\assets\RenderDateTimePicker.js" />
     <Content Include="Scripts\assets\SetFeedbackMsg.js" />
     <Content Include="Scripts\assets\TransformDateString.js" />
+    <Content Include="Scripts\assets\ValidInputValue.js" />
     <Content Include="Scripts\collections\RoleMgr\RoleList.js" />
     <Content Include="Scripts\collections\Setting\ApplyStagesMgr\StagesCollection.js" />
     <Content Include="Scripts\collections\Setting\ApplyStagesMgr\VersionCollection.js" />
@@ -238,6 +267,8 @@
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\SaleTrackParticipant.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentFromCollection.js" />
     <Content Include="Scripts\collections\StudentMgr\SaleTrack\StudentSourceCollection.js" />
+    <Content Include="Scripts\collections\StudentMgr\StudentApplyStageCollection.js" />
+    <Content Include="Scripts\collections\StudentMgr\StudentApplyStageWrapCollection.js" />
     <Content Include="Scripts\collections\UserMgr\UserBasicInfoList.js" />
     <Content Include="Scripts\collections\UserMgr\UserList.js" />
     <Content Include="Scripts\libs\backbone\backbone-relational.js" />
@@ -249,14 +280,57 @@
     <Content Include="Scripts\libs\backbone\backbone.syphon.js" />
     <Content Include="Scripts\libs\backbone\backbone.syphon.min.js" />
     <Content Include="Scripts\libs\backbone\BackboneConfig.js" />
+    <Content Include="Scripts\libs\bootstrap\bootbox\bootbox.js" />
+    <Content Include="Scripts\libs\bootstrap\bootbox\bootbox.min.js" />
     <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.css" />
     <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.js" />
     <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.min.css" />
     <Content Include="Scripts\libs\bootstrap\bootstrapswitch\bootstrap-switch.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\bootstrap-table.css" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\bootstrap-table.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\bootstrap-table.min.css" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\bootstrap-table.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\locale\bootstrap-table-da-DK.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\locale\bootstrap-table-en.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\locale\bootstrap-table-pt-BR.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\locale\bootstrap-table-zh-CN.min.js" />
+    <Content Include="Scripts\libs\bootstrap\bootstraptable\locale\bootstrap-table-zh-TW.min.js" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.css" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.min.css" />
     <Content Include="Scripts\libs\bootstrap\datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\libs\bootstrap\icheck\icheck.js" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\aero%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\aero.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\aero.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\blue%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\blue.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\blue.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\green%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\green.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\green.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\grey%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\grey.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\grey.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\orange%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\orange.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\orange.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\pink%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\pink.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\pink.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\purple%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\purple.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\purple.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\red%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\red.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\red.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\square%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\square.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\square.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\yellow%402x.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\yellow.css" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\yellow.png" />
+    <Content Include="Scripts\libs\bootstrap\icheck\skin\square\_all.css" />
     <Content Include="Scripts\libs\chardin\chardinjs.min.js" />
     <Content Include="Scripts\libs\html5shiv.min.js" />
     <Content Include="Scripts\libs\jquery\jquery-1.11.0.js" />
@@ -300,6 +374,8 @@
     <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentFromModel.js" />
     <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentSourceItem.js" />
     <Content Include="Scripts\models\StudentMgr\SaleTrack\StudentTPInfoModel.js" />
+    <Content Include="Scripts\models\StudentMgr\StudentApplyStageModel.js" />
+    <Content Include="Scripts\models\StudentMgr\StudentApplyStageWrapModel.js" />
     <Content Include="Scripts\models\StudentMgr\StudentInfo.js" />
     <Content Include="Scripts\models\StudentMgr\StudentInfoViewModel.js" />
     <Content Include="Scripts\models\UserMgr\UserBasicInfo.js" />
@@ -324,6 +400,16 @@
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionEdit.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionList.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionListItem.html" />
+    <Content Include="Scripts\templates\Setting\StudentSource\Edit.html" />
+    <Content Include="Scripts\templates\Setting\StudentSource\List.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\Detail\consulting-period\informationFormsCollection.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\Detail\consulting-period\informationFormsHandout.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\Detail\consulting-period\informationFormsReview.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\Detail\consulting-period\personalFeaturesConclusion.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\index.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\indexItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\StageDetail.html" />
+    <Content Include="Scripts\templates\StudentMgr\Apply\StageSyllabus.html" />
     <Content Include="Scripts\templates\StudentMgr\AssignConsultant\AssignConsultant.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\ContactContent.html" />
     <Content Include="Scripts\templates\StudentMgr\Index\Create.html" />
@@ -344,6 +430,9 @@
     <Content Include="Scripts\templates\StudentMgr\SaleTrack\SaleParticipantItem.html" />
     <Content Include="Scripts\templates\StudentMgr\SaleTrack\SaleTrackHistory.html" />
     <Content Include="Scripts\templates\StudentMgr\SaleTrack\SaleTrackItem.html" />
+    <Content Include="Scripts\templates\StudentMgr\ScheduleApply\Schedule.html" />
+    <Content Include="Scripts\templates\StudentMgr\ScheduleApply\ScheduleFieldset.html" />
+    <Content Include="Scripts\templates\StudentMgr\ScheduleApply\ScheduleItem.html" />
     <Content Include="Scripts\templates\UserMgr\Edit.html" />
     <Content Include="Scripts\templates\UserMgr\List.html" />
     <Content Include="Scripts\templates\UserMgr\ListItem.html" />
@@ -352,6 +441,10 @@
     </Content>
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Areas\Setting\Views\Web.config" />
+    <None Include="Content\bootstrap_v3\config.json" />
+    <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\libs\backbone\backbone-min.map" />
     <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
     <None Include="Scripts\libs\underscore\underscore-min.map" />
@@ -393,9 +486,9 @@
     <Folder Include="Infrastructure\Abstract\" />
     <Folder Include="Infrastructure\Concrete\" />
     <Folder Include="Scripts\apps\Setting\Index\" />
+    <Folder Include="Scripts\models\Setting\StudentSource\" />
     <Folder Include="UploadFiles\Students\" />
     <Folder Include="UploadFiles\Users\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -480,6 +573,9 @@
     <Content Include="Areas\ToolMgr\Views\Web.config" />
     <Content Include="Areas\StudentMgr\Views\Web.config" />
     <Content Include="Views\Shared\libsjs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
