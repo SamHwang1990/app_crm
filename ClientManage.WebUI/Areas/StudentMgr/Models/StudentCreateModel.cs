@@ -30,5 +30,7 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Models
         public string NameCn { get; set; }	//联系人名字
         public string Mobile { get; set; }		//联系人电话
         public string Email { get; set; }
+        public string QQ { get; set; }
+        public string Weixin { get; set; }
     }
 }

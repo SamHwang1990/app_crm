@@ -9,7 +9,9 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			PersonIdentity:"",
 			NameCn:"",
 			Mobile:"",
-			Email:""
+			Email:"",
+			QQ:"",
+			Weixin:"",
 		}
 	});
 

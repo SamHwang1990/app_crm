@@ -67,6 +67,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
 
             if (ajaxData.ContactStudent != null)
             {
+                studentInfo.QQ = ajaxData.ContactStudent.ContactIdentity.QQ;
+                studentInfo.Weixin = ajaxData.ContactStudent.ContactIdentity.Weixin;
                 studentInfo.Mobile = ajaxData.ContactStudent.ContactIdentity.Mobile;
                 studentInfo.Email = ajaxData.ContactStudent.ContactIdentity.Email;
             }
@@ -272,6 +274,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 NameCn = contact.ContactIdentity.NameCn,
                 Email = contact.ContactIdentity.Email,
                 Mobile = contact.ContactIdentity.Mobile,
+                QQ = contact.ContactIdentity.QQ,
+                Weixin = contact.ContactIdentity.Weixin,
                 PersonIdentity = (PersonIdentity)Enum.Parse(typeof(PersonIdentity), contact.ContactIdentity.PersonIdentity)
             };
             repository.SaveStudentParent(other);    //添加Parent信息
@@ -302,6 +306,8 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             parent.NameCn = contact.ContactIdentity.NameCn;
             parent.Mobile = contact.ContactIdentity.Mobile;
             parent.Email = contact.ContactIdentity.Email;
+            parent.QQ = contact.ContactIdentity.QQ;
+            parent.Weixin = contact.ContactIdentity.Weixin;
 
             //保存联系人信息
             repository.SaveStudentParent(parent);
@@ -339,10 +345,10 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             else
             {
-                if (IsHaveContact(personIdentity, studentID))       //如果数据库中对应身份的联系人记录，则修改
+                if (IsHaveContact(personIdentity, studentID))       //如果数据库中有对应身份的联系人记录，则修改
                     EditParentAndChattime(contact, studentID);
                 else
-                    AddParentAndChattime(contact, studentID);       //如果数据库中对应身份的联系人记录，则添加
+                    AddParentAndChattime(contact, studentID);       //如果数据库中没有对应身份的联系人记录，则添加
             }
         }
 
@@ -434,7 +440,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                         PersonIdentity = parent.PersonIdentity.ToString(),
                         NameCn = parent.NameCn,
                         Mobile = parent.Mobile,
-                        Email = parent.Email
+                        Email = parent.Email,
+                        QQ = parent.QQ,
+                        Weixin = parent.Weixin
                     };
                     chatTimes[i] = repository.EasyChatTime.Where(e => e.IfParentID == parent.ParentID).Select(e => e);
                     contacts.Add(new EasyChatTimeModel { ContactIdentity = contactInfo, EasyChatTimes = chatTimes[i] });

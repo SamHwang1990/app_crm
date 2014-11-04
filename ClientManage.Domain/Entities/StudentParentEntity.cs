@@ -160,6 +160,16 @@ namespace ClientManage.Domain.Entities
             set{_Mobile = value;}
             get{return _Mobile;}
         }
+        public string QQ
+        {
+            get;
+            set;
+        }
+        public string Weixin
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 
         /// </summary>

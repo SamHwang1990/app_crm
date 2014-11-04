@@ -313,10 +313,12 @@ define([
 				var nameCn = this.$el.find('input[name=studentName]').eq(0).val();
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
 				var remark = this.$el.find('#Remark').val();
+				var gender = this.$el.find("#Gender").val();
 				this.model.get('StudentInfo').set({
 					NameCn:nameCn,
 					LiveCity:liveCity,
-					Remark:remark
+					Remark:remark,
+					Gender:gender
 				});
 			},
 			setAppRelation:function(){
@@ -344,13 +346,17 @@ define([
 				var nameCn = $contactItem.find('input.ContactName').val();
 				var mobile = $contactItem.find('input.ContactMobile').val();
 				var email = $contactItem.find('input.ContactEmail').val();
+				var qq = $contactItem.find('input.ContactQQ').val();
+				var weixin = $contactItem.find('input.ContactWeixin').val();
 
 				var contactItem = this.model.get(contactItemName);
 				contactItem.get("ContactIdentity").set({
 					PersonIdentity:personIdentity,
 					NameCn:nameCn,
 					Mobile:mobile,
-					Email:email
+					Email:email,
+					QQ:qq,
+					Weixin:weixin
 				});
 
 				//Set EasyChatTimes

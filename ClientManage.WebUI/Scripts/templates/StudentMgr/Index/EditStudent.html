@@ -35,6 +35,16 @@
             </div>
         </div>
         <div class="control-group">
+            <label class="control-label" for="Gender">性别：</label>
+            <div class="GenderWrap controls">
+                <select name="Gender" id="Gender" class="span1">
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                    <option value="2">未知</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
             <label class="control-label" for="saleConsultant">销售负责人：</label>
             <div class="saleConsultantWrap controls">
             </div>
@@ -43,6 +53,18 @@
             <label class="control-label" for="liveCity">联系电话：</label>
             <div class="controls">
                 <input type="text" id="Mobile" name="Mobile" placeholder="请输入电话号码" value="<%= StudentInfo.Mobile %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">QQ：</label>
+            <div class="controls">
+                <input type="text" id="QQ" name="QQ" placeholder="请输入QQ号码" value="<%= StudentInfo.QQ %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="liveCity">微信号：</label>
+            <div class="controls">
+                <input type="text" id="Weixin" name="Weixin" placeholder="请输入微信号" value="<%= StudentInfo.Weixin %>" />
             </div>
         </div>
         <div class="control-group">

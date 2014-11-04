@@ -83,13 +83,13 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="GradeRank">年纪排名：</label>
+                    <label class="control-label" for="GradeRank">年级排名：</label>
                     <div class="controls">
                         <input type="text" id="GradeRank" name="GradeRank" placeholder="请输入年纪排名" value="<%= StudentInfo.GradeRank %>" />
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="GradeScale">年纪人数：</label>
+                    <label class="control-label" for="GradeScale">年级人数：</label>
                     <div class="controls">
                         <input type="text" id="GradeScale" name="GradeScale" placeholder="请输入年纪排名" value="<%= StudentInfo.GradeScale %>" />
                     </div>
@@ -132,7 +132,7 @@
                         </div>
 
                         <div class="HasLangTranWrap display">
-                            课程名称： <input type="text" name="LT1CourseName" class="LT1CourseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT1CourseName %>" />&emsp;
+                            课程名称 1： <input type="text" name="LT1CourseName" class="LT1CourseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT1CourseName %>" />&emsp;
                             培训机构： <input type="text" name="LT1CourseAddress" class="LT1CourseAddress" placeholder="请输入机构名称" value="<%= StudentTPInfo.LT1CourseAddress %>" />&emsp;
                         </div>
                         <div class="HasLangTranWrap display">
@@ -148,6 +148,25 @@
                                     <span class="add-on"><i class="icon-refresh"></i></span>
                                     <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
+                        </div>
+                        <div>&nbsp;</div>
+                        <div class="HasLangTranWrap display">
+                            课程名称 2： <input type="text" name="LT2CourseName" class="LT2CourseName" placeholder="请输入课程名称" value="<%= StudentTPInfo.LT2CourseName %>" />&emsp;
+                            培训机构： <input type="text" name="LT2CourseAddress" class="LT2CourseAddress" placeholder="请输入机构名称" value="<%= StudentTPInfo.LT2CourseAddress %>" />&emsp;
+                        </div>
+                        <div class="HasLangTranWrap display">
+                            时　　间：
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" id="LT2DateBegin" class="span2" placeholder="开始培训时间" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
+                            &nbsp;至&nbsp;
+                            <div class="input-append date timePicker" data-date-format="yyyy-mm-dd">
+                                <input type="text" id="LT2DateEnd" class="span2" placeholder="结束培训时间" />
+                                <span class="add-on"><i class="icon-refresh"></i></span>
+                                <span class="add-on"><i class="icon-th"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>

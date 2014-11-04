@@ -643,8 +643,6 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     break;
             }
 
-
-
             return Json(true);
         }
 

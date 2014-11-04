@@ -17,6 +17,8 @@ define(['jquery','underscore','backbone'],function($,_,Backbone){
 			Birthday:"1990/01/01",
 			Email:"",
 			Mobile:"",
+			QQ:"",
+			Weixin:"",
 			LiveCity:"广州",
 			SchoolCn:"",
 			SchoolEn:"",

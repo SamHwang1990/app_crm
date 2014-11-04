@@ -56,6 +56,8 @@ define([
 				"HasLangTranWrap":".HasLangTranWrap",
 				"DateLT1Begin":"#LT1DateBegin",
 				"DateLT1End":"#LT1DateEnd",
+				"DateLT2Begin":"#LT2DateBegin",
+				"DateLT2End":"#LT2DateEnd",
 
 				"ExamResultWrap":".ExamResultWrap",
 
@@ -223,9 +225,13 @@ define([
 						hasLangTranDiv.removeClass("display");
 						var lt1Begin = this.TransToDate(this.model.get("StudentTPInfo").LT1DateBegin);
 						var lt1End = this.TransToDate(this.model.get("StudentTPInfo").LT1DateEnd);
+						var lt2Begin = this.TransToDate(this.model.get("StudentTPInfo").LT2DateBegin);
+						var lt2End = this.TransToDate(this.model.get("StudentTPInfo").LT2DateEnd);
 
 						this.ui.DateLT1Begin.val(lt1Begin);
 						this.ui.DateLT1End.val(lt1End);
+						this.ui.DateLT2Begin.val(lt2Begin);
+						this.ui.DateLT2End.val(lt2End);
 					}
 				},
 				SetIsTFIELTS:function(){
@@ -580,6 +586,10 @@ define([
 					var lt1CourseAddress = tpform.find(".LT1CourseAddress").val();
 					var lt1DateBegin = tpform.find("#LT1DateBegin").val();
 					var lt1DateEnd = tpform.find("#LT1DateEnd").val();
+					var lt2CourseName = tpform.find(".LT2CourseName").val();
+					var lt2CourseAddress = tpform.find(".LT2CourseAddress").val();
+					var lt2DateBegin = tpform.find("#LT2DateBegin").val();
+					var lt2DateEnd = tpform.find("#LT2DateEnd").val();
 
 					studentTPInfo.IsIB = isIB;
 					studentTPInfo.IsALevel = isALevel;
@@ -588,15 +598,20 @@ define([
 					studentTPInfo.OtherTP2 = otherTP2;
 					studentTPInfo.IsLangTran = isLangTran;
 					if(!isLangTran){
-						studentTPInfo.LT1CourseName =
-							studentTPInfo.LT1CourseAddress ='';
-						studentTPInfo.LT1DateBegin =
-							studentTPInfo.LT1DateEnd = null;
+						studentTPInfo.LT1CourseName = studentTPInfo.LT1CourseAddress =
+								studentTPInfo.LT2CourseName = studentTPInfo.LT2CourseAddress = '';
+						studentTPInfo.LT1DateBegin = studentTPInfo.LT1DateEnd =
+							studentTPInfo.LT2DateBegin = studentTPInfo.LT2DateEnd = null;
 					}else{
 						studentTPInfo.LT1CourseName = lt1CourseName;
 						studentTPInfo.LT1CourseAddress = lt1CourseAddress;
 						studentTPInfo.LT1DateBegin = lt1DateBegin;
 						studentTPInfo.LT1DateEnd = lt1DateEnd;
+
+						studentTPInfo.LT2CourseName = lt2CourseName;
+						studentTPInfo.LT2CourseAddress = lt2CourseAddress;
+						studentTPInfo.LT2DateBegin = lt2DateBegin;
+						studentTPInfo.LT2DateEnd = lt2DateEnd;
 					}
 
 					return;

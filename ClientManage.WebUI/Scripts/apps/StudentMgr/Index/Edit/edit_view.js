@@ -301,14 +301,20 @@ define([
 			setStudentInfo:function(){
 				var nameCn = this.$el.find('input[name=studentName]').eq(0).val();
 				var liveCity = this.$el.find('input[name=liveCity]').eq(0).val();
+				var gender = this.$el.find("#Gender").val();
 				var mobile = this.$el.find('input[name=Mobile]').eq(0).val();
 				var email = this.$el.find('input[name=Email]').eq(0).val();
+				var qq = this.$el.find('input[name=QQ]').eq(0).val();
+				var weixin = this.$el.find('input[name=Weixin]').eq(0).val();
 				var remark = this.$el.find('#Remark').val();
 				var studentInfo = this.model.get('StudentInfo');
 				studentInfo.NameCn = nameCn;
 				studentInfo.LiveCity = liveCity;
+				studentInfo.Gender = gender;
 				studentInfo.Mobile = mobile;
 				studentInfo.Email = email;
+				studentInfo.QQ = qq;
+				studentInfo.Weixin = weixin;
 				studentInfo.CreateTime = this.transToDate(studentInfo.CreateTime);
 				studentInfo.Remark = remark;
 				//return this.model.get('StudentInfo');
@@ -560,12 +566,16 @@ define([
 				var nameCn = $contactItem.find('input.ContactName').val();
 				var mobile = $contactItem.find('input.ContactMobile').val();
 				var email = $contactItem.find('input.ContactEmail').val();
+				var qq = $contactItem.find('input.ContactQQ').val();
+				var weixin = $contactItem.find('input.ContactWeixin').val();
 
 				contactItem.get("ContactIdentity").set({
 					PersonIdentity:personIdentity,
 					NameCn:nameCn,
 					Mobile:mobile,
-					Email:email
+					Email:email,
+					QQ:qq,
+					Weixin:weixin
 				});
 
 				//Set EasyChatTimes
