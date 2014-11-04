@@ -448,20 +448,6 @@
     <None Include="Scripts\libs\backbone\backbone-min.map" />
     <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
     <None Include="Scripts\libs\underscore\underscore-min.map" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\Microsoft.Web.Infrastructure.resources.dll" />
-    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.Razor.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.WebPages.Deployment.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Razor.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Helpers.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
-    <None Include="_bin_deployableAssemblies\zh-Hans\System.Web.Mvc.resources.dll" />
-    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
