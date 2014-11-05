@@ -19,7 +19,8 @@ requirejs.config({
 		'Timeline':'libs/timeline/timeliner',
 		Bootbox:"libs/bootstrap/bootbox/bootbox.min",
 		BootstrapTable:"libs/bootstrap/bootstraptable/bootstrap-table",
-		iCheck:"libs/bootstrap/icheck/icheck"
+		iCheck:"libs/bootstrap/icheck/icheck",
+		EventProxy:'libs/eventproxy'
 	},
 	shim: {
 		underscore: {
