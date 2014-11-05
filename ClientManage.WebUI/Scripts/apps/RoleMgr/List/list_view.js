@@ -34,7 +34,13 @@ define([
 							value.RoleID +
 							'" title="' +
 							value.RoleName +
-							'">编辑</a>');
+							'">修改角色信息</a>');
+
+						execArray.push('<a href="#RoleMgr/EditPermission-' +
+							value.RoleID +
+							'" title="' +
+							value.RoleName +
+							'">修改角色权限</a>');
 
 						return execArray.join('&emsp;');
 					}}

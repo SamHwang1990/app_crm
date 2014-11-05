@@ -56,6 +56,7 @@ namespace ClientManage.WebUI.Infrastructure
 
             //Setting Kernel Bind
             kernel.Bind<IStudentSourceRepository>().To<EFStudentSourceReposity>();
+            kernel.Bind<IPermissionValueRepository>().To<EFPermissionValueReposity>();
         }
     }
 }

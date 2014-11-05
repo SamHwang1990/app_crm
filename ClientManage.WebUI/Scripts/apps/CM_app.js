@@ -40,6 +40,7 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 				"RoleMgr/List":"RoleMgrList",
 				"RoleMgr/Add":"RoleMgrAdd",
 				"RoleMgr/Edit-:id":"RoleMgrEdit",
+				"RoleMgr/EditPermission-:id":"RoleMgrEditPermission",
 
 				/*UserMgr Router*/
 				"UserMgr/List":"UserMgrList",
