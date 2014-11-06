@@ -3,7 +3,8 @@
  * ClientManage Module
  ***************************************/
 
-define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(ClientManage,AppConfig,RouterAPI){
+define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI','EventProxy','models/RoleMgr/RolePermissionValue'],
+	function(ClientManage,AppConfig,RouterAPI,EventProxy,RolePermissionModel){
 	ClientManage.module('CM',function(CM,ClientManage,Backbone,Marionette,$,_){
 
 		CM.Router = Marionette.AppRouter.extend({
@@ -64,49 +65,68 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI'],function(Clien
 		ClientManage.on("render:frame",function(options){
 			require(['apps/Common/index_view'],function(indexViewLayout){
 				var indexView = new indexViewLayout();
-				ClientManage.bodyRegion.show(indexView);
+				var permissionValue = new RolePermissionModel({
+					url:'/Home/GetUserPermission'
+				});
+				permissionValue.fetch({
+					success:function(data){
+						if(!data){
+							alert('用户登录信息有误！请重新登录！')
+							if(ClientManage.CurrentUser){
+								ClientManage.CurrentUser = null;
+							}
+							ClientManage.trigger("show:signIn");            //如果没有登录，则显示登录form
+							return;
+						}else{
+							ClientManage.bodyRegion.show(indexView);
 
-				require(['apps/Common/AdminFooter_view'],function(FooterView){
-					var footerView = new FooterView({
-						model:AppConfig
-					});
-					indexView.adminFooterRegion.show(footerView);
-				});
-				require(['apps/Common/AdminBar_view'],function(AdminBarView){
-					var barModel = new Backbone.Model({
-						AppConfig:AppConfig,
-						CurrentUser:ClientManage.CurrentUser
-					})
-					var adminBarView = new AdminBarView({
-						model:barModel
-					});
-					indexView.adminBarRegion.show(adminBarView);
-				});
-				require(['apps/Common/AdminMenu_view'],function(AdminMenuView){
-					var menuModel = new Backbone.Model({
-						AppConfig:AppConfig,
-						CurrentUser:ClientManage.CurrentUser
-					})
-					var adminMenuView = new AdminMenuView({
-						model:menuModel
-					});
-					indexView.adminMenuRegion.show(adminMenuView);
-				});
+							require(['apps/Common/AdminFooter_view'],function(FooterView){
+								var footerView = new FooterView({
+									model:AppConfig
+								});
+								indexView.adminFooterRegion.show(footerView);
+							});
+							require(['apps/Common/AdminBar_view'],function(AdminBarView){
+								var barModel = new Backbone.Model({
+									AppConfig:AppConfig,
+									CurrentUser:ClientManage.CurrentUser,
+									UserPermission:permissionValue
+								})
+								var adminBarView = new AdminBarView({
+									model:barModel
+								});
+								indexView.adminBarRegion.show(adminBarView);
+							});
+							require(['apps/Common/AdminMenu_view'],function(AdminMenuView){
+								var menuModel = new Backbone.Model({
+									AppConfig:AppConfig,
+									CurrentUser:ClientManage.CurrentUser,
+									UserPermission:permissionValue
+								})
+								var adminMenuView = new AdminMenuView({
+									model:menuModel
+								});
+								indexView.adminMenuRegion.show(adminMenuView);
+							});
 
-				var urlFragment = ClientManage.getCurrentRoute();
-				if(urlFragment === '' || urlFragment==='SignIn'){                     //根据当前是否有路由参数来渲染视图
-					ClientManage.trigger("home:index");
-				}else{
-					ClientManage.navigate(urlFragment);
-					//AppUISet.SetCurrentMenu(urlFragment);
-					urlFragment = urlFragment.replace(/\//g,'');
-					if(RouterAPI.hasOwnProperty(urlFragment)){
-						RouterAPI[urlFragment]();
-					}else{
-						ClientManage.trigger("home:index");
+							var urlFragment = ClientManage.getCurrentRoute();
+							if(urlFragment === '' || urlFragment==='SignIn'){                     //根据当前是否有路由参数来渲染视图
+								ClientManage.trigger("home:index");
+							}else{
+								ClientManage.navigate(urlFragment);
+								//AppUISet.SetCurrentMenu(urlFragment);
+								urlFragment = urlFragment.replace(/\//g,'');
+								if(RouterAPI.hasOwnProperty(urlFragment)){
+									RouterAPI[urlFragment]();
+								}else{
+									ClientManage.trigger("home:index");
+								}
+							}
+						}
 					}
-				}
-			})
+				})
+
+			});
 		});
 
 		ClientManage.on('home:index',function(){

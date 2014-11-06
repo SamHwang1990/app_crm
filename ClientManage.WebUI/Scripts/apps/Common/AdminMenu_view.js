@@ -11,7 +11,8 @@ define(['marionette','text!templates/Common/adminMenu.html','assets/AppUISet'],f
 		templateHelpers:function(){
 			return {
 				AppConfig:this.model.get("AppConfig").toJSON(),
-				CurrentUser:this.model.get("CurrentUser").toJSON()
+				CurrentUser:this.model.get("CurrentUser").toJSON(),
+				UserPermission:this.model.get("UserPermission").toJSON()
 			}
 		},
 		onShow:function(){

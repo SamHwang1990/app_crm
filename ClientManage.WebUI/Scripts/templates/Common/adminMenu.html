@@ -1,11 +1,26 @@
+<% if(UserPermission.IsStudentList || UserPermission.IsSaleList || UserPermission.IsApplyList) { %>
 <li class="app-has-subMenu app-not-current-subMenu">
+    <% if(UserPermission.IsStudentList) { %>
     <a href="#StudentMgr/Index/List"><i class="icon-star icon-white"></i>&nbsp;学生管理</a>
+    <% } else if (UserPermission.IsSaleList){ %>
+    <a href="#StudentMgr/SaleTrack/List"><i class="icon-star icon-white"></i>&nbsp;学生管理</a>
+    <% } %>
     <ul class="app-subMenu">
+        <% if(UserPermission.IsStudentList) { %>
         <li><a href="#StudentMgr/Index/List">所有学生</a> </li>
+        <% } %>
+
+        <% if(UserPermission.IsStudentList && UserPermission.IsStudentListEdit) { %>
         <li><a href="#StudentMgr/Index/Create">添加学生</a> </li>
+        <% } %>
+
+        <% if(UserPermission.IsSaleList) { %>
         <li><a href="#StudentMgr/SaleTrack/List">销售列表</a> </li>
+        <% } %>
     </ul>
 </li>
+<% } %>
+<% if(UserPermission.IsManage) { %>
 <li class="app-has-subMenu app-not-current-subMenu">
     <a href="#UserMgr/List"><i class="icon-user icon-white"></i>&nbsp;用户管理 </a>
     <ul class="app-subMenu">
@@ -28,3 +43,4 @@
         <li><a href="#Setting/StudentSource/List">学生来源管理</a></li>
     </ul>
 </li>
+<% } %>

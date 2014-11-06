@@ -9,7 +9,9 @@
         </div>
         <ul class="nav nav-collapse collapse navbar-response-collapse pull-left">
             <li><a href="#Home/Index"><i class="icon-home icon-white"></i>&nbsp;CRM </a> </li>
+            <% if(UserPermission.IsStudentList && UserPermission.IsStudentListEdit) { %>
             <li><a href="#StudentMgr/Index/Create"><i class="icon-plus icon-white"></i>&nbsp;新建 </a> </li>
+            <% } %>
         </ul>
         <div class="dropdown pull-right">
             <a href="#" class="editUser" data-toggle="dropdown">您好，<%= CurrentUser.UserName %>&nbsp;&nbsp;<i class="icon-user icon-white"></i> </a>
