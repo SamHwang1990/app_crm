@@ -18,7 +18,12 @@ namespace ClientManage.Domain.Concrete
         {
             get { return context.RolesInfo; }
         }
+        public IQueryable<PermissionPValueEntity> PermissionValue
+        {
+            get { return context.PermissionValue; }
+        }
 
+        #region RoleInfo
         public void SaveRoleInfo(RoleInfo roleInfo)
         {
             if (roleInfo.RoleID == Guid.Empty)  //如果传入的Guid全为0，则为添加一新Guid
@@ -64,5 +69,19 @@ namespace ClientManage.Domain.Concrete
 
             context.SaveChanges();
         }
+        #endregion
+
+        #region Role_PermissionValue
+        public void SavePermissionValue(PermissionPValueEntity permissionValue)
+        {
+            PermissionPValueEntity originValue = context.PermissionValue.FirstOrDefault(p => p.RoleID == permissionValue.RoleID);
+            if (originValue == null)
+                context.PermissionValue.Add(permissionValue);
+            else
+                context.Entry(originValue).CurrentValues.SetValues(permissionValue);
+
+            context.SaveChanges();
+        }
+        #endregion
     }
 }

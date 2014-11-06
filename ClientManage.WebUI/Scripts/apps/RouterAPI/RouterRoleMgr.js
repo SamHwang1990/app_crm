@@ -31,7 +31,7 @@ define(['app'],function(ClientManage){
 			require([
 				'apps/RoleMgr/EditPermission/edit_controller'
 			],function(RoleMgrEditPermissionController){
-
+				RouterAPI.executeAction(RoleMgrEditPermissionController.ShowEdit,id);
 			})
 		}
 	}
