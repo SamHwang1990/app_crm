@@ -44,8 +44,10 @@
         </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
-    <PublishDatabases>false</PublishDatabases>
+    <PublishDatabases>true</PublishDatabases>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PackageAsSingleFile>true</PackageAsSingleFile>
+    <DeployIisAppPath>D:\wwwroot\ClientManage</DeployIisAppPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -173,6 +175,7 @@
     <Content Include="Scripts\apps\Common\AdminFooter_view.js" />
     <Content Include="Scripts\apps\Common\AdminMenu_view.js" />
     <Content Include="Scripts\apps\Common\index_view.js" />
+    <Content Include="Scripts\apps\Common\prohibitView.js" />
     <Content Include="Scripts\apps\Config\appConfig.js" />
     <Content Include="Scripts\apps\Config\config.js" />
     <Content Include="Scripts\apps\Home\Feedback\feedback_controller.js" />
@@ -182,8 +185,9 @@
     <Content Include="Scripts\apps\Home\Index\index_view.js" />
     <Content Include="Scripts\apps\RoleMgr\Create\create_controller.js" />
     <Content Include="Scripts\apps\RoleMgr\Create\create_view.js" />
+    <Content Include="Scripts\apps\RoleMgr\EditPermission\edit_controller.js" />
+    <Content Include="Scripts\apps\RoleMgr\EditPermission\edit_view.js" />
     <Content Include="Scripts\apps\RoleMgr\Edit\edit_controller.js" />
-    <Content Include="Scripts\apps\RoleMgr\Edit\edit_view.js" />
     <Content Include="Scripts\apps\RoleMgr\List\list_controller.js" />
     <Content Include="Scripts\apps\RoleMgr\List\list_view.js" />
     <Content Include="Scripts\apps\RouterAPI\RouterAPI.js" />
@@ -332,6 +336,7 @@
     <Content Include="Scripts\libs\bootstrap\icheck\skin\square\yellow.png" />
     <Content Include="Scripts\libs\bootstrap\icheck\skin\square\_all.css" />
     <Content Include="Scripts\libs\chardin\chardinjs.min.js" />
+    <Content Include="Scripts\libs\eventproxy.js" />
     <Content Include="Scripts\libs\html5shiv.min.js" />
     <Content Include="Scripts\libs\jquery\jquery-1.11.0.js" />
     <Content Include="Scripts\libs\jquery\jquery-1.11.0.min.js" />
@@ -342,9 +347,27 @@
     <Content Include="Scripts\libs\timeline\timeliner.js" />
     <Content Include="Scripts\libs\timeline\timeliner.min.js" />
     <Content Include="Scripts\libs\underscore\underscore.js" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\1_close.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\1_open.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\2.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\3.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\4.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\5.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\6.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\7.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\8.png" />
+    <Content Include="Scripts\libs\zTree\css\img\diy\9.png" />
+    <Content Include="Scripts\libs\zTree\css\img\line_conn.gif" />
+    <Content Include="Scripts\libs\zTree\css\img\loading.gif" />
+    <Content Include="Scripts\libs\zTree\css\img\zTreeStandard.gif" />
+    <Content Include="Scripts\libs\zTree\css\img\zTreeStandard.png" />
+    <Content Include="Scripts\libs\zTree\css\zTreeStyle.css" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Scripts\libs\zTree\jquery.ztree.excheck-3.5.min.js" />
     <Content Include="Scripts\models\Home\Feedback.js" />
     <Content Include="Scripts\models\LoginUser.js" />
     <Content Include="Scripts\models\RoleMgr\RoleInfo.js" />
+    <Content Include="Scripts\models\RoleMgr\RolePermissionValue.js" />
     <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStagesModel.js" />
     <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionDetailModel.js" />
     <Content Include="Scripts\models\Setting\ApplyStagesMgr\ApplyStageVersionDetailWrapModel.js" />
@@ -386,11 +409,13 @@
     <Content Include="Scripts\templates\Common\appBody-content.html" />
     <Content Include="Scripts\templates\Common\Footer.html" />
     <Content Include="Scripts\templates\Common\index.html" />
+    <Content Include="Scripts\templates\Common\prohibit.html" />
     <Content Include="Scripts\templates\Home\Feedback.html" />
     <Content Include="Scripts\templates\Home\Index.html" />
     <Content Include="Scripts\templates\Home\SignIn.html" />
     <Content Include="Scripts\templates\Home\Temp.html" />
     <Content Include="Scripts\templates\RoleMgr\Edit.html" />
+    <Content Include="Scripts\templates\RoleMgr\EditPermission.html" />
     <Content Include="Scripts\templates\RoleMgr\List.html" />
     <Content Include="Scripts\templates\RoleMgr\ListItem.html" />
     <Content Include="Scripts\templates\Setting\ApplyStagesMgr\VersionCreate.html" />
@@ -445,9 +470,6 @@
     <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.eot" />
     <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Content\bootstrap_v3\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Scripts\libs\backbone\backbone-min.map" />
-    <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
-    <None Include="Scripts\libs\underscore\underscore-min.map" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -460,6 +482,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <None Include="Scripts\libs\backbone\backbone-min.map" />
+    <None Include="Scripts\libs\jquery\jquery-1.11.0.min.map" />
+    <None Include="Scripts\libs\underscore\underscore-min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Shared\DisplayTemplates\" />
