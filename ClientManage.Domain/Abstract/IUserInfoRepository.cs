@@ -10,10 +10,12 @@ namespace ClientManage.Domain.Abstract
     {
         IQueryable<UserInfoEntity> UsersInfo { get; }
         IQueryable<RoleInfo> RolesInfo { get; }
+        IQueryable<PermissionPValueEntity> PermissionPValue { get; }
         void SaveUserInfo(UserInfoEntity userInfo);
         void SaveUserList(List<UserInfoEntity> userList);
         void DeleteUserInfo(UserInfoEntity userInfo);
 
         UserInfoEntity GetUserInfo(string userName);
+        PermissionPValueEntity GetUserPermission(string userName);
     }
 }

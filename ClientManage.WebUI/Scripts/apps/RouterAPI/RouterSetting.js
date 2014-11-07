@@ -5,11 +5,18 @@
 
 define(['app'],function(ClientManage){
 	var routerHandler = function(RouterAPI){
+
 		/*Setting Router Controller*/
 		RouterAPI.SettingIndex = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			alert("SettingIndex");
 		};
 		RouterAPI.SettingApplyStageVersionList = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/ApplyStageVersion/VersionList/versionList_controller'],
 				function(ApplyStageVersionListController){
@@ -17,6 +24,9 @@ define(['app'],function(ClientManage){
 				})
 		};
 		RouterAPI.SettingApplyStageVersionCreate = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/ApplyStageVersion/VersionCreate/versionCreate_controller'],
 				function(ApplyStageVersionCreateController){
@@ -24,6 +34,9 @@ define(['app'],function(ClientManage){
 				})
 		};
 		RouterAPI.SettingApplyStageVersionEditVersion = function(id){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/ApplyStageVersion/VersionEdit/versionEdit_controller'],
 				function(ApplyStageVersionEditController){
@@ -31,6 +44,9 @@ define(['app'],function(ClientManage){
 				})
 		};
 		RouterAPI.SettingApplyStageVersionEditDetailVersion = function(id){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/ApplyStageVersion/VersionDetailEdit/versionDetailEdit_controller'],
 				function(ApplyStageVersionDetailEditController){
@@ -39,6 +55,9 @@ define(['app'],function(ClientManage){
 		};
 
 		RouterAPI.SettingStudentSourceList = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/StudentSource/List/list_controller'],
 				function(StudentSourceListController){
@@ -47,6 +66,9 @@ define(['app'],function(ClientManage){
 		};
 
 		RouterAPI.SettingStudentSourceAdd = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/StudentSource/Edit/edit_controller'],
 				function(StudentSourceEditController){
@@ -55,6 +77,9 @@ define(['app'],function(ClientManage){
 		};
 
 		RouterAPI.SettingStudentSourceEdit = function(sourceNameEn){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/Setting/StudentSource/Edit/edit_controller'],
 				function(StudentSourceEditController){

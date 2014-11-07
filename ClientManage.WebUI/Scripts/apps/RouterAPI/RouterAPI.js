@@ -4,13 +4,17 @@
 
 define([
 	'app',
+	'apps/Common/prohibitView',
 	'./RouterSetting',
 	'./RouterHome',
 	'./RouterRoleMgr',
 	'./RouterUserMgr',
 	'./RouterStudentMgr'
-	],function(ClientManage,RouterSetting,RouterHome,RouterRoleMgr,RouterUserMgr,RouterStudentMgr){
+	],function(ClientManage,ProhibitView,RouterSetting,RouterHome,RouterRoleMgr,RouterUserMgr,RouterStudentMgr){
 	var RouterAPI = {};
+	RouterAPI.renderProhibit = function(){
+		ProhibitView(ClientManage.bodyRegion.currentView.adminContentRegion);
+	};
 	RouterAPI.executeAction = function(action, arg){
 		action(ClientManage.bodyRegion.currentView.adminContentRegion,arg);
 	};

@@ -27,6 +27,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         
         public JsonResult List(string sort, string keyword)
         {
+            string userName = HttpContext.User.Identity.Name;
+            PermissionPValueEntity userPermission = userRepository.GetUserPermission(userName);
+
             IEnumerable<StudentInfoViewModel> StudentsInfo = null;
             if (sort == "学生" && keyword != "")
             {
@@ -47,7 +50,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                     .Join(repository.AppRelations, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
                      .OrderByDescending(r => r.AppRelation.IsSign);
             }
-            Array students = StudentsInfo.ToArray();        //用来调试时检测获取StudentsInfo内容之用，只是发布时可删除
+
+            //如果不允许展示全部学生，就只展示自己负责销售的学生
+            if (!userPermission.IsStudentListAll)
+            {
+                StudentsInfo = StudentsInfo.Where(s => s.AppRelation.SaleConsultantName == userName);
+            }
+
             return Json(StudentsInfo, JsonRequestBehavior.AllowGet);
         }
 

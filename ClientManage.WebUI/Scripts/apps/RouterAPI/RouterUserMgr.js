@@ -5,7 +5,11 @@
 
 define(['app'],function(ClientManage){
 	var routerHandler = function(RouterAPI){
+
 		RouterAPI.UserMgrList = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/UserMgr/List/list_controller'],
 				function(UserMgrListController){
@@ -13,6 +17,9 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.UserMgrEdit = function(id){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/UserMgr/Edit/edit_controller'],
 				function(UserMgrEditController){
@@ -20,6 +27,9 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.UserMgrAdd = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/UserMgr/Create/create_controller'],
 				function(UserMgrCreateController){

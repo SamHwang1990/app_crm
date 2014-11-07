@@ -20,6 +20,11 @@ namespace ClientManage.Domain.Concrete
         public IQueryable<RoleInfo> RolesInfo
         {
             get { return context.RolesInfo; }
+        }
+
+        public IQueryable<PermissionPValueEntity> PermissionPValue
+        {
+            get { return context.PermissionValue; }
         } 
 
         public void SaveUserInfo(UserInfoEntity userInfo)
@@ -98,6 +103,36 @@ namespace ClientManage.Domain.Concrete
         public UserInfoEntity GetUserInfo(string userName)
         {
             return UsersInfo.Where(u => u.UserNameCn == userName).SingleOrDefault();
+        }
+
+        public PermissionPValueEntity GetUserPermission(string userName)
+        {
+            UserInfoEntity userInfo = UsersInfo.SingleOrDefault(u => u.UserNameCn == userName);
+            PermissionPValueEntity primaryPermission = PermissionPValue.FirstOrDefault(p => p.RoleID == userInfo.UserRole);
+            PermissionPValueEntity secondPermission = PermissionPValue.FirstOrDefault(p => p.RoleID == userInfo.UserSecondRole);
+
+            if (primaryPermission == null)
+                primaryPermission = new PermissionPValueEntity { RoleID = userInfo.UserRole };
+
+            if (secondPermission == null)
+                secondPermission = new PermissionPValueEntity { RoleID = userInfo.UserSecondRole };
+
+            PermissionPValueEntity resultPermission = new PermissionPValueEntity
+            {
+                RoleID = userInfo.UserRole,
+                IsManage = primaryPermission.IsManage || secondPermission.IsManage,
+                IsApplyList = primaryPermission.IsApplyList || secondPermission.IsApplyList,
+                IsApplyListAll = primaryPermission.IsApplyListAll || secondPermission.IsApplyListAll,
+                IsApplyListEdit = primaryPermission.IsApplyListEdit || secondPermission.IsApplyListEdit,
+                IsSaleList = primaryPermission.IsSaleList || secondPermission.IsSaleList,
+                IsSaleListAll = primaryPermission.IsSaleListAll || secondPermission.IsSaleListAll,
+                IsSaleListEdit = primaryPermission.IsSaleListEdit || secondPermission.IsSaleListEdit,
+                IsStudentList = primaryPermission.IsStudentList || secondPermission.IsStudentList,
+                IsStudentListAll = primaryPermission.IsStudentListAll || secondPermission.IsStudentListAll,
+                IsStudentListEdit = primaryPermission.IsStudentListEdit || secondPermission.IsStudentListEdit
+            };
+
+            return resultPermission;
         }
     }
 }

@@ -18,12 +18,10 @@ namespace ClientManage.WebUI.Controllers
         // GET: /Home/
 
         private IUserInfoRepository repository;
-        private IRoleInfoRepository roleRepository;
 
-        public HomeController(IUserInfoRepository userInfoRepository,IRoleInfoRepository _roleRepository)
+        public HomeController(IUserInfoRepository userInfoRepository)
         {
             repository = userInfoRepository;
-            roleRepository = _roleRepository;
         }
 
         //[CustomAuth]
@@ -45,31 +43,7 @@ namespace ClientManage.WebUI.Controllers
             if (userName == string.Empty)
                 return Json(false, JsonRequestBehavior.AllowGet);
 
-            UserInfoEntity userInfo = repository.UsersInfo.SingleOrDefault(u => u.UserNameCn == userName);
-            PermissionPValueEntity primaryPermission = roleRepository.PermissionValue.FirstOrDefault(p => p.RoleID == userInfo.UserRole);
-            PermissionPValueEntity secondPermission = roleRepository.PermissionValue.FirstOrDefault(p => p.RoleID == userInfo.UserSecondRole);
-
-            if (primaryPermission == null)
-                primaryPermission = new PermissionPValueEntity { RoleID = userInfo.UserRole };
-
-            if (secondPermission == null)
-                secondPermission = new PermissionPValueEntity { RoleID = userInfo.UserSecondRole };
-
-            PermissionPValueEntity resultPermission = new PermissionPValueEntity
-            {
-                RoleID = userInfo.UserRole,
-                IsManage = primaryPermission.IsManage || secondPermission.IsManage,
-                IsApplyList = primaryPermission.IsApplyList || secondPermission.IsApplyList,
-                IsApplyListAll = primaryPermission.IsApplyListAll || secondPermission.IsApplyListAll,
-                IsApplyListEdit = primaryPermission.IsApplyListEdit || secondPermission.IsApplyListEdit,
-                IsSaleList = primaryPermission.IsSaleList || secondPermission.IsSaleList,
-                IsSaleListAll = primaryPermission.IsSaleListAll || secondPermission.IsSaleListAll,
-                IsSaleListEdit = primaryPermission.IsSaleListEdit || secondPermission.IsSaleListEdit,
-                IsStudentList = primaryPermission.IsStudentList || secondPermission.IsStudentList,
-                IsStudentListAll = primaryPermission.IsStudentListAll || secondPermission.IsStudentListAll,
-                IsStudentListEdit = primaryPermission.IsStudentListEdit || secondPermission.IsStudentListEdit
-            };
-            return Json(resultPermission, JsonRequestBehavior.AllowGet);
+            return Json(repository.GetUserPermission(userName), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

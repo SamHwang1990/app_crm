@@ -5,8 +5,12 @@
 
 define(['app'],function(ClientManage){
 	var routerHandler = function(RouterAPI){
+
 		/*RoleMgr Router Controller*/
 		RouterAPI.RoleMgrList = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/RoleMgr/List/list_controller'],
 				function(RoleMgrListController){
@@ -14,6 +18,9 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.RoleMgrAdd = function(){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/RoleMgr/Create/create_controller'],
 				function(RoleMgrCreateController){
@@ -21,6 +28,9 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.RoleMgrEdit = function(id){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/RoleMgr/Edit/edit_controller'
 			],function(RoleMgrEditController){
@@ -28,6 +38,9 @@ define(['app'],function(ClientManage){
 			})
 		}
 		RouterAPI.RoleMgrEditPermission = function(id){
+			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+				return RouterAPI.renderProhibit();
+
 			require([
 				'apps/RoleMgr/EditPermission/edit_controller'
 			],function(RoleMgrEditPermissionController){

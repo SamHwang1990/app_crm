@@ -78,6 +78,9 @@ define(['app','apps/Config/appConfig','apps/RouterAPI/RouterAPI','EventProxy','m
 							ClientManage.trigger("show:signIn");            //如果没有登录，则显示登录form
 							return;
 						}else{
+							// 把当前用户的权限赋给App，偷懒的行为，不行每次都查询用户权限信息！
+							ClientManage.CurrentUserPermission = permissionValue;
+
 							ClientManage.bodyRegion.show(indexView);
 
 							require(['apps/Common/AdminFooter_view'],function(FooterView){

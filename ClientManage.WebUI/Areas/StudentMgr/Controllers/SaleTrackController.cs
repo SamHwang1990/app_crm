@@ -19,11 +19,13 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
     {
         private ISaleTrackRepository repository;
         private IStudentInfoRepository studentInfoRepository;
+        private IUserInfoRepository userInfoRepository;
 
-        public SaleTrackController(ISaleTrackRepository saleTrackRepository, IStudentInfoRepository _StudentInfoRepository)
+        public SaleTrackController(ISaleTrackRepository saleTrackRepository, IStudentInfoRepository _StudentInfoRepository, IUserInfoRepository _UserInfoRepository)
         {
             repository = saleTrackRepository;
             studentInfoRepository = _StudentInfoRepository;
+            userInfoRepository = _UserInfoRepository;
         }
 
         /// <summary>
@@ -32,6 +34,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
         /// <returns></returns>
         public JsonResult List(string sort, string keyword)
         {
+            string userName = HttpContext.User.Identity.Name;
+            PermissionPValueEntity userPermission = userInfoRepository.GetUserPermission(userName);
+
             IEnumerable<StudentInfoViewModel> StudentsInfo = null;
             List<SaleTrackListItemModel> SaleTrackList = new List<SaleTrackListItemModel>();
             SaleTrackListItemModel saleTrackListItem = null;
@@ -68,6 +73,12 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
                 StudentsInfo = repository.StudentInfo
                         .Join(repository.AppRelation, s => s.StudentID, a => a.StudentID, (s, a) => new StudentInfoViewModel { AppRelation = a, StudentInfo = s })   //调用Join函数，连结两个集合，返回一个包对象
                         .OrderByDescending(r => r.AppRelation.IsSign);
+            }
+
+            //如果不允许展示全部销售，就只展示自己负责销售的学生
+            if (!userPermission.IsSaleListAll)
+            {
+                StudentsInfo = StudentsInfo.Where(s => s.AppRelation.SaleConsultantName == userName);
             }
 
             foreach (StudentInfoViewModel studentInfoViewModel in StudentsInfo)
