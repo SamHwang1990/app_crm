@@ -2,14 +2,14 @@
 <publishData>
   <publishProfile publishUrl="D:\wwwroot\ClientManage" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="ClientManage" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="True" msdeploySkipExtraFilesOnServer="False" msdeployMarkAsApp="True" profileName="配置文件1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="Administrator" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbc6Sq+LjD0egP/1CLf+LjgAAAAACAAAAAAAQZgAAAAEAACAAAACg5r/wCDpyOOzz2Sw6gRLyYeMDTaJ82yXp+vRS60DeggAAAAAOgAAAAAIAACAAAAABjQkHk7Qj2Kek7Mmz8bQxMrXkItk+VYhP6Xw/oD0hYCAAAAAJsbEfJQY5QYxihKvsvhML5zYvF3LxWPc4/1EXy5AdZEAAAAAlxEufcqY5f+sR/y1EaZOSf5mOAs7Rjr2QBV+Ea21+EG6vODkbddDMCq8j2syY9LLXDKO4ucypzn6WUDSs6c4Z" SelectedForPublish="True">
     <file relUrl="Scripts/templates/StudentMgr/Apply/Detail/consulting-period/informationFormsCollection.html" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/orange.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/locale/bootstrap-table-zh-TW.min.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/assets/RenderBootstrapTable.js" publishTime="11/04/2014 12:07:16" />
     <file relUrl="Scripts/templates/Common/appBody-content.html" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/FlashPointModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackEntity.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/Home/Temp.html" publishTime="07/26/2014 10:17:45" />
-    <file relUrl="Scripts/templates/Setting/StudentSource/Edit.html" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/yellow@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/Index/Edit/edit_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/apps/UserMgr/Edit/edit_view.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/StudentFromCollection.js" publishTime="08/27/2014 14:42:30" />
@@ -17,11 +17,11 @@
     <file relUrl="Scripts/templates/StudentMgr/ScheduleApply/Schedule.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/blue.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/models/StudentMgr/StudentInfoViewModel.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/models/StudentMgr/EnumModel/EducationIntention.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageVersionModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/require/require.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Content/bootstrap_v3/css/bootstrap-theme.min.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/zTree/css/img/diy/3.png" publishTime="11/03/2014 11:18:35" />
-    <file relUrl="Areas/Students/Views/SaleTrack/GetSourceItem.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Content/css/screen.css" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/templates/RoleMgr/List.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="bin/ClientManage.Domain.pdb" publishTime="11/07/2014 12:09:06" />
     <file relUrl="Scripts/libs/bootstrap/icheck/icheck.js" publishTime="09/05/2014 11:59:07" />
@@ -29,7 +29,7 @@
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackParticipantsEntity.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Content/images/timeline_century_tick.gif" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/apps/Common/index_view.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/apps/StudentMgr/Apply/Index/index_controller.js" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/assets/RenderDateTimePicker.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/StudentMgr/StudentInfo.js" publishTime="11/04/2014 15:16:22" />
     <file relUrl="Scripts/apps/RoleMgr/List/list_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/SaleTrackList.js" publishTime="08/27/2014 14:42:30" />
@@ -41,6 +41,7 @@
     <file relUrl="Areas/Students/Views/SaleTrack/FirstRegFormTP.cshtml" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Content/xml/EmailConfig.xml" publishTime="08/27/2014 14:42:29" />
     <file relUrl="README.jQuery.vsdoc.txt" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/templates/Home/SignIn.html" publishTime="09/05/2014 11:13:27" />
     <file relUrl="Scripts/assets/AppUISet.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Detail/detail_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/models/StudentMgr/ExamResult/ExamResultModels.js" publishTime="08/27/2014 14:42:30" />
@@ -48,13 +49,13 @@
     <file relUrl="Scripts/assets/CheckSubmitRequire.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/bootstrap-table.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/Common/Footer.html" publishTime="09/01/2014 12:21:36" />
+    <file relUrl="bin/EntityFramework.SqlServer.dll" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleTrackItem.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Content/bootstrap/img/glyphicons-halflings.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/LoginUser.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/FirstInterviewRegModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionEdit/versionEdit_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/templates/StudentMgr/Index/List.html" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/templates/UserMgr/Edit.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/blue.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/RoleMgr/ListItem.html" publishTime="08/27/2014 14:42:30" />
@@ -63,20 +64,24 @@
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionList.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/RoleMgr/Create/create_controller.js" publishTime="11/05/2014 17:36:25" />
     <file relUrl="Scripts/models/UserMgr/UserBasicInfo.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="bin/EntityFramework.SqlServer.dll" publishTime="02/25/2014 18:09:14" />
+    <file relUrl="Scripts/templates/Setting/StudentSource/Edit.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/StudentInfo/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/underscore/underscore.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/StudentMgr/AppRelation.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/Index/Create/create_view.js" publishTime="11/04/2014 16:45:14" />
+    <file relUrl="Web.config" publishTime="11/07/2014 12:13:31" />
+    <file relUrl="Scripts/apps/Config/config.js" publishTime="08/27/2014 14:42:29" />
+    <file relUrl="Areas/Admin/Views/Users/UserNameList.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/StudentMgr/EnumModel/TrackPattern.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/StudentMgr/Index/UserItem.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStagesModel.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/apps/RouterAPI/RouterSetting.js" publishTime="11/07/2014 11:30:20" />
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionDetailEdit.html" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="bin/ClientManage.Domain.dll" publishTime="11/07/2014 12:09:06" />
     <file relUrl="Scripts/apps/StudentMgr/ScheduleApply/scheduleItem_view.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" publishTime="07/26/2014 10:17:45" />
+    <file relUrl="Scripts/models/UserMgr/UserInfo.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Content/images/icon/role-white.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Syllabus/syllabus_controller.js" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/collections/UserMgr/UserList.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/CommonInterview.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Detail/consulting-period/information-forms-handout_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionListItem.html" publishTime="08/27/2014 14:42:30" />
@@ -86,21 +91,20 @@
     <file relUrl="Scripts/models/StudentMgr/EnumModel/FlashPointType.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionDetailEdit/versionDetailEdit_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/libs/require/domReady.js" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Areas/Admin/Views/Roles/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Content/bootstrap/img/glyphicons-halflings-white.png" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/templates/StudentMgr/Apply/Detail/consulting-period/informationFormsReview.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/FirstInterviewReg/firstInterviewReg_view.js" publishTime="11/04/2014 17:21:18" />
     <file relUrl="Content/bootstrap_v3/js/bootstrap.min.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Content/images/icon/student-white.png" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="bin/Ninject.xml" publishTime="02/25/2014 15:43:03" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/bootstrap-table.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/bootstrap-table.min.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/collections/StudentMgr/StudentApplyStageCollection.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/templates/Home/SignIn.html" publishTime="09/05/2014 11:13:27" />
+    <file relUrl="Scripts/libs/jquery/jquery-1.11.0.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/libs/zTree/css/img/diy/1_open.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/StudentSourceItem.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/assets/CheckLogin.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/libs/timeline/timeliner.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/RouterAPI/RouterUserMgr.js" publishTime="11/07/2014 11:29:48" />
-    <file relUrl="Scripts/templates/RoleMgr/EditPermission.html" publishTime="11/06/2014 17:41:20" />
     <file relUrl="Content/bootstrap/css/bootstrap.css" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/StudentMgr/Index/List/list_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/apps/RoleMgr/EditPermission/edit_view.js" publishTime="11/06/2014 18:16:05" />
@@ -129,7 +133,6 @@
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/SaleTrackParticipant.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/RoleMgr/RolePermissionValue.js" publishTime="11/07/2014 11:25:35" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/StudentSourceCollection.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/models/StudentMgr/EnumModel/TrackIsComplete.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Content/css/app.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/SaleTrack/CommonInterview.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/Home/Feedback/feedback_controller.js" publishTime="08/27/2014 14:42:29" />
@@ -138,21 +141,22 @@
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/SaleTrackListItem.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/Home/Index.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/StudentMgr/StudentApplyStageWrapModel.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/templates/Common/prohibit.html" publishTime="11/07/2014 11:36:47" />
-    <file relUrl="Scripts/libs/jquery/jquery-1.11.0.js" publishTime="07/26/2014 10:17:45" />
+    <file relUrl="Areas/Students/Views/ApplyInfo/Actplan.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionList/versionList_controller.js" publishTime="08/27/2014 14:42:29" />
+    <file relUrl="Scripts/libs/backbone/backbone.picky.min.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Global.asax" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/collections/Setting/ApplyStagesMgr/VersionDetailWrapCollection.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/apps/StudentMgr/Apply/Index/index_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Admin/Views/Users/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Views/Home/Login.cshtml" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/square@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Content/css/chardinjs.css" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Areas/Admin/Views/Users/UserNameList.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/apps/UserMgr/List/list_controller.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/UserMgr/List/list_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/assets/ValidInputValue.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Views/Web.config" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/red.css" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Areas/Students/Views/StudentInfo/List.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/StudentTPInfoModel.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Common/AdminMenu_view.js" publishTime="11/06/2014 20:42:15" />
     <file relUrl="Areas/Students/Views/ApplyInfo/ApplyMiddle.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/aero@2x.png" publishTime="09/05/2014 11:59:07" />
@@ -162,15 +166,13 @@
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/pink.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/bootstrap-table.min.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/StudentInfo/View.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min.css" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/assets/SetFeedbackMsg.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/grey.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/RoleMgr/List/list_view.js" publishTime="11/05/2014 17:28:03" />
-    <file relUrl="Scripts/libs/backbone/backbone.picky.min.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/modernizr-1.7.min.js" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/apps/StudentMgr/Index/List/list_view.js" publishTime="11/04/2014 12:07:16" />
-    <file relUrl="Scripts/apps/UserMgr/List/list_controller.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/apps/StudentMgr/Index/List/list_view.js" publishTime="11/11/2014 14:35:18" />
     <file relUrl="Scripts/libs/zTree/css/img/diy/2.png" publishTime="11/03/2014 11:18:35" />
-    <file relUrl="Scripts/libs/zTree/css/img/diy/5.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/require_main.js" publishTime="11/06/2014 15:28:00" />
     <file relUrl="Scripts/apps/Common/AdminFooter_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/yellow.css" publishTime="09/05/2014 11:59:07" />
@@ -178,23 +180,23 @@
     <file relUrl="Scripts/templates/StudentMgr/Index/EditContacts.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/Common/appAdminBar.html" publishTime="11/06/2014 20:40:56" />
     <file relUrl="Areas/Students/Views/ApplyInfo/ApplyLast.cshtml" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Areas/Admin/Views/Roles/Edit.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/models/StudentMgr/EasyChatTimeModel.js" publishTime="11/04/2014 15:17:56" />
+    <file relUrl="Scripts/apps/StudentMgr/AssignConsultant/assign_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/collections/Setting/ApplyStagesMgr/VersionDetailCollection.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/locale/bootstrap-table-zh-CN.min.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Detail/consulting-period/personal-features-conclusion_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/Home/Index/index_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageWrapModel.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/orange.png" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Content/bootstrap_v3/css/bootstrap-theme.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/orange.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.min.css" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Content/bootstrap_v3/fonts/glyphicons-halflings-regular.svg" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/libs/zTree/css/img/diy/5.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageVersionDetailModel.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/Index/Create/create_controller.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/grey.png" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Views/Shared/libsjs.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/zTree/css/img/line_conn.gif" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionDetailEditFieldset.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/Setting/StudentSource/Edit/edit_controller.js" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.css" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Areas/Students/Views/SaleTrack/FirstInterview.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/red.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/SignIn/SignOut/signOut_controller.js" publishTime="08/27/2014 14:42:29" />
@@ -203,14 +205,13 @@
     <file relUrl="Scripts/models/StudentMgr/EnumModel/ExamType.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Index/index_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/List/list_controller.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Areas/Students/Views/SaleTrack/GetContactList.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/models/StudentMgr/EnumModel/TrackIsComplete.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/square.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/models/StudentMgr/Index/StudentCreate.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/bootbox/bootbox.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Resume/resume_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleTrackHistory.html" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/models/UserMgr/UserInfo.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Content/css/screen.css" publishTime="08/27/2014 14:42:29" />
+    <file relUrl="Content/images/icon/student-white.png" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/Common/AdminBar_view.js" publishTime="11/06/2014 20:39:43" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Content/images/App_logo_brand.jpg" publishTime="04/12/2014 15:45:28" />
@@ -219,16 +220,15 @@
     <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.css" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/apps/StudentMgr/ScheduleApply/schedule_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/RoleMgr/Edit/edit_controller.js" publishTime="11/05/2014 17:37:30" />
-    <file relUrl="Scripts/apps/StudentMgr/Index/Edit/edit_view.js" publishTime="11/04/2014 16:50:44" />
+    <file relUrl="Scripts/libs/zTree/css/img/diy/8.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/aero.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Content/images/timeline_decade_tick.gif" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageVersionModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/eventproxy.js" publishTime="11/05/2014 15:32:45" />
-    <file relUrl="Scripts/libs/zTree/css/img/diy/8.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Areas/Students/Views/Shared/_Layout.cshtml" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="bin/ClientManage.WebUI.dll" publishTime="11/07/2014 12:23:57" />
-    <file relUrl="Scripts/templates/StudentMgr/Apply/Detail/consulting-period/personalFeaturesConclusion.html" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="bin/ClientManage.WebUI.dll" publishTime="11/11/2014 14:31:43" />
     <file relUrl="Scripts/collections/Setting/ApplyStagesMgr/StagesCollection.js" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/templates/Common/index.html" publishTime="09/01/2014 12:21:36" />
     <file relUrl="Content/bootstrap/js/bootstrap.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="bin/Ninject.pdb" publishTime="02/25/2014 15:43:03" />
     <file relUrl="Areas/Students/Views/StudentInfo/UserNameList.cshtml" publishTime="04/12/2014 15:45:28" />
@@ -239,7 +239,8 @@
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/green.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/Index/Create.html" publishTime="11/04/2014 16:43:00" />
     <file relUrl="Areas/StudentMgr/Views/Web.config" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Views/Shared/libsjs.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/apps/RouterAPI/RouterSetting.js" publishTime="11/07/2014 11:30:20" />
+    <file relUrl="Areas/Admin/Views/Roles/List.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionCreate.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/Setting/ApplyStagesMgr/VersionEdit.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="09/05/2014 11:59:07" />
@@ -248,9 +249,8 @@
     <file relUrl="Scripts/libs/backbone/backbone.picky.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="packages.config" publishTime="09/01/2014 12:21:36" />
     <file relUrl="Scripts/apps/Config/appConfig.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Areas/Students/Views/StudentInfo/Create.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/templates/Setting/StudentSource/List.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/Apply/StageDetail.html" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/apps/StudentMgr/AssignConsultant/assign_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/FlashPointItem.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/models/RoleMgr/RoleInfo.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/UserMgr/Edit/edit_controller.js" publishTime="08/27/2014 14:42:30" />
@@ -259,7 +259,6 @@
     <file relUrl="Scripts/libs/zTree/css/img/zTreeStandard.gif" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionEdit/versionEdit_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionCreate/versionCreate_controller.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/apps/Home/Home_app.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Areas/Students/Views/ApplyInfo/ApplyBegin.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/RoleMgr/Create/create_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/libs/zTree/css/img/diy/6.png" publishTime="11/03/2014 11:18:35" />
@@ -267,19 +266,20 @@
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/green@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionCreate/versionCreate_view.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Content/bootstrap_v3/js/bootstrap.js" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Areas/Students/Views/SaleTrack/GetContactList.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Areas/Students/Views/SaleTrack/GetSourceItem.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/Home/Feedback.html" publishTime="09/01/2014 12:21:36" />
     <file relUrl="Scripts/models/StudentMgr/EnumModel/SaleParticipantIdentity.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/html5shiv.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/backbone/BackboneConfig.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/apps/RouterAPI/RouterAPI.js" publishTime="11/07/2014 10:42:42" />
-    <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionList/versionList_controller.js" publishTime="08/27/2014 14:42:29" />
+    <file relUrl="Scripts/templates/RoleMgr/EditPermission.html" publishTime="11/06/2014 17:41:20" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Detail/consulting-period/information-forms-review_view.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="bin/ClientManage.WebUI.pdb" publishTime="11/07/2014 12:23:57" />
+    <file relUrl="bin/ClientManage.WebUI.pdb" publishTime="11/11/2014 14:31:43" />
     <file relUrl="Areas/Admin/Views/Web.config" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/SignIn/SignIn/signIn_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/collections/StudentMgr/SaleTrack/FlashPointCollection.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/StudentMgr/AssignConsultant/assign_controller.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/assets/RenderDateTimePicker.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="bin/EntityFramework.dll" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Scripts/collections/StudentMgr/Index/StudentSchoolList.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Setting/StudentSource/List/list_view.js" publishTime="09/05/2014 11:59:07" />
@@ -287,11 +287,11 @@
     <file relUrl="Content/bootstrap_v3/css/bootstrap.min.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/Home/Index/index_controller.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Content/images/App_logo.jpg" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/yellow@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/Apply/Syllabus/syllabus_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="bin/EntityFramework.SqlServer.xml" publishTime="02/25/2014 18:09:14" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/red@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Content/images/make-a-website.svg" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/models/StudentMgr/EnumModel/EducationIntention.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionList/versionList_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.min.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/zTree/css/img/diy/9.png" publishTime="11/03/2014 11:18:35" />
@@ -303,7 +303,6 @@
     <file relUrl="Scripts/models/Home/Feedback.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/apps/Setting/ApplyStageVersion/VersionDetailEdit/versionDetailEditItem_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/jquery/jquery-1.11.0.min.js" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="bin/Ninject.xml" publishTime="02/25/2014 15:43:03" />
     <file relUrl="Scripts/libs/backbone/backbone.marionette.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/StudentMgr/Index/EasyChatTime.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/GetFromInterview.html" publishTime="08/27/2014 14:42:30" />
@@ -311,11 +310,9 @@
     <file relUrl="Scripts/libs/backbone/backbone.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Content/bootstrap/js/bootstrap.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/SignIn/SignIn/signIn_view.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/apps/Config/config.js" publishTime="08/27/2014 14:42:29" />
-    <file relUrl="Scripts/collections/Setting/ApplyStagesMgr/VersionCollection.js" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/libs/zTree/css/img/zTreeStandard.png" publishTime="11/03/2014 11:18:35" />
+    <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.js" publishTime="07/26/2014 10:17:45" />
+    <file relUrl="Content/bootstrap_v3/fonts/glyphicons-halflings-regular.svg" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Content/images/icon/role.png" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/History/history_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/timeline/timeliner.min.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/templates/StudentMgr/SaleTrack/SaleParticipantItem.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Home/Feedback/feedback_view.js" publishTime="08/27/2014 14:42:29" />
@@ -323,12 +320,13 @@
     <file relUrl="Areas/ToolMgr/Views/Web.config" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/orange@2x.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/grey@2x.png" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/templates/Common/index.html" publishTime="09/01/2014 12:21:36" />
+    <file relUrl="Scripts/apps/Home/Home_app.js" publishTime="08/27/2014 14:42:29" />
     <file relUrl="Scripts/libs/backbone/backbone.syphon.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/locale/bootstrap-table-en.min.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/StudentInfo/GetRoleList.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Scripts/collections/UserMgr/UserList.js" publishTime="07/26/2014 10:17:45" />
+    <file relUrl="Scripts/templates/Common/prohibit.html" publishTime="11/07/2014 11:36:47" />
+    <file relUrl="Scripts/collections/Setting/ApplyStagesMgr/VersionCollection.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Content/bootstrap/css/bootstrap.min.css" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/templates/StudentMgr/Apply/indexItem.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/Apply/index.html" publishTime="09/05/2014 11:59:07" />
@@ -336,7 +334,7 @@
     <file relUrl="Scripts/libs/zTree/jquery.ztree.excheck-3.5.min.js" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/purple.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/SaleTrack/GetUserList.cshtml" publishTime="04/12/2014 15:45:28" />
-    <file relUrl="Areas/Admin/Views/Roles/List.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/models/Setting/ApplyStagesMgr/ApplyStageVersionDetailWrapModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/libs/bootstrap/datetimepicker/bootstrap-datetimepicker.min.js" publishTime="07/26/2014 10:17:45" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/green.png" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/purple@2x.png" publishTime="09/05/2014 11:59:07" />
@@ -346,21 +344,23 @@
     <file relUrl="Scripts/apps/StudentMgr/ScheduleApply/schedule_view.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/Index/ContactContent.html" publishTime="11/04/2014 15:15:55" />
     <file relUrl="Scripts/apps/CM_app.js" publishTime="11/07/2014 10:26:29" />
-    <file relUrl="Web.config" publishTime="11/07/2014 12:13:31" />
-    <file relUrl="Scripts/libs/zTree/css/zTreeStyle.css" publishTime="11/06/2014 16:37:53" />
+    <file relUrl="Areas/Students/Views/StudentInfo/Create.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Views/Shared/EditorTemplates/Enum.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/libs/zTree/css/zTreeStyle.css" publishTime="11/06/2014 16:37:53" />
+    <file relUrl="Scripts/libs/zTree/css/img/zTreeStandard.png" publishTime="11/03/2014 11:18:35" />
     <file relUrl="bin/Ninject.dll" publishTime="02/25/2014 15:43:03" />
-    <file relUrl="bin/ClientManage.Domain.dll" publishTime="11/07/2014 12:09:06" />
+    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/red.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/templates/StudentMgr/AssignConsultant/AssignConsultant.html" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Areas/Students/Views/StudentInfo/List.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/History/history_controller.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/StudentMgr/SaleTrack/Interview/interview_controller.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Areas/Students/Views/ApplyInfo/Actplan.cshtml" publishTime="04/12/2014 15:45:28" />
+    <file relUrl="Content/bootstrap_v3/css/bootstrap-theme.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/_all.css" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/apps/RoleMgr/EditPermission/edit_controller.js" publishTime="11/06/2014 17:57:22" />
-    <file relUrl="Scripts/templates/StudentMgr/Index/RoleItem.html" publishTime="08/27/2014 14:42:30" />
+    <file relUrl="Scripts/templates/StudentMgr/Apply/Detail/consulting-period/informationFormsReview.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/collections/StudentMgr/StudentApplyStageWrapCollection.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/templates/Setting/StudentSource/List.html" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/templates/StudentMgr/Index/RoleItem.html" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/SignIn/SignIn_app.js" publishTime="08/27/2014 14:42:29" />
+    <file relUrl="Scripts/apps/StudentMgr/Index/Edit/edit_view.js" publishTime="11/04/2014 16:50:44" />
     <file relUrl="Scripts/libs/bootstrap/bootstraptable/locale/bootstrap-table-pt-BR.min.js" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Scripts/models/StudentMgr/SaleTrack/StudentFromModel.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="Scripts/apps/Setting/StudentSource/Edit/edit_view.js" publishTime="09/05/2014 11:59:07" />
@@ -369,12 +369,12 @@
     <file relUrl="Scripts/libs/zTree/css/img/loading.gif" publishTime="11/03/2014 11:18:35" />
     <file relUrl="Scripts/libs/backbone/backbone.min.js" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/Setting/StudentSource/List/list_controller.js" publishTime="09/05/2014 11:59:07" />
-    <file relUrl="Scripts/models/StudentMgr/EasyChatTimeModel.js" publishTime="11/04/2014 15:17:56" />
+    <file relUrl="Scripts/templates/StudentMgr/Apply/Detail/consulting-period/personalFeaturesConclusion.html" publishTime="09/05/2014 11:59:07" />
     <file relUrl="Areas/Students/Views/SaleTrack/FirstRegFormInfo.cshtml" publishTime="04/12/2014 15:45:28" />
     <file relUrl="Scripts/apps/RouterAPI/RouterRoleMgr.js" publishTime="11/07/2014 11:25:48" />
     <file relUrl="Scripts/collections/UserMgr/UserBasicInfoList.js" publishTime="08/27/2014 14:42:30" />
     <file relUrl="bin/EntityFramework.xml" publishTime="02/25/2014 18:09:14" />
-    <file relUrl="Scripts/libs/bootstrap/bootstrapswitch/bootstrap-switch.css" publishTime="08/27/2014 14:42:30" />
-    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/List/list_view.js" publishTime="11/04/2014 12:07:16" />
+    <file relUrl="Scripts/libs/bootstrap/icheck/skin/square/grey.png" publishTime="09/05/2014 11:59:07" />
+    <file relUrl="Scripts/apps/StudentMgr/SaleTrack/List/list_view.js" publishTime="11/11/2014 14:35:34" />
   </publishProfile>
 </publishData>

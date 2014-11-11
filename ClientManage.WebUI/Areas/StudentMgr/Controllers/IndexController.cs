@@ -216,35 +216,9 @@ namespace ClientManage.WebUI.Areas.StudentMgr.Controllers
             }
             Guid id = new Guid(studentID);
             string personIdentity = string.Empty;
-            EasyChatTimeModel contactFather = null;
-            EasyChatTimeModel contactMother = null;
-            EasyChatTimeModel contactOther = null;
-            try
-            {
-                contactFather = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "父亲");
-            }
-            catch
-            {
-                contactFather = null;
-            }
-
-            try
-            {
-                contactMother = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "母亲");
-            }
-            catch
-            {
-                contactMother = null;
-            }
-
-            try
-            {
-                contactOther = Contacts.FirstOrDefault(e => e.ContactIdentity.PersonIdentity == "其他");
-            }
-            catch
-            {
-                contactOther = null;
-            }
+            EasyChatTimeModel contactFather = Contacts[0]; ;
+            EasyChatTimeModel contactMother = Contacts[1];
+            EasyChatTimeModel contactOther = Contacts[2];
 
             EditContact(contactFather, "父亲", id);
             EditContact(contactMother, "母亲", id);

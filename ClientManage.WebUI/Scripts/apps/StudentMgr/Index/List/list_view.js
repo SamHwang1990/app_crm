@@ -65,6 +65,11 @@ define([
 						if (!value) {
 							return '-';
 						}
+
+						if(!ClientManage.CurrentUserPermission.get('IsStudentListEdit')){
+							return '-';
+						}
+
 						var execArray = [];
 						execArray.push('<a href="#StudentMgr/Index/Edit/Student-' +
 							value.StudentInfo.StudentID +

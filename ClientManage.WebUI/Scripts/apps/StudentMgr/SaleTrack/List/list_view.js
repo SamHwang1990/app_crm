@@ -52,6 +52,11 @@ define([
 						if (!value) {
 							return '-';
 						}
+
+						if(!ClientManage.CurrentUserPermission.get('IsSaleListEdit')){
+							return '-';
+						}
+
 						var execArray = [];
 						execArray.push('<a href="#StudentMgr/SaleTrack/FirstInterviewReg-' +
 							value.StudentInfo.StudentID +
