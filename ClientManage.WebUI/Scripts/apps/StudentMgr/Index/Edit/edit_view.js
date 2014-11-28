@@ -31,6 +31,7 @@ define([
 			},
 			ui:{
 				"form":"#editForm",
+				"selectGender":"#Gender",
 				"roleList":"#roleList",
 				"saleConsultant":"#saleConsultant",
 				"contactWrap":".contact-content",
@@ -52,6 +53,10 @@ define([
 			* */
 			onRender:function(){
 				var editStudentView  = this;
+
+				//设置性别
+				var gender = this.model.get("StudentInfo").Gender;
+				this.ui.selectGender.find("option[value=" + gender + "]").attr("selected","selected");
 
 				//设置是否已签约
 				var isSign = this.model.get("AppRelation").IsSign;

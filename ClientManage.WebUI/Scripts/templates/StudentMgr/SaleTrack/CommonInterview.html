@@ -6,7 +6,7 @@
     </div>
     <form id="CommonInterviewForm" action="/StudentMgr/SaleTrack/PostInterviewData" method="post" class="form-horizontal">
         <div class="control-group">
-            <label class="control-label" for="TrackPattern">初访方式：</label>
+            <label class="control-label" for="TrackPattern">访谈方式：</label>
             <div class="controls">
                 <select name="TrackPattern" id="TrackPattern" class="span1">
                     <option value="0">面谈</option>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="TrackDate">初访日期：</label>
+            <label class="control-label" for="TrackDate">访谈日期：</label>
             <div class="controls">
                 <div class="input-append date timePicker" data-date-format="yyyy-mm-dd hh:ii">
                     <input type="text" id="TrackDate" class="span2" placeholder="访谈时间" />
@@ -26,13 +26,13 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="TrackToDo">初访内容：</label>
+            <label class="control-label" for="TrackToDo">访谈内容：</label>
             <div class="controls">
-                <input type="text" id="TrackToDo" name="TrackToDo" placeholder="请输入初访内容" value="<%= SaleTrackItem.ToDo %>" />
+                <input type="text" id="TrackToDo" name="TrackToDo" placeholder="请输入访谈内容" value="<%= SaleTrackItem.ToDo %>" />
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label">初访参与人：</label>
+            <label class="control-label">访谈参与人：</label>
             <div class="controls TrackParticipants">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="IsComplete">初访进度：</label>
+            <label class="control-label" for="IsComplete">访谈进度：</label>
             <div class="controls">
                 <select name="IsComplete" id="IsComplete">
                     <option value="0">已完成</option>
@@ -91,14 +91,14 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="Remark">备注：</label>
+            <label class="control-label" for="Remark">访谈备注：</label>
             <div class="controls">
-                <textarea id="Remark" name="Remark" placeholder="请输入初访备注信息"><%= SaleTrackItem.Remark %></textarea>
+                <textarea id="Remark" name="Remark" placeholder="请输入访谈备注信息"><%= SaleTrackItem.Remark %></textarea>
             </div>
         </div>
         <div class="control-group">
             <div class="controls">
-                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存初访通知</button>&emsp;
+                <button id="btnSubmit" class="btn btn-large btn-success" type="submit">保存访谈通知</button>&emsp;
                 <input class="display btnSendEmails btn btn-info" data-emailTo="/StudentMgr/SaleTrack/EmailToParticipant" type="button" value="发送邮件通知系统用户" />
             </div>
         </div>

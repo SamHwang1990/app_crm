@@ -331,7 +331,7 @@ define([
 				this.model.get("SaleTrackItem").TrackDate = new Date(trackDate);
 
 				var trackToDo = this.$el.find("#TrackToDo").val();
-				this.model.get("SaleTrackItem").TrackToDo = trackToDo;
+				this.model.get("SaleTrackItem").ToDo = trackToDo;
 
 				var isComplete = this.$el.find("#IsComplete").val();
 				this.model.get("SaleTrackItem").IsComplete = isComplete;
