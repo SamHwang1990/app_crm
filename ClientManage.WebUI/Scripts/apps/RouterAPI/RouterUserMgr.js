@@ -17,8 +17,9 @@ define(['app'],function(ClientManage){
 				})
 		}
 		RouterAPI.UserMgrEdit = function(id){
-			if(!ClientManage.CurrentUserPermission.get('IsManage'))
+			ClientManage.on("userEdit:block",function(){      //注册应用程序事件
 				return RouterAPI.renderProhibit();
+			});
 
 			require([
 				'apps/UserMgr/Edit/edit_controller'],

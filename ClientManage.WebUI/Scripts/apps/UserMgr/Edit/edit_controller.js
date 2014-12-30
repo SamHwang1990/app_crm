@@ -28,6 +28,11 @@ define(['app'],function(ClientManage){
 									var roleList = new RoleListCollection;
 									roleList.fetch({
 										success:function(){
+											if(ClientManage.CurrentUser.get('UserName') !== userInfo.get('UserNameCn')){
+												if(!ClientManage.CurrentUserPermission.get('IsManage'))
+													return ClientManage.trigger("userEdit:block");
+											}
+
 											var editView = new EditView.UserEditView({
 												model:userInfo,
 												RoleList:roleList
